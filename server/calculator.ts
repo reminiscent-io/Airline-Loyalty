@@ -56,8 +56,10 @@ export function calculateRewards(input: CalculatorInput): CalculationResults {
     ? cardConfig.signUpBonus 
     : 0;
   
-  // TQP boost: awarded per $5,000 in card spending
-  const tqpBoostCount = Math.floor(cardSpending / 5000);
+  // TQP boost: awarded per $5,000 in TOTAL credit card spending (flight + non-flight)
+  // Note: Flight spending is assumed to be on the credit card if a card is selected
+  const totalCardSpend = creditCard !== "none" ? flightSpending + cardSpending : 0;
+  const tqpBoostCount = Math.floor(totalCardSpend / 5000);
   const cardTQP = tqpBoostCount * cardConfig.tqpBoostPer5k;
   
   // Total card points - card base spend counts toward both RR and CQP

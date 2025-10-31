@@ -236,7 +236,7 @@ export function Calculator({ onCalculate }: CalculatorProps) {
                   data-testid="input-card-spending"
                 />
                 <p className="text-xs text-muted-foreground">
-                  Non-flight purchases on your Southwest card
+                  Non-flight purchases on your Southwest card (TQP boost calculated on total card spend including flights)
                 </p>
               </div>
 

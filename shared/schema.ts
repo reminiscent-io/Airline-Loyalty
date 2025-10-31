@@ -15,22 +15,22 @@ export interface FareTypeConfig {
 export const FARE_TYPES: Record<FareType, FareTypeConfig> = {
   "basic": {
     id: "basic",
-    name: "Wanna Get Away (Basic)",
+    name: "Basic",
     pointsPerDollar: 2
   },
   "choice": {
     id: "choice",
-    name: "Wanna Get Away Plus",
+    name: "Choice",
     pointsPerDollar: 6
   },
   "choice-preferred": {
     id: "choice-preferred",
-    name: "Anytime",
+    name: "Choice Preferred",
     pointsPerDollar: 10
   },
   "choice-extra": {
     id: "choice-extra",
-    name: "Business Select",
+    name: "Choice Extra",
     pointsPerDollar: 14
   }
 };
