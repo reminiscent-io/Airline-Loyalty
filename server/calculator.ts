@@ -50,14 +50,16 @@ export function calculateRewards(input: CalculatorInput): CalculationResults {
   // Annual bonus (if included)
   const cardAnnualRR = includeAnnualBonus ? cardConfig.annualRRBonus : 0;
   
-  // Sign-up bonus (if included and spend requirement met)
-  const signUpBonus = (includeSignUpBonus && cardSpending >= cardConfig.signUpSpendRequirement) 
-    ? cardConfig.signUpBonus 
-    : 0;
-  
-  // TQP boost: awarded per $5,000 in TOTAL credit card spending (flight + non-flight)
+  // Calculate total card spending (flight + non-flight)
   // Note: Flight spending is assumed to be on the credit card if a card is selected
   const totalCardSpend = creditCard !== "none" ? flightSpending + cardSpending : 0;
+  
+  // Sign-up bonus (if included and spend requirement met)
+  // Spend requirement is based on total card spending (flight + non-flight)
+  const signUpBonusQualifies = includeSignUpBonus && totalCardSpend >= cardConfig.signUpSpendRequirement;
+  const signUpBonus = signUpBonusQualifies ? cardConfig.signUpBonus : 0;
+  
+  // TQP boost: awarded per $5,000 in TOTAL credit card spending
   const tqpBoostCount = Math.floor(totalCardSpend / 5000);
   const cardTQP = tqpBoostCount * cardConfig.tqpBoostPer5k;
   

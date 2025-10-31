@@ -70,8 +70,8 @@ export const CREDIT_CARDS: Record<CreditCardType, CreditCardConfig> = {
     annualRRBonus: 3000,
     annualCQPBonus: 0,  // No separate CQP bonus
     tqpBoostPer5k: 0,
-    signUpBonus: 30000,
-    signUpSpendRequirement: 2000
+    signUpBonus: 85000,
+    signUpSpendRequirement: 3000
   },
   "premier": {
     id: "premier",
@@ -81,7 +81,7 @@ export const CREDIT_CARDS: Record<CreditCardType, CreditCardConfig> = {
     annualRRBonus: 6000,
     annualCQPBonus: 0,  // No separate CQP bonus
     tqpBoostPer5k: 1500,
-    signUpBonus: 60000,
+    signUpBonus: 85000,
     signUpSpendRequirement: 3000
   },
   "priority": {
@@ -114,7 +114,7 @@ export const CREDIT_CARDS: Record<CreditCardType, CreditCardConfig> = {
     annualRRBonus: 9000,
     annualCQPBonus: 0,  // No separate CQP bonus
     tqpBoostPer5k: 2500,
-    signUpBonus: 100000,
+    signUpBonus: 80000,
     signUpSpendRequirement: 5000
   }
 };

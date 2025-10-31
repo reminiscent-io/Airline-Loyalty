@@ -19,8 +19,8 @@ export function CreditCardTable() {
       rrPerDollar: "1x",
       tqpPer5k: "—",
       annualBonusRR: "+3,000",
-      signUpBonusRR: "+30,000",
-      signUpSpend: "$2,000",
+      signUpBonusRR: "+85,000",
+      signUpSpend: "$3,000",
       color: "text-foreground font-semibold"
     },
     { 
@@ -29,7 +29,7 @@ export function CreditCardTable() {
       rrPerDollar: "1x",
       tqpPer5k: "+1,500",
       annualBonusRR: "+6,000",
-      signUpBonusRR: "+60,000",
+      signUpBonusRR: "+85,000",
       signUpSpend: "$3,000",
       color: "text-foreground font-semibold"
     },
@@ -59,7 +59,7 @@ export function CreditCardTable() {
       rrPerDollar: "1x",
       tqpPer5k: "+2,500",
       annualBonusRR: "+9,000",
-      signUpBonusRR: "+100,000",
+      signUpBonusRR: "+80,000",
       signUpSpend: "$5,000",
       color: "text-foreground font-semibold"
     }

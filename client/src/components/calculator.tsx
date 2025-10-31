@@ -245,7 +245,7 @@ export function Calculator({ onCalculate }: CalculatorProps) {
                   data-testid="input-card-spending"
                 />
                 <p className="text-xs text-muted-foreground">
-                  Non-flight purchases on your Southwest card (TQP boost calculated on total card spend including flights)
+                  Non-flight purchases on your Southwest card. Sign-up bonus & TQP boosts use total card spend (flights + purchases)
                 </p>
               </div>
 
@@ -258,7 +258,7 @@ export function Calculator({ onCalculate }: CalculatorProps) {
                     data-testid="checkbox-signup-bonus"
                   />
                   <Label htmlFor="includeSignUpBonus" className="text-sm cursor-pointer">
-                    Include sign-up bonus ({selectedCard.signUpBonus.toLocaleString()} pts)
+                    Include sign-up bonus ({selectedCard.signUpBonus.toLocaleString()} pts after ${selectedCard.signUpSpendRequirement.toLocaleString()} total spend)
                   </Label>
                 </div>
                 
