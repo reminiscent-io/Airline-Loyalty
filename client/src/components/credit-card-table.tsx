@@ -21,7 +21,7 @@ export function CreditCardTable() {
       annualBonusRR: "+3,000",
       signUpBonusRR: "+30,000",
       signUpSpend: "$2,000",
-      color: "text-primary"
+      color: "text-foreground font-semibold"
     },
     { 
       name: "Premier",
@@ -31,7 +31,7 @@ export function CreditCardTable() {
       annualBonusRR: "+6,000",
       signUpBonusRR: "+60,000",
       signUpSpend: "$3,000",
-      color: "text-primary"
+      color: "text-foreground font-semibold"
     },
     { 
       name: "Priority",
@@ -41,7 +41,7 @@ export function CreditCardTable() {
       annualBonusRR: "+7,500",
       signUpBonusRR: "+85,000",
       signUpSpend: "$3,000",
-      color: "text-secondary"
+      color: "text-foreground font-semibold"
     },
     { 
       name: "Business Premier",
@@ -51,7 +51,7 @@ export function CreditCardTable() {
       annualBonusRR: "+6,000",
       signUpBonusRR: "+60,000",
       signUpSpend: "$3,000",
-      color: "text-primary"
+      color: "text-foreground font-semibold"
     },
     { 
       name: "Business Performance",
@@ -61,7 +61,7 @@ export function CreditCardTable() {
       annualBonusRR: "+9,000",
       signUpBonusRR: "+100,000",
       signUpSpend: "$5,000",
-      color: "text-accent"
+      color: "text-foreground font-semibold"
     }
   ];
 
