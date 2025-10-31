@@ -6,13 +6,16 @@ export function BenefitsTable() {
   const benefits = [
     { name: "Points Don't Expire", member: true, aList: true, aListPreferred: true },
     { name: "No Blackout Dates", member: true, aList: true, aListPreferred: true },
-    { name: "RR Points Earning Bonus", member: "0%", aList: "+25%", aListPreferred: "+100%" },
-    { name: "Priority Boarding", member: false, aList: true, aListPreferred: true },
-    { name: "Preferred Boarding Position", member: false, aList: false, aListPreferred: "1-15" },
+    { name: "Rapid Rewards Points Earning Bonus", member: "0%", aList: "+25%", aListPreferred: "+100%" },
+    { name: "Priority Boarding", member: "—", aList: "Group 5+ (from Jan 27 2026)", aListPreferred: "Group 2+ (from Jan 27 2026)" },
+    { name: "Preferred Boarding Position", member: "—", aList: "—", aListPreferred: "A1–A15 (through Jan 26 2026)" },
     { name: "Free Same-Day Standby", member: false, aList: true, aListPreferred: true },
     { name: "Free Same-Day Confirmed Change", member: false, aList: true, aListPreferred: true },
-    { name: "Free Premium Drink", member: false, aList: false, aListPreferred: true },
-    { name: "Upgraded Boardings", member: false, aList: false, aListPreferred: "4 per year" },
+    { name: "Free Premium Drink", member: "—", aList: "—", aListPreferred: "On flights > 175 miles" },
+    { name: "Upgraded Boardings", member: "—", aList: "—", aListPreferred: "4 per year" },
+    { name: "Free Checked Bags", member: "1 bag", aList: "1 bag", aListPreferred: "2 bags" },
+    { name: "Priority Lanes & Express Security", member: false, aList: true, aListPreferred: true },
+    { name: "Dedicated Customer Service Line", member: false, aList: true, aListPreferred: "Dedicated Preferred Line" },
   ];
 
   const renderCell = (value: boolean | string) => {
@@ -23,7 +26,10 @@ export function BenefitsTable() {
         <X className="w-5 h-5 text-muted-foreground/30 mx-auto" data-testid="icon-x" />
       );
     }
-    return <span className="font-semibold text-foreground">{value}</span>;
+    if (value === "—") {
+      return <span className="text-muted-foreground/50">—</span>;
+    }
+    return <span className="font-semibold text-foreground text-xs md:text-sm">{value}</span>;
   };
 
   return (
@@ -51,7 +57,7 @@ export function BenefitsTable() {
               {benefits.map((benefit, index) => (
                 <tr 
                   key={benefit.name}
-                  className={index % 2 === 0 ? "bg-background" : "bg-muted/30"}
+                  className={index % 2 === 0 ? "bg-gray-50 dark:bg-gray-950/30" : "bg-white dark:bg-gray-900/20"}
                   data-testid={`row-benefit-${index}`}
                 >
                   <td className="px-4 md:px-6 py-3.5 text-sm font-medium text-foreground">
@@ -60,7 +66,7 @@ export function BenefitsTable() {
                   <td className="px-4 md:px-6 py-3.5 text-sm text-center">
                     {renderCell(benefit.member)}
                   </td>
-                  <td className="px-4 md:px-6 py-3.5 text-sm text-center bg-southwest-gold/5">
+                  <td className={`px-4 md:px-6 py-3.5 text-sm text-center ${index % 2 === 0 ? "bg-southwest-gold/10" : "bg-southwest-gold/5"}`}>
                     {renderCell(benefit.aList)}
                   </td>
                   <td className="px-4 md:px-6 py-3.5 text-sm text-center">
