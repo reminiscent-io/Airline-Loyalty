@@ -24,7 +24,7 @@ export default function Home() {
               <Plane className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight" data-testid="text-hero-title">
-              Southwest Rapid Rewards Calculator
+              Southwest Rapid Rewards
             </h1>
             <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto" data-testid="text-hero-subtitle">
               Calculate your points, track your tier progress, and discover how close you are to earning a Companion Pass
