@@ -85,7 +85,7 @@ export function CreditCardTable() {
                   <th className="px-4 py-4 text-center font-semibold whitespace-nowrap">
                     <div className="flex items-center justify-center gap-2">
                       <DollarSign className="w-4 h-4" />
-                      <span>RR Per $1</span>
+                      <span>RR pts per $1</span>
                     </div>
                   </th>
                   <th className="px-4 py-4 text-center font-semibold whitespace-nowrap">TQP/$5k</th>
@@ -167,7 +167,7 @@ export function CreditCardTable() {
               
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">RR per $1</span>
+                  <span className="text-muted-foreground">RR pts per $1</span>
                   <span className="font-medium">{card.rrPerDollar}</span>
                 </div>
                 <div className="flex justify-between">
@@ -211,7 +211,7 @@ export function CreditCardTable() {
               
               <div className="grid grid-cols-2 gap-3 text-sm">
                 <div>
-                  <p className="text-xs text-muted-foreground mb-1">RR per $1</p>
+                  <p className="text-xs text-muted-foreground mb-1">RR pts per $1</p>
                   <p className="font-medium">{card.rrPerDollar}</p>
                 </div>
                 <div>
