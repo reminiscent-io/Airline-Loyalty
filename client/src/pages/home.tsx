@@ -6,6 +6,7 @@ import { Calculator } from "@/components/calculator";
 import { ResultsPanel } from "@/components/results-panel";
 import { CompanionPassTracker } from "@/components/companion-pass-tracker";
 import { BenefitsTable } from "@/components/benefits-table";
+import { CreditCardTable } from "@/components/credit-card-table";
 import { TIER_CONFIGS, type TierStatus, type CalculationResults } from "@shared/schema";
 
 export default function Home() {
@@ -97,6 +98,20 @@ export default function Home() {
           </div>
 
           <BenefitsTable />
+        </section>
+
+        {/* Credit Card Comparison Table */}
+        <section className="mb-16" id="credit-cards">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold text-southwest-navy mb-3" data-testid="text-credit-section-title">
+              Southwest Credit Cards
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Compare Southwest credit cards to maximize your points earning potential
+            </p>
+          </div>
+
+          <CreditCardTable />
         </section>
 
         {/* Footer */}

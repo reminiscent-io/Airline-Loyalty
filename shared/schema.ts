@@ -65,32 +65,32 @@ export const CREDIT_CARDS: Record<CreditCardType, CreditCardConfig> = {
   "plus": {
     id: "plus",
     name: "Southwest Rapid Rewards Plus",
-    pointsPerDollarSpend: 3,
+    pointsPerDollarSpend: 1,  // 1x on non-Southwest purchases (2x on Southwest)
     annualFee: 99,
     annualRRBonus: 3000,
-    annualCQPBonus: 10000,
+    annualCQPBonus: 0,  // No separate CQP bonus
     tqpBoostPer5k: 0,
-    signUpBonus: 85000,
-    signUpSpendRequirement: 3000
+    signUpBonus: 30000,
+    signUpSpendRequirement: 2000
   },
   "premier": {
     id: "premier",
     name: "Southwest Rapid Rewards Premier",
-    pointsPerDollarSpend: 6,
+    pointsPerDollarSpend: 1,  // 1x on non-Southwest purchases (3x on Southwest)
     annualFee: 149,
     annualRRBonus: 6000,
-    annualCQPBonus: 10000,
+    annualCQPBonus: 0,  // No separate CQP bonus
     tqpBoostPer5k: 1500,
-    signUpBonus: 85000,
+    signUpBonus: 60000,
     signUpSpendRequirement: 3000
   },
   "priority": {
     id: "priority",
     name: "Southwest Rapid Rewards Priority",
-    pointsPerDollarSpend: 7.5,
+    pointsPerDollarSpend: 1,  // 1x on non-Southwest purchases (4x on Southwest)
     annualFee: 229,
     annualRRBonus: 7500,
-    annualCQPBonus: 10000,
+    annualCQPBonus: 0,  // No separate CQP bonus
     tqpBoostPer5k: 2500,
     signUpBonus: 85000,
     signUpSpendRequirement: 3000
@@ -98,10 +98,10 @@ export const CREDIT_CARDS: Record<CreditCardType, CreditCardConfig> = {
   "business-premier": {
     id: "business-premier",
     name: "Southwest Rapid Rewards Business Premier",
-    pointsPerDollarSpend: 6,
+    pointsPerDollarSpend: 1,  // 1x on non-Southwest purchases (3x on Southwest)
     annualFee: 149,
     annualRRBonus: 6000,
-    annualCQPBonus: 10000,
+    annualCQPBonus: 0,  // No separate CQP bonus
     tqpBoostPer5k: 2000,
     signUpBonus: 60000,
     signUpSpendRequirement: 3000
@@ -109,12 +109,12 @@ export const CREDIT_CARDS: Record<CreditCardType, CreditCardConfig> = {
   "business-performance": {
     id: "business-performance",
     name: "Southwest Rapid Rewards Business Performance",
-    pointsPerDollarSpend: 9,
+    pointsPerDollarSpend: 1,  // 1x on non-Southwest purchases (4x on Southwest)
     annualFee: 299,
     annualRRBonus: 9000,
-    annualCQPBonus: 10000,
+    annualCQPBonus: 0,  // No separate CQP bonus
     tqpBoostPer5k: 2500,
-    signUpBonus: 80000,
+    signUpBonus: 100000,
     signUpSpendRequirement: 5000
   }
 };

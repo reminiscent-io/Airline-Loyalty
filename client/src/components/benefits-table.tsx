@@ -6,13 +6,13 @@ export function BenefitsTable() {
   const benefits = [
     { name: "Points Don't Expire", member: true, aList: true, aListPreferred: true },
     { name: "No Blackout Dates", member: true, aList: true, aListPreferred: true },
-    { name: "Points Per Dollar", member: "6 pts", aList: "7 pts", aListPreferred: "10 pts" },
-    { name: "Earning Bonus", member: "—", aList: "25%", aListPreferred: "100%" },
+    { name: "RR Points Earning Bonus", member: "0%", aList: "+25%", aListPreferred: "+100%" },
     { name: "Priority Boarding", member: false, aList: true, aListPreferred: true },
     { name: "Preferred Boarding Position", member: false, aList: false, aListPreferred: "1-15" },
     { name: "Free Same-Day Standby", member: false, aList: true, aListPreferred: true },
     { name: "Free Same-Day Confirmed Change", member: false, aList: true, aListPreferred: true },
     { name: "Free Premium Drink", member: false, aList: false, aListPreferred: true },
+    { name: "Upgraded Boardings", member: false, aList: false, aListPreferred: "4 per year" },
   ];
 
   const renderCell = (value: boolean | string) => {

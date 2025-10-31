@@ -49,7 +49,6 @@ export function calculateRewards(input: CalculatorInput): CalculationResults {
   
   // Annual bonus (if included)
   const cardAnnualRR = includeAnnualBonus ? cardConfig.annualRRBonus : 0;
-  const cardAnnualCQP = includeAnnualBonus ? cardConfig.annualCQPBonus : 0;
   
   // Sign-up bonus (if included and spend requirement met)
   const signUpBonus = (includeSignUpBonus && cardSpending >= cardConfig.signUpSpendRequirement) 
@@ -64,7 +63,7 @@ export function calculateRewards(input: CalculatorInput): CalculationResults {
   
   // Total card points - card base spend counts toward both RR and CQP
   const cardRRPoints = cardBaseRRPoints + cardAnnualRR + signUpBonus;
-  const cardCQP = cardBaseRRPoints + cardAnnualCQP + signUpBonus; // Card spend counts toward Companion Pass
+  const cardCQP = cardBaseRRPoints + cardAnnualRR + signUpBonus; // Card spend counts toward Companion Pass (same as RR)
   
   // ======================
   // PARTNER POINTS
