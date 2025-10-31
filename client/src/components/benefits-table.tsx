@@ -13,7 +13,7 @@ export function BenefitsTable() {
     { name: "Free Same-Day Confirmed Change", member: false, aList: true, aListPreferred: true },
     { name: "Free Premium Drink", member: "—", aList: "—", aListPreferred: "On flights > 175 miles" },
     { name: "Upgraded Boardings", member: "—", aList: "—", aListPreferred: "4 per year" },
-    { name: "Free Checked Bags", member: "1 bag", aList: "1 bag", aListPreferred: "2 bags" },
+    { name: "Free Checked Bags", member: false, aList: "1 bag", aListPreferred: "2 bags" },
     { name: "Priority Lanes & Express Security", member: false, aList: true, aListPreferred: true },
     { name: "Dedicated Customer Service Line", member: false, aList: true, aListPreferred: "Dedicated Preferred Line" },
   ];
