@@ -29,6 +29,15 @@ export function Calculator({ onCalculate }: CalculatorProps) {
   const [includeSignUpBonus, setIncludeSignUpBonus] = useState(false);
   const [includeAnnualBonus, setIncludeAnnualBonus] = useState(false);
   
+  // Handle credit card change - clear card spending when switching to "none"
+  const handleCreditCardChange = (value: CreditCardType) => {
+    setCreditCard(value);
+    if (value === "none") {
+      setCardSpending("0");
+      setIncludeSignUpBonus(false);
+    }
+  };
+  
   // Partner points
   const [partnerPoints, setPartnerPoints] = useState<string>("0");
   
@@ -60,7 +69,7 @@ export function Calculator({ onCalculate }: CalculatorProps) {
       creditCard,
       cardSpending: parseFloat(cardSpending) || 0,
       includeSignUpBonus,
-      includeAnnualBonus,
+      includeAnnualBonus: creditCard !== "none" ? true : false,
       partnerPoints: parseFloat(partnerPoints) || 0,
     };
 
@@ -198,7 +207,7 @@ export function Calculator({ onCalculate }: CalculatorProps) {
             </Label>
             <Select
               value={creditCard}
-              onValueChange={(value) => setCreditCard(value as CreditCardType)}
+              onValueChange={(value) => handleCreditCardChange(value as CreditCardType)}
             >
               <SelectTrigger id="creditCard" data-testid="select-credit-card">
                 <SelectValue />
@@ -256,12 +265,12 @@ export function Calculator({ onCalculate }: CalculatorProps) {
                 <div className="flex items-center space-x-2">
                   <Checkbox 
                     id="includeAnnualBonus" 
-                    checked={includeAnnualBonus}
-                    onCheckedChange={(checked) => setIncludeAnnualBonus(checked as boolean)}
+                    checked={true}
+                    disabled={true}
                     data-testid="checkbox-annual-bonus"
                   />
-                  <Label htmlFor="includeAnnualBonus" className="text-sm cursor-pointer">
-                    Include annual anniversary bonus ({selectedCard.annualRRBonus.toLocaleString()} RR + {selectedCard.annualCQPBonus.toLocaleString()} CQP)
+                  <Label htmlFor="includeAnnualBonus" className="text-sm text-muted-foreground">
+                    Annual anniversary bonus ({selectedCard.annualRRBonus.toLocaleString()} RR) - included with card
                   </Label>
                 </div>
               </div>
