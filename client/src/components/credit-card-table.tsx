@@ -107,8 +107,8 @@ export function CreditCardTable() {
                   <th className="px-4 py-2"></th>
                   <th className="px-4 py-2"></th>
                   <th className="px-4 py-2"></th>
-                  <th className="px-4 py-2 text-center bg-southwest-gold/20">RR Points</th>
-                  <th className="px-4 py-2 text-center">RR Points</th>
+                  <th className="px-4 py-2 text-center bg-southwest-gold/20">RR and CQP Points</th>
+                  <th className="px-4 py-2 text-center">RR and CQP Points</th>
                   <th className="px-4 py-2 text-center">Min Spend</th>
                 </tr>
               </thead>
