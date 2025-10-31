@@ -140,9 +140,10 @@ export const TIER_CONFIGS: Record<TierStatus, TierConfig> = {
     qualifyingTQP: 0,
     benefits: [
       "Earn points based on fare type",
-      "Points don't expire",
-      "No blackout dates",
-      "Book award flights for others"
+      "Points never expire",
+      "No blackout dates on reward travel",
+      "Book award flights for others",
+      "Two free checked bags through Jan 26 2026"
     ]
   },
   "a-list": {
@@ -153,11 +154,11 @@ export const TIER_CONFIGS: Record<TierStatus, TierConfig> = {
     qualifyingFlights: 20, // Corrected from 25
     qualifyingTQP: 35000,
     benefits: [
-      "25% bonus Rapid Rewards points",
-      "Priority boarding (A1-A15)",
-      "Free same-day standby",
-      "Free same-day confirmed change",
-      "Bonus points on award flights"
+      "25% bonus Rapid Rewards points on flights",
+      "Priority boarding (Group 5+ from Jan 27 2026)",
+      "Free same-day standby and confirmed change",
+      "One free checked bag",
+      "Priority lane and express security access"
     ]
   },
   "a-list-preferred": {
@@ -168,13 +169,14 @@ export const TIER_CONFIGS: Record<TierStatus, TierConfig> = {
     qualifyingFlights: 40, // Corrected from 50
     qualifyingTQP: 70000,
     benefits: [
-      "100% bonus Rapid Rewards points",
-      "Priority boarding (A1-A15, preferred position)",
-      "Free same-day standby",
-      "Free same-day confirmed change",
-      "Free premium drink coupons",
-      "Bonus points on award flights",
-      "Dedicated customer service line"
+      "100% bonus Rapid Rewards points on flights",
+      "Preferred boarding (Group 2+ from Jan 27 2026)",
+      "Two free checked bags",
+      "Free same-day standby and confirmed change",
+      "Four upgraded boardings per year",
+      "Complimentary premium drink on flights over 175 miles",
+      "Dedicated A-List Preferred customer service line",
+      "Priority lane and express security access"
     ]
   }
 };

@@ -5,12 +5,11 @@ import { COMPANION_PASS_THRESHOLD_FLIGHTS, COMPANION_PASS_THRESHOLD_CQP } from "
 
 export function CompanionPassCard() {
   const benefits = [
-    "Bring a companion for free on every flight (just pay taxes)",
-    "Valid for the rest of the earning year + the entire following year",
-    "No blackout dates - use on any available seat",
-    "Choose a different companion up to 3 times per year",
-    "Works on both paid and award flights",
-    "Companion flies free even on international routes"
+    "Bring a companion for free (plus taxes & fees ≈ $5.60 each way)",
+    "Valid for the remainder of the year earned + the entire following year",
+    "No blackout dates – usable on any available seat",
+    "Works on both paid and award flights (including international routes)",
+    "Change your designated companion up to three times per year"
   ];
 
   return (
