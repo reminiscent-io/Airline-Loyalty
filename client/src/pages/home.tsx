@@ -5,6 +5,7 @@ import { TierCard } from "@/components/tier-card";
 import { Calculator } from "@/components/calculator";
 import { ResultsPanel } from "@/components/results-panel";
 import { CompanionPassTracker } from "@/components/companion-pass-tracker";
+import { CompanionPassCard } from "@/components/companion-pass-card";
 import { BenefitsTable } from "@/components/benefits-table";
 import { CreditCardTable } from "@/components/credit-card-table";
 import { TIER_CONFIGS, type TierStatus, type CalculationResults } from "@shared/schema";
@@ -49,8 +50,13 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <TierCard tier="member" />
-            <TierCard tier="a-list" highlighted />
+            <TierCard tier="a-list" />
             <TierCard tier="a-list-preferred" />
+          </div>
+          
+          {/* Companion Pass Card */}
+          <div className="mt-8 max-w-3xl mx-auto">
+            <CompanionPassCard />
           </div>
         </section>
 
