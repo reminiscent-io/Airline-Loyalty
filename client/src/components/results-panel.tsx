@@ -146,67 +146,120 @@ export function ResultsPanel({ results }: ResultsPanelProps) {
 
         <Separator />
 
-        {/* Progress to Next Tier */}
-        {nextTierConfig && (
-          <div className="space-y-4">
-            <div>
-              <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
-                <p className="text-sm font-semibold text-foreground">
-                  Progress to {nextTierConfig.name}
-                </p>
-                {results.qualifiedForNextTier && (
-                  <Badge className="bg-green-600 text-white">
-                    Qualified!
-                  </Badge>
-                )}
-              </div>
-
-              {/* By Flights */}
-              <div className="mb-4">
-                <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-xs font-medium text-muted-foreground">By Flights</span>
-                  <span className="text-xs font-semibold text-foreground" data-testid="text-flight-progress">
-                    {results.progressToNextTier.flightsCurrent} / {results.progressToNextTier.flightsNeeded} ({results.progressToNextTier.byFlights.toFixed(0)}%)
-                  </span>
-                </div>
-                <Progress 
-                  value={results.progressToNextTier.byFlights} 
-                  className="h-2.5"
-                  data-testid="progress-flights"
-                />
-              </div>
-
-              {/* By TQP */}
-              <div>
-                <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-xs font-medium text-muted-foreground">By Tier Qualifying Points</span>
-                  <span className="text-xs font-semibold text-foreground" data-testid="text-tqp-progress">
-                    {results.progressToNextTier.tqpCurrent.toLocaleString()} / {results.progressToNextTier.tqpNeeded.toLocaleString()} ({results.progressToNextTier.byTQP.toFixed(0)}%)
-                  </span>
-                </div>
-                <Progress 
-                  value={results.progressToNextTier.byTQP} 
-                  className="h-2.5"
-                  data-testid="progress-tqp"
-                />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {results.currentTier === "a-list-preferred" && !nextTierConfig && (
-          <div className="p-4 bg-southwest-red/10 border border-southwest-red/20 rounded-lg">
-            <div className="flex items-center gap-2 mb-1">
-              <Heart className="w-4 h-4 text-southwest-red fill-southwest-red" />
-              <p className="text-sm font-semibold text-southwest-red">
-                You've reached the highest tier!
+        {/* Progress to A-List Preferred */}
+        <div className="space-y-4">
+          <div>
+            <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
+              <p className="text-sm font-semibold text-foreground">
+                Progress to A-List Preferred
               </p>
+              {results.currentTier === "a-list-preferred" ? (
+                <Badge className="bg-southwest-red text-white">
+                  <Award className="w-3 h-3 mr-1" />
+                  Achieved!
+                </Badge>
+              ) : (
+                results.totalTQP >= TIER_CONFIGS["a-list-preferred"].qualifyingTQP || 
+                results.progressToNextTier.flightsCurrent >= TIER_CONFIGS["a-list-preferred"].qualifyingFlights) && (
+                <Badge className="bg-green-600 text-white">
+                  Qualified!
+                </Badge>
+              )}
             </div>
-            <p className="text-xs text-muted-foreground">
-              Enjoy all the premium benefits of A-List Preferred status
-            </p>
+
+            {/* Calculate A-List Preferred progress */}
+            {(() => {
+              const aListPreferredFlights = TIER_CONFIGS["a-list-preferred"].qualifyingFlights;
+              const aListPreferredTQP = TIER_CONFIGS["a-list-preferred"].qualifyingTQP;
+              const flightProgress = Math.min(100, (results.progressToNextTier.flightsCurrent / aListPreferredFlights) * 100);
+              const tqpProgress = Math.min(100, (results.totalTQP / aListPreferredTQP) * 100);
+
+              return (
+                <>
+                  {/* By Flights */}
+                  <div className="mb-4">
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-xs font-medium text-muted-foreground">By Flights</span>
+                      <span className="text-xs font-semibold text-foreground" data-testid="text-flight-progress-preferred">
+                        {results.progressToNextTier.flightsCurrent} / {aListPreferredFlights} ({flightProgress.toFixed(0)}%)
+                      </span>
+                    </div>
+                    <Progress 
+                      value={flightProgress} 
+                      className="h-2.5"
+                      data-testid="progress-flights-preferred"
+                    />
+                  </div>
+
+                  {/* By TQP */}
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-xs font-medium text-muted-foreground">By Tier Qualifying Points</span>
+                      <span className="text-xs font-semibold text-foreground" data-testid="text-tqp-progress-preferred">
+                        {results.totalTQP.toLocaleString()} / {aListPreferredTQP.toLocaleString()} ({tqpProgress.toFixed(0)}%)
+                      </span>
+                    </div>
+                    <Progress 
+                      value={tqpProgress} 
+                      className="h-2.5"
+                      data-testid="progress-tqp-preferred"
+                    />
+                  </div>
+                </>
+              );
+            })()}
           </div>
-        )}
+        </div>
+
+        <Separator />
+
+        {/* Companion Pass Progress */}
+        <div className="space-y-4">
+          <div>
+            <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
+              <p className="text-sm font-semibold text-foreground flex items-center gap-2">
+                <Heart className="w-4 h-4 text-southwest-red fill-southwest-red" />
+                Companion Pass Progress
+              </p>
+              {results.companionPassQualified && (
+                <Badge className="bg-southwest-gold text-southwest-navy">
+                  <Heart className="w-3 h-3 mr-1" />
+                  Qualified!
+                </Badge>
+              )}
+            </div>
+
+            {/* By Flights */}
+            <div className="mb-4">
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-xs font-medium text-muted-foreground">By Flights</span>
+                <span className="text-xs font-semibold text-foreground" data-testid="text-flight-progress-cp">
+                  {results.companionPassProgress.flightsCurrent} / {results.companionPassProgress.flightsNeeded} ({results.companionPassProgress.byFlights.toFixed(0)}%)
+                </span>
+              </div>
+              <Progress 
+                value={results.companionPassProgress.byFlights} 
+                className="h-2.5"
+                data-testid="progress-flights-cp"
+              />
+            </div>
+
+            {/* By CQP */}
+            <div>
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-xs font-medium text-muted-foreground">By Companion Qualifying Points</span>
+                <span className="text-xs font-semibold text-foreground" data-testid="text-cqp-progress-cp">
+                  {results.companionPassProgress.cqpCurrent.toLocaleString()} / {results.companionPassProgress.cqpNeeded.toLocaleString()} ({results.companionPassProgress.byCQP.toFixed(0)}%)
+                </span>
+              </div>
+              <Progress 
+                value={results.companionPassProgress.byCQP} 
+                className="h-2.5"
+                data-testid="progress-cqp-cp"
+              />
+            </div>
+          </div>
+        </div>
       </CardContent>
     </Card>
   );
