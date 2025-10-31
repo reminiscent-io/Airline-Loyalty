@@ -2,17 +2,39 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Heart, Users, Star } from "lucide-react";
-import { type CalculationResults, COMPANION_PASS_THRESHOLD } from "@shared/schema";
+import { type CalculationResults, COMPANION_PASS_THRESHOLD_FLIGHTS, COMPANION_PASS_THRESHOLD_CQP } from "@shared/schema";
 
 interface CompanionPassTrackerProps {
   results: CalculationResults | null;
 }
 
 export function CompanionPassTracker({ results }: CompanionPassTrackerProps) {
-  const progress = results?.companionPassProgress || 0;
-  const qualified = results?.companionPassQualified || false;
-  const pointsEarned = results?.totalPointsEarned || 0;
-  const pointsNeeded = COMPANION_PASS_THRESHOLD - pointsEarned;
+  if (!results) {
+    return (
+      <Card className="border-2 border-southwest-red/20" data-testid="card-companion-pass">
+        <CardHeader>
+          <CardTitle className="text-southwest-navy flex items-center gap-2">
+            <Heart className="w-6 h-6 text-southwest-red fill-southwest-red" />
+            Companion Pass
+          </CardTitle>
+          <CardDescription>
+            Bring a companion on every Southwest flight for just taxes and fees
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="text-center py-8 text-muted-foreground">
+          Calculate your rewards to see your Companion Pass progress
+        </CardContent>
+      </Card>
+    );
+  }
+
+  const qualified = results.companionPassQualified;
+  const progressByFlights = results.companionPassProgress.byFlights;
+  const progressByCQP = results.companionPassProgress.byCQP;
+  const flightsCurrent = results.companionPassProgress.flightsCurrent;
+  const flightsNeeded = results.companionPassProgress.flightsNeeded;
+  const cqpCurrent = results.companionPassProgress.cqpCurrent;
+  const cqpNeeded = results.companionPassProgress.cqpNeeded;
 
   return (
     <Card className="border-2 border-southwest-red/20" data-testid="card-companion-pass">
@@ -34,39 +56,46 @@ export function CompanionPassTracker({ results }: CompanionPassTrackerProps) {
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
-        {/* Visual Progress */}
-        <div className="relative">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-semibold text-foreground">
-              Your Progress
-            </span>
-            <span className="text-sm font-bold text-southwest-red" data-testid="text-companion-progress">
-              {progress.toFixed(0)}%
-            </span>
-          </div>
-          <Progress 
-            value={progress} 
-            className="h-4"
-            data-testid="progress-companion-pass"
-          />
-          <div className="flex items-center justify-between mt-2 text-xs text-muted-foreground">
-            <span>0</span>
-            <span className="font-semibold">135,000 points</span>
-          </div>
-        </div>
-
-        {/* Stats Grid */}
-        <div className="grid grid-cols-2 gap-4">
-          <div className="p-4 bg-southwest-lightgray rounded-lg border">
-            <p className="text-xs font-medium text-muted-foreground mb-1">Points Earned</p>
-            <p className="text-2xl font-bold text-southwest-navy" data-testid="text-companion-earned">
-              {pointsEarned.toLocaleString()}
+        
+        {/* Two qualification paths */}
+        <div className="space-y-4">
+          {/* By Flights */}
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-semibold text-foreground">
+                By Flights
+              </span>
+              <span className="text-sm font-bold text-southwest-red" data-testid="text-companion-flights-progress">
+                {flightsCurrent} / {flightsNeeded} ({progressByFlights.toFixed(0)}%)
+              </span>
+            </div>
+            <Progress 
+              value={progressByFlights} 
+              className="h-3"
+              data-testid="progress-companion-flights"
+            />
+            <p className="text-xs text-muted-foreground mt-1">
+              Fly {flightsNeeded} qualifying flights in a calendar year
             </p>
           </div>
-          <div className="p-4 bg-southwest-lightgray rounded-lg border">
-            <p className="text-xs font-medium text-muted-foreground mb-1">Points Needed</p>
-            <p className="text-2xl font-bold text-southwest-navy" data-testid="text-companion-needed">
-              {qualified ? "0" : Math.max(0, pointsNeeded).toLocaleString()}
+
+          {/* By CQP */}
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-semibold text-foreground">
+                By Companion Qualifying Points
+              </span>
+              <span className="text-sm font-bold text-southwest-red" data-testid="text-companion-cqp-progress">
+                {cqpCurrent.toLocaleString()} / {cqpNeeded.toLocaleString()} ({progressByCQP.toFixed(0)}%)
+              </span>
+            </div>
+            <Progress 
+              value={progressByCQP} 
+              className="h-3"
+              data-testid="progress-companion-cqp"
+            />
+            <p className="text-xs text-muted-foreground mt-1">
+              Earn {cqpNeeded.toLocaleString()} CQP from flights, credit cards, and partners
             </p>
           </div>
         </div>
@@ -93,9 +122,10 @@ export function CompanionPassTracker({ results }: CompanionPassTrackerProps) {
                   How to Qualify
                 </p>
                 <ul className="text-xs text-muted-foreground space-y-1">
-                  <li>• Earn 135,000 qualifying points in a calendar year</li>
-                  <li>• Qualifying points include flight revenue and Southwest credit card spend</li>
+                  <li>• Earn {cqpNeeded.toLocaleString()} CQP <strong>OR</strong> fly {flightsNeeded} qualifying flights in a calendar year</li>
+                  <li>• CQP earned from flights, credit card spend, annual bonuses, and partners</li>
                   <li>• Once earned, valid through end of following year</li>
+                  <li>• Companion can be changed up to 3 times per year</li>
                 </ul>
               </div>
             </div>

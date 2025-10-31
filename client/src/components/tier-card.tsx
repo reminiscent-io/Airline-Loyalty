@@ -56,14 +56,20 @@ export function TierCard({ tier, highlighted = false }: TierCardProps) {
           </Badge>
         </div>
         <CardTitle className="text-2xl text-southwest-navy" data-testid={`text-tier-name-${tier}`}>
-          {config.pointsPerDollar} pts / $1
+          {tier === "member" ? (
+            "Base Tier"
+          ) : tier === "a-list" ? (
+            "+25% RR Bonus"
+          ) : (
+            "+100% RR Bonus"
+          )}
         </CardTitle>
         <CardDescription>
           {tier === "member" ? (
             "Starting tier for all members"
           ) : (
             <span data-testid={`text-tier-requirement-${tier}`}>
-              Earn {config.qualifyingFlights} flights or {config.qualifyingPoints.toLocaleString()} points
+              Earn {config.qualifyingFlights} flights or {config.qualifyingTQP.toLocaleString()} TQP
             </span>
           )}
         </CardDescription>

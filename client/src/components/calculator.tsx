@@ -5,20 +5,33 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Calculator as CalculatorIcon, Loader2 } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Calculator as CalculatorIcon, Loader2, Plane, CreditCard, Building2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
-import { type TierStatus, type CalculationResults, type CalculatorInput } from "@shared/schema";
+import { type TierStatus, type FareType, type CreditCardType, type CalculationResults, type CalculatorInput, FARE_TYPES, CREDIT_CARDS } from "@shared/schema";
+import { Separator } from "@/components/ui/separator";
 
 interface CalculatorProps {
   onCalculate: (results: CalculationResults) => void;
 }
 
 export function Calculator({ onCalculate }: CalculatorProps) {
+  // Flight inputs
   const [flightSpending, setFlightSpending] = useState<string>("1000");
+  const [fareType, setFareType] = useState<FareType>("choice");
   const [currentTier, setCurrentTier] = useState<TierStatus>("member");
   const [flightsTaken, setFlightsTaken] = useState<string>("10");
-  const [creditCardPoints, setCreditCardPoints] = useState<string>("0");
+  
+  // Credit card inputs
+  const [creditCard, setCreditCard] = useState<CreditCardType>("none");
+  const [cardSpending, setCardSpending] = useState<string>("0");
+  const [includeSignUpBonus, setIncludeSignUpBonus] = useState(false);
+  const [includeAnnualBonus, setIncludeAnnualBonus] = useState(false);
+  
+  // Partner points
+  const [partnerPoints, setPartnerPoints] = useState<string>("0");
+  
   const { toast } = useToast();
 
   const calculateMutation = useMutation({
@@ -41,13 +54,21 @@ export function Calculator({ onCalculate }: CalculatorProps) {
   const handleCalculate = () => {
     const input: CalculatorInput = {
       flightSpending: parseFloat(flightSpending) || 0,
+      fareType,
       currentTier,
       flightsTaken: parseInt(flightsTaken) || 0,
-      creditCardPoints: parseFloat(creditCardPoints) || 0,
+      creditCard,
+      cardSpending: parseFloat(cardSpending) || 0,
+      includeSignUpBonus,
+      includeAnnualBonus,
+      partnerPoints: parseFloat(partnerPoints) || 0,
     };
 
     calculateMutation.mutate(input);
   };
+
+  const selectedCard = CREDIT_CARDS[creditCard];
+  const showCardDetails = creditCard !== "none";
 
   return (
     <Card data-testid="card-calculator">
@@ -57,93 +78,225 @@ export function Calculator({ onCalculate }: CalculatorProps) {
           Your Activity
         </CardTitle>
         <CardDescription>
-          Enter your flight spending and activity to calculate your rewards
+          Enter your flight spending, credit card usage, and partner activity to calculate your rewards
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
-        <div className="space-y-2">
-          <Label htmlFor="flightSpending" className="text-sm font-semibold">
-            Annual Flight Spending ($)
-          </Label>
-          <Input
-            id="flightSpending"
-            type="number"
-            min="0"
-            step="100"
-            value={flightSpending}
-            onChange={(e) => setFlightSpending(e.target.value)}
-            placeholder="1000"
-            className="text-base"
-            data-testid="input-flight-spending"
-          />
-          <p className="text-xs text-muted-foreground">
-            Total amount spent on Southwest flights
-          </p>
+        
+        {/* Flight Information Section */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-2 text-sm font-semibold text-southwest-navy">
+            <Plane className="w-4 h-4 text-southwest-blue" />
+            <span>Flight Information</span>
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="fareType" className="text-sm font-semibold">
+              Primary Fare Type
+            </Label>
+            <Select
+              value={fareType}
+              onValueChange={(value) => setFareType(value as FareType)}
+            >
+              <SelectTrigger id="fareType" data-testid="select-fare-type">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {Object.values(FARE_TYPES).map((fare) => (
+                  <SelectItem key={fare.id} value={fare.id} data-testid={`option-fare-${fare.id}`}>
+                    {fare.name} ({fare.pointsPerDollar} pts/$)
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <p className="text-xs text-muted-foreground">
+              Fare type determines your base earning rate
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="flightSpending" className="text-sm font-semibold">
+              Annual Flight Spending ($)
+            </Label>
+            <Input
+              id="flightSpending"
+              type="number"
+              min="0"
+              step="100"
+              value={flightSpending}
+              onChange={(e) => setFlightSpending(e.target.value)}
+              placeholder="1000"
+              className="text-base"
+              data-testid="input-flight-spending"
+            />
+            <p className="text-xs text-muted-foreground">
+              Total amount spent on Southwest flights
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="currentTier" className="text-sm font-semibold">
+              Current Tier Status
+            </Label>
+            <Select
+              value={currentTier}
+              onValueChange={(value) => setCurrentTier(value as TierStatus)}
+            >
+              <SelectTrigger id="currentTier" data-testid="select-current-tier">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="member" data-testid="option-tier-member">
+                  Rapid Rewards Member
+                </SelectItem>
+                <SelectItem value="a-list" data-testid="option-tier-a-list">
+                  A-List
+                </SelectItem>
+                <SelectItem value="a-list-preferred" data-testid="option-tier-a-list-preferred">
+                  A-List Preferred
+                </SelectItem>
+              </SelectContent>
+            </Select>
+            <p className="text-xs text-muted-foreground">
+              Tier affects RR points bonus (A-List +25%, A-List Preferred +100%)
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="flightsTaken" className="text-sm font-semibold">
+              Qualifying Flights Taken
+            </Label>
+            <Input
+              id="flightsTaken"
+              type="number"
+              min="0"
+              step="1"
+              value={flightsTaken}
+              onChange={(e) => setFlightsTaken(e.target.value)}
+              placeholder="10"
+              className="text-base"
+              data-testid="input-flights-taken"
+            />
+            <p className="text-xs text-muted-foreground">
+              Number of one-way qualifying flights
+            </p>
+          </div>
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="currentTier" className="text-sm font-semibold">
-            Current Tier Status
-          </Label>
-          <Select
-            value={currentTier}
-            onValueChange={(value) => setCurrentTier(value as TierStatus)}
-          >
-            <SelectTrigger id="currentTier" data-testid="select-current-tier">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="member" data-testid="option-tier-member">
-                Rapid Rewards Member
-              </SelectItem>
-              <SelectItem value="a-list" data-testid="option-tier-a-list">
-                A-List
-              </SelectItem>
-              <SelectItem value="a-list-preferred" data-testid="option-tier-a-list-preferred">
-                A-List Preferred
-              </SelectItem>
-            </SelectContent>
-          </Select>
+        <Separator />
+
+        {/* Credit Card Section */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-2 text-sm font-semibold text-southwest-navy">
+            <CreditCard className="w-4 h-4 text-southwest-gold" />
+            <span>Southwest Credit Card</span>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="creditCard" className="text-sm font-semibold">
+              Credit Card Type
+            </Label>
+            <Select
+              value={creditCard}
+              onValueChange={(value) => setCreditCard(value as CreditCardType)}
+            >
+              <SelectTrigger id="creditCard" data-testid="select-credit-card">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {Object.values(CREDIT_CARDS).map((card) => (
+                  <SelectItem key={card.id} value={card.id} data-testid={`option-card-${card.id}`}>
+                    {card.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {showCardDetails && (
+              <p className="text-xs text-muted-foreground">
+                Annual fee: ${selectedCard.annualFee} | Earn {selectedCard.pointsPerDollarSpend} pts/$ on purchases
+              </p>
+            )}
+          </div>
+
+          {showCardDetails && (
+            <>
+              <div className="space-y-2">
+                <Label htmlFor="cardSpending" className="text-sm font-semibold">
+                  Annual Card Spending ($)
+                </Label>
+                <Input
+                  id="cardSpending"
+                  type="number"
+                  min="0"
+                  step="100"
+                  value={cardSpending}
+                  onChange={(e) => setCardSpending(e.target.value)}
+                  placeholder="0"
+                  className="text-base"
+                  data-testid="input-card-spending"
+                />
+                <p className="text-xs text-muted-foreground">
+                  Non-flight purchases on your Southwest card
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                <div className="flex items-center space-x-2">
+                  <Checkbox 
+                    id="includeSignUpBonus" 
+                    checked={includeSignUpBonus}
+                    onCheckedChange={(checked) => setIncludeSignUpBonus(checked as boolean)}
+                    data-testid="checkbox-signup-bonus"
+                  />
+                  <Label htmlFor="includeSignUpBonus" className="text-sm cursor-pointer">
+                    Include sign-up bonus ({selectedCard.signUpBonus.toLocaleString()} pts)
+                  </Label>
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                  <Checkbox 
+                    id="includeAnnualBonus" 
+                    checked={includeAnnualBonus}
+                    onCheckedChange={(checked) => setIncludeAnnualBonus(checked as boolean)}
+                    data-testid="checkbox-annual-bonus"
+                  />
+                  <Label htmlFor="includeAnnualBonus" className="text-sm cursor-pointer">
+                    Include annual anniversary bonus ({selectedCard.annualRRBonus.toLocaleString()} RR + {selectedCard.annualCQPBonus.toLocaleString()} CQP)
+                  </Label>
+                </div>
+              </div>
+            </>
+          )}
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="flightsTaken" className="text-sm font-semibold">
-            Qualifying Flights Taken
-          </Label>
-          <Input
-            id="flightsTaken"
-            type="number"
-            min="0"
-            step="1"
-            value={flightsTaken}
-            onChange={(e) => setFlightsTaken(e.target.value)}
-            placeholder="10"
-            className="text-base"
-            data-testid="input-flights-taken"
-          />
-          <p className="text-xs text-muted-foreground">
-            Number of one-way qualifying flights
-          </p>
-        </div>
+        <Separator />
 
-        <div className="space-y-2">
-          <Label htmlFor="creditCardPoints" className="text-sm font-semibold">
-            Credit Card Points (Optional)
-          </Label>
-          <Input
-            id="creditCardPoints"
-            type="number"
-            min="0"
-            step="1000"
-            value={creditCardPoints}
-            onChange={(e) => setCreditCardPoints(e.target.value)}
-            placeholder="0"
-            className="text-base"
-            data-testid="input-credit-card-points"
-          />
-          <p className="text-xs text-muted-foreground">
-            Points earned from Southwest credit cards
-          </p>
+        {/* Partner Points Section */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-2 text-sm font-semibold text-southwest-navy">
+            <Building2 className="w-4 h-4 text-southwest-red" />
+            <span>Partner Activity</span>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="partnerPoints" className="text-sm font-semibold">
+              Partner Points (Optional)
+            </Label>
+            <Input
+              id="partnerPoints"
+              type="number"
+              min="0"
+              step="100"
+              value={partnerPoints}
+              onChange={(e) => setPartnerPoints(e.target.value)}
+              placeholder="0"
+              className="text-base"
+              data-testid="input-partner-points"
+            />
+            <p className="text-xs text-muted-foreground">
+              Points from hotels, dining, shopping partners (count toward RR & CQP only)
+            </p>
+          </div>
         </div>
 
         <Button 
