@@ -142,8 +142,7 @@ export const TIER_CONFIGS: Record<TierStatus, TierConfig> = {
       "Earn points based on fare type",
       "Points never expire",
       "No blackout dates on reward travel",
-      "Book award flights for others",
-      "Two free checked bags through Jan 26 2026"
+      "Book award flights for others"
     ]
   },
   "a-list": {
