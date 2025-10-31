@@ -4,7 +4,6 @@ import { Heart, Plane, Trophy, Check } from "lucide-react";
 import { TierCard } from "@/components/tier-card";
 import { Calculator } from "@/components/calculator";
 import { ResultsPanel } from "@/components/results-panel";
-import { CompanionPassTracker } from "@/components/companion-pass-tracker";
 import { CompanionPassCard } from "@/components/companion-pass-card";
 import { BenefitsTable } from "@/components/benefits-table";
 import { CreditCardTable } from "@/components/credit-card-table";
@@ -75,21 +74,6 @@ export default function Home() {
             <Calculator onCalculate={setCalculationResults} />
             <ResultsPanel results={calculationResults} />
           </div>
-        </section>
-
-        {/* Companion Pass Section */}
-        <section className="mb-16" id="companion-pass">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl md:text-4xl font-bold text-southwest-navy mb-3 flex items-center justify-center gap-2" data-testid="text-companion-section-title">
-              <Heart className="w-8 h-8 text-southwest-red fill-southwest-red" />
-              Companion Pass Progress
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Earn 135,000 qualifying points in a calendar year to bring a companion on every flight for free
-            </p>
-          </div>
-
-          <CompanionPassTracker results={calculationResults} />
         </section>
 
         {/* Benefits Comparison Table */}
