@@ -153,12 +153,25 @@ export function ResultsPanel({ results }: ResultsPanelProps) {
               <p className="text-sm font-semibold text-foreground">
                 Progress to A-List
               </p>
-              {results.currentTier === "a-list" || results.currentTier === "a-list-preferred" ? (
-                <Badge className="bg-southwest-gold text-southwest-navy">
-                  <Award className="w-3 h-3 mr-1" />
-                  Achieved!
+              {/* If A-List Preferred, always qualified for A-List */}
+              {results.currentTier === "a-list-preferred" ? (
+                <Badge className="bg-green-600 text-white">
+                  Qualified!
                 </Badge>
+              ) : results.currentTier === "a-list" ? (
+                /* If A-List, show Current or Qualified based on threshold */
+                results.totalTQP >= TIER_CONFIGS["a-list"].qualifyingTQP || 
+                results.progressToNextTier.flightsCurrent >= TIER_CONFIGS["a-list"].qualifyingFlights ? (
+                  <Badge className="bg-green-600 text-white">
+                    Qualified!
+                  </Badge>
+                ) : (
+                  <Badge className="bg-southwest-gold text-southwest-navy">
+                    Current
+                  </Badge>
+                )
               ) : (
+                /* If Member, show Qualified only if threshold met */
                 results.totalTQP >= TIER_CONFIGS["a-list"].qualifyingTQP || 
                 results.progressToNextTier.flightsCurrent >= TIER_CONFIGS["a-list"].qualifyingFlights) && (
                 <Badge className="bg-green-600 text-white">
@@ -221,10 +234,16 @@ export function ResultsPanel({ results }: ResultsPanelProps) {
                 Progress to A-List Preferred
               </p>
               {results.currentTier === "a-list-preferred" ? (
-                <Badge className="bg-southwest-red text-white">
-                  <Award className="w-3 h-3 mr-1" />
-                  Achieved!
-                </Badge>
+                results.totalTQP >= TIER_CONFIGS["a-list-preferred"].qualifyingTQP || 
+                results.progressToNextTier.flightsCurrent >= TIER_CONFIGS["a-list-preferred"].qualifyingFlights ? (
+                  <Badge className="bg-green-600 text-white">
+                    Qualified!
+                  </Badge>
+                ) : (
+                  <Badge className="bg-southwest-red text-white">
+                    Current
+                  </Badge>
+                )
               ) : (
                 results.totalTQP >= TIER_CONFIGS["a-list-preferred"].qualifyingTQP || 
                 results.progressToNextTier.flightsCurrent >= TIER_CONFIGS["a-list-preferred"].qualifyingFlights) && (
