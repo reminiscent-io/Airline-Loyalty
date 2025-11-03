@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { TrendingUp, Award, Heart, Plane, CreditCard, Building2, DollarSign } from "lucide-react";
+import { TrendingUp, Award, Heart, Plane, CreditCard, Building2, DollarSign, Check } from "lucide-react";
 import { type CalculationResults, TIER_CONFIGS } from "@shared/schema";
 import { Separator } from "@/components/ui/separator";
 
@@ -284,11 +284,17 @@ export function ResultsPanel({ results }: ResultsPanelProps) {
                     </div>
                     <div className="flex justify-between mt-1">
                       <span className="text-xs text-muted-foreground">0</span>
-                      <span className="text-xs font-medium text-muted-foreground">
-                        {aListFlights} (A-List)
+                      <span className={`text-xs font-medium flex items-center gap-1 ${currentFlights >= aListFlights ? 'text-green-600 font-semibold' : 'text-muted-foreground'}`}>
+                        {currentFlights >= aListFlights && (
+                          <Check className="w-3 h-3 text-green-500 inline-block" />
+                        )}
+                        <span>{aListFlights} (A-List)</span>
                       </span>
-                      <span className="text-xs font-medium text-muted-foreground">
-                        {aListPreferredFlights} (Preferred)
+                      <span className={`text-xs font-medium flex items-center gap-1 ${currentFlights >= aListPreferredFlights ? 'text-green-600 font-semibold' : 'text-muted-foreground'}`}>
+                        {currentFlights >= aListPreferredFlights && (
+                          <Check className="w-3 h-3 text-green-500 inline-block" />
+                        )}
+                        <span>{aListPreferredFlights} (Preferred)</span>
                       </span>
                     </div>
                     <p className="text-xs text-muted-foreground mt-1">{flightNextMilestone}</p>
@@ -321,11 +327,17 @@ export function ResultsPanel({ results }: ResultsPanelProps) {
                     </div>
                     <div className="flex justify-between mt-1">
                       <span className="text-xs text-muted-foreground">0</span>
-                      <span className="text-xs font-medium text-muted-foreground">
-                        {(aListTQP/1000).toFixed(0)}K (A-List)
+                      <span className={`text-xs font-medium flex items-center gap-1 ${currentTQP >= aListTQP ? 'text-green-600 font-semibold' : 'text-muted-foreground'}`}>
+                        {currentTQP >= aListTQP && (
+                          <Check className="w-3 h-3 text-green-500 inline-block" />
+                        )}
+                        <span>{(aListTQP/1000).toFixed(0)}K (A-List)</span>
                       </span>
-                      <span className="text-xs font-medium text-muted-foreground">
-                        {(aListPreferredTQP/1000).toFixed(0)}K (Preferred)
+                      <span className={`text-xs font-medium flex items-center gap-1 ${currentTQP >= aListPreferredTQP ? 'text-green-600 font-semibold' : 'text-muted-foreground'}`}>
+                        {currentTQP >= aListPreferredTQP && (
+                          <Check className="w-3 h-3 text-green-500 inline-block" />
+                        )}
+                        <span>{(aListPreferredTQP/1000).toFixed(0)}K (Preferred)</span>
                       </span>
                     </div>
                     <p className="text-xs text-muted-foreground mt-1">{tqpNextMilestone}</p>
