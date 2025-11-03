@@ -36,9 +36,15 @@ export function calculateRewards(input: CalculatorInput): CalculationResults {
   const baseFlightPoints = flightSpending * fareTypeConfig.pointsPerDollar;
   
   // RR points get tier bonus, but CQP and TQP do not
-  const flightRRPoints = baseFlightPoints * (1 + tierConfig.rrBonusMultiplier);
-  const flightCQP = baseFlightPoints; // No tier bonus on CQP
+  let flightRRPoints = baseFlightPoints * (1 + tierConfig.rrBonusMultiplier);
+  let flightCQP = baseFlightPoints; // No tier bonus on CQP
   const flightTQP = baseFlightPoints; // No tier bonus on TQP
+  
+  // Add credit card flight purchase bonuses (on top of fare + tier)
+  if (creditCard !== "none") {
+    flightRRPoints += flightSpending * cardConfig.flightRRBonus;
+    flightCQP += flightSpending * cardConfig.flightCQPBonus;
+  }
   
   // ======================
   // CREDIT CARD POINTS CALCULATION

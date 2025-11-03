@@ -48,6 +48,8 @@ export interface CreditCardConfig {
   tqpBoostPer5k: number; // TQP bonus awarded per $5,000 in card spend
   signUpBonus: number; // One-time sign-up bonus (both RR and CQP)
   signUpSpendRequirement: number;
+  flightRRBonus: number; // Additional RR points per dollar on Southwest flight purchases
+  flightCQPBonus: number; // Additional CQP per dollar on Southwest flight purchases
 }
 
 export const CREDIT_CARDS: Record<CreditCardType, CreditCardConfig> = {
@@ -60,62 +62,74 @@ export const CREDIT_CARDS: Record<CreditCardType, CreditCardConfig> = {
     annualCQPBonus: 0,
     tqpBoostPer5k: 0,
     signUpBonus: 0,
-    signUpSpendRequirement: 0
+    signUpSpendRequirement: 0,
+    flightRRBonus: 0,  // No bonus on flight purchases
+    flightCQPBonus: 0  // No bonus on flight purchases
   },
   "plus": {
     id: "plus",
     name: "Southwest Rapid Rewards Plus",
-    pointsPerDollarSpend: 1,  // 1x on non-Southwest purchases (2x on Southwest)
+    pointsPerDollarSpend: 1,  // 1x on non-Southwest purchases
     annualFee: 99,
     annualRRBonus: 3000,
     annualCQPBonus: 13000,  // Annual CQP bonus
     tqpBoostPer5k: 0,
     signUpBonus: 85000,
-    signUpSpendRequirement: 3000
+    signUpSpendRequirement: 3000,
+    flightRRBonus: 2,  // +2 RR per dollar on Southwest flights
+    flightCQPBonus: 2  // +2 CQP per dollar on Southwest flights
   },
   "premier": {
     id: "premier",
     name: "Southwest Rapid Rewards Premier",
-    pointsPerDollarSpend: 1,  // 1x on non-Southwest purchases (3x on Southwest)
+    pointsPerDollarSpend: 1,  // 1x on non-Southwest purchases
     annualFee: 149,
     annualRRBonus: 6000,
     annualCQPBonus: 16000,  // Annual CQP bonus
     tqpBoostPer5k: 1500,
     signUpBonus: 85000,
-    signUpSpendRequirement: 3000
+    signUpSpendRequirement: 3000,
+    flightRRBonus: 3,  // +3 RR per dollar on Southwest flights
+    flightCQPBonus: 3  // +3 CQP per dollar on Southwest flights
   },
   "priority": {
     id: "priority",
     name: "Southwest Rapid Rewards Priority",
-    pointsPerDollarSpend: 1,  // 1x on non-Southwest purchases (4x on Southwest)
+    pointsPerDollarSpend: 1,  // 1x on non-Southwest purchases
     annualFee: 229,
     annualRRBonus: 7500,
     annualCQPBonus: 17500,  // Annual CQP bonus
     tqpBoostPer5k: 2500,
     signUpBonus: 85000,
-    signUpSpendRequirement: 3000
+    signUpSpendRequirement: 3000,
+    flightRRBonus: 4,  // +4 RR per dollar on Southwest flights
+    flightCQPBonus: 4  // +4 CQP per dollar on Southwest flights
   },
   "business-premier": {
     id: "business-premier",
     name: "Southwest Rapid Rewards Business Premier",
-    pointsPerDollarSpend: 1,  // 1x on non-Southwest purchases (3x on Southwest)
+    pointsPerDollarSpend: 1,  // 1x on non-Southwest purchases
     annualFee: 149,
     annualRRBonus: 6000,
     annualCQPBonus: 16000,  // Annual CQP bonus
     tqpBoostPer5k: 2000,
     signUpBonus: 60000,
-    signUpSpendRequirement: 3000
+    signUpSpendRequirement: 3000,
+    flightRRBonus: 3,  // +3 RR per dollar on Southwest flights
+    flightCQPBonus: 3  // +3 CQP per dollar on Southwest flights
   },
   "business-performance": {
     id: "business-performance",
     name: "Southwest Rapid Rewards Business Performance",
-    pointsPerDollarSpend: 1,  // 1x on non-Southwest purchases (4x on Southwest)
+    pointsPerDollarSpend: 1,  // 1x on non-Southwest purchases
     annualFee: 299,
     annualRRBonus: 9000,
     annualCQPBonus: 19000,  // Annual CQP bonus
     tqpBoostPer5k: 2500,
     signUpBonus: 80000,
-    signUpSpendRequirement: 5000
+    signUpSpendRequirement: 5000,
+    flightRRBonus: 4,  // +4 RR per dollar on Southwest flights
+    flightCQPBonus: 4  // +4 CQP per dollar on Southwest flights
   }
 };
 
