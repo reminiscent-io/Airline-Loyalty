@@ -6,9 +6,11 @@ export function CreditCardTable() {
     { 
       name: "No Card",
       annualFee: "$0",
-      rrPerDollar: "—",
+      rrFlights: "—",
+      rrNonFlights: "—",
       tqpPer5k: "—",
       annualBonusRR: "—",
+      annualBonusCQP: "—",
       signUpBonusRR: "—",
       signUpSpend: "—",
       color: "text-muted-foreground"
@@ -16,9 +18,11 @@ export function CreditCardTable() {
     { 
       name: "Plus",
       annualFee: "$99",
-      rrPerDollar: "1x",
+      rrFlights: "+2",
+      rrNonFlights: "1x",
       tqpPer5k: "—",
       annualBonusRR: "+3,000",
+      annualBonusCQP: "+13,000",
       signUpBonusRR: "+85,000",
       signUpSpend: "$3,000",
       color: "text-foreground font-semibold"
@@ -26,9 +30,11 @@ export function CreditCardTable() {
     { 
       name: "Premier",
       annualFee: "$149",
-      rrPerDollar: "1x",
+      rrFlights: "+3",
+      rrNonFlights: "1x",
       tqpPer5k: "+1,500",
       annualBonusRR: "+6,000",
+      annualBonusCQP: "+16,000",
       signUpBonusRR: "+85,000",
       signUpSpend: "$3,000",
       color: "text-foreground font-semibold"
@@ -36,9 +42,11 @@ export function CreditCardTable() {
     { 
       name: "Priority",
       annualFee: "$229",
-      rrPerDollar: "1x",
+      rrFlights: "+4",
+      rrNonFlights: "1x",
       tqpPer5k: "+2,500",
       annualBonusRR: "+7,500",
+      annualBonusCQP: "+17,500",
       signUpBonusRR: "+85,000",
       signUpSpend: "$3,000",
       color: "text-foreground font-semibold"
@@ -46,9 +54,11 @@ export function CreditCardTable() {
     { 
       name: "Business Premier",
       annualFee: "$149",
-      rrPerDollar: "1x",
+      rrFlights: "+3",
+      rrNonFlights: "1x",
       tqpPer5k: "+2,000",
       annualBonusRR: "+6,000",
+      annualBonusCQP: "+16,000",
       signUpBonusRR: "+60,000",
       signUpSpend: "$3,000",
       color: "text-foreground font-semibold"
@@ -56,9 +66,11 @@ export function CreditCardTable() {
     { 
       name: "Business Performance",
       annualFee: "$299",
-      rrPerDollar: "1x",
+      rrFlights: "+4",
+      rrNonFlights: "2x",
       tqpPer5k: "+2,500",
       annualBonusRR: "+9,000",
+      annualBonusCQP: "+19,000",
       signUpBonusRR: "+80,000",
       signUpSpend: "$5,000",
       color: "text-foreground font-semibold"
@@ -82,14 +94,14 @@ export function CreditCardTable() {
                     </div>
                   </th>
                   <th className="px-4 py-4 text-center font-semibold whitespace-nowrap">Annual Fee</th>
-                  <th className="px-4 py-4 text-center font-semibold whitespace-nowrap">
+                  <th className="px-4 py-4 text-center font-semibold whitespace-nowrap" colSpan={2}>
                     <div className="flex items-center justify-center gap-2">
                       <DollarSign className="w-4 h-4" />
                       <span>RR pts per $1</span>
                     </div>
                   </th>
                   <th className="px-4 py-4 text-center font-semibold whitespace-nowrap">TQP/$5k</th>
-                  <th className="px-4 py-4 text-center font-semibold whitespace-nowrap bg-southwest-gold/20">
+                  <th className="px-4 py-4 text-center font-semibold whitespace-nowrap bg-southwest-gold/20" colSpan={2}>
                     <div className="flex items-center justify-center gap-2">
                       <Award className="w-4 h-4" />
                       <span>Annual Bonus</span>
@@ -105,9 +117,11 @@ export function CreditCardTable() {
                 <tr className="bg-southwest-blue/90 text-white text-xs">
                   <th className="px-4 py-2"></th>
                   <th className="px-4 py-2"></th>
+                  <th className="px-4 py-2 text-center">SW Flights</th>
+                  <th className="px-4 py-2 text-center">Non-Flights</th>
                   <th className="px-4 py-2"></th>
-                  <th className="px-4 py-2"></th>
-                  <th className="px-4 py-2 text-center bg-southwest-gold/20">RR and CQP Points</th>
+                  <th className="px-4 py-2 text-center bg-southwest-gold/20">RR Points</th>
+                  <th className="px-4 py-2 text-center bg-southwest-gold/20">CQP Points</th>
                   <th className="px-4 py-2 text-center">RR and CQP Points</th>
                   <th className="px-4 py-2 text-center">Min Spend</th>
                 </tr>
@@ -125,14 +139,20 @@ export function CreditCardTable() {
                     <td className="px-4 py-3 text-sm text-center font-semibold">
                       {card.annualFee}
                     </td>
+                    <td className="px-4 py-3 text-sm text-center font-semibold text-primary">
+                      {card.rrFlights}
+                    </td>
                     <td className="px-4 py-3 text-sm text-center">
-                      {card.rrPerDollar}
+                      {card.rrNonFlights}
                     </td>
                     <td className="px-4 py-3 text-sm text-center font-semibold text-accent">
                       {card.tqpPer5k}
                     </td>
                     <td className="px-4 py-3 text-sm text-center bg-southwest-gold/5">
                       {card.annualBonusRR}
+                    </td>
+                    <td className="px-4 py-3 text-sm text-center bg-southwest-gold/5 font-semibold">
+                      {card.annualBonusCQP}
                     </td>
                     <td className="px-4 py-3 text-sm text-center">
                       {card.signUpBonusRR}
@@ -167,16 +187,24 @@ export function CreditCardTable() {
               
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">RR pts per $1</span>
-                  <span className="font-medium">{card.rrPerDollar}</span>
+                  <span className="text-muted-foreground">RR on SW flights</span>
+                  <span className="font-medium text-primary">{card.rrFlights}/$ bonus</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">RR non-flights</span>
+                  <span className="font-medium">{card.rrNonFlights}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">TQP per $5k</span>
                   <span className="font-medium text-accent">{card.tqpPer5k}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Annual Bonus</span>
-                  <span className="font-medium">{card.annualBonusRR} RR</span>
+                  <span className="text-muted-foreground">Annual RR</span>
+                  <span className="font-medium">{card.annualBonusRR}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Annual CQP</span>
+                  <span className="font-medium">{card.annualBonusCQP}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Sign-Up Bonus</span>
@@ -211,16 +239,24 @@ export function CreditCardTable() {
               
               <div className="grid grid-cols-2 gap-3 text-sm">
                 <div>
-                  <p className="text-xs text-muted-foreground mb-1">RR pts per $1</p>
-                  <p className="font-medium">{card.rrPerDollar}</p>
+                  <p className="text-xs text-muted-foreground mb-1">RR on SW flights</p>
+                  <p className="font-medium text-primary">{card.rrFlights}/$ bonus</p>
+                </div>
+                <div>
+                  <p className="text-xs text-muted-foreground mb-1">RR non-flights</p>
+                  <p className="font-medium">{card.rrNonFlights}</p>
                 </div>
                 <div>
                   <p className="text-xs text-muted-foreground mb-1">TQP per $5k</p>
                   <p className="font-medium text-accent">{card.tqpPer5k}</p>
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground mb-1">Annual Bonus</p>
-                  <p className="font-medium">{card.annualBonusRR} RR</p>
+                  <p className="text-xs text-muted-foreground mb-1">Annual RR</p>
+                  <p className="font-medium">{card.annualBonusRR}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-muted-foreground mb-1">Annual CQP</p>
+                  <p className="font-medium">{card.annualBonusCQP}</p>
                 </div>
                 <div>
                   <p className="text-xs text-muted-foreground mb-1">Sign-Up Bonus</p>
@@ -240,7 +276,8 @@ export function CreditCardTable() {
 
       {/* Info note */}
       <div className="text-xs text-muted-foreground text-center p-4 bg-muted/30 rounded-lg">
-        <p>All points earned from credit card spending count toward both RR (Rapid Rewards) and CQP (Companion Pass).</p>
+        <p>SW Flights bonus points are earned in addition to base fare earn rate and tier multiplier.</p>
+        <p className="mt-1">All points from credit card spending count toward both RR (Rapid Rewards) and CQP (Companion Pass).</p>
         <p className="mt-1">TQP boosts are awarded for every $5,000 in total credit card spending (flights + purchases).</p>
       </div>
     </div>
