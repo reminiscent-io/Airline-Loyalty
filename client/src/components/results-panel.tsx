@@ -146,119 +146,50 @@ export function ResultsPanel({ results }: ResultsPanelProps) {
 
         <Separator />
 
-        {/* Progress to A-List */}
+        {/* Combined A-List and A-List Preferred Progress */}
         <div className="space-y-4">
           <div>
             <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
               <p className="text-sm font-semibold text-foreground">
-                Progress to A-List
+                Tier Status Progress
               </p>
-              {/* If A-List Preferred, always qualified for A-List */}
-              {results.currentTier === "a-list-preferred" ? (
-                <Badge className="bg-green-600 text-white">
-                  Qualified!
-                </Badge>
-              ) : results.currentTier === "a-list" ? (
-                /* If A-List, show Current or Qualified based on threshold */
-                results.totalTQP >= TIER_CONFIGS["a-list"].qualifyingTQP || 
-                results.progressToNextTier.flightsCurrent >= TIER_CONFIGS["a-list"].qualifyingFlights ? (
-                  <Badge className="bg-green-600 text-white">
-                    Qualified!
-                  </Badge>
-                ) : (
+              <div className="flex gap-2 flex-wrap">
+                {/* Show badges for A-List qualification */}
+                {(results.currentTier === "a-list-preferred" || 
+                  results.totalTQP >= TIER_CONFIGS["a-list"].qualifyingTQP || 
+                  results.progressToNextTier.flightsCurrent >= TIER_CONFIGS["a-list"].qualifyingFlights) && (
                   <Badge className="bg-southwest-gold text-southwest-navy">
-                    Current
+                    <Award className="w-3 h-3 mr-1" />
+                    A-List {results.currentTier === "a-list" ? "Current" : "Qualified"}
                   </Badge>
-                )
-              ) : (
-                /* If Member, show Qualified only if threshold met */
-                results.totalTQP >= TIER_CONFIGS["a-list"].qualifyingTQP || 
-                results.progressToNextTier.flightsCurrent >= TIER_CONFIGS["a-list"].qualifyingFlights) && (
-                <Badge className="bg-green-600 text-white">
-                  Qualified!
-                </Badge>
-              )}
+                )}
+                {/* Show badges for A-List Preferred qualification */}
+                {(results.totalTQP >= TIER_CONFIGS["a-list-preferred"].qualifyingTQP || 
+                  results.progressToNextTier.flightsCurrent >= TIER_CONFIGS["a-list-preferred"].qualifyingFlights) && (
+                  <Badge className="bg-southwest-red text-white">
+                    <Award className="w-3 h-3 mr-1" />
+                    A-List Preferred {results.currentTier === "a-list-preferred" ? "Current" : "Qualified"}
+                  </Badge>
+                )}
+              </div>
             </div>
 
-            {/* Calculate A-List progress */}
+            {/* Unified Progress Tracking */}
             {(() => {
               const aListFlights = TIER_CONFIGS["a-list"].qualifyingFlights;
               const aListTQP = TIER_CONFIGS["a-list"].qualifyingTQP;
-              const flightProgress = Math.min(100, (results.progressToNextTier.flightsCurrent / aListFlights) * 100);
-              const tqpProgress = Math.min(100, (results.totalTQP / aListTQP) * 100);
-
-              return (
-                <>
-                  {/* By Flights */}
-                  <div className="mb-4">
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-xs font-medium text-muted-foreground">By Flights</span>
-                      <span className="text-xs font-semibold text-foreground" data-testid="text-flight-progress-alist">
-                        {results.progressToNextTier.flightsCurrent} / {aListFlights} ({flightProgress.toFixed(0)}%)
-                      </span>
-                    </div>
-                    <Progress 
-                      value={flightProgress} 
-                      className="h-2.5"
-                      data-testid="progress-flights-alist"
-                    />
-                  </div>
-
-                  {/* By TQP */}
-                  <div>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-xs font-medium text-muted-foreground">By Tier Qualifying Points</span>
-                      <span className="text-xs font-semibold text-foreground" data-testid="text-tqp-progress-alist">
-                        {results.totalTQP.toLocaleString()} / {aListTQP.toLocaleString()} ({tqpProgress.toFixed(0)}%)
-                      </span>
-                    </div>
-                    <Progress 
-                      value={tqpProgress} 
-                      className="h-2.5"
-                      data-testid="progress-tqp-alist"
-                    />
-                  </div>
-                </>
-              );
-            })()}
-          </div>
-        </div>
-
-        <Separator />
-
-        {/* Progress to A-List Preferred */}
-        <div className="space-y-4">
-          <div>
-            <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
-              <p className="text-sm font-semibold text-foreground">
-                Progress to A-List Preferred
-              </p>
-              {results.currentTier === "a-list-preferred" ? (
-                results.totalTQP >= TIER_CONFIGS["a-list-preferred"].qualifyingTQP || 
-                results.progressToNextTier.flightsCurrent >= TIER_CONFIGS["a-list-preferred"].qualifyingFlights ? (
-                  <Badge className="bg-green-600 text-white">
-                    Qualified!
-                  </Badge>
-                ) : (
-                  <Badge className="bg-southwest-red text-white">
-                    Current
-                  </Badge>
-                )
-              ) : (
-                results.totalTQP >= TIER_CONFIGS["a-list-preferred"].qualifyingTQP || 
-                results.progressToNextTier.flightsCurrent >= TIER_CONFIGS["a-list-preferred"].qualifyingFlights) && (
-                <Badge className="bg-green-600 text-white">
-                  Qualified!
-                </Badge>
-              )}
-            </div>
-
-            {/* Calculate A-List Preferred progress */}
-            {(() => {
               const aListPreferredFlights = TIER_CONFIGS["a-list-preferred"].qualifyingFlights;
               const aListPreferredTQP = TIER_CONFIGS["a-list-preferred"].qualifyingTQP;
-              const flightProgress = Math.min(100, (results.progressToNextTier.flightsCurrent / aListPreferredFlights) * 100);
-              const tqpProgress = Math.min(100, (results.totalTQP / aListPreferredTQP) * 100);
+              
+              // Calculate progress for both tiers
+              const flightProgressAList = Math.min(100, (results.progressToNextTier.flightsCurrent / aListFlights) * 100);
+              const tqpProgressAList = Math.min(100, (results.totalTQP / aListTQP) * 100);
+              const flightProgressPreferred = Math.min(100, (results.progressToNextTier.flightsCurrent / aListPreferredFlights) * 100);
+              const tqpProgressPreferred = Math.min(100, (results.totalTQP / aListPreferredTQP) * 100);
+
+              // Determine which progress to show prominently
+              const hasAList = flightProgressAList >= 100 || tqpProgressAList >= 100;
+              const hasAListPreferred = flightProgressPreferred >= 100 || tqpProgressPreferred >= 100;
 
               return (
                 <>
@@ -266,30 +197,93 @@ export function ResultsPanel({ results }: ResultsPanelProps) {
                   <div className="mb-4">
                     <div className="flex items-center justify-between mb-1.5">
                       <span className="text-xs font-medium text-muted-foreground">By Flights</span>
-                      <span className="text-xs font-semibold text-foreground" data-testid="text-flight-progress-preferred">
-                        {results.progressToNextTier.flightsCurrent} / {aListPreferredFlights} ({flightProgress.toFixed(0)}%)
+                      <span className="text-xs font-semibold text-foreground" data-testid="text-flight-progress-combined">
+                        {results.progressToNextTier.flightsCurrent} flights
                       </span>
                     </div>
-                    <Progress 
-                      value={flightProgress} 
-                      className="h-2.5"
-                      data-testid="progress-flights-preferred"
-                    />
+                    
+                    {/* Dual progress bars for flights */}
+                    <div className="space-y-2">
+                      <div className="relative">
+                        <Progress 
+                          value={flightProgressAList} 
+                          className="h-2.5"
+                          data-testid="progress-flights-alist"
+                        />
+                        <div className="flex justify-between mt-1">
+                          <span className="text-xs text-muted-foreground">A-List: {aListFlights}</span>
+                          <span className="text-xs font-medium">{flightProgressAList.toFixed(0)}%</span>
+                        </div>
+                      </div>
+                      
+                      <div className="relative">
+                        <Progress 
+                          value={flightProgressPreferred} 
+                          className="h-2.5"
+                          data-testid="progress-flights-preferred"
+                        />
+                        <div className="flex justify-between mt-1">
+                          <span className="text-xs text-muted-foreground">Preferred: {aListPreferredFlights}</span>
+                          <span className="text-xs font-medium">{flightProgressPreferred.toFixed(0)}%</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   {/* By TQP */}
                   <div>
                     <div className="flex items-center justify-between mb-1.5">
                       <span className="text-xs font-medium text-muted-foreground">By Tier Qualifying Points</span>
-                      <span className="text-xs font-semibold text-foreground" data-testid="text-tqp-progress-preferred">
-                        {results.totalTQP.toLocaleString()} / {aListPreferredTQP.toLocaleString()} ({tqpProgress.toFixed(0)}%)
+                      <span className="text-xs font-semibold text-foreground" data-testid="text-tqp-progress-combined">
+                        {results.totalTQP.toLocaleString()} TQP
                       </span>
                     </div>
-                    <Progress 
-                      value={tqpProgress} 
-                      className="h-2.5"
-                      data-testid="progress-tqp-preferred"
-                    />
+                    
+                    {/* Dual progress bars for TQP */}
+                    <div className="space-y-2">
+                      <div className="relative">
+                        <Progress 
+                          value={tqpProgressAList} 
+                          className="h-2.5"
+                          data-testid="progress-tqp-alist"
+                        />
+                        <div className="flex justify-between mt-1">
+                          <span className="text-xs text-muted-foreground">A-List: {aListTQP.toLocaleString()}</span>
+                          <span className="text-xs font-medium">{tqpProgressAList.toFixed(0)}%</span>
+                        </div>
+                      </div>
+                      
+                      <div className="relative">
+                        <Progress 
+                          value={tqpProgressPreferred} 
+                          className="h-2.5"
+                          data-testid="progress-tqp-preferred"
+                        />
+                        <div className="flex justify-between mt-1">
+                          <span className="text-xs text-muted-foreground">Preferred: {aListPreferredTQP.toLocaleString()}</span>
+                          <span className="text-xs font-medium">{tqpProgressPreferred.toFixed(0)}%</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Qualification Summary */}
+                  <div className="mt-3 p-3 bg-muted/50 rounded-lg">
+                    <p className="text-xs font-medium text-muted-foreground mb-2">Qualification Thresholds:</p>
+                    <div className="space-y-1 text-xs">
+                      <div className="flex items-center gap-2">
+                        <div className={`w-2 h-2 rounded-full ${hasAList ? 'bg-green-500' : 'bg-muted-foreground/30'}`}></div>
+                        <span className={hasAList ? 'font-semibold text-foreground' : 'text-muted-foreground'}>
+                          A-List: {aListFlights} flights OR {aListTQP.toLocaleString()} TQP
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className={`w-2 h-2 rounded-full ${hasAListPreferred ? 'bg-green-500' : 'bg-muted-foreground/30'}`}></div>
+                        <span className={hasAListPreferred ? 'font-semibold text-foreground' : 'text-muted-foreground'}>
+                          A-List Preferred: {aListPreferredFlights} flights OR {aListPreferredTQP.toLocaleString()} TQP
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </>
               );
