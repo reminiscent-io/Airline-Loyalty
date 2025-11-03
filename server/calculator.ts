@@ -47,8 +47,9 @@ export function calculateRewards(input: CalculatorInput): CalculationResults {
   // Base points from card spending (non-flight purchases)
   const cardBaseRRPoints = cardSpending * cardConfig.pointsPerDollarSpend;
   
-  // Annual bonus (if included)
+  // Annual bonuses (if included) - separate for RR and CQP
   const cardAnnualRR = includeAnnualBonus ? cardConfig.annualRRBonus : 0;
+  const cardAnnualCQP = includeAnnualBonus ? cardConfig.annualCQPBonus : 0;
   
   // Calculate total card spending (flight + non-flight)
   // Note: Flight spending is assumed to be on the credit card if a card is selected
@@ -63,9 +64,9 @@ export function calculateRewards(input: CalculatorInput): CalculationResults {
   const tqpBoostCount = Math.floor(totalCardSpend / 5000);
   const cardTQP = tqpBoostCount * cardConfig.tqpBoostPer5k;
   
-  // Total card points - card base spend counts toward both RR and CQP
+  // Total card points - RR and CQP have different annual bonuses
   const cardRRPoints = cardBaseRRPoints + cardAnnualRR + signUpBonus;
-  const cardCQP = cardBaseRRPoints + cardAnnualRR + signUpBonus; // Card spend counts toward Companion Pass (same as RR)
+  const cardCQP = cardBaseRRPoints + cardAnnualCQP + signUpBonus; // Card spend + CQP annual bonus + sign-up bonus
   
   // ======================
   // PARTNER POINTS
