@@ -79,8 +79,7 @@ export function CreditCardTable() {
 
   return (
     <div className="space-y-6" data-testid="card-credit-comparison">
-      {/* Desktop view - full table */}
-      <div className="hidden lg:block">
+      {/* Table view for all screen sizes */}
       <Card>
         <CardContent className="p-0">
           <div className="overflow-x-auto">
@@ -167,112 +166,6 @@ export function CreditCardTable() {
           </div>
         </CardContent>
       </Card>
-      </div>
-
-      {/* Tablet view - cards with key info */}
-      <div className="hidden md:grid lg:hidden grid-cols-2 gap-4">
-        {creditCards.map((card, index) => (
-          <Card 
-            key={card.name} 
-            className="hover-elevate"
-            data-testid={`tablet-card-${index}`}
-          >
-            <CardContent className="p-4 space-y-3">
-              <div className="flex items-center justify-between">
-                <h3 className={`font-semibold text-lg ${card.color}`}>
-                  {card.name}
-                </h3>
-                <span className="text-sm font-semibold">{card.annualFee}/yr</span>
-              </div>
-              
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">RR on SW flights</span>
-                  <span className="font-medium text-primary">{card.rrFlights}/$ bonus</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">RR non-flights</span>
-                  <span className="font-medium">{card.rrNonFlights}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">TQP per $5k</span>
-                  <span className="font-medium text-accent">{card.tqpPer5k}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Annual RR</span>
-                  <span className="font-medium">{card.annualBonusRR}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Annual CQP</span>
-                  <span className="font-medium">{card.annualBonusCQP}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Sign-Up Bonus</span>
-                  <span className="font-medium">{card.signUpBonusRR}</span>
-                </div>
-                {card.signUpSpend !== "—" && (
-                  <div className="text-xs text-muted-foreground text-right">
-                    After {card.signUpSpend} spend
-                  </div>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
-      {/* Mobile view - stacked cards */}
-      <div className="md:hidden space-y-3">
-        {creditCards.map((card, index) => (
-          <Card 
-            key={card.name}
-            className="hover-elevate"
-            data-testid={`mobile-card-${index}`}
-          >
-            <CardContent className="p-4 space-y-3">
-              <div className="flex items-center justify-between">
-                <h3 className={`font-semibold text-lg ${card.color}`}>
-                  {card.name}
-                </h3>
-                <span className="text-sm font-semibold">{card.annualFee}/yr</span>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-3 text-sm">
-                <div>
-                  <p className="text-xs text-muted-foreground mb-1">RR on SW flights</p>
-                  <p className="font-medium text-primary">{card.rrFlights}/$ bonus</p>
-                </div>
-                <div>
-                  <p className="text-xs text-muted-foreground mb-1">RR non-flights</p>
-                  <p className="font-medium">{card.rrNonFlights}</p>
-                </div>
-                <div>
-                  <p className="text-xs text-muted-foreground mb-1">TQP per $5k</p>
-                  <p className="font-medium text-accent">{card.tqpPer5k}</p>
-                </div>
-                <div>
-                  <p className="text-xs text-muted-foreground mb-1">Annual RR</p>
-                  <p className="font-medium">{card.annualBonusRR}</p>
-                </div>
-                <div>
-                  <p className="text-xs text-muted-foreground mb-1">Annual CQP</p>
-                  <p className="font-medium">{card.annualBonusCQP}</p>
-                </div>
-                <div>
-                  <p className="text-xs text-muted-foreground mb-1">Sign-Up Bonus</p>
-                  <p className="font-medium">{card.signUpBonusRR}</p>
-                </div>
-              </div>
-              
-              {card.signUpSpend !== "—" && (
-                <p className="text-xs text-muted-foreground text-center">
-                  Sign-up bonus after {card.signUpSpend} spend in 3 months
-                </p>
-              )}
-            </CardContent>
-          </Card>
-        ))}
-      </div>
 
       {/* Info note */}
       <div className="text-xs text-muted-foreground text-center p-4 bg-muted/30 rounded-lg">

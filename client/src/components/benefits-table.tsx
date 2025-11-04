@@ -35,7 +35,7 @@ export function BenefitsTable() {
   return (
     <Card data-testid="card-benefits-table">
       <CardContent className="p-0">
-        <div className="overflow-x-auto">
+        <div className="hidden md:block overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="bg-southwest-blue text-white">
