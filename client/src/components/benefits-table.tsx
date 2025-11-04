@@ -35,20 +35,21 @@ export function BenefitsTable() {
   return (
     <Card data-testid="card-benefits-table">
       <CardContent className="p-0">
-        <div className="hidden md:block overflow-x-auto">
+        {/* Table view for all screen sizes - horizontally scrollable on mobile */}
+        <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="bg-southwest-blue text-white">
-                <th className="px-4 md:px-6 py-4 text-left font-semibold rounded-tl-lg">
+                <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-left font-semibold rounded-tl-lg text-xs sm:text-sm whitespace-nowrap">
                   Benefit
                 </th>
-                <th className="px-4 md:px-6 py-4 text-center font-semibold">
+                <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-semibold text-xs sm:text-sm whitespace-nowrap">
                   Member
                 </th>
-                <th className="px-4 md:px-6 py-4 text-center font-semibold bg-southwest-gold/20">
+                <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-semibold bg-southwest-gold/20 text-xs sm:text-sm whitespace-nowrap">
                   A-List
                 </th>
-                <th className="px-4 md:px-6 py-4 text-center font-semibold rounded-tr-lg">
+                <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-semibold rounded-tr-lg text-xs sm:text-sm whitespace-nowrap">
                   A-List Preferred
                 </th>
               </tr>
@@ -60,49 +61,22 @@ export function BenefitsTable() {
                   className={index % 2 === 0 ? "bg-gray-50 dark:bg-gray-950/30" : "bg-white dark:bg-gray-900/20"}
                   data-testid={`row-benefit-${index}`}
                 >
-                  <td className="px-4 md:px-6 py-3.5 text-sm font-medium text-foreground">
+                  <td className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3.5 text-xs sm:text-sm font-medium text-foreground">
                     {benefit.name}
                   </td>
-                  <td className="px-4 md:px-6 py-3.5 text-sm text-center">
+                  <td className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3.5 text-xs sm:text-sm text-center">
                     {renderCell(benefit.member)}
                   </td>
-                  <td className={`px-4 md:px-6 py-3.5 text-sm text-center ${index % 2 === 0 ? "bg-southwest-gold/10" : "bg-southwest-gold/5"}`}>
+                  <td className={`px-3 sm:px-4 md:px-6 py-2.5 sm:py-3.5 text-xs sm:text-sm text-center ${index % 2 === 0 ? "bg-southwest-gold/10" : "bg-southwest-gold/5"}`}>
                     {renderCell(benefit.aList)}
                   </td>
-                  <td className="px-4 md:px-6 py-3.5 text-sm text-center">
+                  <td className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3.5 text-xs sm:text-sm text-center">
                     {renderCell(benefit.aListPreferred)}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-        </div>
-
-        {/* Mobile-friendly stacked view */}
-        <div className="md:hidden p-4 space-y-4">
-          {benefits.map((benefit, index) => (
-            <div 
-              key={benefit.name}
-              className="border rounded-lg p-4 space-y-3"
-              data-testid={`mobile-benefit-${index}`}
-            >
-              <p className="font-semibold text-foreground">{benefit.name}</p>
-              <div className="grid grid-cols-3 gap-2 text-xs">
-                <div className="text-center">
-                  <p className="text-muted-foreground mb-1">Member</p>
-                  {renderCell(benefit.member)}
-                </div>
-                <div className="text-center">
-                  <p className="text-muted-foreground mb-1">A-List</p>
-                  {renderCell(benefit.aList)}
-                </div>
-                <div className="text-center">
-                  <p className="text-muted-foreground mb-1">A-List Pref</p>
-                  {renderCell(benefit.aListPreferred)}
-                </div>
-              </div>
-            </div>
-          ))}
         </div>
       </CardContent>
     </Card>
