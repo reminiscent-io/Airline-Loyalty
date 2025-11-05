@@ -1,0 +1,232 @@
+Below is a compact, verified “how‑to‑calculate” guide for earning redeemable currency and elite‑qualifying credit on the main U.S. programs you asked about: American AAdvantage, United MileagePlus, Atmos Rewards (Alaska + Hawaiian), and JetBlue TrueBlue. I’ve focused on earn from the primary airline, with concise partner notes and the impact of status, fare type, and co‑brand card spend (outside flights). Where numbers are time‑sensitive, I cite current primary sources.
+
+---
+
+## 0) Definitions used in the formulas
+
+* **Qualifying spend (QS)** – Base fare + carrier‑imposed surcharges (YQ/YR); **excludes** government taxes/fees. United explicitly notes the U.S. 7.5% excise tax is excluded from miles/PQP earn. ([United Airlines][1])
+* **Status bonus factor** – Percent bonus tied to your elite tier.
+* **BE / Saver / Blue Basic** – Basic Economy‑type fares with reduced or no earning.
+* **Co‑brand outside flights** – Points or tier credit from card spend; these are **separate** from flight‑based earning.
+
+---
+
+## 1) American Airlines – AAdvantage
+
+### Redeemable miles **and** tier credit (Loyalty Points)
+
+On AA‑marketed tickets:
+[
+\textbf{AAdvantage miles}=\text{QS}\times \text{BaseRate}\times(1+\text{StatusBonus})
+]
+[
+\textbf{Loyalty Points (LP)}=\text{AAdvantage miles from the flight (including status bonus)}
+]
+
+* BaseRate: **5×** per USD for standard Main Cabin and premium fares; **2×** for Basic Economy. Status bonuses apply on top of these bases. AA states BE earns **2 miles per dollar** and status members “also receive [their] mileage bonus on top of base miles.” One eligible mile = one LP. ([aa.com.br][2])
+
+**Status multipliers (final per‑$ earn on AA‑marketed flights):** Member 5×; Gold 7×; Platinum 8×; Platinum Pro 9×; Executive Platinum 11×. These are the same multipliers commonly shown to members on aa.com. ([aa.com.br][2])
+
+**Fare‑type “gotcha”:** **Basic Economy** posts at **2×** (plus status bonus), not 5×. ([aa.com.br][2])
+
+**Co‑brand outside flights (LP from cards):** Most AA credit cards earn **1 LP per 1 base AAdvantage mile** on eligible purchases; category bonuses/accelerators **do not** count as LP. (They still post as redeemable miles.) ([aa.com.br][2])
+
+**Partners (quick note):** On eligible oneworld/partner flights credited to AA, LP are based on **partner earning charts** (typically distance × fare‑class %, plus status/cabin bonus), and **those partner flight miles and bonuses count toward LP**. On AA‑marketed flights, **cabin bonuses don’t apply** to LP. ([aa.com.br][2])
+
+---
+
+## 2) United Airlines – MileagePlus
+
+### Redeemable miles
+
+On United‑marketed paid tickets:
+[
+\textbf{Redeemable miles}=\text{QS}\times \text{StatusMultiplier}
+]
+Status multipliers: Member **5×**; Premier Silver **7×**; Gold **8×**; Platinum **9×**; 1K **11×**. United’s Premier benefits page displays these “Bonus award miles … 7×/8×/9×/11× fare” values. ([United Airlines][3])
+
+### Tier credit – PQP and PQF
+
+* **PQP (United‑marketed):** (\textbf{PQP}=\text{QS}) (1 PQP per qualifying USD). ([United Airlines][1])
+* **Basic Economy:** earns **PQP** and award miles **but no PQF**. ([United Airlines][4])
+* **Partner‑marketed flights:** (\textbf{PQP}=\frac{\text{base award miles}}{5}) on **preferred partners** or (\frac{\text{base award miles}}{6}) on **other partners** (subject to per‑segment caps). This is United’s published method documented and widely referenced; see TPG’s step‑by‑step with partner lists and caps. ([The Points Guy][5])
+
+**Co‑brand outside flights (card‑earned PQP):** United shows the exact earn and caps by card:
+
+* Club Infinite/Club Business: **1 PQP per $15** spent; others: **1 PQP per $20**. All card‑earned PQP count toward **all** tiers, including 1K PQP‑only path. Example caps: Explorer up to **1,000 PQP**; Quest up to **18,000 PQP**; Club up to **28,000 PQP** (check your card). ([United Airlines][6])
+
+---
+
+## 3) Atmos Rewards – Alaska + Hawaiian (launched Aug 20, 2025)
+
+Atmos Rewards is the combined loyalty program for Alaska and Hawaiian. At launch it **continues distance‑based earning** and will add choose‑your‑earn options in **2026**. Press materials and FAQs confirm: points and **status points** are earned on flights, partner flights, card spend, and select non‑air partners; award travel earns **status points**. ([Alaska Airlines][7])
+
+### Redeemable points (2025)
+
+On Alaska/Hawaiian‑operated flights:
+[
+\textbf{Atmos points}=\text{Distance flown}\times \text{FareClass Accrual}
+]
+
+* **Main Cabin:** generally **100% of miles flown** (distance‑based earning continues; Alaska emphasizes “we’ll remain the only U.S. airline that offers points for miles flown”). ([Alaska Airlines][7])
+* **Saver (Basic Economy‑like) fares:** earn **30% of Main Cabin points**. ([Alaska Airlines][8])
+
+**Status bonuses:** Atmos notes “status holders enjoy … bonus points,” but the public pages do **not** publish a single universal percentage table per tier; exact multipliers remain program‑page specific and may vary by activity. Treat the status bonus as ((1+s_{\text{tier}})) applied to base flight points per the published charts. **Confidence: medium** because percentages aren’t shown on a single static table on the public site. ([Alaska Airlines][9])
+
+### Tier credit – Status Points
+
+[
+\textbf{Status Points (from flights)}=\text{Distance flown}\times \text{FareClass Accrual}
+]
+Award travel earns **status points** based on **distance**; SAF and select non‑air activities can also earn status points per the fact sheet. 
+
+**Co‑brand outside flights (card‑earned status points):**
+
+* **Summit Visa Infinite:** **1 status point per $2** in purchases, plus **10,000 status points** annually starting first anniversary.
+* **Ascent Visa Signature & Business Visa:** **1 status point per $3** in purchases (2025 cap **30,000**, cap goes away in 2026). ([Alaska Airlines][10])
+
+**2026 preview (published by Alaska):** members will be able to choose **one** of three flight‑earn methods and can change once per year: **1 point per mile**, **5 points per $1 QS**, or **500 points per segment**; award redemptions will add **status points** (e.g., 1 status point per 20 points redeemed). Use current (2025) math until these go live. ([Alaska Airlines][11])
+
+**Partner note:** Atmos publishes partner pages for earning with 30+ airlines; flight earn is per partner chart (distance/fare‑class today; additional options to come with 2026 update). ([Alaska Airlines][12])
+
+---
+
+## 4) JetBlue – TrueBlue
+
+### Redeemable points
+
+On JetBlue‑operated flights:
+[
+\textbf{TrueBlue points}=(\text{Base earn}+\text{Book‑direct bonus}+\text{Status bonus})\times \text{QS}
+]
+
+* **Base earn:** **3×** per USD on standard fares; **1×** on **Blue Basic**. ([JetBlue][13])
+* **Book‑direct bonus:** **+3×** per USD when booking on jetblue.com / app. ([JetBlue][14])
+* **Mosaic status:** **+3×** per USD on top of the above. ([Forbes][15])
+
+### Tier credit – **Tiles**
+
+[
+\textbf{Tiles from JetBlue travel}=\frac{\text{Qualifying JetBlue spend}}{100}\quad;\quad
+\textbf{Tiles from JetBlue cards}=\frac{\text{Eligible card spend}}{1{,}000}
+]
+JetBlue states **1 tile per $100** in JetBlue travel spend and **1 tile per $1,000** in eligible co‑brand card spend. ([JetBlue][16])
+
+**Co‑brand outside flights (card points):** Barclays JetBlue cards post **TrueBlue points** on everyday spend (for example, JetBlue Plus markets **6×** on JetBlue purchases). Card points are **separate** from flight points and tile accrual. ([cards.barclaycardus.com][17])
+
+**Partner note:** JetBlue has expanded reciprocal earn/redemption. The **Blue Sky** collaboration with United enables TrueBlue members to **earn points and tiles on United flights** when booked as instructed. Check each partner page for earn specifics by fare and market. ([news.jetblue.com][18])
+
+---
+
+## 5) Special fare‑type impacts (quick comparison)
+
+* **American Basic Economy:** flight earn at **2×** per USD (status bonus still applies). Counts 1:1 as LP. ([aa.com.br][2])
+* **United Basic Economy:** earns **award miles and PQP**, **no PQF**. ([United Airlines][4])
+* **Atmos Saver:** earns **30%** of Main Cabin points (distance‑based). ([Alaska Airlines][8])
+* **JetBlue Blue Basic:** **1×** per USD base earn instead of 3×; still gets book‑direct +3× and Mosaic +3× if applicable. ([JetBlue][13])
+
+---
+
+## 6) Co‑brand cards – tier credit outside flights (side‑by‑side)
+
+* **American:** **LP from card spend = $1 → 1 LP** (only base miles count; category accelerators don’t add LP). ([aa.com.br][2])
+* **United:** **1 PQP per $15** (Club Infinite/Club Business) or **1 PQP per $20** (most others), with card‑specific annual caps such as **1,000 / 18,000 / 28,000 PQP**. All card‑earned PQP count to any tier including 1K. ([United Airlines][6])
+* **Atmos:** **Summit** **1 SP per $2** (+10k SP anniversary); **Ascent/Business** **1 SP per $3** (30k cap in 2025; cap ends 2026). ([Alaska Airlines][10])
+* **JetBlue:** **1 tile per $1,000** eligible card spend; redeemable points per card T&Cs (e.g., JetBlue Plus **6×** on JetBlue purchases). ([JetBlue][16])
+
+---
+
+## 7) Worked micro‑examples (putting the math together)
+
+> All examples assume QS excludes taxes and fees, and use published multipliers above.
+
+**A. American – standard Main Cabin vs Basic Economy**
+
+* Trip: AA‑marketed; QS = **$395**.
+* Executive Platinum: **11×** on standard fares → **4,345 miles and 4,345 LP** (395×11).
+* If **Basic Economy**: base **2×** with status bonus applied → **4.4×** effective; **1,738 miles and LP** (395×4.4). ([aa.com.br][2])
+
+**B. United – Basic Economy**
+
+* Trip: United‑marketed BE; QS = **$250**.
+* Premier Gold: redeemable miles **= 250×8 = 2,000**; **PQP = 250**; **PQF = 0** (BE exception). ([United Airlines][3])
+
+**C. Atmos – Main Cabin vs Saver**
+
+* Trip: 1,500 miles flown on Alaska‑operated flight.
+* Main Cabin: **1,500 points + 1,500 status points** before any status bonus.
+* **Saver**: **30%** of Main Cabin → **450 points + 450 status points**. ([Alaska Airlines][7])
+* Card spend: Summit $5,000 in purchases → **2,500 status points** (plus 10,000 SP on anniversary). ([Alaska Airlines][10])
+
+**D. JetBlue – Blue vs Blue Basic with Mosaic**
+
+* Trip: JetBlue‑operated; QS = **$220**; booked on jetblue.com; traveler has Mosaic and pays with JetBlue Plus.
+
+  * Flight earn: base **3×** → **660**; book‑direct **+3×** → **+660**; Mosaic **+3×** → **+660** → **1,980 points from flight**.
+  * If **Blue Basic**: base **1×** (220), +3× book‑direct (660), +3× Mosaic (660) → **1,540**. ([JetBlue][13])
+  * **Tiles:** $220 → **2.2 tiles**; JetBlue card spend outside flights adds **1 tile per $1,000**. ([JetBlue][16])
+
+**E. United – partner‑marketed example (conceptual)**
+
+* Flight: Preferred partner ticket posts **5,000 base award miles** (pre‑status).
+* **PQP = 5,000 ÷ 5 = 1,000** PQP (cap rules may apply). ([The Points Guy][5])
+
+---
+
+## 8) Fast reference – formulas and key adjustments
+
+| Program          | Redeemable currency – core formula on own metal                         | Tier credit – core formula on own metal                                             | Basic Economy impact                               | Card‑earned tier credit outside flights                                                   |
+| ---------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| **American**     | Miles = QS × BaseRate × (1+StatusBonus), BaseRate 5× (BE 2×)            | **LP = flight miles including status bonus**                                        | BE posts at 2× per USD; status bonus still applies | **LP = $1 → 1 LP** on eligible card purchases; accelerators don’t add LP                  |
+| **United**       | Miles = QS × StatusMultiplier (5×–11×)                                  | **PQP = QS**; PQF per segment                                                       | BE earns miles + **PQP**, **no PQF**               | **1 PQP per $15** (Club family) or **per $20** (others), caps per card                    |
+| **Atmos (2025)** | Points = distance × fare‑class accrual (Main 100%, Saver ~30%)          | **Status Points = distance × fare‑class accrual**; award travel earns status points | **Saver earns 30%** of Main Cabin                  | Summit: **1 SP/$2** (+10k SP anniversary). Ascent/Business: **1 SP/$3** (cap 30k in 2025) |
+| **JetBlue**      | Points = QS × [Base (3× or 1× Blue Basic) + book‑direct 3× + Mosaic 3×] | **Tiles = JetBlue spend/100**                                                       | Blue Basic base **1×**                             | **Tiles = card spend/1,000**; card also earns redeemable TrueBlue points on spend         |
+
+Citations: AA earning/LP rules and Basic Economy 2×; UA multipliers, BE exception, PQP rules; Atmos launch/fact sheet/Saver 30%/cards; JetBlue base earn, book‑direct, Mosaic +3, Tiles. ([aa.com.br][2])
+
+---
+
+## 9) Partner earning – concise comments
+
+* **American:** Partner‑credited flights earn miles and **LP** per AA’s partner charts (distance × fare‑class %, plus applicable status/cabin bonus); AA‑marketed flights do **not** add a cabin bonus toward LP. ([aa.com.br][2])
+* **United:** For **partner‑marketed** flights, convert **base award miles** to PQP by dividing by **5** (preferred partners) or **6** (others), subject to per‑segment caps; PQF still per segment. For **United‑marketed** tickets, PQP is spend‑based. ([The Points Guy][5])
+* **Atmos:** Earn and redeem with 30+ partners; distance/fare‑class accrual currently applies, with broader earn options coming in 2026. ([Alaska Airlines][12])
+* **JetBlue:** Expanded reciprocity (e.g., United Blue Sky); follow JetBlue’s partner pages for earn specifics and how to ensure points/tiles post. ([news.jetblue.com][18])
+
+---
+
+## 10) Accuracy notes – facts, inferences, uncertainties
+
+* **Facts (high confidence):**
+  • AA: flight earn, BE 2×, LP mechanics, card‑to‑LP rule. ([aa.com.br][2])
+  • UA: 5×–11× award‑mile multipliers; BE earns miles + PQP, no PQF; PQP = QS; card PQP earn and caps; excise‑tax exclusion. ([United Airlines][3])
+  • **Atmos:** official launch and program constructs; Saver 30%; card status‑point earn; 2026 “choose your earn” formulas; award travel earns status points. ([Alaska Airlines][7])
+  • JetBlue: 3× base (1× Blue Basic), +3× book‑direct, Mosaic +3×; Tiles math; card earns TrueBlue points; partner reciprocity with United. ([JetBlue][13])
+
+* **Inferences (medium confidence):**
+  • Atmos **status bonus** percentages are acknowledged on site but not published in a single evergreen table; treat as a multiplier on base points per the current benefits pages presented to members. ([Alaska Airlines][9])
+
+* **Corrections to the draft you provided:**
+  • **United Basic Economy does earn** redeemable miles and PQP (but not PQF) – it is not zero‑earn. ([United Airlines][4])
+  • **AA Basic Economy** earns at **2×** (plus status bonus) – not “severely reduced to zero.” ([aa.com.br][2])
+
+If you’d like, I can turn this into a one‑page calculator sheet in Excel or a small Python function set that implements each airline’s formulas and edge cases exactly as above.
+
+[1]: https://www.united.com/en/us/fly/mileageplus/premier.html?utm_source=chatgpt.com "Premier Status | United Airlines"
+[2]: https://www.aa.com.br/pubcontent/en_US/aadvantage-program/loyalty-points/index.html "Introducing AAdvantage® Loyalty Point Rewards"
+[3]: https://www.united.com/en/us/fly/mileageplus/premier/benefits.html?utm_source=chatgpt.com "Premier Status Benefits - United Airlines"
+[4]: https://www.united.com/en/us/fly/mileageplus/earn-miles.html?utm_source=chatgpt.com "How to earn MileagePlus miles - United Airlines"
+[5]: https://thepointsguy.com/loyalty-programs/partner-pqps/ "How to earn United elite status faster with partner flights - The Points Guy"
+[6]: https://www.united.com/en/us/fly/mileageplus/premier/qualify.html?utm_source=chatgpt.com "How to Earn Premier Status | United Airlines"
+[7]: https://news.alaskaair.com/loyalty/introducing-atmos-rewards/ "Introducing Atmos™ Rewards – an enhanced, combined loyalty program by Alaska Airlines and Hawaiian Airlines - Alaska Airlines, Hawaiian Airlines and Horizon Air"
+[8]: https://m.alaskaair.com/shopping/content/CompareFares?utm_source=chatgpt.com "Compare Fares - Alaska Airlines"
+[9]: https://www.alaskaair.com/atmosrewards/content/account-help/account-overview?utm_source=chatgpt.com "About your account profile - Atmos™ Rewards - Alaska Airlines"
+[10]: https://www.alaskaair.com/atmosrewards/content/faq/credit-cards?utm_source=chatgpt.com "Atmos™ Rewards Credit Cards - FAQ - Atmos™ Rewards - Alaska Airlines"
+[11]: https://www.alaskaair.com/atmosrewards/content/benefits/2026-updates?utm_source=chatgpt.com "Get ready for more - 2026 Updates - Atmos™ Rewards"
+[12]: https://www.alaskaair.com/atmosrewards/content/partners/airlines?utm_source=chatgpt.com "Earn and use points with our airline partners - Atmos™ Rewards"
+[13]: https://www.jetblue.com/destinations/London?utm_source=chatgpt.com "Flights Destination | JetBlue"
+[14]: https://www.jetblue.com/trueblue/earning-points?utm_source=chatgpt.com "Earning Points & Award Travel - JetBlue"
+[15]: https://www.forbes.com/advisor/credit-cards/travel-rewards/jetblue-trueblue/?utm_source=chatgpt.com "JetBlue TrueBlue: The Complete Program Guide – Forbes Advisor"
+[16]: https://www.jetblue.com/trueblue/tiles?utm_source=chatgpt.com "Tiles | JetBlue"
+[17]: https://cards.barclaycardus.com/banking/cards/jetblue-plus-card/?utm_source=chatgpt.com "JetBlue Plus Card | Airline Points Credit Card | Travel Rewards ..."
+[18]: https://www.news.jetblue.com/latest-news/press-release-details/2025/JetBlue-and-United-Announce-Blue-Sky-Unique-Consumer-Collaboration-That-Links-Loyalty-Programs/default.aspx?utm_source=chatgpt.com "JetBlue Airways Corporation - JetBlue and United Announce Blue Sky ..."
