@@ -8,6 +8,8 @@ import { unitedCalculatorInputSchema } from "@shared/united-schema";
 import { calculateUnitedRewards } from "./united-calculator";
 import { atmosCalculatorInputSchema } from "@shared/atmos-schema";
 import { calculateAtmosRewards } from "./atmos-calculator";
+import { jetblueCalculatorInputSchema } from "@shared/jetblue-schema";
+import { calculateJetBlueRewards } from "./jetblue-calculator";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Southwest Rapid Rewards Calculator API
@@ -57,6 +59,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const input = atmosCalculatorInputSchema.parse(req.body);
       const results = calculateAtmosRewards(input);
+      res.json(results);
+    } catch (error) {
+      res.status(400).json({ 
+        error: "Invalid input", 
+        details: error instanceof Error ? error.message : "Unknown error" 
+      });
+    }
+  });
+
+  // JetBlue TrueBlue Calculator API
+  app.post("/api/jetblue/calculate", async (req, res) => {
+    try {
+      const input = jetblueCalculatorInputSchema.parse(req.body);
+      const results = calculateJetBlueRewards(input);
       res.json(results);
     } catch (error) {
       res.status(400).json({ 
