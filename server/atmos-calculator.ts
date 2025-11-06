@@ -44,12 +44,16 @@ export function calculateAtmosRewards(input: AtmosCalculatorInput): AtmosCalcula
   }
   
   // Credit card miles from non-airline spending
-  let creditCardMiles = cardSpending * cardConfig.purchaseMultiplier;
+  let creditCardMiles = 0;
   
-  // Sign-up bonus (if qualified)
-  const totalCardSpend = creditCard !== "none" ? cardSpending : 0;
-  if (includeSignUpBonus && totalCardSpend >= cardConfig.signUpSpendRequirement) {
-    creditCardMiles += cardConfig.signUpBonus;
+  if (creditCard !== "none") {
+    creditCardMiles = cardSpending * cardConfig.purchaseMultiplier;
+    
+    // Sign-up bonus (if qualified)
+    const totalCardSpend = cardSpending;
+    if (includeSignUpBonus && totalCardSpend >= cardConfig.signUpSpendRequirement) {
+      creditCardMiles += cardConfig.signUpBonus;
+    }
   }
   
   // Partner miles (base miles on partner airlines)
