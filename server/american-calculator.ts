@@ -42,12 +42,16 @@ export function calculateAmericanRewards(input: AmericanCalculatorInput): Americ
   }
   
   // Credit card miles from non-flight purchases
-  let creditCardMiles = cardSpending * cardConfig.purchaseMultiplier;
+  let creditCardMiles = 0;
   
-  // Sign-up bonus (if qualified)
-  const totalCardSpend = creditCard !== "none" ? flightSpending + cardSpending : 0;
-  if (includeSignUpBonus && totalCardSpend >= cardConfig.signUpSpendRequirement) {
-    creditCardMiles += cardConfig.signUpBonus;
+  if (creditCard !== "none") {
+    creditCardMiles = cardSpending * cardConfig.purchaseMultiplier;
+    
+    // Sign-up bonus (if qualified)
+    const totalCardSpend = flightSpending + cardSpending;
+    if (includeSignUpBonus && totalCardSpend >= cardConfig.signUpSpendRequirement) {
+      creditCardMiles += cardConfig.signUpBonus;
+    }
   }
   
   // Partner miles (assuming base rate with no status bonus for simplicity)
@@ -68,8 +72,8 @@ export function calculateAmericanRewards(input: AmericanCalculatorInput): Americ
     ? (flightSpending + cardSpending) * cardConfig.loyaltyPointsPerDollar
     : 0;
   
-  // Add annual LP bonus if applicable
-  const annualLPBonus = cardConfig.annualLoyaltyPointsBonus || 0;
+  // Add annual LP bonus if applicable (only if card selected)
+  const annualLPBonus = (creditCard !== "none") ? (cardConfig.annualLoyaltyPointsBonus || 0) : 0;
   const totalCardLoyaltyPoints = cardLoyaltyPoints + annualLPBonus;
   
   // Total Loyalty Points

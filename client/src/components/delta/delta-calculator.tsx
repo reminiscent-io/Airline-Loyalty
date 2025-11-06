@@ -28,15 +28,23 @@ export function DeltaCalculator({ onCalculate }: DeltaCalculatorProps) {
 
   const calculateMutation = useMutation({
     mutationFn: async (data: DeltaCalculatorInput) => {
-      const response = await apiRequest("/api/delta/calculate", "POST", data);
-      return response as unknown as DeltaCalculationResults;
+      console.log("Delta Calculator: Sending data", data);
+      const response = await apiRequest("POST", "/api/delta/calculate", data);
+      console.log("Delta Calculator: Received response", response);
+      const result = await response.json();
+      return result as DeltaCalculationResults;
     },
     onSuccess: (results) => {
+      console.log("Delta Calculator: onSuccess called with results", results);
       onCalculate(results);
+    },
+    onError: (error) => {
+      console.error("Delta Calculator: Error occurred", error);
     }
   });
 
   const onSubmit = (data: DeltaCalculatorInput) => {
+    console.log("Delta Calculator: Form submitted with data", data);
     calculateMutation.mutate(data);
   };
 

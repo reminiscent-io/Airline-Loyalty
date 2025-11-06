@@ -12,7 +12,7 @@ interface DeltaResultsPanelProps {
 export function DeltaResultsPanel({ results }: DeltaResultsPanelProps) {
   if (!results) {
     return (
-      <Card className="h-full flex items-center justify-center border-2" style={{ borderColor: "#C8102E" }}>
+      <Card className="h-full flex items-center justify-center border-2" style={{ borderColor: "#C8102E" }} data-testid="card-results-empty">
         <CardContent>
           <p className="text-muted-foreground text-center">
             Enter your information and click Calculate to see your results
@@ -27,7 +27,7 @@ export function DeltaResultsPanel({ results }: DeltaResultsPanelProps) {
     : 100;
 
   return (
-    <Card className="h-full border-2 hover-elevate" style={{ borderColor: "#C8102E" }}>
+    <Card className="h-full border-2 hover-elevate" style={{ borderColor: "#C8102E" }} data-testid="card-results">
       <CardHeader className="pb-4">
         <CardTitle className="flex items-center gap-2 text-2xl" style={{ color: "#C8102E" }}>
           <Award className="w-6 h-6" />

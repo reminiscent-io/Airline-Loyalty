@@ -49,7 +49,7 @@ export function calculateDelta(input: DeltaCalculatorInput): DeltaCalculationRes
   }
 
   // Calculate SkyMiles from credit card (simplified - assuming average 1.5x)
-  const cardSkyMiles = Math.round(input.annualCardSpend * 1.5);
+  const cardSkyMiles = input.cardType !== "none" ? Math.round(input.annualCardSpend * 1.5) : 0;
   
   const totalSkyMiles = flightSkyMiles + cardSkyMiles;
 
