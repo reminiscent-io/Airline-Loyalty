@@ -9,6 +9,7 @@ import AmericanAirlines from "@/pages/american-airlines";
 import UnitedAirlines from "@/pages/united-airlines";
 import Atmos from "@/pages/atmos";
 import JetBlue from "@/pages/jetblue";
+import DeltaAirlines from "@/pages/delta-airlines";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -19,6 +20,7 @@ function Router() {
       <Route path="/united" component={UnitedAirlines} />
       <Route path="/atmos" component={Atmos} />
       <Route path="/jetblue" component={JetBlue} />
+      <Route path="/delta" component={DeltaAirlines} />
       <Route component={NotFound} />
     </Switch>
   );

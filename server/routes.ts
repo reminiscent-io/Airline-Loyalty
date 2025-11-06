@@ -10,6 +10,8 @@ import { atmosCalculatorInputSchema } from "@shared/atmos-schema";
 import { calculateAtmosRewards } from "./atmos-calculator";
 import { jetblueCalculatorInputSchema } from "@shared/jetblue-schema";
 import { calculateJetBlueRewards } from "./jetblue-calculator";
+import { deltaCalculatorInputSchema } from "@shared/delta-schema";
+import { calculateDelta } from "./delta-calculator";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Southwest Rapid Rewards Calculator API
@@ -73,6 +75,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const input = jetblueCalculatorInputSchema.parse(req.body);
       const results = calculateJetBlueRewards(input);
+      res.json(results);
+    } catch (error) {
+      res.status(400).json({ 
+        error: "Invalid input", 
+        details: error instanceof Error ? error.message : "Unknown error" 
+      });
+    }
+  });
+
+  // Delta SkyMiles Calculator API
+  app.post("/api/delta/calculate", async (req, res) => {
+    try {
+      const input = deltaCalculatorInputSchema.parse(req.body);
+      const results = calculateDelta(input);
       res.json(results);
     } catch (error) {
       res.status(400).json({ 

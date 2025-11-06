@@ -34,6 +34,12 @@ const airlines = [
     color: "bg-[#002244]",
     hoverColor: "hover:bg-[#001833]"
   },
+  { 
+    path: "/delta", 
+    name: "Delta", 
+    color: "bg-[#C8102E]",
+    hoverColor: "hover:bg-[#a00d25]"
+  },
 ];
 
 export function Navigation() {
