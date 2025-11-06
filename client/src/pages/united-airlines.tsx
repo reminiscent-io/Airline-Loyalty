@@ -57,7 +57,7 @@ export default function UnitedAirlines() {
             {[
               <UnitedTierCard tier="member" key="member" />,
               <UnitedTierCard tier="silver" key="silver" />,
-              <UnitedTierCard tier="gold" highlighted key="gold" />,
+              <UnitedTierCard tier="gold" key="gold" />,
               <UnitedTierCard tier="platinum" key="platinum" />,
               <UnitedTierCard tier="1k" key="1k" />,
               <UnitedTierCard tier="global-services" key="global-services" />

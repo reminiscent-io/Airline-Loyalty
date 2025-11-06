@@ -54,7 +54,7 @@ export default function AmericanAirlines() {
           <TierCarousel>
             {[
               <AmericanTierCard tier="member" key="member" />,
-              <AmericanTierCard tier="gold" highlighted key="gold" />,
+              <AmericanTierCard tier="gold" key="gold" />,
               <AmericanTierCard tier="platinum" key="platinum" />,
               <AmericanTierCard tier="platinum-pro" key="platinum-pro" />,
               <AmericanTierCard tier="executive-platinum" key="executive-platinum" />,

@@ -60,7 +60,7 @@ export default function Atmos() {
             {[
               <AtmosTierCard tier="member" key="member" />,
               <AtmosTierCard tier="mvp" key="mvp" />,
-              <AtmosTierCard tier="mvp-gold" highlighted key="mvp-gold" />,
+              <AtmosTierCard tier="mvp-gold" key="mvp-gold" />,
               <AtmosTierCard tier="mvp-gold-75k" key="mvp-gold-75k" />,
               <AtmosTierCard tier="mvp-gold-100k" key="mvp-gold-100k" />
             ]}

@@ -57,7 +57,7 @@ export default function JetBlue() {
             {[
               <JetBlueTierCard tier="basic" key="basic" />,
               <JetBlueTierCard tier="trueblue" key="trueblue" />,
-              <JetBlueTierCard tier="mosaic" highlighted key="mosaic" />,
+              <JetBlueTierCard tier="mosaic" key="mosaic" />,
               <JetBlueTierCard tier="mosaic-plus" key="mosaic-plus" />,
               <JetBlueTierCard tier="mosaic-elite" key="mosaic-elite" />
             ]}
