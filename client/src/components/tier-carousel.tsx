@@ -79,8 +79,8 @@ export function TierCarousel({ children, className }: TierCarouselProps) {
               key={index} 
               className={cn(
                 "flex-[0_0_100%]",
-                "sm:flex-[0_0_50%]",
-                "md:flex-[0_0_33.33%]"
+                "sm:flex-[0_0_48%]",
+                "md:flex-[0_0_31%]"
               )}
             >
               {child}
