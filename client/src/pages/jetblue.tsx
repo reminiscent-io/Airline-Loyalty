@@ -116,6 +116,9 @@ export default function JetBlue() {
             <p className="mt-2">
               Not affiliated with JetBlue Airways. TrueBlue® is a registered trademark of JetBlue Airways Corporation.
             </p>
+            <p className="mt-4 text-xs">
+              All data as of November 2025
+            </p>
           </div>
         </footer>
       </div>

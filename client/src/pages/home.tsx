@@ -118,6 +118,9 @@ export default function Home() {
           <p className="text-xs text-muted-foreground">
             This tool is not affiliated with Southwest Airlines. Points and benefits are subject to change.
           </p>
+          <p className="text-xs text-muted-foreground mt-4">
+            All data as of November 2025
+          </p>
         </footer>
       </div>
     </div>

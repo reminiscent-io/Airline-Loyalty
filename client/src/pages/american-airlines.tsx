@@ -115,6 +115,9 @@ export default function AmericanAirlines() {
             <p className="mt-2">
               Not affiliated with American Airlines. AAdvantage® is a registered trademark of American Airlines, Inc.
             </p>
+            <p className="mt-4 text-xs">
+              All data as of November 2025
+            </p>
           </div>
         </footer>
       </div>

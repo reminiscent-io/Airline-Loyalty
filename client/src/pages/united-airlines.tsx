@@ -117,6 +117,9 @@ export default function UnitedAirlines() {
             <p className="mt-2">
               Not affiliated with United Airlines. MileagePlus® is a registered trademark of United Airlines, Inc.
             </p>
+            <p className="mt-4 text-xs">
+              All data as of November 2025
+            </p>
           </div>
         </footer>
       </div>

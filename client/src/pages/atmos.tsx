@@ -119,6 +119,9 @@ export default function Atmos() {
             <p className="mt-2">
               Not affiliated with Alaska Airlines or Hawaiian Airlines. Atmos is a conceptual merged program.
             </p>
+            <p className="mt-4 text-xs">
+              All data as of November 2025
+            </p>
           </div>
         </footer>
       </div>
