@@ -29,7 +29,7 @@ export function DeltaCalculator({ onCalculate }: DeltaCalculatorProps) {
   const calculateMutation = useMutation({
     mutationFn: async (data: DeltaCalculatorInput) => {
       const response = await apiRequest("/api/delta/calculate", "POST", data);
-      return response as DeltaCalculationResults;
+      return response as unknown as DeltaCalculationResults;
     },
     onSuccess: (results) => {
       onCalculate(results);
