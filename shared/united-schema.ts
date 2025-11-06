@@ -1,8 +1,12 @@
 import { z } from "zod";
 
 // United Airlines Tier Status
-export const unitedTierStatuses = ["member", "silver", "gold", "platinum", "1k"] as const;
+export const unitedTierStatuses = ["member", "silver", "gold", "platinum", "1k", "global-services"] as const;
 export type UnitedTierStatus = typeof unitedTierStatuses[number];
+
+// Display-only tiers (not used in calculations)
+export const unitedGhostTiers = ["global-services"] as const;
+export type UnitedGhostTier = typeof unitedGhostTiers[number];
 
 // United Airlines Fare Types
 export const unitedFareTypes = ["basic-economy", "economy", "premium-plus", "business", "first"] as const;
@@ -82,6 +86,20 @@ export const UNITED_TIER_CONFIGS = {
       "Highest upgrade priority",
       "United Club passes",
       "Global Services consideration"
+    ]
+  },
+  "global-services": {
+    name: "Global Services",
+    pqpRequired: -1, // Invitation only, no specific requirement
+    pqfRequired: -1, // Invitation only
+    milesMultiplier: 11, // Same as Premier 1K
+    isGhostTier: true,
+    invitationOnly: true,
+    benefits: [
+      "Pre-boarding privilege",
+      "Enhanced customer support",
+      "Most benefits unpublished",
+      "All Premier 1K benefits plus exclusive perks"
     ]
   }
 } as const;
@@ -191,11 +209,15 @@ export const UNITED_CREDIT_CARDS = {
   }
 } as const;
 
+// Calculator tiers (excluding ghost tiers)
+export const unitedCalculatorTierStatuses = ["member", "silver", "gold", "platinum", "1k"] as const;
+export type UnitedCalculatorTierStatus = typeof unitedCalculatorTierStatuses[number];
+
 // Calculator input schema
 export const unitedCalculatorInputSchema = z.object({
   flightSpending: z.number().min(0),
   fareType: z.enum(unitedFareTypes),
-  currentTier: z.enum(unitedTierStatuses),
+  currentTier: z.enum(unitedCalculatorTierStatuses),
   flightsTaken: z.number().min(0),
   creditCard: z.enum(unitedCreditCards),
   cardSpending: z.number().min(0),

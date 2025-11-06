@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Award, Plane, Trophy, Check } from "lucide-react";
 import { AmericanTierCard } from "@/components/american/tier-card";
+import { TierCarousel } from "@/components/tier-carousel";
 import { AmericanCalculator } from "@/components/american/calculator";
 import { AmericanResultsPanel } from "@/components/american/results-panel";
 import { AmericanBenefitsTable } from "@/components/american/benefits-table";
@@ -50,13 +51,16 @@ export default function AmericanAirlines() {
               Earn Loyalty Points to unlock elite benefits and enjoy a better travel experience
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <AmericanTierCard tier="member" />
-            <AmericanTierCard tier="gold" highlighted />
-            <AmericanTierCard tier="platinum" />
-            <AmericanTierCard tier="platinum-pro" />
-            <AmericanTierCard tier="executive-platinum" />
-          </div>
+          <TierCarousel>
+            {[
+              <AmericanTierCard tier="member" key="member" />,
+              <AmericanTierCard tier="gold" highlighted key="gold" />,
+              <AmericanTierCard tier="platinum" key="platinum" />,
+              <AmericanTierCard tier="platinum-pro" key="platinum-pro" />,
+              <AmericanTierCard tier="executive-platinum" key="executive-platinum" />,
+              <AmericanTierCard tier="conciergekey" key="conciergekey" />
+            ]}
+          </TierCarousel>
         </section>
 
         {/* Calculator Section */}

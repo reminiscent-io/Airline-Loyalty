@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Award, Check } from "lucide-react";
+import { Award, Check, Sparkles } from "lucide-react";
 import { AMERICAN_TIER_CONFIGS, type AmericanTierStatus } from "@shared/american-schema";
 import { cn } from "@/lib/utils";
 
@@ -11,6 +11,7 @@ interface AmericanTierCardProps {
 
 export function AmericanTierCard({ tier, highlighted = false }: AmericanTierCardProps) {
   const config = AMERICAN_TIER_CONFIGS[tier];
+  const isGhostTier = config.isGhostTier || false;
 
   const tierColors = {
     member: "bg-gray-500 text-white",
@@ -18,6 +19,7 @@ export function AmericanTierCard({ tier, highlighted = false }: AmericanTierCard
     platinum: "bg-gray-400 text-gray-900",
     "platinum-pro": "bg-gradient-to-r from-gray-400 to-blue-500 text-white",
     "executive-platinum": "bg-gradient-to-r from-gray-800 to-blue-900 text-white",
+    "conciergekey": "bg-gradient-to-br from-purple-900 via-indigo-900 to-black text-white",
   };
 
   const tierBorderColors = {
@@ -26,13 +28,15 @@ export function AmericanTierCard({ tier, highlighted = false }: AmericanTierCard
     platinum: "border-gray-400",
     "platinum-pro": "border-blue-500",
     "executive-platinum": "border-gray-800",
+    "conciergekey": "border-purple-500",
   };
 
   return (
     <Card 
       className={cn(
         "relative overflow-hidden transition-all hover-elevate",
-        highlighted && "border-2 border-[#0078D2] shadow-lg"
+        highlighted && "border-2 border-[#0078D2] shadow-lg",
+        isGhostTier && "border-2 bg-gradient-to-br from-purple-950/20 via-indigo-950/20 to-black/20"
       )}
       data-testid={`card-tier-${tier}`}
     >
@@ -40,6 +44,14 @@ export function AmericanTierCard({ tier, highlighted = false }: AmericanTierCard
         <div className="absolute top-0 right-0">
           <Badge className="rounded-none rounded-bl-lg bg-[#0078D2] text-white border-0">
             Most Popular
+          </Badge>
+        </div>
+      )}
+      {isGhostTier && (
+        <div className="absolute top-0 left-0">
+          <Badge className="rounded-none rounded-br-lg bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-0">
+            <Sparkles className="w-3 h-3 mr-1" />
+            Invitation Only
           </Badge>
         </div>
       )}
@@ -66,6 +78,8 @@ export function AmericanTierCard({ tier, highlighted = false }: AmericanTierCard
             "+60% Mile Bonus"
           ) : tier === "platinum-pro" ? (
             "+80% Mile Bonus"
+          ) : tier === "conciergekey" ? (
+            "Ultimate Elite Status"
           ) : (
             "+120% Mile Bonus"
           )}
@@ -73,6 +87,10 @@ export function AmericanTierCard({ tier, highlighted = false }: AmericanTierCard
         <CardDescription>
           {tier === "member" ? (
             "Starting tier for all members"
+          ) : isGhostTier ? (
+            <span className="text-purple-600 font-semibold" data-testid={`text-tier-requirement-${tier}`}>
+              By invitation only - Most exclusive tier
+            </span>
           ) : (
             <span data-testid={`text-tier-requirement-${tier}`}>
               Earn {config.loyaltyPointsRequired.toLocaleString()} Loyalty Points

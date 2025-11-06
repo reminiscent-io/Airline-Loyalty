@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Globe, Plane, Trophy, Check } from "lucide-react";
 import { UnitedTierCard } from "@/components/united/tier-card";
+import { TierCarousel } from "@/components/tier-carousel";
 import { UnitedCalculator } from "@/components/united/calculator";
 import { UnitedResultsPanel } from "@/components/united/results-panel";
 import { UnitedBenefitsTable } from "@/components/united/benefits-table";
@@ -52,13 +53,16 @@ export default function UnitedAirlines() {
               Earn PQP and PQF to unlock Premier benefits and enjoy a better travel experience
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-            <UnitedTierCard tier="member" />
-            <UnitedTierCard tier="silver" />
-            <UnitedTierCard tier="gold" highlighted />
-            <UnitedTierCard tier="platinum" />
-            <UnitedTierCard tier="1k" />
-          </div>
+          <TierCarousel>
+            {[
+              <UnitedTierCard tier="member" key="member" />,
+              <UnitedTierCard tier="silver" key="silver" />,
+              <UnitedTierCard tier="gold" highlighted key="gold" />,
+              <UnitedTierCard tier="platinum" key="platinum" />,
+              <UnitedTierCard tier="1k" key="1k" />,
+              <UnitedTierCard tier="global-services" key="global-services" />
+            ]}
+          </TierCarousel>
         </section>
 
         {/* Calculator Section */}

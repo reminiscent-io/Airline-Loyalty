@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Heart, Plane, Trophy, Check } from "lucide-react";
 import { TierCard } from "@/components/tier-card";
+import { TierCarousel } from "@/components/tier-carousel";
 import { Calculator } from "@/components/calculator";
 import { ResultsPanel } from "@/components/results-panel";
 import { CompanionPassCard } from "@/components/companion-pass-card";
@@ -47,11 +48,13 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <TierCard tier="member" />
-            <TierCard tier="a-list" />
-            <TierCard tier="a-list-preferred" />
-          </div>
+          <TierCarousel>
+            {[
+              <TierCard tier="member" key="member" />,
+              <TierCard tier="a-list" key="a-list" />,
+              <TierCard tier="a-list-preferred" key="a-list-preferred" />
+            ]}
+          </TierCarousel>
           
           {/* Companion Pass Card */}
           <div className="mt-8 max-w-3xl mx-auto">

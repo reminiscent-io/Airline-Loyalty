@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Cloud, Plane, Star, Check } from "lucide-react";
 import { JetBlueTierCard } from "@/components/jetblue/tier-card";
+import { TierCarousel } from "@/components/tier-carousel";
 import { JetBlueCalculator } from "@/components/jetblue/calculator";
 import { JetBlueResultsPanel } from "@/components/jetblue/results-panel";
 import { JetBlueBenefitsTable } from "@/components/jetblue/benefits-table";
@@ -52,13 +53,15 @@ export default function JetBlue() {
               Earn tiles and segments to unlock Mosaic benefits
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-            <JetBlueTierCard tier="basic" />
-            <JetBlueTierCard tier="trueblue" />
-            <JetBlueTierCard tier="mosaic" highlighted />
-            <JetBlueTierCard tier="mosaic-plus" />
-            <JetBlueTierCard tier="mosaic-elite" />
-          </div>
+          <TierCarousel>
+            {[
+              <JetBlueTierCard tier="basic" key="basic" />,
+              <JetBlueTierCard tier="trueblue" key="trueblue" />,
+              <JetBlueTierCard tier="mosaic" highlighted key="mosaic" />,
+              <JetBlueTierCard tier="mosaic-plus" key="mosaic-plus" />,
+              <JetBlueTierCard tier="mosaic-elite" key="mosaic-elite" />
+            ]}
+          </TierCarousel>
         </section>
 
         {/* Calculator Section */}

@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Globe, Check } from "lucide-react";
+import { Globe, Check, Sparkles } from "lucide-react";
 import { UNITED_TIER_CONFIGS, type UnitedTierStatus } from "@shared/united-schema";
 import { cn } from "@/lib/utils";
 
@@ -11,6 +11,7 @@ interface UnitedTierCardProps {
 
 export function UnitedTierCard({ tier, highlighted = false }: UnitedTierCardProps) {
   const config = UNITED_TIER_CONFIGS[tier];
+  const isGhostTier = config.isGhostTier || false;
 
   const tierColors = {
     member: "bg-gray-500 text-white",
@@ -18,6 +19,7 @@ export function UnitedTierCard({ tier, highlighted = false }: UnitedTierCardProp
     gold: "bg-yellow-500 text-gray-900",
     platinum: "bg-gradient-to-r from-gray-400 to-gray-600 text-white",
     "1k": "bg-gradient-to-r from-gray-900 to-blue-900 text-white",
+    "global-services": "bg-gradient-to-br from-indigo-950 via-blue-950 to-purple-950 text-white",
   };
 
   const tierBorderColors = {
@@ -26,13 +28,15 @@ export function UnitedTierCard({ tier, highlighted = false }: UnitedTierCardProp
     gold: "border-yellow-500",
     platinum: "border-gray-600",
     "1k": "border-gray-900",
+    "global-services": "border-indigo-500",
   };
 
   return (
     <Card 
       className={cn(
         "relative overflow-hidden transition-all hover-elevate",
-        highlighted && "border-2 border-[#0074C8] shadow-lg"
+        highlighted && "border-2 border-[#0074C8] shadow-lg",
+        isGhostTier && "border-2 bg-gradient-to-br from-indigo-950/20 via-blue-950/20 to-purple-950/20"
       )}
       data-testid={`card-tier-${tier}`}
     >
@@ -40,6 +44,14 @@ export function UnitedTierCard({ tier, highlighted = false }: UnitedTierCardProp
         <div className="absolute top-0 right-0">
           <Badge className="rounded-none rounded-bl-lg bg-[#0074C8] text-white border-0">
             Most Popular
+          </Badge>
+        </div>
+      )}
+      {isGhostTier && (
+        <div className="absolute top-0 left-0">
+          <Badge className="rounded-none rounded-br-lg bg-gradient-to-r from-indigo-600 to-blue-600 text-white border-0">
+            <Sparkles className="w-3 h-3 mr-1" />
+            Invitation Only
           </Badge>
         </div>
       )}
@@ -66,6 +78,8 @@ export function UnitedTierCard({ tier, highlighted = false }: UnitedTierCardProp
             "+60% Mile Bonus"
           ) : tier === "platinum" ? (
             "+80% Mile Bonus"
+          ) : tier === "global-services" ? (
+            "Ultimate Elite Status"
           ) : (
             "+120% Mile Bonus"
           )}
@@ -73,6 +87,10 @@ export function UnitedTierCard({ tier, highlighted = false }: UnitedTierCardProp
         <CardDescription>
           {tier === "member" ? (
             "Starting tier for all members"
+          ) : isGhostTier ? (
+            <span className="text-indigo-600 font-semibold" data-testid={`text-tier-requirement-${tier}`}>
+              By invitation only - Most exclusive tier
+            </span>
           ) : (
             <span data-testid={`text-tier-requirement-${tier}`}>
               {config.pqpRequired.toLocaleString()} PQP or {config.pqfRequired} PQF

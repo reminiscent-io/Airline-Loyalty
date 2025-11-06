@@ -1,8 +1,12 @@
 import { z } from "zod";
 
 // American Airlines Tier Status
-export const americanTierStatuses = ["member", "gold", "platinum", "platinum-pro", "executive-platinum"] as const;
+export const americanTierStatuses = ["member", "gold", "platinum", "platinum-pro", "executive-platinum", "conciergekey"] as const;
 export type AmericanTierStatus = typeof americanTierStatuses[number];
+
+// Display-only tiers (not used in calculations)
+export const americanGhostTiers = ["conciergekey"] as const;
+export type AmericanGhostTier = typeof americanGhostTiers[number];
 
 // American Airlines Fare Types  
 export const americanFareTypes = ["basic-economy", "main-cabin", "premium-economy", "business", "first"] as const;
@@ -77,6 +81,19 @@ export const AMERICAN_TIER_CONFIGS = {
       "Priority everything",
       "Systemwide upgrades (4 per year)",
       "Flagship Lounge and Admirals Club access"
+    ]
+  },
+  "conciergekey": {
+    name: "ConciergeKey",
+    loyaltyPointsRequired: -1, // Invitation only, no specific requirement
+    milesMultiplier: 11, // Same as Executive Platinum
+    isGhostTier: true,
+    invitationOnly: true,
+    benefits: [
+      "Pre-boarding privilege",
+      "Enhanced customer support",
+      "Most benefits unpublished",
+      "All Executive Platinum benefits plus exclusive perks"
     ]
   }
 } as const;
@@ -174,11 +191,15 @@ export const AMERICAN_CREDIT_CARDS = {
   }
 } as const;
 
+// Calculator tiers (excluding ghost tiers)
+export const americanCalculatorTierStatuses = ["member", "gold", "platinum", "platinum-pro", "executive-platinum"] as const;
+export type AmericanCalculatorTierStatus = typeof americanCalculatorTierStatuses[number];
+
 // Calculator input schema
 export const americanCalculatorInputSchema = z.object({
   flightSpending: z.number().min(0),
   fareType: z.enum(americanFareTypes),
-  currentTier: z.enum(americanTierStatuses),
+  currentTier: z.enum(americanCalculatorTierStatuses),
   creditCard: z.enum(americanCreditCards),
   cardSpending: z.number().min(0),
   includeSignUpBonus: z.boolean(),

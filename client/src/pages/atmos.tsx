@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Mountain, Flower2, Trophy, Check } from "lucide-react";
 import { AtmosTierCard } from "@/components/atmos/tier-card";
+import { TierCarousel } from "@/components/tier-carousel";
 import { AtmosCalculator } from "@/components/atmos/calculator";
 import { AtmosResultsPanel } from "@/components/atmos/results-panel";
 import { AtmosBenefitsTable } from "@/components/atmos/benefits-table";
@@ -55,13 +56,15 @@ export default function Atmos() {
               Earn elite qualifying miles and segments to unlock premium benefits
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-            <AtmosTierCard tier="member" />
-            <AtmosTierCard tier="mvp" />
-            <AtmosTierCard tier="mvp-gold" highlighted />
-            <AtmosTierCard tier="mvp-gold-75k" />
-            <AtmosTierCard tier="mvp-gold-100k" />
-          </div>
+          <TierCarousel>
+            {[
+              <AtmosTierCard tier="member" key="member" />,
+              <AtmosTierCard tier="mvp" key="mvp" />,
+              <AtmosTierCard tier="mvp-gold" highlighted key="mvp-gold" />,
+              <AtmosTierCard tier="mvp-gold-75k" key="mvp-gold-75k" />,
+              <AtmosTierCard tier="mvp-gold-100k" key="mvp-gold-100k" />
+            ]}
+          </TierCarousel>
         </section>
 
         {/* Calculator Section */}
