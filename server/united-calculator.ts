@@ -39,12 +39,16 @@ export function calculateUnitedRewards(input: UnitedCalculatorInput): UnitedCalc
   }
   
   // Credit card miles from spending
-  let creditCardMiles = cardSpending * cardConfig.purchaseMultiplier;
+  let creditCardMiles = 0;
   
-  // Sign-up bonus (if qualified)
-  const totalCardSpend = creditCard !== "none" ? cardSpending : 0;
-  if (includeSignUpBonus && totalCardSpend >= cardConfig.signUpSpendRequirement) {
-    creditCardMiles += cardConfig.signUpBonus;
+  if (creditCard !== "none") {
+    creditCardMiles = cardSpending * cardConfig.purchaseMultiplier;
+    
+    // Sign-up bonus (if qualified)
+    const totalCardSpend = cardSpending;
+    if (includeSignUpBonus && totalCardSpend >= cardConfig.signUpSpendRequirement) {
+      creditCardMiles += cardConfig.signUpBonus;
+    }
   }
   
   // Partner miles (base award miles divided by 5 for PQP calculation)
@@ -63,6 +67,7 @@ export function calculateUnitedRewards(input: UnitedCalculatorInput): UnitedCalc
   // Card PQP (based on total card spending with cap)
   let cardPQP = 0;
   if (creditCard !== "none" && cardConfig.pqpPerDollar > 0) {
+    const totalCardSpend = cardSpending;
     const earnedPQP = totalCardSpend * cardConfig.pqpPerDollar;
     cardPQP = Math.min(earnedPQP, cardConfig.pqpCap);
   }

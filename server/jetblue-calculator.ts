@@ -40,17 +40,21 @@ export function calculateJetBlueRewards(input: JetBlueCalculatorInput): JetBlueC
   }
   
   // Credit card points from non-airline spending
-  let creditCardPoints = cardSpending * cardConfig.purchaseMultiplier;
+  let creditCardPoints = 0;
   
-  // Sign-up bonus (if qualified)
-  const totalCardSpend = creditCard !== "none" ? cardSpending : 0;
-  if (includeSignUpBonus && totalCardSpend >= cardConfig.signUpSpendRequirement) {
-    creditCardPoints += cardConfig.signUpBonus;
-  }
-  
-  // Annual bonus
-  if (creditCard !== "none" && cardConfig.annualBonus > 0) {
-    creditCardPoints += cardConfig.annualBonus;
+  if (creditCard !== "none") {
+    creditCardPoints = cardSpending * cardConfig.purchaseMultiplier;
+    
+    // Sign-up bonus (if qualified)
+    const totalCardSpend = cardSpending;
+    if (includeSignUpBonus && totalCardSpend >= cardConfig.signUpSpendRequirement) {
+      creditCardPoints += cardConfig.signUpBonus;
+    }
+    
+    // Annual bonus
+    if (cardConfig.annualBonus > 0) {
+      creditCardPoints += cardConfig.annualBonus;
+    }
   }
   
   // Partner points (hotels, car rentals, etc.)
@@ -80,7 +84,7 @@ export function calculateJetBlueRewards(input: JetBlueCalculatorInput): JetBlueC
   
   // Add Mosaic Boost from credit card (if applicable)
   const mosaicBoostApplied = creditCard !== "none" && cardConfig.mosaicBoost;
-  if (mosaicBoostApplied && totalCardSpend >= 50000) {
+  if (mosaicBoostApplied && cardSpending >= 50000) {
     // Cards can provide bonus tiles for high spending
     tilesEarned += 10;
   }
