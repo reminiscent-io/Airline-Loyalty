@@ -109,7 +109,7 @@ export function calculateAmericanRewards(input: AmericanCalculatorInput): Americ
   // ======================
   
   const milesValue = totalMiles * MILE_VALUE;
-  const totalSpend = flightSpending + cardSpending + partnerSpending;
+  const totalSpend = flightSpending + (creditCard !== "none" ? cardSpending : 0) + partnerSpending;
   const returnOnSpend = totalSpend > 0 ? (milesValue / totalSpend) * 100 : 0;
   
   return {

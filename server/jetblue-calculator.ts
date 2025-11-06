@@ -130,7 +130,7 @@ export function calculateJetBlueRewards(input: JetBlueCalculatorInput): JetBlueC
   const freeCheckedBagValue = creditCard !== "none" && cardConfig.freeCheckedBag ? 
     segments * BAG_VALUE : 0;
   
-  const totalSpend = flightSpending + cardSpending + partnerSpending;
+  const totalSpend = flightSpending + (creditCard !== "none" ? cardSpending : 0) + partnerSpending;
   const returnOnSpend = totalSpend > 0 ? (pointsValue / totalSpend) * 100 : 0;
   
   return {

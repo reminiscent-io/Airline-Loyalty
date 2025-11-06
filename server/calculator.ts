@@ -146,7 +146,9 @@ export function calculateRewards(input: CalculatorInput): CalculationResults {
   // ======================
   
   const redemptionValue = totalRRPoints * RR_POINT_VALUE;
-  const totalCost = flightSpending + cardSpending + (cardConfig.annualFee || 0);
+  const totalCost = creditCard !== "none" 
+    ? flightSpending + cardSpending + (cardConfig.annualFee || 0) 
+    : flightSpending;
   const returnOnSpend = totalCost > 0 ? (redemptionValue / totalCost) * 100 : 0;
 
   return {
