@@ -124,22 +124,22 @@ export function ResultsPanel({ results }: ResultsPanelProps) {
           </div>
         </div>
 
-        {/* Financial Analysis */}
-        <div className="p-4 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-900 rounded-lg">
-          <div className="flex items-center gap-2 mb-2">
-            <DollarSign className="w-4 h-4 text-green-700 dark:text-green-400" />
-            <p className="text-sm font-semibold text-green-900 dark:text-green-100">Financial Analysis</p>
-          </div>
-          <div className="grid grid-cols-2 gap-4 text-sm">
-            <div>
-              <p className="text-xs text-muted-foreground mb-1">Redemption Value</p>
-              <p className="font-bold text-green-700 dark:text-green-400">${results.redemptionValue.toLocaleString()}</p>
-              <p className="text-xs text-muted-foreground">At 1.4¢ per point</p>
+        {/* Value Analysis */}
+        <div className="p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg">
+          <h4 className="font-semibold text-sm text-[#304CB2] mb-3">Value Analysis</h4>
+          <div className="space-y-2 text-sm">
+            <div className="flex items-center justify-between">
+              <span className="text-muted-foreground">Estimated Points Value</span>
+              <span className="font-semibold flex items-center gap-1">
+                <DollarSign className="w-3 h-3" />
+                <span data-testid="text-points-value">{(results.redemptionValue).toFixed(2)}</span>
+              </span>
             </div>
-            <div>
-              <p className="text-xs text-muted-foreground mb-1">Return on Spend</p>
-              <p className="font-bold text-green-700 dark:text-green-400">{results.returnOnSpend.toFixed(1)}%</p>
-              <p className="text-xs text-muted-foreground">Total cost: ${results.totalCost.toLocaleString()}</p>
+            <div className="flex items-center justify-between">
+              <span className="text-muted-foreground">Return on Spend</span>
+              <span className="font-semibold text-green-600" data-testid="text-return-on-spend">
+                {results.returnOnSpend.toFixed(1)}%
+              </span>
             </div>
           </div>
         </div>

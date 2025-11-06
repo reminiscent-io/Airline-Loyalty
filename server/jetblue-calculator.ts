@@ -122,13 +122,12 @@ export function calculateJetBlueRewards(input: JetBlueCalculatorInput): JetBlueC
   
   const pointsValue = totalPoints * POINT_VALUE;
   
-  // Calculate value of free checked bags (if card held)
+  // Calculate value of free checked bags (if card held) - informational only, not included in value analysis
   const freeCheckedBagValue = creditCard !== "none" && cardConfig.freeCheckedBag ? 
     segments * BAG_VALUE : 0;
   
   const totalSpend = flightSpending + cardSpending + partnerSpending;
-  const totalValue = pointsValue + freeCheckedBagValue;
-  const returnOnSpend = totalSpend > 0 ? (totalValue / totalSpend) * 100 : 0;
+  const returnOnSpend = totalSpend > 0 ? (pointsValue / totalSpend) * 100 : 0;
   
   return {
     // Points breakdown

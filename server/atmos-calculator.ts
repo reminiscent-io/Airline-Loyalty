@@ -101,13 +101,12 @@ export function calculateAtmosRewards(input: AtmosCalculatorInput): AtmosCalcula
   
   const milesValue = totalMiles * MILE_VALUE;
   
-  // Calculate value of free checked bags (if card held)
+  // Calculate value of free checked bags (if card held) - informational only, not included in value analysis
   const freeCheckedBagValue = creditCard !== "none" && cardConfig.freeCheckedBag ? 
     segments * BAG_VALUE : 0;
   
   const totalSpend = flightSpending + cardSpending + partnerSpending;
-  const totalValue = milesValue + freeCheckedBagValue;
-  const returnOnSpend = totalSpend > 0 ? (totalValue / totalSpend) * 100 : 0;
+  const returnOnSpend = totalSpend > 0 ? (milesValue / totalSpend) * 100 : 0;
   
   return {
     // Miles breakdown
