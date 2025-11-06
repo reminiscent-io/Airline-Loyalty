@@ -7,7 +7,7 @@ import {
   UNITED_CREDIT_CARDS
 } from "@shared/united-schema";
 
-const MILE_VALUE = 0.012; // 1.2¢ per mile (conservative estimate)
+const MILE_VALUE = 0.0122; // 1.22¢ per mile
 
 export function calculateUnitedRewards(input: UnitedCalculatorInput): UnitedCalculationResults {
   const { 

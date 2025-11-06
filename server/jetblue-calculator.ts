@@ -7,7 +7,7 @@ import {
   JETBLUE_CREDIT_CARDS
 } from "@shared/jetblue-schema";
 
-const POINT_VALUE = 0.014; // 1.4¢ per point (JetBlue average)
+const POINT_VALUE = 0.0145; // 1.45¢ per point
 const BAG_VALUE = 35; // $35 per checked bag
 
 export function calculateJetBlueRewards(input: JetBlueCalculatorInput): JetBlueCalculationResults {

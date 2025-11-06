@@ -7,7 +7,7 @@ import {
   AMERICAN_CREDIT_CARDS
 } from "@shared/american-schema";
 
-const MILE_VALUE = 0.014; // 1.4¢ per mile (conservative estimate)
+const MILE_VALUE = 0.0145; // 1.45¢ per mile
 
 export function calculateAmericanRewards(input: AmericanCalculatorInput): AmericanCalculationResults {
   const { 

@@ -5,6 +5,8 @@ import {
   DeltaTier 
 } from "../shared/delta-schema";
 
+const MILE_VALUE = 0.011; // 1.1¢ per mile
+
 export function calculateDelta(input: DeltaCalculatorInput): DeltaCalculationResults {
   // Get current tier
   const tierMap: Record<string, DeltaTier> = {
@@ -73,6 +75,11 @@ export function calculateDelta(input: DeltaCalculatorInput): DeltaCalculationRes
     }
   }
 
+  // Financial Analysis
+  const milesValue = totalSkyMiles * MILE_VALUE;
+  const totalSpend = input.annualFlightSpend + input.annualCardSpend;
+  const returnOnSpend = totalSpend > 0 ? (milesValue / totalSpend) * 100 : 0;
+
   return {
     totalSkyMiles,
     totalMQDs,
@@ -84,6 +91,8 @@ export function calculateDelta(input: DeltaCalculatorInput): DeltaCalculationRes
     mqdFromFlights,
     mqdFromCard,
     mqdHeadstart,
-    achievableTier
+    achievableTier,
+    milesValue: Math.round(milesValue * 100) / 100,
+    returnOnSpend: Math.round(returnOnSpend * 10) / 10
   };
 }

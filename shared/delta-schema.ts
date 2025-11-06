@@ -115,6 +115,8 @@ export interface DeltaCalculationResults {
   mqdFromCard: number;
   mqdHeadstart: number;
   achievableTier: DeltaTier;
+  milesValue: number;
+  returnOnSpend: number;
 }
 
 // Delta Credit Cards
