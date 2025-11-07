@@ -9,12 +9,13 @@ export const unitedGhostTiers = ["global-services"] as const;
 export type UnitedGhostTier = typeof unitedGhostTiers[number];
 
 // United Airlines Fare Types
-export const unitedFareTypes = ["basic-economy", "economy", "premium-plus", "business", "first"] as const;
+export const unitedFareTypes = ["basic-economy", "economy", "economy-plus", "premium-plus", "business", "first"] as const;
 export type UnitedFareType = typeof unitedFareTypes[number];
 
 // United Airlines Credit Cards
 export const unitedCreditCards = [
   "none",
+  "gateway",
   "explorer",
   "quest",
   "club",
@@ -124,6 +125,11 @@ export const UNITED_FARE_TYPES = {
     pqpMultiplier: 1, // 1x PQP per dollar
     pqfEligible: true,
   },
+  "economy-plus": {
+    name: "Economy Plus",
+    pqpMultiplier: 1, // 1x PQP per dollar
+    pqfEligible: true,
+  },
   "premium-plus": {
     name: "Premium Plus",
     pqpMultiplier: 1, // 1x PQP per dollar
@@ -152,6 +158,18 @@ export const UNITED_CREDIT_CARDS = {
     pqpCap: 0,
     signUpBonus: 0,
     signUpSpendRequirement: 0,
+    freeCheckedBag: false,
+    priorityBoarding: false
+  },
+  "gateway": {
+    name: "United Gateway",
+    annualFee: 0,
+    flightMilesBonus: 2, // 2x miles on United
+    purchaseMultiplier: 1,
+    pqpPerDollar: 0, // Does NOT earn PQP
+    pqpCap: 0,
+    signUpBonus: 30000,
+    signUpSpendRequirement: 1000,
     freeCheckedBag: false,
     priorityBoarding: false
   },
