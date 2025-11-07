@@ -16,6 +16,7 @@ The application provides real-time calculations showing total points/miles earne
 - **Southwest Component Naming**: Renamed Southwest components with Southwest prefix (e.g., SouthwestCalculator, SouthwestTierCard) to match naming convention of other airlines
 - **Delta Calculator Enhancement**: Added sign-up bonus checkbox feature to Delta calculator to standardize with American and United calculators
 - **File Organization**: Southwest components moved to dedicated southwest/ folder with consistent naming
+- **United Status Tracker Enhancement**: Improved United's Premier status progress display with dual progress bars clearly showing that BOTH PQP and PQF are required for qualification (unlike Southwest which allows EITHER qualification method). Added tier markers showing accurate thresholds: Silver (5K PQP/15 PQF), Gold (10K PQP/30 PQF), Platinum (15K PQP/45 PQF), 1K (24K PQP/60 PQF)
 
 ## User Preferences
 
