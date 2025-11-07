@@ -112,7 +112,7 @@ export function AtmosResultsPanel({ results }: AtmosResultsPanelProps) {
           <h4 className="font-semibold text-sm text-[#00467F] mb-3">Value Analysis</h4>
           <div className="space-y-2 text-sm">
             <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">Estimated Miles Value</span>
+              <span className="text-muted-foreground">Estimated Miles Value (1.6¢ / mile)</span>
               <span className="font-semibold flex items-center gap-1">
                 <DollarSign className="w-3 h-3" />
                 <span data-testid="text-miles-value">{results.milesValue.toFixed(2)}</span>
