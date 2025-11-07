@@ -21,7 +21,7 @@ export function Calculator({ onCalculate }: CalculatorProps) {
   const [flightSpending, setFlightSpending] = useState<string>("1000");
   const [fareType, setFareType] = useState<FareType>("choice");
   const [currentTier, setCurrentTier] = useState<TierStatus>("member");
-  const [flightsTaken, setFlightsTaken] = useState<string>("10");
+  const [flightsTaken, setFlightsTaken] = useState<string>("1");
   
   // Credit card inputs
   const [creditCard, setCreditCard] = useState<CreditCardType>("none");

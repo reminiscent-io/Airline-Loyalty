@@ -26,10 +26,10 @@ interface UnitedCalculatorProps {
 
 export function UnitedCalculator({ onCalculate }: UnitedCalculatorProps) {
   // Flight inputs
-  const [flightSpending, setFlightSpending] = useState<string>("3000");
+  const [flightSpending, setFlightSpending] = useState<string>("1000");
   const [fareType, setFareType] = useState<UnitedFareType>("economy");
   const [currentTier, setCurrentTier] = useState<UnitedTierStatus>("member");
-  const [flightsTaken, setFlightsTaken] = useState<string>("20");
+  const [flightsTaken, setFlightsTaken] = useState<string>("1");
   
   // Credit card inputs
   const [creditCard, setCreditCard] = useState<UnitedCreditCardType>("none");

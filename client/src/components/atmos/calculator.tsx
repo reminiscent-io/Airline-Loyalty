@@ -26,10 +26,10 @@ interface AtmosCalculatorProps {
 
 export function AtmosCalculator({ onCalculate }: AtmosCalculatorProps) {
   // Flight inputs
-  const [flightSpending, setFlightSpending] = useState<string>("3000");
+  const [flightSpending, setFlightSpending] = useState<string>("1000");
   const [fareType, setFareType] = useState<AtmosFareType>("main");
   const [currentTier, setCurrentTier] = useState<AtmosTierStatus>("member");
-  const [segments, setSegments] = useState<string>("20");
+  const [segments, setSegments] = useState<string>("1");
   
   // Credit card inputs
   const [creditCard, setCreditCard] = useState<AtmosCreditCardType>("none");

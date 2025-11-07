@@ -18,10 +18,10 @@ export function DeltaCalculator({ onCalculate }: DeltaCalculatorProps) {
   const form = useForm<DeltaCalculatorInput>({
     resolver: zodResolver(deltaCalculatorInputSchema),
     defaultValues: {
-      annualFlightSpend: 5000,
+      annualFlightSpend: 1000,
       currentTier: "none",
       cardType: "none",
-      annualCardSpend: 10000,
+      annualCardSpend: 0,
       fareClass: "main"
     }
   });

@@ -26,9 +26,10 @@ interface AmericanCalculatorProps {
 
 export function AmericanCalculator({ onCalculate }: AmericanCalculatorProps) {
   // Flight inputs
-  const [flightSpending, setFlightSpending] = useState<string>("2000");
+  const [flightSpending, setFlightSpending] = useState<string>("1000");
   const [fareType, setFareType] = useState<AmericanFareType>("main-cabin");
   const [currentTier, setCurrentTier] = useState<AmericanTierStatus>("member");
+  const [flightsTaken, setFlightsTaken] = useState<string>("1");
   
   // Credit card inputs
   const [creditCard, setCreditCard] = useState<AmericanCreditCardType>("none");
@@ -121,6 +122,22 @@ export function AmericanCalculator({ onCalculate }: AmericanCalculatorProps) {
                   ))}
                 </SelectContent>
               </Select>
+            </div>
+
+            <div>
+              <Label htmlFor="flights-taken">Number of Flights</Label>
+              <Input
+                id="flights-taken"
+                type="number"
+                value={flightsTaken}
+                onChange={(e) => setFlightsTaken(e.target.value)}
+                placeholder="Enter number"
+                className="mt-1"
+                data-testid="input-flights-taken"
+              />
+              <p className="text-xs text-muted-foreground mt-1">
+                Segments flown (for EQS calculation)
+              </p>
             </div>
 
             <div>
