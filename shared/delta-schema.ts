@@ -14,9 +14,9 @@ export const deltaTiers: DeltaTier[] = [
   {
     name: "General Member",
     mqd: 0,
-    earningRate: 5,
+    earningRate: 0, // Bonus miles per $1 (additive to fare base)
     benefits: [
-      "Earn 5 SkyMiles per $1 spent",
+      "Base SkyMiles earning rate",
       "Basic SkyMiles benefits",
       "Access to Delta award flights"
     ],
@@ -25,9 +25,9 @@ export const deltaTiers: DeltaTier[] = [
   {
     name: "Silver Medallion",
     mqd: 5000,
-    earningRate: 7,
+    earningRate: 2, // +2 bonus miles per $1
     benefits: [
-      "Earn 7 SkyMiles per $1 spent",
+      "Earn +2 bonus SkyMiles per $1 spent",
       "Priority boarding",
       "Complimentary upgrades",
       "Priority check-in",
@@ -38,9 +38,9 @@ export const deltaTiers: DeltaTier[] = [
   {
     name: "Gold Medallion",
     mqd: 10000,
-    earningRate: 8,
+    earningRate: 3, // +3 bonus miles per $1
     benefits: [
-      "Earn 8 SkyMiles per $1 spent",
+      "Earn +3 bonus SkyMiles per $1 spent",
       "Sky Priority services",
       "Higher upgrade priority",
       "Waived same-day change fees",
@@ -51,9 +51,9 @@ export const deltaTiers: DeltaTier[] = [
   {
     name: "Platinum Medallion",
     mqd: 15000,
-    earningRate: 9,
+    earningRate: 4, // +4 bonus miles per $1
     benefits: [
-      "Earn 9 SkyMiles per $1 spent",
+      "Earn +4 bonus SkyMiles per $1 spent",
       "Choice benefits selection",
       "Higher upgrade priority than Gold",
       "Sky Club access when flying Delta",
@@ -64,9 +64,9 @@ export const deltaTiers: DeltaTier[] = [
   {
     name: "Diamond Medallion",
     mqd: 28000,
-    earningRate: 11,
+    earningRate: 6, // +6 bonus miles per $1
     benefits: [
-      "Earn 11 SkyMiles per $1 spent",
+      "Earn +6 bonus SkyMiles per $1 spent",
       "Highest upgrade priority",
       "Sky Club executive membership",
       "Global upgrade certificates",
@@ -78,7 +78,7 @@ export const deltaTiers: DeltaTier[] = [
   {
     name: "Delta 360°",
     mqd: 0, // Invitation only
-    earningRate: 11,
+    earningRate: 6, // +6 bonus miles per $1 (same as Diamond)
     benefits: [
       "All Diamond benefits plus:",
       "Dedicated concierge service",
@@ -91,13 +91,22 @@ export const deltaTiers: DeltaTier[] = [
   }
 ];
 
+// Fare class base earning rates
+export const deltaFareRates: Record<string, number> = {
+  "main-basic": 0,      // Main Basic (Basic Economy) - earns 0 miles
+  "comfort-basic": 2,   // Comfort Basic - 2 miles per $
+  "classic": 5,         // Classic - 5 miles per $
+  "refundable": 5,      // Refundable - 5 miles per $
+  "extra": 7           // Extra - 7 miles per $
+};
+
 // Calculator Input Schema
 export const deltaCalculatorInputSchema = z.object({
   annualFlightSpend: z.number().min(0).default(0),
   currentTier: z.enum(["none", "silver", "gold", "platinum", "diamond"]).default("none"),
   cardType: z.enum(["none", "gold", "platinum", "reserve"]).default("none"),
   annualCardSpend: z.number().min(0).default(0),
-  fareClass: z.enum(["basic", "main", "comfort", "first"]).default("main")
+  fareClass: z.enum(["main-basic", "comfort-basic", "classic", "refundable", "extra"]).default("classic")
 });
 
 export type DeltaCalculatorInput = z.infer<typeof deltaCalculatorInputSchema>;

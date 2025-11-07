@@ -21,7 +21,7 @@ interface DeltaCalculatorProps {
 export function DeltaCalculator({ onCalculate }: DeltaCalculatorProps) {
   // Flight inputs
   const [annualFlightSpend, setAnnualFlightSpend] = useState<string>("1000");
-  const [fareClass, setFareClass] = useState<"basic" | "main" | "comfort" | "first">("main");
+  const [fareClass, setFareClass] = useState<"main-basic" | "comfort-basic" | "classic" | "refundable" | "extra">("classic");
   const [currentTier, setCurrentTier] = useState<"none" | "silver" | "gold" | "platinum" | "diamond">("none");
   
   // Credit card inputs
@@ -102,14 +102,15 @@ export function DeltaCalculator({ onCalculate }: DeltaCalculatorProps) {
                   <SelectValue placeholder="Select fare class" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="basic">Basic Economy (0× miles, 0 MQDs)</SelectItem>
-                  <SelectItem value="main">Main Cabin (5-11× miles, 1× MQDs)</SelectItem>
-                  <SelectItem value="comfort">Comfort+ (5-11× miles, 1× MQDs)</SelectItem>
-                  <SelectItem value="first">First/Delta One (5-11× miles, 1× MQDs)</SelectItem>
+                  <SelectItem value="main-basic">Main Basic (0 miles/$)</SelectItem>
+                  <SelectItem value="comfort-basic">Comfort Basic (2 miles/$)</SelectItem>
+                  <SelectItem value="classic">Classic (5 miles/$)</SelectItem>
+                  <SelectItem value="refundable">Refundable (5 miles/$)</SelectItem>
+                  <SelectItem value="extra">Extra (7 miles/$)</SelectItem>
                 </SelectContent>
               </Select>
               <p className="text-xs text-muted-foreground mt-1">
-                Miles multiplier depends on your Medallion status
+                Base miles + loyalty bonus (see status below)
               </p>
             </div>
 
@@ -120,11 +121,11 @@ export function DeltaCalculator({ onCalculate }: DeltaCalculatorProps) {
                   <SelectValue placeholder="Select your status" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="none">General Member (5× miles)</SelectItem>
-                  <SelectItem value="silver">Silver Medallion (7× miles)</SelectItem>
-                  <SelectItem value="gold">Gold Medallion (8× miles)</SelectItem>
-                  <SelectItem value="platinum">Platinum Medallion (9× miles)</SelectItem>
-                  <SelectItem value="diamond">Diamond Medallion (11× miles)</SelectItem>
+                  <SelectItem value="none">General Member (+0 bonus)</SelectItem>
+                  <SelectItem value="silver">Silver Medallion (+2 bonus)</SelectItem>
+                  <SelectItem value="gold">Gold Medallion (+3 bonus)</SelectItem>
+                  <SelectItem value="platinum">Platinum Medallion (+4 bonus)</SelectItem>
+                  <SelectItem value="diamond">Diamond Medallion (+6 bonus)</SelectItem>
                 </SelectContent>
               </Select>
             </div>

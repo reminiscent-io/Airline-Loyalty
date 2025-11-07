@@ -148,10 +148,13 @@ export function DeltaResultsPanel({ results }: DeltaResultsPanelProps) {
         <div className="p-3 rounded-lg bg-gradient-to-r from-red-50 to-blue-50 border border-red-200">
           <div className="flex items-center gap-2 mb-1">
             <TrendingUp className="w-4 h-4" style={{ color: "#C8102E" }} />
-            <span className="text-sm font-semibold">Current Earning Rate</span>
+            <span className="text-sm font-semibold">Loyalty Bonus</span>
           </div>
           <p className="text-lg font-bold" style={{ color: "#003566" }} data-testid="text-earning-rate">
-            {results.currentTier.earningRate}x SkyMiles per $1
+            +{results.currentTier.earningRate} bonus SkyMiles per $1
+          </p>
+          <p className="text-xs text-muted-foreground mt-1">
+            Total earning = base fare rate + loyalty bonus
           </p>
         </div>
       </CardContent>

@@ -2,7 +2,8 @@ import {
   DeltaCalculatorInput, 
   DeltaCalculationResults, 
   deltaTiers,
-  DeltaTier 
+  DeltaTier,
+  deltaFareRates 
 } from "../shared/delta-schema";
 
 const MILE_VALUE = 0.011; // 1.1¢ per mile
@@ -21,8 +22,8 @@ export function calculateDelta(input: DeltaCalculatorInput): DeltaCalculationRes
 
   // Calculate MQDs from flights
   let mqdFromFlights = 0;
-  if (input.fareClass !== "basic") {
-    // Basic Economy earns 0 MQDs
+  if (input.fareClass !== "main-basic") {
+    // Main Basic (Basic Economy) earns 0 MQDs
     mqdFromFlights = Math.round(input.annualFlightSpend);
   }
 
@@ -42,12 +43,16 @@ export function calculateDelta(input: DeltaCalculatorInput): DeltaCalculationRes
 
   const totalMQDs = mqdFromFlights + mqdFromCard + mqdHeadstart;
 
-  // Calculate SkyMiles from flights
+  // Calculate SkyMiles from flights using additive structure
+  // Base miles from fare class + Bonus miles from loyalty tier
+  const baseFareRate = deltaFareRates[input.fareClass] || 0;
+  const loyaltyBonus = currentTier.earningRate; // This is the bonus rate (0 for General, +2 for Silver, etc.)
+  const totalFlightEarningRate = baseFareRate + loyaltyBonus;
+  
   let flightSkyMiles = 0;
-  if (input.fareClass !== "basic") {
-    // Basic Economy earns 0 SkyMiles
-    const earningRate = currentTier.earningRate;
-    flightSkyMiles = Math.round(input.annualFlightSpend * earningRate);
+  if (input.fareClass !== "main-basic") {
+    // Main Basic earns 0 miles regardless of status
+    flightSkyMiles = Math.round(input.annualFlightSpend * totalFlightEarningRate);
   }
 
   // Calculate SkyMiles from credit card (simplified - assuming average 1.5x, includes flight spending)

@@ -57,7 +57,7 @@ export function DeltaTierCard({ tier }: DeltaTierCardProps) {
           </Badge>
         </div>
         <CardTitle className="text-2xl text-[#C8102E]" data-testid={`text-tier-${tier.name.toLowerCase().replace(/\s+/g, '-')}`}>
-          {tier.name === "Delta 360°" ? "Ultimate Elite Status" : `${tier.earningRate}x SkyMiles Earning`}
+          {tier.name === "Delta 360°" ? "Ultimate Elite Status" : tier.earningRate === 0 ? "Base Earning Rate" : `+${tier.earningRate} Bonus Miles/$`}
         </CardTitle>
         <CardDescription>
           {tier.isGhost ? (
@@ -74,7 +74,7 @@ export function DeltaTierCard({ tier }: DeltaTierCardProps) {
       
       <CardContent>
         <div className="text-sm text-muted-foreground mb-4">
-          <strong className="text-[#C8102E]">{tier.earningRate}×</strong> SkyMiles per dollar spent
+          <strong className="text-[#C8102E]">+{tier.earningRate}</strong> bonus SkyMiles per dollar spent
         </div>
         <ul className="space-y-2">
           {tier.benefits.slice(0, 5).map((benefit, index) => (
