@@ -102,8 +102,17 @@ export function calculateDelta(input: DeltaCalculatorInput): DeltaCalculationRes
   const hasCard = input.cardType !== "none";
   const effectiveMileValue = hasCard ? MILE_VALUE / 0.85 : MILE_VALUE;
   const milesValue = totalSkyMiles * effectiveMileValue;
-  const totalSpend = hasCard ? input.annualFlightSpend + input.annualCardSpend : input.annualFlightSpend;
-  const returnOnSpend = totalSpend > 0 ? (milesValue / totalSpend) * 100 : 0;
+  
+  // Include credit card annual fee in total cost
+  // Delta card annual fees: Platinum=$350, Reserve=$650
+  let annualFee = 0;
+  if (input.cardType === "platinum") {
+    annualFee = 350;
+  } else if (input.cardType === "reserve") {
+    annualFee = 650;
+  }
+  const totalCost = input.annualFlightSpend + (hasCard ? input.annualCardSpend + annualFee : 0);
+  const returnOnSpend = totalCost > 0 ? (milesValue / totalCost) * 100 : 0;
 
   return {
     totalSkyMiles,
@@ -118,6 +127,7 @@ export function calculateDelta(input: DeltaCalculatorInput): DeltaCalculationRes
     mqdHeadstart,
     achievableTier,
     milesValue: Math.round(milesValue * 100) / 100,
+    totalCost: Math.round(totalCost * 100) / 100,
     returnOnSpend: Math.round(returnOnSpend * 10) / 10,
     redemptionDiscountApplied: hasCard
   };

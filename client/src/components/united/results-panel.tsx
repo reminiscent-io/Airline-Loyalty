@@ -161,6 +161,13 @@ export function UnitedResultsPanel({ results }: UnitedResultsPanelProps) {
               </span>
             </div>
             <div className="flex items-center justify-between">
+              <span className="text-muted-foreground">Total Spent</span>
+              <span className="font-semibold flex items-center gap-1">
+                <DollarSign className="w-3 h-3" />
+                <span data-testid="text-total-spent">{results.totalCost.toFixed(2)}</span>
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
               <span className="text-muted-foreground">Return on Spend</span>
               <span className="font-semibold text-green-600" data-testid="text-return-on-spend">
                 {results.returnOnSpend.toFixed(1)}%

@@ -130,8 +130,9 @@ export function calculateJetBlueRewards(input: JetBlueCalculatorInput): JetBlueC
   const freeCheckedBagValue = creditCard !== "none" && cardConfig.freeCheckedBag ? 
     segments * BAG_VALUE : 0;
   
-  const totalSpend = flightSpending + (creditCard !== "none" ? cardSpending : 0) + partnerSpending;
-  const returnOnSpend = totalSpend > 0 ? (pointsValue / totalSpend) * 100 : 0;
+  // Include credit card annual fee in total cost
+  const totalCost = flightSpending + (creditCard !== "none" ? cardSpending + cardConfig.annualFee : 0) + partnerSpending;
+  const returnOnSpend = totalCost > 0 ? (pointsValue / totalCost) * 100 : 0;
   
   return {
     // Points breakdown
@@ -153,6 +154,7 @@ export function calculateJetBlueRewards(input: JetBlueCalculatorInput): JetBlueC
     
     // Financial analysis
     pointsValue: Math.round(pointsValue * 100) / 100,
+    totalCost: Math.round(totalCost * 100) / 100,
     returnOnSpend: Math.round(returnOnSpend * 10) / 10,
     
     // Special benefits

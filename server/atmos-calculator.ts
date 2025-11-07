@@ -109,8 +109,9 @@ export function calculateAtmosRewards(input: AtmosCalculatorInput): AtmosCalcula
   const freeCheckedBagValue = creditCard !== "none" && cardConfig.freeCheckedBag ? 
     segments * BAG_VALUE : 0;
   
-  const totalSpend = flightSpending + (creditCard !== "none" ? cardSpending : 0) + partnerSpending;
-  const returnOnSpend = totalSpend > 0 ? (milesValue / totalSpend) * 100 : 0;
+  // Include credit card annual fee in total cost
+  const totalCost = flightSpending + (creditCard !== "none" ? cardSpending + cardConfig.annualFee : 0) + partnerSpending;
+  const returnOnSpend = totalCost > 0 ? (milesValue / totalCost) * 100 : 0;
   
   return {
     // Miles breakdown
@@ -132,6 +133,7 @@ export function calculateAtmosRewards(input: AtmosCalculatorInput): AtmosCalcula
     
     // Financial analysis
     milesValue: Math.round(milesValue * 100) / 100,
+    totalCost: Math.round(totalCost * 100) / 100,
     returnOnSpend: Math.round(returnOnSpend * 10) / 10,
     
     // Special benefits
