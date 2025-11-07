@@ -26,16 +26,18 @@ export function calculateDelta(input: DeltaCalculatorInput): DeltaCalculationRes
     mqdFromFlights = Math.round(input.annualFlightSpend);
   }
 
-  // Calculate MQDs from credit card
+  // Calculate MQDs from credit card (includes flight spending in total card spend)
   let mqdHeadstart = 0;
   let mqdFromCard = 0;
   
   if (input.cardType === "platinum") {
     mqdHeadstart = 2500;
-    mqdFromCard = Math.round(input.annualCardSpend * 0.05); // 1 MQD per $20
+    const totalCardSpend = input.annualCardSpend + input.annualFlightSpend;
+    mqdFromCard = Math.round(totalCardSpend * 0.05); // 1 MQD per $20
   } else if (input.cardType === "reserve") {
     mqdHeadstart = 2500;
-    mqdFromCard = Math.round(input.annualCardSpend * 0.1); // 1 MQD per $10
+    const totalCardSpend = input.annualCardSpend + input.annualFlightSpend;
+    mqdFromCard = Math.round(totalCardSpend * 0.1); // 1 MQD per $10
   }
 
   const totalMQDs = mqdFromFlights + mqdFromCard + mqdHeadstart;
@@ -48,8 +50,9 @@ export function calculateDelta(input: DeltaCalculatorInput): DeltaCalculationRes
     flightSkyMiles = Math.round(input.annualFlightSpend * earningRate);
   }
 
-  // Calculate SkyMiles from credit card (simplified - assuming average 1.5x)
-  const cardSkyMiles = input.cardType !== "none" ? Math.round(input.annualCardSpend * 1.5) : 0;
+  // Calculate SkyMiles from credit card (simplified - assuming average 1.5x, includes flight spending)
+  const totalCardSpend = input.annualCardSpend + input.annualFlightSpend;
+  const cardSkyMiles = input.cardType !== "none" ? Math.round(totalCardSpend * 1.5) : 0;
   
   const totalSkyMiles = flightSkyMiles + cardSkyMiles;
 

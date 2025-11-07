@@ -118,7 +118,7 @@ export function JetBlueCalculator({ onCalculate }: JetBlueCalculatorProps) {
                 <SelectContent>
                   {Object.entries(JETBLUE_FARE_TYPES).map(([key, config]) => (
                     <SelectItem key={key} value={key}>
-                      {config.name} {!config.tileEligible && "(No tiles)"}
+                      {config.name} ({config.pointsMultiplier}× points{!config.tileEligible && ", No tiles"})
                     </SelectItem>
                   ))}
                 </SelectContent>

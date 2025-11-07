@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { DeltaCalculator } from "@/components/delta/delta-calculator";
+import { DeltaCalculator } from "@/components/delta/calculator";
 import { DeltaResultsPanel } from "@/components/delta/delta-results-panel";
 import { DeltaBenefitsTable } from "@/components/delta/delta-benefits-table";
 import { DeltaCreditCardTable } from "@/components/delta/delta-credit-card-table";

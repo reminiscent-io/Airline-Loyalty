@@ -44,8 +44,8 @@ export function calculateUnitedRewards(input: UnitedCalculatorInput): UnitedCalc
   if (creditCard !== "none") {
     creditCardMiles = cardSpending * cardConfig.purchaseMultiplier;
     
-    // Sign-up bonus (if qualified)
-    const totalCardSpend = cardSpending;
+    // Sign-up bonus (if qualified) - includes flight spending
+    const totalCardSpend = cardSpending + flightSpending;
     if (includeSignUpBonus && totalCardSpend >= cardConfig.signUpSpendRequirement) {
       creditCardMiles += cardConfig.signUpBonus;
     }
@@ -64,10 +64,10 @@ export function calculateUnitedRewards(input: UnitedCalculatorInput): UnitedCalc
   // Flight PQP (1:1 with qualifying spend)
   const flightPQP = flightSpending * fareTypeConfig.pqpMultiplier;
   
-  // Card PQP (based on total card spending with cap)
+  // Card PQP (based on total card spending with cap) - includes flight spending
   let cardPQP = 0;
   if (creditCard !== "none" && cardConfig.pqpPerDollar > 0) {
-    const totalCardSpend = cardSpending;
+    const totalCardSpend = cardSpending + flightSpending;
     const earnedPQP = totalCardSpend * cardConfig.pqpPerDollar;
     cardPQP = Math.min(earnedPQP, cardConfig.pqpCap);
   }

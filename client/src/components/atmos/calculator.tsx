@@ -118,7 +118,7 @@ export function AtmosCalculator({ onCalculate }: AtmosCalculatorProps) {
                 <SelectContent>
                   {Object.entries(ATMOS_FARE_TYPES).map(([key, config]) => (
                     <SelectItem key={key} value={key}>
-                      {config.name} ({(config.baseMultiplier * 100).toFixed(0)}% miles)
+                      {config.name} ({config.baseMultiplier}× base miles)
                     </SelectItem>
                   ))}
                 </SelectContent>
