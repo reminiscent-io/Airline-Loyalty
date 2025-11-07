@@ -12,11 +12,11 @@ import { apiRequest } from "@/lib/queryClient";
 import { type TierStatus, type FareType, type CreditCardType, type CalculationResults, type CalculatorInput, FARE_TYPES, CREDIT_CARDS } from "@shared/schema";
 import { Separator } from "@/components/ui/separator";
 
-interface CalculatorProps {
+interface SouthwestCalculatorProps {
   onCalculate: (results: CalculationResults) => void;
 }
 
-export function Calculator({ onCalculate }: CalculatorProps) {
+export function SouthwestCalculator({ onCalculate }: SouthwestCalculatorProps) {
   // Flight inputs
   const [flightSpending, setFlightSpending] = useState<string>("1000");
   const [fareType, setFareType] = useState<FareType>("choice");

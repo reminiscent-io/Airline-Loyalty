@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { CreditCard, DollarSign, Award, Gift } from "lucide-react";
 
-export function CreditCardTable() {
+export function SouthwestCreditCardTable() {
   const creditCards = [
     { 
       name: "No Card",

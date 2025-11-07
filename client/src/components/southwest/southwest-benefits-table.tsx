@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Check, X } from "lucide-react";
 import { TIER_CONFIGS } from "@shared/schema";
 
-export function BenefitsTable() {
+export function SouthwestBenefitsTable() {
   const benefits = [
     { name: "Points Don't Expire", member: true, aList: true, aListPreferred: true },
     { name: "No Blackout Dates", member: true, aList: true, aListPreferred: true },

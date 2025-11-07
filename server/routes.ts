@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { calculatorInputSchema } from "@shared/schema";
-import { calculateRewards } from "./calculator";
+import { calculateRewards } from "./southwest-calculator";
 import { americanCalculatorInputSchema } from "@shared/american-schema";
 import { calculateAmericanRewards } from "./american-calculator";
 import { unitedCalculatorInputSchema } from "@shared/united-schema";

@@ -4,12 +4,12 @@ import { Heart, Check } from "lucide-react";
 import { TIER_CONFIGS, type TierStatus } from "@shared/schema";
 import { cn } from "@/lib/utils";
 
-interface TierCardProps {
+interface SouthwestTierCardProps {
   tier: TierStatus;
   highlighted?: boolean;
 }
 
-export function TierCard({ tier, highlighted = false }: TierCardProps) {
+export function SouthwestTierCard({ tier, highlighted = false }: SouthwestTierCardProps) {
   const config = TIER_CONFIGS[tier];
 
   const tierColors = {

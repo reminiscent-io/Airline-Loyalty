@@ -5,11 +5,11 @@ import { TrendingUp, Award, Heart, Plane, CreditCard, Building2, DollarSign, Che
 import { type CalculationResults, TIER_CONFIGS } from "@shared/schema";
 import { Separator } from "@/components/ui/separator";
 
-interface ResultsPanelProps {
+interface SouthwestResultsPanelProps {
   results: CalculationResults | null;
 }
 
-export function ResultsPanel({ results }: ResultsPanelProps) {
+export function SouthwestResultsPanel({ results }: SouthwestResultsPanelProps) {
   if (!results) {
     return (
       <Card className="flex items-center justify-center min-h-[400px]" data-testid="card-results-empty">

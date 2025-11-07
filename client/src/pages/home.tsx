@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Heart, Plane, Trophy, Check } from "lucide-react";
-import { TierCard } from "@/components/tier-card";
+import { SouthwestTierCard } from "@/components/southwest/southwest-tier-card";
 import { TierCarousel } from "@/components/tier-carousel";
-import { Calculator } from "@/components/calculator";
-import { ResultsPanel } from "@/components/results-panel";
+import { SouthwestCalculator } from "@/components/southwest/southwest-calculator";
+import { SouthwestResultsPanel } from "@/components/southwest/southwest-results-panel";
 import { CompanionPassCard } from "@/components/companion-pass-card";
-import { BenefitsTable } from "@/components/benefits-table";
-import { CreditCardTable } from "@/components/credit-card-table";
+import { SouthwestBenefitsTable } from "@/components/southwest/southwest-benefits-table";
+import { SouthwestCreditCardTable } from "@/components/southwest/southwest-credit-card-table";
 import { TIER_CONFIGS, type TierStatus, type CalculationResults } from "@shared/schema";
 
 export default function Home() {
@@ -50,9 +50,9 @@ export default function Home() {
 
           <TierCarousel>
             {[
-              <TierCard tier="member" key="member" />,
-              <TierCard tier="a-list" key="a-list" />,
-              <TierCard tier="a-list-preferred" key="a-list-preferred" />
+              <SouthwestTierCard tier="member" key="member" />,
+              <SouthwestTierCard tier="a-list" key="a-list" />,
+              <SouthwestTierCard tier="a-list-preferred" key="a-list-preferred" />
             ]}
           </TierCarousel>
           
@@ -74,8 +74,8 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Calculator onCalculate={setCalculationResults} />
-            <ResultsPanel results={calculationResults} />
+            <SouthwestCalculator onCalculate={setCalculationResults} />
+            <SouthwestResultsPanel results={calculationResults} />
           </div>
         </section>
 
@@ -90,7 +90,7 @@ export default function Home() {
             </p>
           </div>
 
-          <BenefitsTable />
+          <SouthwestBenefitsTable />
         </section>
 
         {/* Credit Card Comparison Table */}
@@ -104,7 +104,7 @@ export default function Home() {
             </p>
           </div>
 
-          <CreditCardTable />
+          <SouthwestCreditCardTable />
         </section>
 
         {/* Footer */}
