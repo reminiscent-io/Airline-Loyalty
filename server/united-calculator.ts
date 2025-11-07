@@ -29,23 +29,21 @@ export function calculateUnitedRewards(input: UnitedCalculatorInput): UnitedCalc
   // MILES CALCULATION
   // ======================
   
-  // Flight miles calculation (status multiplier)
+  // Flight miles calculation (status multiplier only)
   const flightMiles = flightSpending * tierConfig.milesMultiplier;
   
-  // Add credit card bonus on United purchases
-  let totalFlightMiles = flightMiles;
-  if (creditCard !== "none") {
-    totalFlightMiles += flightSpending * cardConfig.flightMilesBonus;
-  }
-  
-  // Credit card miles from spending
+  // Credit card miles from total card spending (flight + non-flight)
   let creditCardMiles = 0;
   
   if (creditCard !== "none") {
-    creditCardMiles = cardSpending * cardConfig.purchaseMultiplier;
-    
-    // Sign-up bonus (if qualified) - includes flight spending
     const totalCardSpend = cardSpending + flightSpending;
+    
+    // Miles from all card spending (both flight and non-flight)
+    // Flight spending gets flightMilesBonus rate, non-flight gets purchaseMultiplier rate
+    creditCardMiles = (flightSpending * cardConfig.flightMilesBonus) + 
+                      (cardSpending * cardConfig.purchaseMultiplier);
+    
+    // Sign-up bonus (if qualified)
     if (includeSignUpBonus && totalCardSpend >= cardConfig.signUpSpendRequirement) {
       creditCardMiles += cardConfig.signUpBonus;
     }
@@ -55,7 +53,7 @@ export function calculateUnitedRewards(input: UnitedCalculatorInput): UnitedCalc
   const partnerMiles = partnerSpending * 5; // Assuming 5x miles per dollar on partner flights
   
   // Total miles
-  const totalMiles = totalFlightMiles + creditCardMiles + partnerMiles;
+  const totalMiles = flightMiles + creditCardMiles + partnerMiles;
   
   // ======================
   // PQP CALCULATION
@@ -179,7 +177,7 @@ export function calculateUnitedRewards(input: UnitedCalculatorInput): UnitedCalc
   return {
     // Miles breakdown
     totalMiles: Math.round(totalMiles),
-    flightMiles: Math.round(totalFlightMiles),
+    flightMiles: Math.round(flightMiles),
     creditCardMiles: Math.round(creditCardMiles),
     partnerMiles: Math.round(partnerMiles),
     

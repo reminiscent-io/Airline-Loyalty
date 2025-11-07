@@ -196,7 +196,7 @@ export function UnitedCalculator({ onCalculate }: UnitedCalculatorProps) {
             {creditCard !== "none" && (
               <>
                 <div>
-                  <Label htmlFor="card-spending">Annual Card Spending ($)</Label>
+                  <Label htmlFor="card-spending">Non-flight spending ($)</Label>
                   <Input
                     id="card-spending"
                     type="number"
@@ -207,7 +207,7 @@ export function UnitedCalculator({ onCalculate }: UnitedCalculatorProps) {
                     data-testid="input-card-spending"
                   />
                   <p className="text-xs text-muted-foreground mt-1">
-                    Total spending (including United purchases)
+                    Card spending excluding United flight purchases
                   </p>
                 </div>
 
