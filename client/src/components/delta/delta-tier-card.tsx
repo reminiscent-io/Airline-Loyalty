@@ -61,7 +61,7 @@ export function DeltaTierCard({ tier }: DeltaTierCardProps) {
             </Badge>
           )}
         </div>
-        <h3 className="text-xl font-bold mt-3" data-testid={`text-tier-${tier.name.toLowerCase().replace(/\s+/g, '-')}`}>
+        <h3 className={`text-xl font-bold mt-3 ${tier.isGhost ? 'text-white' : ''}`} data-testid={`text-tier-${tier.name.toLowerCase().replace(/\s+/g, '-')}`}>
           {tier.name}
         </h3>
         <div className="flex items-baseline gap-2 mt-1">
@@ -71,7 +71,7 @@ export function DeltaTierCard({ tier }: DeltaTierCardProps) {
             </p>
           )}
           {tier.isGhost && (
-            <p className="text-sm font-medium text-purple-600">
+            <p className="text-sm font-medium text-white">
               By invitation only
             </p>
           )}
@@ -80,17 +80,17 @@ export function DeltaTierCard({ tier }: DeltaTierCardProps) {
       
       <CardContent className="relative z-10">
         <div className="mb-4">
-          <span className="text-sm text-muted-foreground">Earning Rate</span>
-          <p className="text-lg font-bold" style={{ color: "#003566" }}>
+          <span className={`text-sm ${tier.isGhost ? 'text-purple-200' : 'text-muted-foreground'}`}>Earning Rate</span>
+          <p className="text-lg font-bold" style={{ color: tier.isGhost ? "#FFFFFF" : "#003566" }}>
             {tier.earningRate}x SkyMiles per $1
           </p>
         </div>
         
         <div className="space-y-2">
-          <span className="text-sm font-semibold">Key Benefits:</span>
+          <span className={`text-sm font-semibold ${tier.isGhost ? 'text-white' : ''}`}>Key Benefits:</span>
           <ul className="space-y-1">
             {tier.benefits.slice(0, 5).map((benefit, index) => (
-              <li key={index} className="text-sm text-muted-foreground flex items-start">
+              <li key={index} className={`text-sm flex items-start ${tier.isGhost ? 'text-purple-100' : 'text-muted-foreground'}`}>
                 <span className="mr-1">•</span>
                 <span>{benefit}</span>
               </li>
