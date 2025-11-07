@@ -204,9 +204,9 @@ export const UNITED_CREDIT_CARDS = {
     annualFee: 650,
     flightMilesBonus: 4, // 4x miles on United purchases
     purchaseMultiplier: 2, // 2x miles on other purchases
-    pqpPerDollar: 1/20, // 1 PQP per $20 spent (no cap)
+    pqpPerDollar: 1/15, // 1 PQP per $15 spent (no cap)
     pqpCap: 0, // No PQP cap
-    annualPQPBonus: 1000, // 1,000 PQP annually
+    annualPQPBonus: 1500, // 1,500 PQP annually
     signUpBonus: 80000,
     signUpBonusPQP: 2000, // 2,000 PQP with sign-up bonus
     signUpSpendRequirement: 5000,
@@ -219,9 +219,9 @@ export const UNITED_CREDIT_CARDS = {
     annualFee: 650,
     flightMilesBonus: 4, // 4x miles on United purchases
     purchaseMultiplier: 2, // 2x miles on other purchases
-    pqpPerDollar: 1/20, // 1 PQP per $20 spent  
+    pqpPerDollar: 1/15, // 1 PQP per $15 spent  
     pqpCap: 0, // No PQP cap
-    annualPQPBonus: 1000, // 1,000 PQP annually
+    annualPQPBonus: 1500, // 1,500 PQP annually
     signUpBonus: 80000,
     signUpBonusPQP: 2000, // 2,000 PQP with sign-up bonus
     signUpSpendRequirement: 5000,

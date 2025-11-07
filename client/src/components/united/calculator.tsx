@@ -189,6 +189,7 @@ export function UnitedCalculator({ onCalculate }: UnitedCalculatorProps) {
                     ? `1 PQP per $${Math.round(1/UNITED_CREDIT_CARDS[creditCard].pqpPerDollar)} spent`
                     : "No PQP earn"} 
                   {UNITED_CREDIT_CARDS[creditCard].pqpCap > 0 && ` (cap: ${UNITED_CREDIT_CARDS[creditCard].pqpCap.toLocaleString()})`}
+                  {UNITED_CREDIT_CARDS[creditCard].annualPQPBonus > 0 && ` + ${UNITED_CREDIT_CARDS[creditCard].annualPQPBonus.toLocaleString()} annual bonus`}
                 </p>
               )}
             </div>
