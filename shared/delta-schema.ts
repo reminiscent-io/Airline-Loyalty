@@ -106,7 +106,8 @@ export const deltaCalculatorInputSchema = z.object({
   currentTier: z.enum(["none", "silver", "gold", "platinum", "diamond"]).default("none"),
   cardType: z.enum(["none", "gold", "platinum", "reserve"]).default("none"),
   annualCardSpend: z.number().min(0).default(0),
-  fareClass: z.enum(["main-basic", "comfort-basic", "classic", "refundable", "extra"]).default("classic")
+  fareClass: z.enum(["main-basic", "comfort-basic", "classic", "refundable", "extra"]).default("classic"),
+  includeSignUpBonus: z.boolean().optional().default(false)
 });
 
 export type DeltaCalculatorInput = z.infer<typeof deltaCalculatorInputSchema>;

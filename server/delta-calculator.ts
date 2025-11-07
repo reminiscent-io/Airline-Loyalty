@@ -57,7 +57,21 @@ export function calculateDelta(input: DeltaCalculatorInput): DeltaCalculationRes
 
   // Calculate SkyMiles from credit card (simplified - assuming average 1.5x, includes flight spending)
   const totalCardSpend = input.annualCardSpend + input.annualFlightSpend;
-  const cardSkyMiles = input.cardType !== "none" ? Math.round(totalCardSpend * 1.5) : 0;
+  let cardSkyMiles = input.cardType !== "none" ? Math.round(totalCardSpend * 1.5) : 0;
+  
+  // Add sign-up bonus if qualified
+  if (input.includeSignUpBonus && input.cardType !== "none") {
+    const signUpBonuses = {
+      gold: { bonus: 75000, requirement: 3000 },
+      platinum: { bonus: 90000, requirement: 4000 },
+      reserve: { bonus: 100000, requirement: 6000 }
+    };
+    
+    const cardConfig = signUpBonuses[input.cardType as keyof typeof signUpBonuses];
+    if (cardConfig && totalCardSpend >= cardConfig.requirement) {
+      cardSkyMiles += cardConfig.bonus;
+    }
+  }
   
   const totalSkyMiles = flightSkyMiles + cardSkyMiles;
 

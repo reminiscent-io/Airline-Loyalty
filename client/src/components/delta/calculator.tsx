@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Calculator as CalculatorIcon, Loader2, Plane, CreditCard } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
@@ -27,8 +28,26 @@ export function DeltaCalculator({ onCalculate }: DeltaCalculatorProps) {
   // Credit card inputs
   const [cardType, setCardType] = useState<"none" | "gold" | "platinum" | "reserve">("none");
   const [annualCardSpend, setAnnualCardSpend] = useState<string>("0");
+  const [includeSignUpBonus, setIncludeSignUpBonus] = useState(false);
   
   const { toast } = useToast();
+  
+  // Credit card configurations
+  const DELTA_CREDIT_CARDS = {
+    none: { signUpBonus: 0, signUpSpendRequirement: 0 },
+    gold: { signUpBonus: 75000, signUpSpendRequirement: 3000 },
+    platinum: { signUpBonus: 90000, signUpSpendRequirement: 4000 },
+    reserve: { signUpBonus: 100000, signUpSpendRequirement: 6000 }
+  };
+  
+  // Handle credit card change
+  const handleCardTypeChange = (value: "none" | "gold" | "platinum" | "reserve") => {
+    setCardType(value);
+    if (value === "none") {
+      setAnnualCardSpend("0");
+      setIncludeSignUpBonus(false);
+    }
+  };
 
   const calculateMutation = useMutation({
     mutationFn: async (input: DeltaCalculatorInput) => {
@@ -48,12 +67,13 @@ export function DeltaCalculator({ onCalculate }: DeltaCalculatorProps) {
   });
 
   const handleCalculate = () => {
-    const input: DeltaCalculatorInput = {
+    const input: DeltaCalculatorInput & { includeSignUpBonus?: boolean } = {
       annualFlightSpend: parseFloat(annualFlightSpend) || 0,
       fareClass,
       currentTier,
       cardType,
       annualCardSpend: parseFloat(annualCardSpend) || 0,
+      includeSignUpBonus: cardType !== "none" ? includeSignUpBonus : false,
     };
     
     calculateMutation.mutate(input);
@@ -144,7 +164,7 @@ export function DeltaCalculator({ onCalculate }: DeltaCalculatorProps) {
           <div className="space-y-4 pl-6">
             <div>
               <Label htmlFor="credit-card">Delta SkyMiles Credit Card</Label>
-              <Select value={cardType} onValueChange={(value) => setCardType(value as typeof cardType)}>
+              <Select value={cardType} onValueChange={handleCardTypeChange}>
                 <SelectTrigger id="credit-card" className="mt-1" data-testid="select-card-type">
                   <SelectValue placeholder="Select credit card" />
                 </SelectTrigger>
@@ -163,21 +183,35 @@ export function DeltaCalculator({ onCalculate }: DeltaCalculatorProps) {
             </div>
 
             {cardType !== "none" && (
-              <div>
-                <Label htmlFor="card-spending">Annual Card Spending ($)</Label>
-                <Input
-                  id="card-spending"
-                  type="number"
-                  value={annualCardSpend}
-                  onChange={(e) => setAnnualCardSpend(e.target.value)}
-                  placeholder="Enter amount"
-                  className="mt-1"
-                  data-testid="input-card-spend"
-                />
-                <p className="text-xs text-muted-foreground mt-1">
-                  Non-flight purchases on your Delta card. MQD boosts use total card spend (flights + purchases)
-                </p>
-              </div>
+              <>
+                <div>
+                  <Label htmlFor="card-spending">Annual Card Spending ($)</Label>
+                  <Input
+                    id="card-spending"
+                    type="number"
+                    value={annualCardSpend}
+                    onChange={(e) => setAnnualCardSpend(e.target.value)}
+                    placeholder="Enter amount"
+                    className="mt-1"
+                    data-testid="input-card-spend"
+                  />
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Non-flight purchases on your Delta card. MQD boosts use total card spend (flights + purchases)
+                  </p>
+                </div>
+
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="signup-bonus"
+                    checked={includeSignUpBonus}
+                    onCheckedChange={(checked) => setIncludeSignUpBonus(checked as boolean)}
+                    data-testid="checkbox-signup-bonus"
+                  />
+                  <Label htmlFor="signup-bonus" className="text-sm font-normal cursor-pointer">
+                    Include sign-up bonus ({DELTA_CREDIT_CARDS[cardType].signUpBonus.toLocaleString()} SkyMiles after ${DELTA_CREDIT_CARDS[cardType].signUpSpendRequirement.toLocaleString()} spend)
+                  </Label>
+                </div>
+              </>
             )}
           </div>
         </div>
