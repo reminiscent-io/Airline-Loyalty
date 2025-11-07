@@ -79,8 +79,11 @@ export function calculateDelta(input: DeltaCalculatorInput): DeltaCalculationRes
   }
 
   // Financial Analysis
-  const milesValue = totalSkyMiles * MILE_VALUE;
-  const totalSpend = input.cardType !== "none" ? input.annualFlightSpend + input.annualCardSpend : input.annualFlightSpend;
+  // Delta cardholders get 15% discount on redemptions, making miles worth more
+  const hasCard = input.cardType !== "none";
+  const effectiveMileValue = hasCard ? MILE_VALUE / 0.85 : MILE_VALUE;
+  const milesValue = totalSkyMiles * effectiveMileValue;
+  const totalSpend = hasCard ? input.annualFlightSpend + input.annualCardSpend : input.annualFlightSpend;
   const returnOnSpend = totalSpend > 0 ? (milesValue / totalSpend) * 100 : 0;
 
   return {
@@ -96,6 +99,7 @@ export function calculateDelta(input: DeltaCalculatorInput): DeltaCalculationRes
     mqdHeadstart,
     achievableTier,
     milesValue: Math.round(milesValue * 100) / 100,
-    returnOnSpend: Math.round(returnOnSpend * 10) / 10
+    returnOnSpend: Math.round(returnOnSpend * 10) / 10,
+    redemptionDiscountApplied: hasCard
   };
 }

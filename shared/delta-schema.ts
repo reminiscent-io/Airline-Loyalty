@@ -117,6 +117,7 @@ export interface DeltaCalculationResults {
   achievableTier: DeltaTier;
   milesValue: number;
   returnOnSpend: number;
+  redemptionDiscountApplied: boolean;
 }
 
 // Delta Credit Cards
