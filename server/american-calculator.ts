@@ -32,8 +32,10 @@ export function calculateAmericanRewards(input: AmericanCalculatorInput): Americ
   // Base miles from flights (fare type multiplier)
   const baseFlightMiles = flightSpending * fareTypeConfig.baseMultiplier;
   
-  // Apply status bonus to flight miles (tier multiplier replaces base multiplier)
-  const flightMiles = flightSpending * tierConfig.milesMultiplier;
+  // Apply status bonus percentage to base miles
+  // Formula: Total = Base × (1 + Status Bonus %)
+  const statusBonus = (tierConfig as any).statusBonusPercentage || 0;
+  const flightMiles = baseFlightMiles * (1 + statusBonus);
   
   // Add credit card bonus on AA purchases
   let totalFlightMiles = flightMiles;
@@ -65,6 +67,7 @@ export function calculateAmericanRewards(input: AmericanCalculatorInput): Americ
   // ======================
   
   // Flight Loyalty Points (includes status bonus)
+  // For American Airlines, Loyalty Points = Miles earned on flights
   const flightLoyaltyPoints = flightMiles; // Miles earned = Loyalty Points for AA flights
   
   // Card Loyalty Points (base miles only, no category bonuses)

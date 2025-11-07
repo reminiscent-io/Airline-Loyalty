@@ -147,11 +147,11 @@ export function AmericanCalculator({ onCalculate }: AmericanCalculatorProps) {
                   <SelectValue placeholder="Select your status" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="member">AAdvantage Member (5× miles)</SelectItem>
-                  <SelectItem value="gold">Gold (7× miles)</SelectItem>
-                  <SelectItem value="platinum">Platinum (8× miles)</SelectItem>
-                  <SelectItem value="platinum-pro">Platinum Pro (9× miles)</SelectItem>
-                  <SelectItem value="executive-platinum">Executive Platinum (11× miles)</SelectItem>
+                  <SelectItem value="member">AAdvantage Member (+0% bonus)</SelectItem>
+                  <SelectItem value="gold">Gold (+40% bonus)</SelectItem>
+                  <SelectItem value="platinum">Platinum (+60% bonus)</SelectItem>
+                  <SelectItem value="platinum-pro">Platinum Pro (+80% bonus)</SelectItem>
+                  <SelectItem value="executive-platinum">Executive Platinum (+120% bonus)</SelectItem>
                 </SelectContent>
               </Select>
             </div>

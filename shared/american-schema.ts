@@ -28,7 +28,8 @@ export const AMERICAN_TIER_CONFIGS = {
   "member": {
     name: "AAdvantage Member",
     loyaltyPointsRequired: 0,
-    milesMultiplier: 5, // 5x miles per dollar
+    milesMultiplier: 5, // Total multiplier for display (deprecated, kept for backward compatibility)
+    statusBonusPercentage: 0, // 0% bonus on base miles
     benefits: [
       "Earn miles that don't expire",
       "No blackout dates on award flights",
@@ -38,7 +39,8 @@ export const AMERICAN_TIER_CONFIGS = {
   "gold": {
     name: "Gold",
     loyaltyPointsRequired: 40000,
-    milesMultiplier: 7, // 7x miles per dollar
+    milesMultiplier: 7, // Total multiplier for display (deprecated, kept for backward compatibility)
+    statusBonusPercentage: 0.4, // 40% bonus on base miles
     benefits: [
       "40% bonus miles on flights",
       "Complimentary Main Cabin Extra seats (when available)",
@@ -49,7 +51,8 @@ export const AMERICAN_TIER_CONFIGS = {
   "platinum": {
     name: "Platinum",
     loyaltyPointsRequired: 75000,
-    milesMultiplier: 8, // 8x miles per dollar
+    milesMultiplier: 8, // Total multiplier for display (deprecated, kept for backward compatibility)
+    statusBonusPercentage: 0.6, // 60% bonus on base miles
     benefits: [
       "60% bonus miles on flights",
       "Complimentary Main Cabin Extra and Preferred seats",
@@ -61,7 +64,8 @@ export const AMERICAN_TIER_CONFIGS = {
   "platinum-pro": {
     name: "Platinum Pro",
     loyaltyPointsRequired: 125000,
-    milesMultiplier: 9, // 9x miles per dollar
+    milesMultiplier: 9, // Total multiplier for display (deprecated, kept for backward compatibility)
+    statusBonusPercentage: 0.8, // 80% bonus on base miles
     benefits: [
       "80% bonus miles on flights",
       "Complimentary Main Cabin Extra and Preferred seats",
@@ -73,7 +77,8 @@ export const AMERICAN_TIER_CONFIGS = {
   "executive-platinum": {
     name: "Executive Platinum",
     loyaltyPointsRequired: 200000,
-    milesMultiplier: 11, // 11x miles per dollar
+    milesMultiplier: 11, // Total multiplier for display (deprecated, kept for backward compatibility)
+    statusBonusPercentage: 1.2, // 120% bonus on base miles
     benefits: [
       "120% bonus miles on flights",
       "Complimentary Main Cabin Extra and Preferred seats",
@@ -87,6 +92,7 @@ export const AMERICAN_TIER_CONFIGS = {
     name: "ConciergeKey",
     loyaltyPointsRequired: -1, // Invitation only, no specific requirement
     milesMultiplier: 11, // Same as Executive Platinum
+    statusBonusPercentage: 1.2, // 120% bonus on base miles (same as Executive Platinum)
     isGhostTier: true,
     invitationOnly: true,
     benefits: [
