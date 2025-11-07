@@ -1,0 +1,314 @@
+Based on my comprehensive research of United's MileagePlus program (November 2025), here's a 100% accurate reflection:
+
+## United MileagePlus - Accurate Program Structure (2025)
+
+### Elite Status Tiers & Requirements
+
+```typescript
+export const unitedTierStatuses = ["member", "silver", "gold", "platinum", "1k"] as const;
+export type UnitedTierStatus = typeof unitedTierStatuses[number];
+
+export const UNITED_TIER_CONFIGS = {
+  "member": {
+    name: "MileagePlus Member",
+    pqpRequired: 0,
+    pqfRequired: 0,
+    milesMultiplier: 5, // 5x miles per dollar
+    benefits: [
+      "Earn miles on flights",
+      "Miles never expire",
+      "No blackout dates"
+    ]
+  },
+  "silver": {
+    name: "Premier Silver",
+    pqpRequired: 6000, // PQP only path
+    pqfRequired: 0,
+    alternativeRequirement: { pqp: 5000, pqf: 15 }, // Combined path
+    milesMultiplier: 7, // 5 base + 2 bonus
+    benefits: [
+      "7 miles per dollar",
+      "One free checked bag",
+      "Premier Access boarding (Group 2)",
+      "Complimentary Economy Plus at check-in",
+      "40% bonus miles"
+    ]
+  },
+  "gold": {
+    name: "Premier Gold",
+    pqpRequired: 12000,
+    pqfRequired: 0,
+    alternativeRequirement: { pqp: 10000, pqf: 30 },
+    milesMultiplier: 8, // 5 base + 3 bonus
+    benefits: [
+      "8 miles per dollar",
+      "Two free checked bags",
+      "Premier Access boarding (Group 1)",
+      "Complimentary Economy Plus seating",
+      "Same-day flight changes",
+      "60% bonus miles"
+    ]
+  },
+  "platinum": {
+    name: "Premier Platinum",
+    pqpRequired: 18000,
+    pqfRequired: 0,
+    alternativeRequirement: { pqp: 15000, pqf: 45 },
+    milesMultiplier: 9, // 5 base + 4 bonus
+    benefits: [
+      "9 miles per dollar",
+      "Three free checked bags",
+      "Complimentary upgrades (72 hours before)",
+      "Premier Access (priority security + boarding)",
+      "280 PlusPoints annually",
+      "80% bonus miles"
+    ]
+  },
+  "1k": {
+    name: "Premier 1K",
+    pqpRequired: 28000,
+    pqfRequired: 0,
+    alternativeRequirement: { pqp: 22000, pqf: 60 },
+    milesMultiplier: 11, // 5 base + 6 bonus
+    benefits: [
+      "11 miles per dollar",
+      "Three free checked bags",
+      "Highest upgrade priority (96 hours before)",
+      "Premier Access throughout airport",
+      "280 PlusPoints annually",
+      "United Club lounge access on day of travel",
+      "120% bonus miles"
+    ]
+  }
+} as const;
+```
+
+### Key Requirements (CRITICAL)
+- **Minimum 4 United/United Express flights required** for ANY status qualification
+- **PQP = Premier Qualifying Points** (1 PQP per $1 spent on base fare)
+- **PQF = Premier Qualifying Flights** (1 PQF per flight segment)
+- Two paths to status: PQP-only OR combined PQP+PQF
+- Status year: Qualify in 2025 → Status valid through Jan 31, 2027
+
+### Fare Classes & Earning Rates
+
+```typescript
+export const unitedFareTypes = [
+  "basic-economy",
+  "economy", 
+  "economy-plus",
+  "premium-plus",
+  "business",
+  "first",
+  "polaris"
+] as const;
+
+export const UNITED_FARE_TYPES = {
+  "basic-economy": {
+    name: "Basic Economy",
+    pqpMultiplier: 1, // 1 PQP per dollar
+    milesMultiplier: 1, // Earns 5 miles/dollar (member rate)
+    pqfEligible: false, // Does NOT earn PQF
+    upgradeEligible: false,
+    restrictions: [
+      "No carry-on bag (domestic)",
+      "Last boarding group",
+      "Seat assigned at gate",
+      "No changes allowed"
+    ]
+  },
+  "economy": {
+    name: "Economy",
+    pqpMultiplier: 1,
+    milesMultiplier: 1,
+    pqfEligible: true, // Earns 1 PQF per segment
+    upgradeEligible: true,
+    fareClasses: ["Y", "B", "M", "E", "H", "U", "Q", "V", "W", "L", "K", "S", "T", "G"]
+  },
+  "economy-plus": {
+    name: "Economy Plus",
+    pqpMultiplier: 1,
+    milesMultiplier: 1,
+    pqfEligible: true,
+    upgradeEligible: true,
+    benefits: ["Extra legroom", "Priority boarding"]
+  },
+  "premium-plus": {
+    name: "Premium Plus",
+    pqpMultiplier: 1,
+    milesMultiplier: 1,
+    pqfEligible: true,
+    upgradeEligible: true,
+    fareClasses: ["RN"],
+    benefits: ["Premium cabin", "Enhanced meal service", "More baggage allowance"]
+  },
+  "business": {
+    name: "Business/Polaris",
+    pqpMultiplier: 1,
+    milesMultiplier: 1.5, // Some fare classes earn 50% bonus
+    pqfEligible: true,
+    upgradeEligible: false,
+    fareClasses: ["J", "C", "D", "Z", "P"],
+    benefits: ["Lie-flat seats", "Polaris lounge access", "Premium dining"]
+  }
+} as const;
+```
+
+### Credit Cards (Accurate as of Nov 2025)
+
+```typescript
+export const unitedCreditCards = [
+  "none",
+  "gateway",
+  "explorer",
+  "quest",
+  "club"
+] as const;
+
+export const UNITED_CREDIT_CARDS = {
+  "none": {
+    name: "No Card",
+    annualFee: 0,
+    flightPointsBonus: 0,
+    purchaseMultiplier: 1,
+    pqpEarning: false,
+    freeCheckedBag: false,
+    signUpBonus: 0,
+    signUpSpendRequirement: 0
+  },
+  "gateway": {
+    name: "United Gateway",
+    annualFee: 0,
+    flightPointsBonus: 2, // 2x miles on United
+    purchaseMultiplier: 1,
+    pqpEarning: false, // Does NOT earn PQP
+    freeCheckedBag: false,
+    conditionalBenefits: {
+      freeCheckedBags: { spend: 10000, bags: 2 } // 2 bags after $10k spend/year
+    },
+    signUpBonus: 30000,
+    signUpSpendRequirement: 1000,
+    benefits: [
+      "25% back on inflight purchases",
+      "No annual fee"
+    ]
+  },
+  "explorer": {
+    name: "United Explorer",
+    annualFee: 95, // $0 first year, then $95
+    flightPointsBonus: 2, // 2x miles on United
+    purchaseMultiplier: 1,
+    pqpEarning: true,
+    pqpRate: 20, // 1 PQP per $20 spent (max 1,000 PQP/year)
+    freeCheckedBag: true, // First bag free
+    clubPasses: 2, // 2 United Club passes/year
+    signUpBonus: 60000,
+    signUpBonusPQP: 0,
+    signUpSpendRequirement: 3000,
+    benefits: [
+      "Free first checked bag",
+      "2 United Club passes annually",
+      "Priority boarding",
+      "Up to $120 Global Entry/TSA PreCheck credit"
+    ]
+  },
+  "quest": {
+    name: "United Quest",
+    annualFee: 350,
+    flightPointsBonus: 3, // 3x miles on United
+    travelMultiplier: 2, // 2x on all other travel
+    diningMultiplier: 2, // 2x on dining
+    streamingMultiplier: 2, // 2x on select streaming
+    purchaseMultiplier: 1,
+    pqpEarning: true,
+    pqpRate: 20, // 1 PQP per $20 spent (max 18,000 PQP/year)
+    annualPQPBonus: 1000, // 1,000 PQP annually
+    freeCheckedBags: 2, // Two bags free
+    annualTravelCredit: 200, // $200 United TravelBank credit
+    signUpBonus: 70000,
+    signUpBonusPQP: 1000,
+    signUpSpendRequirement: 4000,
+    benefits: [
+      "Annual 10,000-mile award discount",
+      "Another 10,000-mile discount after $20k spend",
+      "2 Economy Plus upgrades after $40k spend",
+      "25% back on inflight purchases",
+      "$150 Renowned Hotels credit"
+    ]
+  },
+  "club": {
+    name: "United Club",
+    annualFee: 650, // $0 first year, then $650
+    flightPointsBonus: 4, // 4x miles on United
+    travelMultiplier: 2,
+    diningMultiplier: 2,
+    purchaseMultiplier: 1,
+    pqpEarning: true,
+    pqpRate: 20, // 1 PQP per $20 spent (no cap)
+    annualPQPBonus: 1000,
+    freeCheckedBags: 2,
+    clubAccess: true, // United Club membership included
+    clubPasses: 4, // 4 passes annually
+    signUpBonus: 80000,
+    signUpBonusPQP: 2000,
+    signUpSpendRequirement: 5000,
+    benefits: [
+      "United Club membership",
+      "4 United Club guest passes",
+      "Premier Access",
+      "$100 Global Entry/TSA PreCheck credit",
+      "$925+ in annual partner credits"
+    ]
+  }
+} as const;
+```
+
+### Key Differences from Your JetBlue Code
+
+1. **Two-metric system**: United uses both PQP (spending) and PQF (flights) with alternative paths
+2. **4-flight minimum**: Absolute requirement across all status levels
+3. **Status requirements increased in 2025**: All thresholds went up 20-25%
+4. **Basic Economy**: Earns miles AND PQP, but NOT PQF
+5. **Miles earning**: Everyone earns 5 base miles/dollar, elites get bonus (+2 to +6)
+6. **PQP from credit cards**: Max caps vary by card (1,000 to 18,000+ per year)
+7. **PlusPoints**: Platinum+ members get 280 PlusPoints for upgrades (new redemption options in 2025)
+
+This structure is significantly more complex than JetBlue's tile-based system!
+
+[1](https://www.newsweek.com/united-airlines-launches-new-rewards-program-10995954)
+[2](https://www.nerdwallet.com/travel/learn/united-airlines-mileageplus-program-the-complete-guide)
+[3](https://www.cnbc.com/2025/11/05/lyft-united-loyalty-program-miles.html)
+[4](https://www.united.com/en/us/fly/mileageplus/premier/qualify.html)
+[5](https://thepointsguy.com/loyalty-programs/earning-united-elite-status/)
+[6](https://www.reddit.com/r/CreditCards/comments/1k85q77/should_i_still_go_for_the_united_card_in_2025/)
+[7](https://www.united.com/en/us/fly/mileageplus/premier.html)
+[8](https://www.nerdwallet.com/travel/learn/guide-to-united-airlines-premier-elite-status)
+[9](https://thepointsguy.com/credit-cards/united/)
+[10](https://thepointsguy.com/news/united-airlines-premier-elite-pluspoints-changes-2025/)
+[11](https://www.united.com/en/us/fly/mileageplus/mileage-products.html)
+[12](https://creditcards.chase.com/travel-credit-cards/united)
+[13](https://www.youtube.com/watch?v=ME3F6D8Zq2M)
+[14](https://www.businesstravelnews.com/Transportation/Air/United-to-Increase-Status-Qualification-Levels)
+[15](https://www.united.com/en/us/fly/products/united-personal-credit-cards.html)
+[16](https://www.united.com/en/us/fly/mileageplus/whats-new.html)
+[17](https://www.reddit.com/r/unitedairlines/comments/1gev6vd/united_unveils_big_premier_status_pluspoints/)
+[18](https://www.youtube.com/watch?v=s39BF_w20A4)
+[19](https://www.united.com/en/us/fly/mileageplus.html)
+[20](https://badice.com/2024/10/united-increases-2025-2026-elite-status-requirements/)
+[21](https://www.themilesmarket.com/post/how-to-earn-more-united-airlines-miles-2026-guide)
+[22](https://www.nerdwallet.com/travel/learn/united-airlines-basic-economy-vs-economy-vs-economy-plus)
+[23](https://creditcards.chase.com/travel-credit-cards/united/united-quest)
+[24](https://thepointsguy.com/airline/united-fare-classes/)
+[25](https://creditcards.chase.com/travel-credit-cards/united/united-gateway)
+[26](https://www.united.com/en/us/fly/mileageplus/earn-miles.html)
+[27](https://www.nerdwallet.com/travel/learn/united-fare-classes)
+[28](https://www.nerdwallet.com/travel/learn/is-the-united-quest-card-worth-its-annual-fee)
+[29](https://www.nerdwallet.com/travel/learn/ways-to-earn-united-mileageplus-miles)
+[30](https://thriftytraveler.com/guides/airlines/united-basic-economy/)
+[31](https://www.reddit.com/r/unitedairlines/comments/1mofna9/applying_for_united_quest_card_while_having/)
+[32](https://www.united.com/en/us/fly/mileageplus/money-plus-miles.html)
+[33](https://arcaofficial.com/blogs/arca-articles/fly-united-basic-economy-what-you-need-to-know-before-you-book-5)
+[34](https://www2.theexplorercard.com/rewards-cards/quest-card)
+[35](https://www.united.com/en/us/fly/mileageplus/earn-miles/everyday-activities.html)
+[36](https://www.corporatetraveler.us/en-us/resources/insights/guide-business-travel-economy-classes-explained)
+[37](https://www.united.com/en/us/fly/travel/inflight/basic-economy.html)

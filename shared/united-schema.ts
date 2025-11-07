@@ -38,54 +38,62 @@ export const UNITED_TIER_CONFIGS = {
   },
   "silver": {
     name: "Premier Silver",
-    pqpRequired: 5000,
-    pqfRequired: 15,
-    milesMultiplier: 7, // 7x miles per dollar
+    pqpRequired: 6000,
+    pqfRequired: 0, // PQF only needed for alternative path
+    alternativePath: { pqp: 5000, pqf: 15 }, // Alternative combined path
+    milesMultiplier: 7, // 5 base + 2 bonus
     benefits: [
-      "40% bonus miles on flights",
-      "Complimentary Economy Plus at check-in",
+      "7 miles per dollar",
       "One free checked bag",
-      "Priority check-in and boarding"
+      "Premier Access boarding (Group 2)",
+      "Complimentary Economy Plus at check-in",
+      "40% bonus miles"
     ]
   },
   "gold": {
     name: "Premier Gold",
-    pqpRequired: 10000,
-    pqfRequired: 30,
-    milesMultiplier: 8, // 8x miles per dollar
+    pqpRequired: 12000,
+    pqfRequired: 0,
+    alternativePath: { pqp: 10000, pqf: 30 },
+    milesMultiplier: 8, // 5 base + 3 bonus
     benefits: [
-      "60% bonus miles on flights",
-      "Complimentary Economy Plus at booking",
+      "8 miles per dollar",
       "Two free checked bags",
-      "Priority security and boarding",
-      "Free same-day changes"
+      "Premier Access boarding (Group 1)",
+      "Complimentary Economy Plus seating",
+      "Same-day flight changes",
+      "60% bonus miles"
     ]
   },
   "platinum": {
     name: "Premier Platinum",
-    pqpRequired: 15000,
-    pqfRequired: 45,
-    milesMultiplier: 9, // 9x miles per dollar
+    pqpRequired: 18000,
+    pqfRequired: 0,
+    alternativePath: { pqp: 15000, pqf: 45 },
+    milesMultiplier: 9, // 5 base + 4 bonus
     benefits: [
-      "80% bonus miles on flights",
-      "Complimentary Economy Plus and preferred seats",
+      "9 miles per dollar",
       "Three free checked bags",
-      "Priority everything",
-      "Free upgrades on select routes"
+      "Complimentary upgrades (72 hours before)",
+      "Premier Access (priority security + boarding)",
+      "280 PlusPoints annually",
+      "80% bonus miles"
     ]
   },
   "1k": {
     name: "Premier 1K",
-    pqpRequired: 24000,
-    pqfRequired: 60,
-    milesMultiplier: 11, // 11x miles per dollar
+    pqpRequired: 28000,
+    pqfRequired: 0,
+    alternativePath: { pqp: 22000, pqf: 60 },
+    milesMultiplier: 11, // 5 base + 6 bonus
     benefits: [
-      "120% bonus miles on flights",
-      "Complimentary Premier Access",
-      "Three free checked bags (70 lbs each)",
-      "Highest upgrade priority",
-      "United Club passes",
-      "Global Services consideration"
+      "11 miles per dollar",
+      "Three free checked bags",
+      "Highest upgrade priority (96 hours before)",
+      "Premier Access throughout airport",
+      "280 PlusPoints annually",
+      "United Club lounge access on day of travel",
+      "120% bonus miles"
     ]
   },
   "global-services": {
