@@ -4,6 +4,7 @@ import { Progress } from "@/components/ui/progress";
 import { TrendingUp, Award, Plane, CreditCard, Building2, DollarSign, Target } from "lucide-react";
 import { type UnitedCalculationResults, UNITED_TIER_CONFIGS } from "@shared/united-schema";
 import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 
 interface UnitedResultsPanelProps {
   results: UnitedCalculationResults | null;
@@ -170,30 +171,166 @@ export function UnitedResultsPanel({ results }: UnitedResultsPanelProps) {
 
         <Separator />
 
-        {/* Premier Status Progress */}
+        {/* Premier Status Progress - BOTH Required */}
         {results.nextTier && nextTierConfig && (
-          <div className="space-y-3">
-            <h4 className="font-semibold text-sm text-[#002244]">Premier Status Progress</h4>
+          <div className="space-y-4">
+            <div className="flex items-center gap-2">
+              <h4 className="font-semibold text-sm text-[#002244]">Premier Status Progress</h4>
+              <Badge className="bg-amber-100 text-amber-800 text-xs">
+                Both PQP & PQF Required
+              </Badge>
+            </div>
+            
+            {/* PQP Progress */}
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Progress to {nextTierConfig.name}</span>
-                <span className="font-semibold" data-testid="text-percent-to-next-tier">
-                  {results.percentToNextTier.toFixed(0)}%
+                <span className="text-muted-foreground">
+                  PQP Progress ({results.totalPQP.toLocaleString()} / {nextTierConfig.pqpRequired.toLocaleString()})
+                </span>
+                <span className="font-semibold" data-testid="text-pqp-percent">
+                  {((results.totalPQP / nextTierConfig.pqpRequired) * 100).toFixed(0)}%
                 </span>
               </div>
-              <Progress 
-                value={results.percentToNextTier} 
-                className="h-2"
-                data-testid="progress-next-tier"
-              />
-              <div className="grid grid-cols-2 gap-2">
-                <p className="text-xs text-muted-foreground" data-testid="text-pqp-to-next-tier">
-                  {results.pqpToNextTier.toLocaleString()} more PQP needed
-                </p>
-                <p className="text-xs text-muted-foreground text-right" data-testid="text-pqf-to-next-tier">
-                  {results.pqfToNextTier} more PQF needed
-                </p>
+              <div className="relative">
+                <Progress 
+                  value={(results.totalPQP / nextTierConfig.pqpRequired) * 100} 
+                  className="h-8"
+                  data-testid="progress-pqp"
+                />
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <span className="text-xs font-medium text-white mix-blend-difference">
+                    {results.pqpToNextTier.toLocaleString()} more needed
+                  </span>
+                </div>
               </div>
+              
+              {/* PQP Tier Markers */}
+              <div className="relative h-6">
+                <div className="absolute inset-x-0 flex justify-between text-xs">
+                  {/* Silver marker at 4,000 PQP */}
+                  <div className="absolute" style={{ left: `${(4000 / 24000) * 100}%` }}>
+                    <div className="flex flex-col items-center">
+                      <div className="w-0.5 h-2 bg-gray-400"></div>
+                      <span className="text-[8px] text-muted-foreground mt-0.5">Silver</span>
+                      <span className="text-[7px] text-muted-foreground">4K</span>
+                    </div>
+                  </div>
+                  {/* Gold marker at 8,000 PQP */}
+                  <div className="absolute" style={{ left: `${(8000 / 24000) * 100}%` }}>
+                    <div className="flex flex-col items-center">
+                      <div className="w-0.5 h-2 bg-yellow-500"></div>
+                      <span className="text-[8px] text-muted-foreground mt-0.5">Gold</span>
+                      <span className="text-[7px] text-muted-foreground">8K</span>
+                    </div>
+                  </div>
+                  {/* Platinum marker at 12,000 PQP */}
+                  <div className="absolute" style={{ left: `${(12000 / 24000) * 100}%` }}>
+                    <div className="flex flex-col items-center">
+                      <div className="w-0.5 h-2 bg-gray-600"></div>
+                      <span className="text-[8px] text-muted-foreground mt-0.5">Plat</span>
+                      <span className="text-[7px] text-muted-foreground">12K</span>
+                    </div>
+                  </div>
+                  {/* 1K marker at 24,000 PQP */}
+                  <div className="absolute" style={{ left: '100%' }}>
+                    <div className="flex flex-col items-center">
+                      <div className="w-0.5 h-2 bg-gray-900"></div>
+                      <span className="text-[8px] text-muted-foreground mt-0.5">1K</span>
+                      <span className="text-[7px] text-muted-foreground">24K</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* AND Connector */}
+            <div className="flex items-center justify-center">
+              <Badge variant="outline" className="bg-white">
+                <span className="text-xs font-semibold text-amber-600">AND</span>
+              </Badge>
+            </div>
+            
+            {/* PQF Progress */}
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">
+                  PQF Progress ({results.totalPQF} / {nextTierConfig.pqfRequired})
+                </span>
+                <span className="font-semibold" data-testid="text-pqf-percent">
+                  {((results.totalPQF / nextTierConfig.pqfRequired) * 100).toFixed(0)}%
+                </span>
+              </div>
+              <div className="relative">
+                <Progress 
+                  value={(results.totalPQF / nextTierConfig.pqfRequired) * 100} 
+                  className="h-8"
+                  data-testid="progress-pqf"
+                />
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <span className="text-xs font-medium text-white mix-blend-difference">
+                    {results.pqfToNextTier} more needed
+                  </span>
+                </div>
+              </div>
+              
+              {/* PQF Tier Markers */}
+              <div className="relative h-6">
+                <div className="absolute inset-x-0 flex justify-between text-xs">
+                  {/* Silver marker at 12 PQF */}
+                  <div className="absolute" style={{ left: `${(12 / 60) * 100}%` }}>
+                    <div className="flex flex-col items-center">
+                      <div className="w-0.5 h-2 bg-gray-400"></div>
+                      <span className="text-[8px] text-muted-foreground mt-0.5">Silver</span>
+                      <span className="text-[7px] text-muted-foreground">12</span>
+                    </div>
+                  </div>
+                  {/* Gold marker at 24 PQF */}
+                  <div className="absolute" style={{ left: `${(24 / 60) * 100}%` }}>
+                    <div className="flex flex-col items-center">
+                      <div className="w-0.5 h-2 bg-yellow-500"></div>
+                      <span className="text-[8px] text-muted-foreground mt-0.5">Gold</span>
+                      <span className="text-[7px] text-muted-foreground">24</span>
+                    </div>
+                  </div>
+                  {/* Platinum marker at 36 PQF */}
+                  <div className="absolute" style={{ left: `${(36 / 60) * 100}%` }}>
+                    <div className="flex flex-col items-center">
+                      <div className="w-0.5 h-2 bg-gray-600"></div>
+                      <span className="text-[8px] text-muted-foreground mt-0.5">Plat</span>
+                      <span className="text-[7px] text-muted-foreground">36</span>
+                    </div>
+                  </div>
+                  {/* 1K marker at 60 PQF */}
+                  <div className="absolute" style={{ left: '100%' }}>
+                    <div className="flex flex-col items-center">
+                      <div className="w-0.5 h-2 bg-gray-900"></div>
+                      <span className="text-[8px] text-muted-foreground mt-0.5">1K</span>
+                      <span className="text-[7px] text-muted-foreground">60</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Status Summary */}
+            <div className={cn(
+              "p-3 rounded-lg text-sm",
+              results.totalPQP >= nextTierConfig.pqpRequired && results.totalPQF >= nextTierConfig.pqfRequired
+                ? "bg-green-50 border border-green-200 text-green-800"
+                : "bg-amber-50 border border-amber-200 text-amber-800"
+            )}>
+              {results.totalPQP >= nextTierConfig.pqpRequired && results.totalPQF >= nextTierConfig.pqfRequired ? (
+                <p className="font-semibold">✅ Qualified for {nextTierConfig.name}!</p>
+              ) : (
+                <p>
+                  <span className="font-semibold">Requirements:</span>{" "}
+                  {results.totalPQP < nextTierConfig.pqpRequired && results.totalPQF < nextTierConfig.pqfRequired
+                    ? `Need both ${results.pqpToNextTier.toLocaleString()} more PQP and ${results.pqfToNextTier} more PQF`
+                    : results.totalPQP < nextTierConfig.pqpRequired
+                    ? `Need ${results.pqpToNextTier.toLocaleString()} more PQP (PQF met ✓)`
+                    : `Need ${results.pqfToNextTier} more PQF (PQP met ✓)`}
+                </p>
+              )}
             </div>
           </div>
         )}
