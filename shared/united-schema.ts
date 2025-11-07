@@ -284,6 +284,9 @@ export interface UnitedCalculationResults {
   pqpToNextTier: number;
   pqfToNextTier: number;
   percentToNextTier: number;
+  qualifiesForNextTier: boolean;
+  qualificationPath: string;
+  meetsFlightMinimum: boolean;
   
   // Financial analysis
   milesValue: number;

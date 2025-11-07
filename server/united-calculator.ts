@@ -69,7 +69,20 @@ export function calculateUnitedRewards(input: UnitedCalculatorInput): UnitedCalc
   if (creditCard !== "none" && cardConfig.pqpPerDollar > 0) {
     const totalCardSpend = cardSpending + flightSpending;
     const earnedPQP = totalCardSpend * cardConfig.pqpPerDollar;
-    cardPQP = Math.min(earnedPQP, cardConfig.pqpCap);
+    // Apply cap only if cap is greater than 0
+    cardPQP = cardConfig.pqpCap > 0 ? Math.min(earnedPQP, cardConfig.pqpCap) : earnedPQP;
+    
+    // Add annual PQP bonus if available
+    if ('annualPQPBonus' in cardConfig && cardConfig.annualPQPBonus) {
+      cardPQP += cardConfig.annualPQPBonus;
+    }
+    
+    // Add sign-up PQP bonus if qualified
+    if (includeSignUpBonus && totalCardSpend >= cardConfig.signUpSpendRequirement) {
+      if ('signUpBonusPQP' in cardConfig && cardConfig.signUpBonusPQP) {
+        cardPQP += cardConfig.signUpBonusPQP;
+      }
+    }
   }
   
   // Partner PQP (base miles divided by 5 for preferred partners)
@@ -97,14 +110,57 @@ export function calculateUnitedRewards(input: UnitedCalculatorInput): UnitedCalc
   let pqpToNextTier = 0;
   let pqfToNextTier = 0;
   let percentToNextTier = 0;
+  let qualifiesForNextTier = false;
+  let qualificationPath = '';
   
   if (nextTier) {
     const nextTierConfig = UNITED_TIER_CONFIGS[nextTier];
     const currentRequirement = UNITED_TIER_CONFIGS[currentTier].pqpRequired;
     const nextRequirement = nextTierConfig.pqpRequired;
     
-    pqpToNextTier = Math.max(0, nextRequirement - totalPQP);
-    pqfToNextTier = Math.max(0, nextTierConfig.pqfRequired - totalPQF);
+    // Check if minimum 4 United flights requirement is met
+    const meetsFlightMinimum = flightsTaken >= 4;
+    
+    // Check PQP-only path
+    const meetsPQPOnlyPath = totalPQP >= nextRequirement && meetsFlightMinimum;
+    
+    // Check alternative PQP+PQF path if it exists
+    let meetsAlternativePath = false;
+    if ('alternativePath' in nextTierConfig && nextTierConfig.alternativePath) {
+      const altPath = nextTierConfig.alternativePath;
+      meetsAlternativePath = totalPQP >= altPath.pqp && totalPQF >= altPath.pqf && meetsFlightMinimum;
+    }
+    
+    qualifiesForNextTier = meetsPQPOnlyPath || meetsAlternativePath;
+    
+    if (meetsPQPOnlyPath) {
+      qualificationPath = 'PQP-only';
+      pqpToNextTier = 0;
+      pqfToNextTier = 0;
+    } else if (meetsAlternativePath && 'alternativePath' in nextTierConfig) {
+      qualificationPath = 'Alternative (PQP+PQF)';
+      pqpToNextTier = 0;
+      pqfToNextTier = 0;
+    } else {
+      // Show progress to both paths
+      pqpToNextTier = Math.max(0, nextRequirement - totalPQP);
+      
+      // For alternative path, show the closer option
+      if ('alternativePath' in nextTierConfig && nextTierConfig.alternativePath) {
+        const altPath = nextTierConfig.alternativePath;
+        const altPQPGap = Math.max(0, altPath.pqp - totalPQP);
+        const altPQFGap = Math.max(0, altPath.pqf - totalPQF);
+        
+        // If alternative path is closer, show those requirements
+        if (altPQPGap < pqpToNextTier) {
+          pqpToNextTier = altPQPGap;
+          pqfToNextTier = altPQFGap;
+          qualificationPath = 'Alternative path closer';
+        }
+      } else {
+        pqfToNextTier = Math.max(0, nextTierConfig.pqfRequired - totalPQF);
+      }
+    }
     
     // Calculate percentage progress (based on PQP)
     const tierRange = nextRequirement - currentRequirement;
@@ -142,6 +198,9 @@ export function calculateUnitedRewards(input: UnitedCalculatorInput): UnitedCalc
     pqpToNextTier: Math.round(pqpToNextTier),
     pqfToNextTier,
     percentToNextTier: Math.round(percentToNextTier),
+    qualifiesForNextTier,
+    qualificationPath,
+    meetsFlightMinimum: flightsTaken >= 4,
     
     // Financial analysis
     milesValue: Math.round(milesValue * 100) / 100,
