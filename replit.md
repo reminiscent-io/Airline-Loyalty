@@ -2,9 +2,20 @@
 
 ## Overview
 
-This is a web application for calculating Southwest Airlines Rapid Rewards points, tracking tier status progress, and monitoring Companion Pass eligibility. The calculator helps users understand how their flight spending, current tier status, and credit card points contribute to their overall rewards and status within the Southwest loyalty program.
+This is a comprehensive airline loyalty program calculator web application supporting multiple airlines: Southwest, American Airlines, United, Delta, JetBlue, and Atmos. Each airline has its own dedicated page with airline-specific branding, elite status tier carousels, rewards calculators, benefits comparison tables, and credit card details.
 
-The application provides real-time calculations showing total points earned, progress toward A-List and A-List Preferred status (by flights or points), and progress toward earning a Companion Pass. It features a branded Southwest Airlines design with custom colors and a user-friendly interface built with modern web technologies.
+The application provides real-time calculations showing total points/miles earned, progress toward elite status tiers, and financial value analysis. Key features include:
+- Airline-specific reward calculators with accurate point/mile calculations
+- Elite status tier progression tracking with visual carousel displays
+- Credit card integration with sign-up bonus calculations
+- Benefits comparison tables for each tier level
+- Branded design using each airline's official colors
+
+## Recent Changes (November 7, 2025)
+- **Calculator Defaults**: All airline calculators now default to $1,000 flight spend and 1 flight/segment
+- **Southwest Component Naming**: Renamed Southwest components with Southwest prefix (e.g., SouthwestCalculator, SouthwestTierCard) to match naming convention of other airlines
+- **Delta Calculator Enhancement**: Added sign-up bonus checkbox feature to Delta calculator to standardize with American and United calculators
+- **File Organization**: Southwest components moved to dedicated southwest/ folder with consistent naming
 
 ## User Preferences
 
