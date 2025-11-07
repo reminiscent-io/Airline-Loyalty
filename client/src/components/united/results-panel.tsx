@@ -171,15 +171,41 @@ export function UnitedResultsPanel({ results }: UnitedResultsPanelProps) {
 
         <Separator />
 
-        {/* Premier Status Progress - BOTH Required */}
+        {/* Premier Status Progress */}
         {results.nextTier && nextTierConfig && (
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <h4 className="font-semibold text-sm text-[#002244]">Premier Status Progress</h4>
-              <Badge className="bg-amber-100 text-amber-800 text-xs">
-                Both PQP & PQF Required
-              </Badge>
+              {!results.meetsFlightMinimum && (
+                <Badge className="bg-red-100 text-red-800 text-xs">
+                  Min 4 United Flights Required
+                </Badge>
+              )}
+              {results.qualifiesForNextTier && (
+                <Badge className="bg-green-100 text-green-800 text-xs">
+                  ✓ Qualified via {results.qualificationPath}
+                </Badge>
+              )}
+              {!results.qualifiesForNextTier && results.qualificationPath && (
+                <Badge className="bg-amber-100 text-amber-800 text-xs">
+                  {results.qualificationPath}
+                </Badge>
+              )}
             </div>
+            
+            {/* Show Alternative Paths if applicable */}
+            {'alternativePath' in nextTierConfig && nextTierConfig.alternativePath && (
+              <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-sm">
+                <div className="font-semibold text-blue-900 dark:text-blue-300 mb-2">Two paths to {nextTierConfig.name}:</div>
+                <div className="space-y-1 text-blue-800 dark:text-blue-400">
+                  <div>• PQP-only: {nextTierConfig.pqpRequired.toLocaleString()} PQP</div>
+                  <div>• Alternative: {nextTierConfig.alternativePath.pqp.toLocaleString()} PQP + {nextTierConfig.alternativePath.pqf} PQF</div>
+                  <div className="text-xs mt-2 text-blue-700 dark:text-blue-500">
+                    * Plus minimum 4 United/United Express flights
+                  </div>
+                </div>
+              </div>
+            )}
             
             {/* PQP Progress */}
             <div className="space-y-2">
@@ -207,36 +233,36 @@ export function UnitedResultsPanel({ results }: UnitedResultsPanelProps) {
               {/* PQP Tier Markers */}
               <div className="relative h-6">
                 <div className="absolute inset-x-0 flex justify-between text-xs">
-                  {/* Silver marker at 5,000 PQP */}
-                  <div className="absolute" style={{ left: `${(5000 / 24000) * 100}%` }}>
+                  {/* Silver marker at 6,000 PQP */}
+                  <div className="absolute" style={{ left: `${(6000 / 28000) * 100}%` }}>
                     <div className="flex flex-col items-center">
                       <div className="w-0.5 h-2 bg-gray-400"></div>
                       <span className="text-[8px] text-muted-foreground mt-0.5">Silver</span>
-                      <span className="text-[7px] text-muted-foreground">5K</span>
+                      <span className="text-[7px] text-muted-foreground">6K</span>
                     </div>
                   </div>
-                  {/* Gold marker at 10,000 PQP */}
-                  <div className="absolute" style={{ left: `${(10000 / 24000) * 100}%` }}>
+                  {/* Gold marker at 12,000 PQP */}
+                  <div className="absolute" style={{ left: `${(12000 / 28000) * 100}%` }}>
                     <div className="flex flex-col items-center">
                       <div className="w-0.5 h-2 bg-yellow-500"></div>
                       <span className="text-[8px] text-muted-foreground mt-0.5">Gold</span>
-                      <span className="text-[7px] text-muted-foreground">10K</span>
+                      <span className="text-[7px] text-muted-foreground">12K</span>
                     </div>
                   </div>
-                  {/* Platinum marker at 15,000 PQP */}
-                  <div className="absolute" style={{ left: `${(15000 / 24000) * 100}%` }}>
+                  {/* Platinum marker at 18,000 PQP */}
+                  <div className="absolute" style={{ left: `${(18000 / 28000) * 100}%` }}>
                     <div className="flex flex-col items-center">
                       <div className="w-0.5 h-2 bg-gray-600"></div>
                       <span className="text-[8px] text-muted-foreground mt-0.5">Plat</span>
-                      <span className="text-[7px] text-muted-foreground">15K</span>
+                      <span className="text-[7px] text-muted-foreground">18K</span>
                     </div>
                   </div>
-                  {/* 1K marker at 24,000 PQP */}
+                  {/* 1K marker at 28,000 PQP */}
                   <div className="absolute" style={{ left: '100%' }}>
                     <div className="flex flex-col items-center">
                       <div className="w-0.5 h-2 bg-gray-900"></div>
                       <span className="text-[8px] text-muted-foreground mt-0.5">1K</span>
-                      <span className="text-[7px] text-muted-foreground">24K</span>
+                      <span className="text-[7px] text-muted-foreground">28K</span>
                     </div>
                   </div>
                 </div>
