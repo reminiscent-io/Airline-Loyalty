@@ -171,7 +171,8 @@ export function calculateUnitedRewards(input: UnitedCalculatorInput): UnitedCalc
   // ======================
   
   const milesValue = totalMiles * MILE_VALUE;
-  const totalSpend = flightSpending + (creditCard !== "none" ? cardSpending : 0) + partnerSpending;
+  const annualFee = creditCard !== "none" ? cardConfig.annualFee : 0;
+  const totalSpend = flightSpending + (creditCard !== "none" ? cardSpending : 0) + partnerSpending + annualFee;
   const returnOnSpend = totalSpend > 0 ? (milesValue / totalSpend) * 100 : 0;
   
   return {

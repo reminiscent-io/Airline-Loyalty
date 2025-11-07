@@ -15,8 +15,10 @@ The application provides real-time calculations showing total points/miles earne
 - **Calculator Defaults**: All airline calculators now default to $1,000 flight spend and 1 flight/segment
 - **Southwest Component Naming**: Renamed Southwest components with Southwest prefix (e.g., SouthwestCalculator, SouthwestTierCard) to match naming convention of other airlines
 - **Delta Calculator Enhancement**: Added sign-up bonus checkbox feature to Delta calculator to standardize with American and United calculators
+- **Delta Tier Card Format Update**: Updated Delta tier card and schema to match American/Southwest format with DELTA_TIER_CONFIGS object structure and DeltaTierType keys
 - **File Organization**: Southwest components moved to dedicated southwest/ folder with consistent naming
 - **United Status Tracker Enhancement**: Improved United's Premier status progress display with dual progress bars clearly showing that BOTH PQP and PQF are required for qualification (unlike Southwest which allows EITHER qualification method). Added tier markers showing accurate thresholds: Silver (5K PQP/15 PQF), Gold (10K PQP/30 PQF), Platinum (15K PQP/45 PQF), 1K (24K PQP/60 PQF)
+- **United Return on Spend**: Updated calculation to include credit card annual fee in total spend, providing more accurate ROI when using a credit card
 
 ## User Preferences
 
