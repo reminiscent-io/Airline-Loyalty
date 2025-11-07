@@ -3,21 +3,22 @@ import { Check, X } from "lucide-react";
 
 export function JetBlueBenefitsTable() {
   const benefits = [
-    { name: "Points Never Expire", basic: true, trueblue: true, mosaic: true, plus: true, elite: true },
-    { name: "Family Pooling", basic: false, trueblue: true, mosaic: true, plus: true, elite: true },
-    { name: "Points per Dollar", basic: "3", trueblue: "5", mosaic: "7", plus: "8", elite: "10" },
-    { name: "Free Changes/Cancellations", basic: "Pay fare diff", trueblue: "Pay fare diff", mosaic: "Unlimited", plus: "Unlimited", elite: "Unlimited" },
-    { name: "Early Boarding", basic: false, trueblue: false, mosaic: true, plus: true, elite: true },
-    { name: "Expedited Security", basic: false, trueblue: false, mosaic: true, plus: true, elite: true },
-    { name: "Free Checked Bags", basic: "0", trueblue: "0", mosaic: "2 bags", plus: "3 bags", elite: "3 bags" },
-    { name: "Even More Space", basic: "$", trueblue: "$", mosaic: "Select seats", plus: "All seats free", elite: "All seats free" },
-    { name: "Even More Speed", basic: false, trueblue: false, mosaic: false, plus: false, elite: true },
-    { name: "Mint Upgrades", basic: false, trueblue: false, mosaic: false, plus: "4 certificates", elite: "Unlimited (space available)" },
-    { name: "Dedicated Phone Line", basic: false, trueblue: false, mosaic: true, plus: true, elite: true },
-    { name: "Annual Choice Benefit", basic: false, trueblue: false, mosaic: false, plus: true, elite: true },
-    { name: "Lounge Passes", basic: false, trueblue: false, mosaic: false, plus: false, elite: "4 per year" },
-    { name: "TSA PreCheck Credit", basic: false, trueblue: false, mosaic: false, plus: false, elite: "$100" },
-    { name: "Partner Benefits", basic: "Basic", trueblue: "Basic", mosaic: "Enhanced", plus: "Premium", elite: "Premium+" },
+    { name: "Points Never Expire", trueblue: true, mosaic1: true, mosaic2: true, mosaic3: true, mosaic4: true },
+    { name: "Family Pooling", trueblue: true, mosaic1: true, mosaic2: true, mosaic3: true, mosaic4: true },
+    { name: "Base Points (Blue fare)", trueblue: "6/dollar", mosaic1: "6/dollar", mosaic2: "6/dollar", mosaic3: "6/dollar", mosaic4: "6/dollar" },
+    { name: "Mosaic Bonus Points", trueblue: "0", mosaic1: "+3/dollar", mosaic2: "+3/dollar", mosaic3: "+3/dollar", mosaic4: "+3/dollar" },
+    { name: "Free Changes/Cancellations", trueblue: "Pay fare diff", mosaic1: "Unlimited", mosaic2: "Unlimited", mosaic3: "Unlimited", mosaic4: "Unlimited" },
+    { name: "Early Boarding", trueblue: false, mosaic1: true, mosaic2: true, mosaic3: true, mosaic4: true },
+    { name: "Expedited Security", trueblue: false, mosaic1: true, mosaic2: true, mosaic3: true, mosaic4: true },
+    { name: "Free Checked Bags", trueblue: "0", mosaic1: "2 bags", mosaic2: "2 bags", mosaic3: "3 bags", mosaic4: "3 bags" },
+    { name: "Even More Space", trueblue: "$", mosaic1: "Select seats", mosaic2: "All seats free", mosaic3: "All seats free", mosaic4: "All seats free" },
+    { name: "Even More Speed", trueblue: false, mosaic1: false, mosaic2: false, mosaic3: false, mosaic4: true },
+    { name: "Mint Upgrades", trueblue: false, mosaic1: false, mosaic2: false, mosaic3: "4 certificates", mosaic4: "Unlimited (space available)" },
+    { name: "Dedicated Phone Line", trueblue: false, mosaic1: true, mosaic2: true, mosaic3: true, mosaic4: true },
+    { name: "Annual Choice Benefit", trueblue: false, mosaic1: false, mosaic2: false, mosaic3: true, mosaic4: true },
+    { name: "Lounge Passes", trueblue: false, mosaic1: false, mosaic2: false, mosaic3: false, mosaic4: "4 per year" },
+    { name: "TSA PreCheck Credit", trueblue: false, mosaic1: false, mosaic2: false, mosaic3: false, mosaic4: "$100" },
+    { name: "Partner Benefits", trueblue: "Basic", mosaic1: "Enhanced", mosaic2: "Enhanced", mosaic3: "Premium", mosaic4: "Premium+" },
   ];
 
   const renderCell = (value: boolean | string) => {
@@ -45,19 +46,19 @@ export function JetBlueBenefitsTable() {
                   Benefit
                 </th>
                 <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-semibold text-xs sm:text-sm whitespace-nowrap">
-                  Basic
-                </th>
-                <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-semibold text-xs sm:text-sm whitespace-nowrap">
                   TrueBlue
                 </th>
                 <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-semibold text-xs sm:text-sm whitespace-nowrap bg-[#0099CC]/20">
-                  Mosaic
+                  Mosaic 1
                 </th>
                 <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-semibold text-xs sm:text-sm whitespace-nowrap">
-                  Mosaic+
+                  Mosaic 2
+                </th>
+                <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-semibold text-xs sm:text-sm whitespace-nowrap">
+                  Mosaic 3
                 </th>
                 <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-semibold text-xs sm:text-sm whitespace-nowrap rounded-tr-lg">
-                  Elite
+                  Mosaic 4
                 </th>
               </tr>
             </thead>
@@ -72,19 +73,19 @@ export function JetBlueBenefitsTable() {
                     {benefit.name}
                   </td>
                   <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
-                    {renderCell(benefit.basic)}
-                  </td>
-                  <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
                     {renderCell(benefit.trueblue)}
                   </td>
                   <td className="px-3 sm:px-4 md:px-6 py-3 text-center bg-[#0099CC]/5">
-                    {renderCell(benefit.mosaic)}
+                    {renderCell(benefit.mosaic1)}
                   </td>
                   <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
-                    {renderCell(benefit.plus)}
+                    {renderCell(benefit.mosaic2)}
                   </td>
                   <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
-                    {renderCell(benefit.elite)}
+                    {renderCell(benefit.mosaic3)}
+                  </td>
+                  <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
+                    {renderCell(benefit.mosaic4)}
                   </td>
                 </tr>
               ))}

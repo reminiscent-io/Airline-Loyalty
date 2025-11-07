@@ -118,13 +118,13 @@ export function JetBlueCalculator({ onCalculate }: JetBlueCalculatorProps) {
                 <SelectContent>
                   {Object.entries(JETBLUE_FARE_TYPES).map(([key, config]) => (
                     <SelectItem key={key} value={key}>
-                      {config.name} ({config.pointsMultiplier}× points{!config.tileEligible && ", No tiles"})
+                      {config.name} ({config.basePoints} points/$)
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
               <p className="text-xs text-muted-foreground mt-1">
-                {fareType === "mint" && "Mint earns 3× tiles per segment"}
+                All fares earn tiles (1 tile = $100 spent)
               </p>
             </div>
 
@@ -140,7 +140,7 @@ export function JetBlueCalculator({ onCalculate }: JetBlueCalculatorProps) {
                 data-testid="input-segments"
               />
               <p className="text-xs text-muted-foreground mt-1">
-                Number of flight segments for Mosaic qualification
+                Number of flight segments (for tracking only)
               </p>
             </div>
 
@@ -151,11 +151,11 @@ export function JetBlueCalculator({ onCalculate }: JetBlueCalculatorProps) {
                   <SelectValue placeholder="Select your status" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="basic">Basic (3× points)</SelectItem>
-                  <SelectItem value="trueblue">TrueBlue Member (5× points)</SelectItem>
-                  <SelectItem value="mosaic">Mosaic (7× points)</SelectItem>
-                  <SelectItem value="mosaic-plus">Mosaic+ (8× points)</SelectItem>
-                  <SelectItem value="mosaic-elite">Mosaic Elite (10× points)</SelectItem>
+                  <SelectItem value="trueblue">TrueBlue Member</SelectItem>
+                  <SelectItem value="mosaic-1">Mosaic 1 (+3 points/$)</SelectItem>
+                  <SelectItem value="mosaic-2">Mosaic 2 (+3 points/$)</SelectItem>
+                  <SelectItem value="mosaic-3">Mosaic 3 (+3 points/$)</SelectItem>
+                  <SelectItem value="mosaic-4">Mosaic 4 (+3 points/$)</SelectItem>
                 </SelectContent>
               </Select>
             </div>

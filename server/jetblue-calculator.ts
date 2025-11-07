@@ -30,8 +30,14 @@ export function calculateJetBlueRewards(input: JetBlueCalculatorInput): JetBlueC
   // POINTS CALCULATION
   // ======================
   
-  // Flight points based on tier multiplier
-  const flightPoints = flightSpending * tierConfig.pointsMultiplier;
+  // Base points from fare type
+  const baseFlightPoints = flightSpending * fareTypeConfig.basePoints;
+  
+  // Add Mosaic bonus if member has Mosaic status
+  const mosaicBonusPoints = flightSpending * tierConfig.mosaicBonus;
+  
+  // Total flight points before credit card bonus
+  const flightPoints = baseFlightPoints + mosaicBonusPoints;
   
   // Add credit card bonus on JetBlue purchases
   let totalFlightPoints = flightPoints;
@@ -67,41 +73,35 @@ export function calculateJetBlueRewards(input: JetBlueCalculatorInput): JetBlueC
   // MOSAIC QUALIFICATION
   // ======================
   
-  // Calculate tiles (only for eligible fares)
-  let tilesEarned = 0;
+  // Calculate tiles - 1 tile = $100 spent on JetBlue travel (only for eligible fares)
+  let tilesEarnedFromFlights = 0;
   if (fareTypeConfig.tileEligible) {
-    if (fareType === "mint") {
-      // Mint earns 3 tiles per segment
-      tilesEarned = segments * 3;
-    } else if (fareType === "blue-extra" || fareType === "blue-plus") {
-      // Premium fares earn 2 tiles per segment sometimes
-      tilesEarned = Math.floor(segments * 1.5);
-    } else if (fareType === "blue") {
-      // Regular Blue earns 1 tile per segment
-      tilesEarned = segments;
-    }
+    tilesEarnedFromFlights = Math.floor(flightSpending / 100);
   }
   
-  // Add Mosaic Boost from credit card (if applicable)
+  // Credit card spending can also earn tiles - 1 tile = $1,000 spent
+  let tilesEarnedFromCreditCard = 0;
   const mosaicBoostApplied = creditCard !== "none" && cardConfig.mosaicBoost;
-  if (mosaicBoostApplied && cardSpending >= 50000) {
-    // Cards can provide bonus tiles for high spending
-    tilesEarned += 10;
+  if (mosaicBoostApplied) {
+    tilesEarnedFromCreditCard = Math.floor(cardSpending / 1000);
   }
   
-  const segmentsFlown = segments;
+  const tilesEarned = tilesEarnedFromFlights + tilesEarnedFromCreditCard;
+  
+  // No segments requirement anymore
+  const segmentsFlown = segments; // Kept for backward compatibility but not used for qualification
   
   // ======================
   // STATUS PROGRESSION
   // ======================
   
   // Determine next tier
-  const tiers: JetBlueTierStatus[] = ["basic", "trueblue", "mosaic", "mosaic-plus", "mosaic-elite"];
+  const tiers: JetBlueTierStatus[] = ["trueblue", "mosaic-1", "mosaic-2", "mosaic-3", "mosaic-4"];
   const currentTierIndex = tiers.indexOf(currentTier);
   const nextTier = currentTierIndex < tiers.length - 1 ? tiers[currentTierIndex + 1] : null;
   
   let tilesToNextTier = 0;
-  let segmentsToNextTier = 0;
+  let segmentsToNextTier = 0; // No longer used but kept for backward compatibility
   let percentToNextTier = 0;
   
   if (nextTier) {
@@ -110,9 +110,9 @@ export function calculateJetBlueRewards(input: JetBlueCalculatorInput): JetBlueC
     const nextRequirement = nextTierConfig.tilesRequired;
     
     tilesToNextTier = Math.max(0, nextRequirement - tilesEarned);
-    segmentsToNextTier = Math.max(0, nextTierConfig.segmentsRequired - segmentsFlown);
+    segmentsToNextTier = 0; // No segments requirement anymore
     
-    // Calculate percentage progress (based on tiles)
+    // Calculate percentage progress (based on tiles only)
     if (nextRequirement > 0) {
       const tierRange = nextRequirement - currentRequirement;
       const progress = tilesEarned - currentRequirement;

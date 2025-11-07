@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 // JetBlue Tier Status
-export const jetblueTierStatuses = ["basic", "trueblue", "mosaic", "mosaic-plus", "mosaic-elite"] as const;
+export const jetblueTierStatuses = ["trueblue", "mosaic-1", "mosaic-2", "mosaic-3", "mosaic-4"] as const;
 export type JetBlueTierStatus = typeof jetblueTierStatuses[number];
 
 // JetBlue Fare Types
@@ -19,62 +19,59 @@ export type JetBlueCreditCardType = typeof jetblueCreditCards[number];
 
 // Tier configurations with JetBlue specific benefits
 export const JETBLUE_TIER_CONFIGS = {
-  "basic": {
-    name: "Basic",
+  "trueblue": {
+    name: "TrueBlue Member",
     tilesRequired: 0,
-    segmentsRequired: 0,
-    pointsMultiplier: 3, // 3x points per dollar
+    mosaicBonus: 0, // No extra points per dollar for basic members
     benefits: [
       "Earn TrueBlue points",
       "No blackout dates",
-      "Points pooling"
-    ]
-  },
-  "trueblue": {
-    name: "TrueBlue",
-    tilesRequired: 0,
-    segmentsRequired: 0,
-    pointsMultiplier: 5, // 5x points per dollar
-    benefits: [
-      "5 points per dollar",
-      "Family pooling",
       "Points never expire",
-      "Award availability"
+      "Family pooling"
     ]
   },
-  "mosaic": {
-    name: "Mosaic",
-    tilesRequired: 15,
-    segmentsRequired: 30,
-    pointsMultiplier: 7, // 7x points per dollar
+  "mosaic-1": {
+    name: "Mosaic 1",
+    tilesRequired: 50,
+    mosaicBonus: 3, // +3 extra points per dollar on flights
     benefits: [
-      "2 extra points per dollar",
+      "3 extra points per dollar on flights",
       "Unlimited free changes/cancellations",
       "Early boarding",
       "2 free checked bags",
       "Expedited security"
     ]
   },
-  "mosaic-plus": {
-    name: "Mosaic+",
-    tilesRequired: 50,
-    segmentsRequired: 75,
-    pointsMultiplier: 8, // 8x points per dollar
+  "mosaic-2": {
+    name: "Mosaic 2",
+    tilesRequired: 100,
+    mosaicBonus: 3, // +3 extra points per dollar on flights
     benefits: [
-      "3 extra points per dollar",
+      "3 extra points per dollar on flights",
       "Even More Space seats free",
-      "Mint upgrade certificates",
-      "3 free checked bags",
+      "2 free checked bags",
+      "Expedited security",
       "Dedicated phone line"
     ]
   },
-  "mosaic-elite": {
-    name: "Mosaic Elite",
-    tilesRequired: 100,
-    segmentsRequired: 140,
-    pointsMultiplier: 10, // 10x points per dollar
+  "mosaic-3": {
+    name: "Mosaic 3",
+    tilesRequired: 150,
+    mosaicBonus: 3, // +3 extra points per dollar on flights
     benefits: [
-      "5 extra points per dollar",
+      "3 extra points per dollar on flights",
+      "Even More Space seats free",
+      "Mint upgrade certificates",
+      "3 free checked bags",
+      "Priority phone line"
+    ]
+  },
+  "mosaic-4": {
+    name: "Mosaic 4",
+    tilesRequired: 250,
+    mosaicBonus: 3, // +3 extra points per dollar on flights
+    benefits: [
+      "3 extra points per dollar on flights",
       "Unlimited Mint upgrades (space available)",
       "Complimentary Even More Speed",
       "Lounge passes",
@@ -87,27 +84,27 @@ export const JETBLUE_TIER_CONFIGS = {
 export const JETBLUE_FARE_TYPES = {
   "blue-basic": {
     name: "Blue Basic",
-    pointsMultiplier: 1, // 1x points
-    tileEligible: false,
+    basePoints: 2, // 2 points per dollar when booked direct (1 base + 1 bonus)
+    tileEligible: true, // Blue Basic DOES earn tiles
   },
   "blue": {
     name: "Blue",
-    pointsMultiplier: 1, // 1x points
+    basePoints: 6, // 6 points per dollar when booked direct (3 base + 3 bonus)
     tileEligible: true,
   },
   "blue-plus": {
     name: "Blue Plus",
-    pointsMultiplier: 1, // 1x points
+    basePoints: 6, // 6 points per dollar when booked direct (3 base + 3 bonus)
     tileEligible: true,
   },
   "blue-extra": {
     name: "Blue Extra",
-    pointsMultiplier: 1, // 1x points
+    basePoints: 6, // 6 points per dollar when booked direct (3 base + 3 bonus)
     tileEligible: true,
   },
   "mint": {
     name: "Mint",
-    pointsMultiplier: 1, // 1x points but 3x tiles
+    basePoints: 6, // 6 points per dollar when booked direct (3 base + 3 bonus)
     tileEligible: true,
   }
 } as const;
@@ -143,8 +140,8 @@ export const JETBLUE_CREDIT_CARDS = {
     purchaseMultiplier: 2, // 2x restaurants/grocery
     mosaicBoost: true, // Counts toward Mosaic
     freeCheckedBag: true,
-    signUpBonus: 80000,
-    signUpSpendRequirement: 1000,
+    signUpBonus: 80000, // 60k-80k points based on current offer
+    signUpSpendRequirement: 2000, // Spend requirement varies $1k-$2k
     annualBonus: 5000, // Annual bonus points
   },
   "jetblue-business": {
@@ -154,8 +151,8 @@ export const JETBLUE_CREDIT_CARDS = {
     purchaseMultiplier: 2, // 2x on office supplies, etc.
     mosaicBoost: true,
     freeCheckedBag: true,
-    signUpBonus: 100000,
-    signUpSpendRequirement: 1000,
+    signUpBonus: 80000, // 60k-80k points based on current offer
+    signUpSpendRequirement: 2000, // $2,000 spend requirement
     annualBonus: 6000,
   }
 } as const;

@@ -12,20 +12,20 @@ interface JetBlueTierCardProps {
 export function JetBlueTierCard({ tier, highlighted = false }: JetBlueTierCardProps) {
   const config = JETBLUE_TIER_CONFIGS[tier];
 
-  const tierColors = {
-    basic: "bg-gray-500 text-white",
+  const tierColors: Record<string, string> = {
     trueblue: "bg-[#0099CC] text-white",
-    mosaic: "bg-gradient-to-r from-[#00497F] to-[#0099CC] text-white",
-    "mosaic-plus": "bg-gradient-to-r from-[#002244] to-[#00497F] text-white",
-    "mosaic-elite": "bg-gradient-to-r from-[#FFA500] to-[#FF6F00] text-white",
+    "mosaic-1": "bg-gradient-to-r from-[#00497F] to-[#0099CC] text-white",
+    "mosaic-2": "bg-gradient-to-r from-[#002244] to-[#00497F] text-white",
+    "mosaic-3": "bg-gradient-to-r from-[#002244] to-[#FFA500] text-white",
+    "mosaic-4": "bg-gradient-to-r from-[#FFA500] to-[#FF6F00] text-white",
   };
 
-  const tierBorderColors = {
-    basic: "border-gray-400",
+  const tierBorderColors: Record<string, string> = {
     trueblue: "border-[#0099CC]",
-    mosaic: "border-[#00497F]",
-    "mosaic-plus": "border-[#002244]",
-    "mosaic-elite": "border-[#FFA500]",
+    "mosaic-1": "border-[#00497F]",
+    "mosaic-2": "border-[#002244]",
+    "mosaic-3": "border-[#FFA500]",
+    "mosaic-4": "border-[#FF6F00]",
   };
 
   return (
@@ -58,24 +58,18 @@ export function JetBlueTierCard({ tier, highlighted = false }: JetBlueTierCardPr
           </Badge>
         </div>
         <CardTitle className="text-2xl text-[#002244]" data-testid={`text-tier-name-${tier}`}>
-          {tier === "basic" ? (
-            "Base Tier"
-          ) : tier === "trueblue" ? (
-            "5× Points"
-          ) : tier === "mosaic" ? (
-            "+2 Points/Dollar"
-          ) : tier === "mosaic-plus" ? (
-            "+3 Points/Dollar"
+          {tier === "trueblue" ? (
+            "Base Member"
           ) : (
-            "+5 Points/Dollar"
+            `+${config.mosaicBonus} Points/Dollar`
           )}
         </CardTitle>
         <CardDescription>
-          {tier === "basic" || tier === "trueblue" ? (
+          {tier === "trueblue" ? (
             "No qualification required"
           ) : (
             <span data-testid={`text-tier-requirement-${tier}`}>
-              {config.tilesRequired} tiles or {config.segmentsRequired} segments
+              {config.tilesRequired} tiles required
             </span>
           )}
         </CardDescription>
@@ -83,7 +77,11 @@ export function JetBlueTierCard({ tier, highlighted = false }: JetBlueTierCardPr
       
       <CardContent>
         <div className="text-sm text-muted-foreground mb-4">
-          <strong className="text-[#002244]">{config.pointsMultiplier}×</strong> points per dollar spent
+          {tier === "trueblue" ? (
+            <>Base points earn rates apply</>
+          ) : (
+            <><strong className="text-[#002244]">+{config.mosaicBonus}</strong> bonus points per dollar on flights</>
+          )}
         </div>
         <ul className="space-y-2">
           {config.benefits.map((benefit, index) => (

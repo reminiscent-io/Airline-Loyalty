@@ -50,16 +50,16 @@ export default function JetBlue() {
               Mosaic Status Tiers
             </h2>
             <p className="text-gray-600">
-              Earn tiles and segments to unlock Mosaic benefits
+              Earn tiles to unlock Mosaic benefits - no segments required
             </p>
           </div>
           <TierCarousel>
             {[
-              <JetBlueTierCard tier="basic" key="basic" />,
               <JetBlueTierCard tier="trueblue" key="trueblue" />,
-              <JetBlueTierCard tier="mosaic" key="mosaic" />,
-              <JetBlueTierCard tier="mosaic-plus" key="mosaic-plus" />,
-              <JetBlueTierCard tier="mosaic-elite" key="mosaic-elite" />
+              <JetBlueTierCard tier="mosaic-1" key="mosaic-1" />,
+              <JetBlueTierCard tier="mosaic-2" key="mosaic-2" />,
+              <JetBlueTierCard tier="mosaic-3" key="mosaic-3" />,
+              <JetBlueTierCard tier="mosaic-4" key="mosaic-4" />
             ]}
           </TierCarousel>
         </section>
