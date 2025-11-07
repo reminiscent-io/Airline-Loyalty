@@ -22,6 +22,7 @@ export function TierCarousel({ children, className }: TierCarouselProps) {
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -61,14 +62,18 @@ export function TierCarousel({ children, className }: TierCarouselProps) {
   }, [emblaApi, onSelect]);
 
   return (
-    <div className="relative">
-      {/* Drag indicator for desktop */}
+    <div 
+      className="relative"
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+    >
+      {/* Drag indicator for desktop - only shows on hover */}
       <div className={cn(
         "hidden lg:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20",
         "items-center gap-2 px-3 py-1.5 rounded-full",
         "bg-primary/90 text-primary-foreground text-xs font-medium",
         "pointer-events-none transition-opacity duration-300",
-        isDragging ? "opacity-0" : "opacity-100"
+        isDragging || !isHovering ? "opacity-0" : "opacity-100"
       )}>
         <GripHorizontal className="w-4 h-4" />
         <span>Drag to scroll</span>
