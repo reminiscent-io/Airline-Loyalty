@@ -187,39 +187,47 @@ export const UNITED_CREDIT_CARDS = {
   },
   "quest": {
     name: "United Quest",
-    annualFee: 250,
+    annualFee: 350,
     flightMilesBonus: 3, // 3x miles on United purchases
     purchaseMultiplier: 2, // 2x miles on other purchases
     pqpPerDollar: 1/20, // 1 PQP per $20 spent
     pqpCap: 18000, // Annual PQP cap
-    signUpBonus: 80000,
-    signUpSpendRequirement: 5000,
+    annualPQPBonus: 1000, // 1,000 PQP annually
+    signUpBonus: 70000,
+    signUpBonusPQP: 1000, // 1,000 PQP with sign-up bonus
+    signUpSpendRequirement: 4000,
     freeCheckedBag: true,
     priorityBoarding: true
   },
   "club": {
     name: "United Club",
-    annualFee: 525,
+    annualFee: 650,
     flightMilesBonus: 4, // 4x miles on United purchases
     purchaseMultiplier: 2, // 2x miles on other purchases
-    pqpPerDollar: 1/15, // 1 PQP per $15 spent (Club Business rate)
-    pqpCap: 28000, // Annual PQP cap
-    signUpBonus: 100000,
+    pqpPerDollar: 1/20, // 1 PQP per $20 spent (no cap)
+    pqpCap: 0, // No PQP cap
+    annualPQPBonus: 1000, // 1,000 PQP annually
+    signUpBonus: 80000,
+    signUpBonusPQP: 2000, // 2,000 PQP with sign-up bonus
     signUpSpendRequirement: 5000,
     freeCheckedBag: true,
-    priorityBoarding: true
+    priorityBoarding: true,
+    clubAccess: true
   },
   "club-business": {
     name: "United Club Business",
-    annualFee: 525,
+    annualFee: 650,
     flightMilesBonus: 4, // 4x miles on United purchases
     purchaseMultiplier: 2, // 2x miles on other purchases
-    pqpPerDollar: 1/15, // 1 PQP per $15 spent
-    pqpCap: 28000, // Annual PQP cap
-    signUpBonus: 100000,
+    pqpPerDollar: 1/20, // 1 PQP per $20 spent  
+    pqpCap: 0, // No PQP cap
+    annualPQPBonus: 1000, // 1,000 PQP annually
+    signUpBonus: 80000,
+    signUpBonusPQP: 2000, // 2,000 PQP with sign-up bonus
     signUpSpendRequirement: 5000,
     freeCheckedBag: true,
-    priorityBoarding: true
+    priorityBoarding: true,
+    clubAccess: true
   },
   "business": {
     name: "United Business",
