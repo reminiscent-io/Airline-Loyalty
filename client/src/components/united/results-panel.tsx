@@ -207,28 +207,28 @@ export function UnitedResultsPanel({ results }: UnitedResultsPanelProps) {
               {/* PQP Tier Markers */}
               <div className="relative h-6">
                 <div className="absolute inset-x-0 flex justify-between text-xs">
-                  {/* Silver marker at 4,000 PQP */}
-                  <div className="absolute" style={{ left: `${(4000 / 24000) * 100}%` }}>
+                  {/* Silver marker at 5,000 PQP */}
+                  <div className="absolute" style={{ left: `${(5000 / 24000) * 100}%` }}>
                     <div className="flex flex-col items-center">
                       <div className="w-0.5 h-2 bg-gray-400"></div>
                       <span className="text-[8px] text-muted-foreground mt-0.5">Silver</span>
-                      <span className="text-[7px] text-muted-foreground">4K</span>
+                      <span className="text-[7px] text-muted-foreground">5K</span>
                     </div>
                   </div>
-                  {/* Gold marker at 8,000 PQP */}
-                  <div className="absolute" style={{ left: `${(8000 / 24000) * 100}%` }}>
+                  {/* Gold marker at 10,000 PQP */}
+                  <div className="absolute" style={{ left: `${(10000 / 24000) * 100}%` }}>
                     <div className="flex flex-col items-center">
                       <div className="w-0.5 h-2 bg-yellow-500"></div>
                       <span className="text-[8px] text-muted-foreground mt-0.5">Gold</span>
-                      <span className="text-[7px] text-muted-foreground">8K</span>
+                      <span className="text-[7px] text-muted-foreground">10K</span>
                     </div>
                   </div>
-                  {/* Platinum marker at 12,000 PQP */}
-                  <div className="absolute" style={{ left: `${(12000 / 24000) * 100}%` }}>
+                  {/* Platinum marker at 15,000 PQP */}
+                  <div className="absolute" style={{ left: `${(15000 / 24000) * 100}%` }}>
                     <div className="flex flex-col items-center">
                       <div className="w-0.5 h-2 bg-gray-600"></div>
                       <span className="text-[8px] text-muted-foreground mt-0.5">Plat</span>
-                      <span className="text-[7px] text-muted-foreground">12K</span>
+                      <span className="text-[7px] text-muted-foreground">15K</span>
                     </div>
                   </div>
                   {/* 1K marker at 24,000 PQP */}
@@ -276,28 +276,28 @@ export function UnitedResultsPanel({ results }: UnitedResultsPanelProps) {
               {/* PQF Tier Markers */}
               <div className="relative h-6">
                 <div className="absolute inset-x-0 flex justify-between text-xs">
-                  {/* Silver marker at 12 PQF */}
-                  <div className="absolute" style={{ left: `${(12 / 60) * 100}%` }}>
+                  {/* Silver marker at 15 PQF */}
+                  <div className="absolute" style={{ left: `${(15 / 60) * 100}%` }}>
                     <div className="flex flex-col items-center">
                       <div className="w-0.5 h-2 bg-gray-400"></div>
                       <span className="text-[8px] text-muted-foreground mt-0.5">Silver</span>
-                      <span className="text-[7px] text-muted-foreground">12</span>
+                      <span className="text-[7px] text-muted-foreground">15</span>
                     </div>
                   </div>
-                  {/* Gold marker at 24 PQF */}
-                  <div className="absolute" style={{ left: `${(24 / 60) * 100}%` }}>
+                  {/* Gold marker at 30 PQF */}
+                  <div className="absolute" style={{ left: `${(30 / 60) * 100}%` }}>
                     <div className="flex flex-col items-center">
                       <div className="w-0.5 h-2 bg-yellow-500"></div>
                       <span className="text-[8px] text-muted-foreground mt-0.5">Gold</span>
-                      <span className="text-[7px] text-muted-foreground">24</span>
+                      <span className="text-[7px] text-muted-foreground">30</span>
                     </div>
                   </div>
-                  {/* Platinum marker at 36 PQF */}
-                  <div className="absolute" style={{ left: `${(36 / 60) * 100}%` }}>
+                  {/* Platinum marker at 45 PQF */}
+                  <div className="absolute" style={{ left: `${(45 / 60) * 100}%` }}>
                     <div className="flex flex-col items-center">
                       <div className="w-0.5 h-2 bg-gray-600"></div>
                       <span className="text-[8px] text-muted-foreground mt-0.5">Plat</span>
-                      <span className="text-[7px] text-muted-foreground">36</span>
+                      <span className="text-[7px] text-muted-foreground">45</span>
                     </div>
                   </div>
                   {/* 1K marker at 60 PQF */}
