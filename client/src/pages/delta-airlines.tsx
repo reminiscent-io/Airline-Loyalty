@@ -5,7 +5,7 @@ import { DeltaBenefitsTable } from "@/components/delta/delta-benefits-table";
 import { DeltaCreditCardTable } from "@/components/delta/delta-credit-card-table";
 import { DeltaTierCard } from "@/components/delta/delta-tier-card";
 import { TierCarousel } from "@/components/tier-carousel";
-import { deltaTiers, DeltaCalculationResults } from "@shared/delta-schema";
+import { DeltaCalculationResults, DeltaTierType, DELTA_TIER_CONFIGS } from "@shared/delta-schema";
 import { Plane, Shield } from "lucide-react";
 
 export default function DeltaAirlines() {
@@ -52,8 +52,8 @@ export default function DeltaAirlines() {
           </div>
 
           <TierCarousel>
-            {deltaTiers.map((tier) => (
-              <DeltaTierCard key={tier.name} tier={tier} />
+            {(Object.keys(DELTA_TIER_CONFIGS) as DeltaTierType[]).map((tier) => (
+              <DeltaTierCard key={tier} tier={tier} highlighted={tier === "gold"} />
             ))}
           </TierCarousel>
         </section>

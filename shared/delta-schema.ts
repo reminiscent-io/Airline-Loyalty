@@ -1,95 +1,110 @@
 import { z } from "zod";
 
-// Delta Medallion Status Tiers
+// Delta tier type definition
+export type DeltaTierType = "member" | "silver" | "gold" | "platinum" | "diamond" | "delta-360";
+
+// Delta Medallion Status Tier Configuration
+export const DELTA_TIER_CONFIGS = {
+  "member": {
+    name: "SkyMiles Member",
+    mqdRequired: 0,
+    milesMultiplier: 5, // 5x miles per dollar (base rate)
+    benefits: [
+      "Base SkyMiles earning rate",
+      "Basic SkyMiles benefits",
+      "Access to Delta award flights",
+      "No blackout dates on award flights"
+    ]
+  },
+  "silver": {
+    name: "Silver Medallion",
+    mqdRequired: 5000,
+    milesMultiplier: 7, // 7x miles per dollar (5 base + 2 bonus)
+    benefits: [
+      "40% bonus miles on flights",
+      "Priority boarding (Zone 1)",
+      "Complimentary upgrades",
+      "Priority check-in",
+      "Free same-day standby"
+    ]
+  },
+  "gold": {
+    name: "Gold Medallion",
+    mqdRequired: 10000,
+    milesMultiplier: 8, // 8x miles per dollar (5 base + 3 bonus)
+    benefits: [
+      "60% bonus miles on flights",
+      "Sky Priority services",
+      "Higher upgrade priority",
+      "Waived same-day change fees",
+      "SkyTeam Elite benefits"
+    ]
+  },
+  "platinum": {
+    name: "Platinum Medallion",
+    mqdRequired: 15000,
+    milesMultiplier: 9, // 9x miles per dollar (5 base + 4 bonus)
+    benefits: [
+      "80% bonus miles on flights",
+      "Choice benefits selection",
+      "Higher upgrade priority than Gold",
+      "Sky Club access when flying Delta",
+      "International lounge access"
+    ]
+  },
+  "diamond": {
+    name: "Diamond Medallion",
+    mqdRequired: 28000,
+    milesMultiplier: 11, // 11x miles per dollar (5 base + 6 bonus)
+    benefits: [
+      "120% bonus miles on flights",
+      "Highest upgrade priority",
+      "Sky Club executive membership",
+      "Global upgrade certificates (4 per year)",
+      "Choice benefits selection (3)",
+      "CLEAR Plus membership"
+    ]
+  },
+  "delta-360": {
+    name: "Delta 360°",
+    mqdRequired: -1, // Invitation only
+    milesMultiplier: 11, // Same as Diamond
+    isGhostTier: true,
+    invitationOnly: true,
+    benefits: [
+      "All Diamond benefits plus exclusive perks",
+      "Dedicated concierge service",
+      "Airport meet & assist",
+      "Exclusive experiences",
+      "Highest priority everything"
+    ]
+  }
+} as const;
+
+// Interface for backward compatibility
 export interface DeltaTier {
   name: string;
   mqd: number;
-  earningRate: number; // SkyMiles per $1
+  earningRate: number;
   benefits: string[];
   color: string;
   isGhost?: boolean;
 }
 
-export const deltaTiers: DeltaTier[] = [
-  {
-    name: "General Member",
-    mqd: 0,
-    earningRate: 0, // Bonus miles per $1 (additive to fare base)
-    benefits: [
-      "Base SkyMiles earning rate",
-      "Basic SkyMiles benefits",
-      "Access to Delta award flights"
-    ],
-    color: "bg-gray-100"
-  },
-  {
-    name: "Silver Medallion",
-    mqd: 5000,
-    earningRate: 2, // +2 bonus miles per $1
-    benefits: [
-      "Earn +2 bonus SkyMiles per $1 spent",
-      "Priority boarding",
-      "Complimentary upgrades",
-      "Priority check-in",
-      "Free same-day standby"
-    ],
-    color: "bg-gray-400"
-  },
-  {
-    name: "Gold Medallion",
-    mqd: 10000,
-    earningRate: 3, // +3 bonus miles per $1
-    benefits: [
-      "Earn +3 bonus SkyMiles per $1 spent",
-      "Sky Priority services",
-      "Higher upgrade priority",
-      "Waived same-day change fees",
-      "Sky Team Elite benefits"
-    ],
-    color: "bg-yellow-500"
-  },
-  {
-    name: "Platinum Medallion",
-    mqd: 15000,
-    earningRate: 4, // +4 bonus miles per $1
-    benefits: [
-      "Earn +4 bonus SkyMiles per $1 spent",
-      "Choice benefits selection",
-      "Higher upgrade priority than Gold",
-      "Sky Club access when flying Delta",
-      "International lounge access"
-    ],
-    color: "bg-gray-600"
-  },
-  {
-    name: "Diamond Medallion",
-    mqd: 28000,
-    earningRate: 6, // +6 bonus miles per $1
-    benefits: [
-      "Earn +6 bonus SkyMiles per $1 spent",
-      "Highest upgrade priority",
-      "Sky Club executive membership",
-      "Global upgrade certificates",
-      "Choice benefits selection",
-      "CLEAR Plus membership"
-    ],
-    color: "bg-gray-900"
-  },
-  {
-    name: "Delta 360°",
-    mqd: 0, // Invitation only
-    earningRate: 6, // +6 bonus miles per $1 (same as Diamond)
-    benefits: [
-      "All Diamond benefits plus:",
-      "Dedicated concierge service",
-      "Airport meet & assist",
-      "Exclusive experiences",
-      "Highest priority everything"
-    ],
-    color: "bg-gradient-to-r from-purple-900 via-blue-900 to-purple-900",
-    isGhost: true
-  }
-];
+// Legacy array format for backward compatibility
+export const deltaTiers: DeltaTier[] = Object.entries(DELTA_TIER_CONFIGS).map(([key, config]) => ({
+  name: config.name,
+  mqd: config.mqdRequired,
+  earningRate: config.milesMultiplier - 5, // Convert to bonus rate only
+  benefits: [...config.benefits], // Spread to create mutable array
+  color: key === "member" ? "bg-gray-100" :
+         key === "silver" ? "bg-gray-400" :
+         key === "gold" ? "bg-yellow-500" :
+         key === "platinum" ? "bg-gray-600" :
+         key === "diamond" ? "bg-gray-900" :
+         "bg-gradient-to-r from-purple-900 via-blue-900 to-purple-900",
+  isGhost: (config as any).isGhostTier
+}));
 
 // Fare class base earning rates
 export const deltaFareRates: Record<string, number> = {
