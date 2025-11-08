@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { TrendingUp, Award, Plane, CreditCard, Building2, DollarSign, Luggage } from "lucide-react";
+import { TrendingUp, Award, Plane, CreditCard, Building2, DollarSign, Luggage, Check } from "lucide-react";
 import { type JetBlueCalculationResults, JETBLUE_TIER_CONFIGS } from "@shared/jetblue-schema";
 import { Separator } from "@/components/ui/separator";
 
@@ -44,28 +44,143 @@ export function JetBlueResultsPanel({ results }: JetBlueResultsPanelProps) {
       </CardHeader>
       <CardContent className="space-y-6">
         
-        {/* Total Points Display */}
-        <div className="p-6 bg-gradient-to-r from-[#002244] to-[#0099CC] rounded-xl text-white text-center">
-          <p className="text-sm font-medium opacity-90 mb-2">Total TrueBlue Points</p>
-          <p className="text-4xl font-bold tracking-tight" data-testid="text-total-points">
-            {results.totalPoints.toLocaleString()}
-          </p>
-          <p className="text-sm opacity-75 mt-2">Points never expire</p>
-        </div>
+        {/* Three Metric Display */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* TrueBlue Points */}
+          <div className="p-4 bg-gradient-to-br from-[#002244] to-[#001833] rounded-xl text-white">
+            <p className="text-xs font-medium opacity-90 mb-1">TrueBlue Points</p>
+            <p className="text-2xl font-bold tracking-tight" data-testid="text-total-points">
+              {results.totalPoints.toLocaleString()}
+            </p>
+            <p className="text-xs opacity-75 mt-1">Never expire</p>
+          </div>
 
-        {/* Mosaic Qualification Display */}
-        <div className="grid grid-cols-2 gap-4">
-          <div className="p-4 bg-gradient-to-br from-[#00497F]/10 to-[#00497F]/5 rounded-lg">
-            <p className="text-xs font-medium text-muted-foreground mb-1">Tiles Earned</p>
-            <p className="text-2xl font-bold text-[#00497F]" data-testid="text-tiles">
+          {/* Tiles */}
+          <div className="p-4 bg-gradient-to-br from-[#0099CC] to-[#0077aa] rounded-xl text-white">
+            <p className="text-xs font-medium opacity-90 mb-1">Tiles</p>
+            <p className="text-2xl font-bold tracking-tight" data-testid="text-tiles">
               {results.tilesEarned}
             </p>
+            <p className="text-xs opacity-75 mt-1">Toward Mosaic</p>
           </div>
-          <div className="p-4 bg-gradient-to-br from-[#0099CC]/10 to-[#0099CC]/5 rounded-lg">
-            <p className="text-xs font-medium text-muted-foreground mb-1">Segments</p>
-            <p className="text-2xl font-bold text-[#0099CC]" data-testid="text-segments">
+
+          {/* Segments */}
+          <div className="p-4 bg-gradient-to-br from-[#FFA500] to-[#FF8800] rounded-xl text-white">
+            <p className="text-xs font-medium opacity-90 mb-1">Segments</p>
+            <p className="text-2xl font-bold tracking-tight" data-testid="text-segments">
               {results.segmentsFlown}
             </p>
+            <p className="text-xs opacity-75 mt-1">Flights taken</p>
+          </div>
+        </div>
+
+        <Separator />
+
+        {/* Mosaic Status Progress */}
+        <div className="space-y-4">
+          <div>
+            <p className="text-sm font-semibold text-foreground mb-3">
+              Mosaic Status Progress
+            </p>
+
+            {/* Progress Bar with Tier Markers */}
+            <div>
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-xs font-medium text-muted-foreground">Tiles Progress</span>
+                <span className="text-xs font-semibold text-foreground" data-testid="text-tiles-progress">
+                  {results.tilesEarned} / 250 tiles
+                </span>
+              </div>
+              
+              {/* Sequential progress bar with markers */}
+              <div className="relative">
+                <Progress 
+                  value={(results.tilesEarned / 250) * 100} 
+                  className="h-3"
+                  data-testid="progress-tiles"
+                />
+                {/* Tier markers */}
+                <div className="absolute top-0 left-0 w-full h-3 pointer-events-none">
+                  {/* Mosaic 1 marker at 20% (50/250) */}
+                  <div 
+                    className="absolute top-0 h-full w-0.5 bg-background"
+                    style={{ left: '20%' }}
+                  />
+                  {/* Mosaic 2 marker at 40% (100/250) */}
+                  <div 
+                    className="absolute top-0 h-full w-0.5 bg-background"
+                    style={{ left: '40%' }}
+                  />
+                  {/* Mosaic 3 marker at 60% (150/250) */}
+                  <div 
+                    className="absolute top-0 h-full w-0.5 bg-background"
+                    style={{ left: '60%' }}
+                  />
+                </div>
+              </div>
+              
+              {/* Tier labels */}
+              <div className="flex justify-between mt-1">
+                <span className="text-xs text-muted-foreground">0</span>
+                <span className={`text-xs font-medium flex items-center gap-1 ${results.tilesEarned >= 50 ? 'text-green-600 font-semibold' : 'text-muted-foreground'}`}>
+                  {results.tilesEarned >= 50 && (
+                    <Check className="w-3 h-3 text-green-500" />
+                  )}
+                  <span>50 (M1)</span>
+                </span>
+                <span className={`text-xs font-medium flex items-center gap-1 ${results.tilesEarned >= 100 ? 'text-green-600 font-semibold' : 'text-muted-foreground'}`}>
+                  {results.tilesEarned >= 100 && (
+                    <Check className="w-3 h-3 text-green-500" />
+                  )}
+                  <span>100 (M2)</span>
+                </span>
+                <span className={`text-xs font-medium flex items-center gap-1 ${results.tilesEarned >= 150 ? 'text-green-600 font-semibold' : 'text-muted-foreground'}`}>
+                  {results.tilesEarned >= 150 && (
+                    <Check className="w-3 h-3 text-green-500" />
+                  )}
+                  <span>150 (M3)</span>
+                </span>
+                <span className={`text-xs font-medium flex items-center gap-1 ${results.tilesEarned >= 250 ? 'text-green-600 font-semibold' : 'text-muted-foreground'}`}>
+                  {results.tilesEarned >= 250 && (
+                    <Check className="w-3 h-3 text-green-500" />
+                  )}
+                  <span>250 (M4)</span>
+                </span>
+              </div>
+              
+              {/* Next tier message */}
+              {results.nextTier && nextTierConfig && (
+                <p className="text-xs text-muted-foreground mt-1" data-testid="text-tiles-to-next-tier">
+                  {results.tilesToNextTier} more tiles to {nextTierConfig.name} ({results.segmentsToNextTier} more segments also qualifies)
+                </p>
+              )}
+              {!results.nextTier && (
+                <p className="text-xs text-green-600 font-semibold mt-1">
+                  ✨ Top tier achieved - Mosaic 4!
+                </p>
+              )}
+            </div>
+
+            {/* Status Summary Box */}
+            <div className="p-3 bg-muted/50 rounded-lg mt-4">
+              <p className="text-xs font-medium text-muted-foreground mb-2">Remember: Two paths to Mosaic status</p>
+              <div className="grid grid-cols-2 gap-3 text-xs">
+                <div>
+                  <span className="font-semibold text-foreground">Tiles earned from:</span>
+                  <ul className="mt-1 space-y-0.5 text-muted-foreground">
+                    <li>• Eligible JetBlue flights</li>
+                    <li>• JetBlue card purchases ($6K = 1 tile)</li>
+                  </ul>
+                </div>
+                <div>
+                  <span className="font-semibold text-foreground">Or qualify by segments:</span>
+                  <ul className="mt-1 space-y-0.5 text-muted-foreground">
+                    <li>• 30 segments = Mosaic 1</li>
+                    <li>• Each tier = 30 more segments</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -73,68 +188,53 @@ export function JetBlueResultsPanel({ results }: JetBlueResultsPanelProps) {
 
         {/* Points Breakdown */}
         <div className="space-y-3">
-          <h4 className="font-semibold text-sm text-[#002244]">Points Breakdown</h4>
-          <div className="space-y-2 text-sm">
-            <div className="flex items-center justify-between">
-              <span className="flex items-center gap-2 text-muted-foreground">
-                <Plane className="w-4 h-4" />
-                From Flights
-              </span>
-              <span className="font-semibold" data-testid="text-flight-points">
-                {results.flightPoints.toLocaleString()}
-              </span>
+          <p className="text-sm font-semibold text-foreground">Points & Tiles Breakdown</p>
+          
+          <div className="space-y-2">
+            <div className="flex items-center justify-between text-sm p-3 bg-muted/50 rounded-lg">
+              <div className="flex items-center gap-2">
+                <Plane className="w-4 h-4 text-[#002244]" />
+                <span className="font-medium">Flights</span>
+              </div>
+              <div className="text-right">
+                <div className="font-semibold">{results.flightPoints.toLocaleString()} Points</div>
+                <div className="text-xs text-muted-foreground">
+                  {Math.floor(results.tilesEarned)} tiles
+                </div>
+              </div>
             </div>
-            <div className="flex items-center justify-between">
-              <span className="flex items-center gap-2 text-muted-foreground">
-                <CreditCard className="w-4 h-4" />
-                From Credit Card
-              </span>
-              <span className="font-semibold" data-testid="text-card-points">
-                {results.creditCardPoints.toLocaleString()}
-              </span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="flex items-center gap-2 text-muted-foreground">
-                <Building2 className="w-4 h-4" />
-                From Partners
-              </span>
-              <span className="font-semibold" data-testid="text-partner-points">
-                {results.partnerPoints.toLocaleString()}
-              </span>
-            </div>
+
+            {results.creditCardPoints > 0 && (
+              <div className="flex items-center justify-between text-sm p-3 bg-muted/50 rounded-lg">
+                <div className="flex items-center gap-2">
+                  <CreditCard className="w-4 h-4 text-[#0099CC]" />
+                  <span className="font-medium">Credit Card</span>
+                </div>
+                <div className="text-right">
+                  <div className="font-semibold">{results.creditCardPoints.toLocaleString()} Points</div>
+                  <div className="text-xs text-muted-foreground">
+                    {results.mosaicBoostApplied ? "+3 bonus/dollar" : "No bonus"}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {results.partnerPoints > 0 && (
+              <div className="flex items-center justify-between text-sm p-3 bg-muted/50 rounded-lg">
+                <div className="flex items-center gap-2">
+                  <Building2 className="w-4 h-4 text-[#FFA500]" />
+                  <span className="font-medium">Partners</span>
+                </div>
+                <div className="text-right">
+                  <div className="font-semibold">{results.partnerPoints.toLocaleString()} Points</div>
+                  <div className="text-xs text-muted-foreground">
+                    0 tiles (partners don't earn tiles)
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
-
-        <Separator />
-
-
-        {/* Mosaic Status Progress */}
-        {results.nextTier && nextTierConfig && (
-          <div className="space-y-3">
-            <h4 className="font-semibold text-sm text-[#002244]">Mosaic Progress</h4>
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Progress to {nextTierConfig.name}</span>
-                <span className="font-semibold" data-testid="text-percent-to-next-tier">
-                  {results.percentToNextTier.toFixed(0)}%
-                </span>
-              </div>
-              <Progress 
-                value={results.percentToNextTier} 
-                className="h-2"
-                data-testid="progress-next-tier"
-              />
-              <div className="grid grid-cols-2 gap-2">
-                <p className="text-xs text-muted-foreground" data-testid="text-tiles-to-next-tier">
-                  {results.tilesToNextTier} more tiles needed
-                </p>
-                <p className="text-xs text-muted-foreground text-right" data-testid="text-segments-to-next-tier">
-                  {results.segmentsToNextTier} more segments needed
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Top Tier Message */}
         {!results.nextTier && (
