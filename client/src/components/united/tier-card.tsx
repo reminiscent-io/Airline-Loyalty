@@ -101,21 +101,21 @@ export function UnitedTierCard({ tier, highlighted = false }: UnitedTierCardProp
       
       <CardContent>
         <div className="text-sm text-muted-foreground mb-4">
-          <strong className="text-[#002244]">
+          Up to <strong className="text-[#002244]">
             {tier === "member" ? (
               "5"
             ) : tier === "silver" ? (
-              "5 + 2 = 7"
+              "7"
             ) : tier === "gold" ? (
-              "5 + 3 = 8"
+              "8"
             ) : tier === "platinum" ? (
-              "5 + 4 = 9"
+              "9"
             ) : tier === "1k" ? (
-              "5 + 6 = 11"
+              "11"
             ) : (
-              "5 + 6 = 11"
+              "11"
             )}
-          </strong> total miles per dollar (base + bonus)
+          </strong> total miles per dollar
         </div>
         <ul className="space-y-2">
           {config.benefits.map((benefit, index) => (
