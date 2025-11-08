@@ -118,7 +118,7 @@ export function UnitedCalculator({ onCalculate }: UnitedCalculatorProps) {
                 <SelectContent>
                   {Object.entries(UNITED_FARE_TYPES).map(([key, config]) => (
                     <SelectItem key={key} value={key}>
-                      {config.name} (5 base miles/dollar{!config.pqfEligible && ", No PQF"})
+                      {config.name} (5× miles{!config.pqfEligible && ", No PQF"})
                     </SelectItem>
                   ))}
                 </SelectContent>
