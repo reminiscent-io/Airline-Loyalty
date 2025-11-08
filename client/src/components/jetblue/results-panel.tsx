@@ -107,6 +107,49 @@ export function JetBlueResultsPanel({ results }: JetBlueResultsPanelProps) {
 
         <Separator />
 
+
+        {/* Mosaic Status Progress */}
+        {results.nextTier && nextTierConfig && (
+          <div className="space-y-3">
+            <h4 className="font-semibold text-sm text-[#002244]">Mosaic Progress</h4>
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Progress to {nextTierConfig.name}</span>
+                <span className="font-semibold" data-testid="text-percent-to-next-tier">
+                  {results.percentToNextTier.toFixed(0)}%
+                </span>
+              </div>
+              <Progress 
+                value={results.percentToNextTier} 
+                className="h-2"
+                data-testid="progress-next-tier"
+              />
+              <div className="grid grid-cols-2 gap-2">
+                <p className="text-xs text-muted-foreground" data-testid="text-tiles-to-next-tier">
+                  {results.tilesToNextTier} more tiles needed
+                </p>
+                <p className="text-xs text-muted-foreground text-right" data-testid="text-segments-to-next-tier">
+                  {results.segmentsToNextTier} more segments needed
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Top Tier Message */}
+        {!results.nextTier && (
+          <div className="p-4 bg-gradient-to-r from-[#FFA500] to-[#FF6F00] text-white rounded-lg">
+            <p className="font-semibold text-sm">
+              🎉 You're at the top tier - Mosaic Elite!
+            </p>
+            <p className="text-xs opacity-90 mt-1">
+              Enjoy unlimited Mint upgrades and all premium benefits
+            </p>
+          </div>
+        )}
+
+        <Separator />
+
         {/* Financial Analysis */}
         <div className="p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg">
           <h4 className="font-semibold text-sm text-[#002244] mb-3">Value Analysis</h4>
@@ -150,48 +193,6 @@ export function JetBlueResultsPanel({ results }: JetBlueResultsPanelProps) {
             )}
           </div>
         </div>
-
-        <Separator />
-
-        {/* Mosaic Status Progress */}
-        {results.nextTier && nextTierConfig && (
-          <div className="space-y-3">
-            <h4 className="font-semibold text-sm text-[#002244]">Mosaic Progress</h4>
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Progress to {nextTierConfig.name}</span>
-                <span className="font-semibold" data-testid="text-percent-to-next-tier">
-                  {results.percentToNextTier.toFixed(0)}%
-                </span>
-              </div>
-              <Progress 
-                value={results.percentToNextTier} 
-                className="h-2"
-                data-testid="progress-next-tier"
-              />
-              <div className="grid grid-cols-2 gap-2">
-                <p className="text-xs text-muted-foreground" data-testid="text-tiles-to-next-tier">
-                  {results.tilesToNextTier} more tiles needed
-                </p>
-                <p className="text-xs text-muted-foreground text-right" data-testid="text-segments-to-next-tier">
-                  {results.segmentsToNextTier} more segments needed
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Top Tier Message */}
-        {!results.nextTier && (
-          <div className="p-4 bg-gradient-to-r from-[#FFA500] to-[#FF6F00] text-white rounded-lg">
-            <p className="font-semibold text-sm">
-              🎉 You're at the top tier - Mosaic Elite!
-            </p>
-            <p className="text-xs opacity-90 mt-1">
-              Enjoy unlimited Mint upgrades and all premium benefits
-            </p>
-          </div>
-        )}
       </CardContent>
     </Card>
   );

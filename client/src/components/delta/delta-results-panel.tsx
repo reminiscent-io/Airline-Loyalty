@@ -112,6 +112,22 @@ export function DeltaResultsPanel({ results }: DeltaResultsPanelProps) {
           </div>
         </div>
 
+        {/* Earning Rate */}
+        <div className="p-3 rounded-lg bg-gradient-to-r from-red-50 to-blue-50 border border-red-200">
+          <div className="flex items-center gap-2 mb-1">
+            <TrendingUp className="w-4 h-4" style={{ color: "#C8102E" }} />
+            <span className="text-sm font-semibold">Loyalty Bonus</span>
+          </div>
+          <p className="text-lg font-bold" style={{ color: "#003566" }} data-testid="text-earning-rate">
+            +{results.currentTier.earningRate} bonus SkyMiles per $1
+          </p>
+          <p className="text-xs text-muted-foreground mt-1">
+            Total earning = base fare rate + loyalty bonus
+          </p>
+        </div>
+
+        <Separator />
+
         {/* Financial Analysis */}
         <div className="p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg">
           <h4 className="font-semibold text-sm text-[#C8102E] mb-3">Value Analysis</h4>
@@ -147,22 +163,6 @@ export function DeltaResultsPanel({ results }: DeltaResultsPanelProps) {
               </div>
             )}
           </div>
-        </div>
-
-        <Separator />
-
-        {/* Earning Rate */}
-        <div className="p-3 rounded-lg bg-gradient-to-r from-red-50 to-blue-50 border border-red-200">
-          <div className="flex items-center gap-2 mb-1">
-            <TrendingUp className="w-4 h-4" style={{ color: "#C8102E" }} />
-            <span className="text-sm font-semibold">Loyalty Bonus</span>
-          </div>
-          <p className="text-lg font-bold" style={{ color: "#003566" }} data-testid="text-earning-rate">
-            +{results.currentTier.earningRate} bonus SkyMiles per $1
-          </p>
-          <p className="text-xs text-muted-foreground mt-1">
-            Total earning = base fare rate + loyalty bonus
-          </p>
         </div>
       </CardContent>
     </Card>

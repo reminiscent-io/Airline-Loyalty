@@ -107,6 +107,49 @@ export function AtmosResultsPanel({ results }: AtmosResultsPanelProps) {
 
         <Separator />
 
+
+        {/* Elite Status Progress */}
+        {results.nextTier && nextTierConfig && (
+          <div className="space-y-3">
+            <h4 className="font-semibold text-sm text-[#00467F]">Elite Status Progress</h4>
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Progress to {nextTierConfig.name}</span>
+                <span className="font-semibold" data-testid="text-percent-to-next-tier">
+                  {results.percentToNextTier.toFixed(0)}%
+                </span>
+              </div>
+              <Progress 
+                value={results.percentToNextTier} 
+                className="h-2"
+                data-testid="progress-next-tier"
+              />
+              <div className="grid grid-cols-2 gap-2">
+                <p className="text-xs text-muted-foreground" data-testid="text-miles-to-next-tier">
+                  {results.milesToNextTier.toLocaleString()} more miles needed
+                </p>
+                <p className="text-xs text-muted-foreground text-right" data-testid="text-segments-to-next-tier">
+                  {results.segmentsToNextTier} more segments needed
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Top Tier Message */}
+        {!results.nextTier && (
+          <div className="p-4 bg-gradient-to-r from-[#7AC142] to-[#68A02E] text-white rounded-lg">
+            <p className="font-semibold text-sm">
+              🎉 You're at the top tier - MVP Gold 100K!
+            </p>
+            <p className="text-xs opacity-90 mt-1">
+              Enjoy the highest level of benefits and choice perks
+            </p>
+          </div>
+        )}
+
+        <Separator />
+
         {/* Financial Analysis */}
         <div className="p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg">
           <h4 className="font-semibold text-sm text-[#00467F] mb-3">Value Analysis</h4>
@@ -150,48 +193,6 @@ export function AtmosResultsPanel({ results }: AtmosResultsPanelProps) {
             )}
           </div>
         </div>
-
-        <Separator />
-
-        {/* Elite Status Progress */}
-        {results.nextTier && nextTierConfig && (
-          <div className="space-y-3">
-            <h4 className="font-semibold text-sm text-[#00467F]">Elite Status Progress</h4>
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Progress to {nextTierConfig.name}</span>
-                <span className="font-semibold" data-testid="text-percent-to-next-tier">
-                  {results.percentToNextTier.toFixed(0)}%
-                </span>
-              </div>
-              <Progress 
-                value={results.percentToNextTier} 
-                className="h-2"
-                data-testid="progress-next-tier"
-              />
-              <div className="grid grid-cols-2 gap-2">
-                <p className="text-xs text-muted-foreground" data-testid="text-miles-to-next-tier">
-                  {results.milesToNextTier.toLocaleString()} more miles needed
-                </p>
-                <p className="text-xs text-muted-foreground text-right" data-testid="text-segments-to-next-tier">
-                  {results.segmentsToNextTier} more segments needed
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Top Tier Message */}
-        {!results.nextTier && (
-          <div className="p-4 bg-gradient-to-r from-[#7AC142] to-[#68A02E] text-white rounded-lg">
-            <p className="font-semibold text-sm">
-              🎉 You're at the top tier - MVP Gold 100K!
-            </p>
-            <p className="text-xs opacity-90 mt-1">
-              Enjoy the highest level of benefits and choice perks
-            </p>
-          </div>
-        )}
       </CardContent>
     </Card>
   );
