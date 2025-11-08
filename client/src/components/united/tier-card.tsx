@@ -73,15 +73,15 @@ export function UnitedTierCard({ tier, highlighted = false }: UnitedTierCardProp
           {tier === "member" ? (
             "Base Tier"
           ) : tier === "silver" ? (
-            "+40% Mile Bonus"
+            "+2 Bonus Miles/Dollar"
           ) : tier === "gold" ? (
-            "+60% Mile Bonus"
+            "+3 Bonus Miles/Dollar"
           ) : tier === "platinum" ? (
-            "+80% Mile Bonus"
+            "+4 Bonus Miles/Dollar"
           ) : tier === "global-services" ? (
             "Ultimate Elite Status"
           ) : (
-            "+120% Mile Bonus"
+            "+6 Bonus Miles/Dollar"
           )}
         </CardTitle>
         <CardDescription>
@@ -101,7 +101,21 @@ export function UnitedTierCard({ tier, highlighted = false }: UnitedTierCardProp
       
       <CardContent>
         <div className="text-sm text-muted-foreground mb-4">
-          <strong className="text-[#002244]">{config.milesMultiplier}×</strong> miles per dollar spent
+          <strong className="text-[#002244]">
+            {tier === "member" ? (
+              "5"
+            ) : tier === "silver" ? (
+              "5 + 2 = 7"
+            ) : tier === "gold" ? (
+              "5 + 3 = 8"
+            ) : tier === "platinum" ? (
+              "5 + 4 = 9"
+            ) : tier === "1k" ? (
+              "5 + 6 = 11"
+            ) : (
+              "5 + 6 = 11"
+            )}
+          </strong> total miles per dollar (base + bonus)
         </div>
         <ul className="space-y-2">
           {config.benefits.map((benefit, index) => (
