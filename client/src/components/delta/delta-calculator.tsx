@@ -126,11 +126,11 @@ export function DeltaCalculator({ onCalculate }: DeltaCalculatorProps) {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="none">General Member (5x)</SelectItem>
-                        <SelectItem value="silver">Silver Medallion (7x)</SelectItem>
-                        <SelectItem value="gold">Gold Medallion (8x)</SelectItem>
-                        <SelectItem value="platinum">Platinum Medallion (9x)</SelectItem>
-                        <SelectItem value="diamond">Diamond Medallion (11x)</SelectItem>
+                        <SelectItem value="none">General Member (+0 bonus miles)</SelectItem>
+                        <SelectItem value="silver">Silver Medallion (+2 bonus miles)</SelectItem>
+                        <SelectItem value="gold">Gold Medallion (+3 bonus miles)</SelectItem>
+                        <SelectItem value="platinum">Platinum Medallion (+4 bonus miles)</SelectItem>
+                        <SelectItem value="diamond">Diamond Medallion (+6 bonus miles)</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />

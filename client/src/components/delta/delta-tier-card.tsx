@@ -73,13 +73,13 @@ export function DeltaTierCard({ tier, highlighted = false }: DeltaTierCardProps)
           {tier === "member" ? (
             "Base Tier"
           ) : tier === "silver" ? (
-            "+40% Mile Bonus"
+            "+2 Bonus Miles/Dollar"
           ) : tier === "gold" ? (
-            "+60% Mile Bonus"
+            "+3 Bonus Miles/Dollar"
           ) : tier === "platinum" ? (
-            "+80% Mile Bonus"
+            "+4 Bonus Miles/Dollar"
           ) : tier === "diamond" ? (
-            "+120% Mile Bonus"
+            "+6 Bonus Miles/Dollar"
           ) : (
             "Ultimate Elite Status"
           )}
@@ -100,6 +100,23 @@ export function DeltaTierCard({ tier, highlighted = false }: DeltaTierCardProps)
       </CardHeader>
       
       <CardContent>
+        <div className="text-sm text-muted-foreground mb-4">
+          Up to <strong className="text-[#C8102E]">
+            {tier === "member" ? (
+              "5"
+            ) : tier === "silver" ? (
+              "7"
+            ) : tier === "gold" ? (
+              "8"
+            ) : tier === "platinum" ? (
+              "9"
+            ) : tier === "diamond" ? (
+              "11"
+            ) : (
+              "11"
+            )}
+          </strong> total miles per dollar
+        </div>
         <ul className="space-y-2.5">
           {config.benefits.map((benefit, index) => (
             <li 
