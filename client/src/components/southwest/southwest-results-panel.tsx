@@ -124,26 +124,6 @@ export function SouthwestResultsPanel({ results }: SouthwestResultsPanelProps) {
           </div>
         </div>
 
-        {/* Value Analysis */}
-        <div className="p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg">
-          <h4 className="font-semibold text-sm text-[#304CB2] mb-3">Value Analysis</h4>
-          <div className="space-y-2 text-sm">
-            <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">Estimated Points Value (1.4¢ / pt)</span>
-              <span className="font-semibold flex items-center gap-1">
-                <DollarSign className="w-3 h-3" />
-                <span data-testid="text-points-value">{(results.redemptionValue).toFixed(2)}</span>
-              </span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">Return on Spend</span>
-              <span className="font-semibold text-green-600" data-testid="text-return-on-spend">
-                {results.returnOnSpend.toFixed(1)}%
-              </span>
-            </div>
-          </div>
-        </div>
-
         <Separator />
 
         {/* Combined A-List and A-List Preferred Progress */}
