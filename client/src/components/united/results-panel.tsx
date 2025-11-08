@@ -149,35 +149,6 @@ export function UnitedResultsPanel({ results }: UnitedResultsPanelProps) {
 
         <Separator />
 
-        {/* Financial Analysis */}
-        <div className="p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg">
-          <h4 className="font-semibold text-sm text-[#002244] mb-3">Value Analysis</h4>
-          <div className="space-y-2 text-sm">
-            <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">Estimated Miles Value (1.22¢ / mile)</span>
-              <span className="font-semibold flex items-center gap-1">
-                <DollarSign className="w-3 h-3" />
-                <span data-testid="text-miles-value">{results.milesValue.toFixed(2)}</span>
-              </span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">Total Spent</span>
-              <span className="font-semibold flex items-center gap-1">
-                <DollarSign className="w-3 h-3" />
-                <span data-testid="text-total-spent">{results.totalCost.toFixed(2)}</span>
-              </span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">Return on Spend</span>
-              <span className="font-semibold text-green-600" data-testid="text-return-on-spend">
-                {results.returnOnSpend.toFixed(1)}%
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <Separator />
-
         {/* Premier Status Progress */}
         {results.nextTier && nextTierConfig && (
           <div className="space-y-4">
@@ -379,6 +350,35 @@ export function UnitedResultsPanel({ results }: UnitedResultsPanelProps) {
             </p>
           </div>
         )}
+
+        <Separator />
+
+        {/* Financial Analysis */}
+        <div className="p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg">
+          <h4 className="font-semibold text-sm text-[#002244] mb-3">Value Analysis</h4>
+          <div className="space-y-2 text-sm">
+            <div className="flex items-center justify-between">
+              <span className="text-muted-foreground">Estimated Miles Value (1.22¢ / mile)</span>
+              <span className="font-semibold flex items-center gap-1">
+                <DollarSign className="w-3 h-3" />
+                <span data-testid="text-miles-value">{results.milesValue.toFixed(2)}</span>
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-muted-foreground">Total Spent</span>
+              <span className="font-semibold flex items-center gap-1">
+                <DollarSign className="w-3 h-3" />
+                <span data-testid="text-total-spent">{results.totalCost.toFixed(2)}</span>
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-muted-foreground">Return on Spend</span>
+              <span className="font-semibold text-green-600" data-testid="text-return-on-spend">
+                {results.returnOnSpend.toFixed(1)}%
+              </span>
+            </div>
+          </div>
+        </div>
       </CardContent>
     </Card>
   );
