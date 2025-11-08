@@ -104,9 +104,11 @@ export function calculateDelta(input: DeltaCalculatorInput): DeltaCalculationRes
   const milesValue = totalSkyMiles * effectiveMileValue;
   
   // Include credit card annual fee in total cost
-  // Delta card annual fees: Platinum=$350, Reserve=$650
+  // Delta card annual fees: Gold=$99, Platinum=$350, Reserve=$650
   let annualFee = 0;
-  if (input.cardType === "platinum") {
+  if (input.cardType === "gold") {
+    annualFee = 99;
+  } else if (input.cardType === "platinum") {
     annualFee = 350;
   } else if (input.cardType === "reserve") {
     annualFee = 650;

@@ -164,7 +164,7 @@ export interface DeltaCreditCard {
 export const deltaCreditCards: DeltaCreditCard[] = [
   {
     name: "Delta SkyMiles Gold",
-    annualFee: 150,
+    annualFee: 99,
     mqdHeadstart: 0,
     mqdEarnRate: 0,
     skyMilesEarnRate: {
