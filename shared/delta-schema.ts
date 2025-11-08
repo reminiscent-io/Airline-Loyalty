@@ -141,6 +141,7 @@ export interface DeltaCalculationResults {
   mqdHeadstart: number;
   achievableTier: DeltaTier;
   milesValue: number;
+  totalCost: number;
   returnOnSpend: number;
   redemptionDiscountApplied: boolean;
 }

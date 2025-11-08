@@ -40,13 +40,6 @@ export function DeltaTierCard({ tier, highlighted = false }: DeltaTierCardProps)
       )}
       data-testid={`card-tier-${tier}`}
     >
-      {highlighted && (
-        <div className="absolute top-0 right-0">
-          <Badge className="rounded-none rounded-bl-lg bg-[#C8102E] text-white border-0">
-            Most Popular
-          </Badge>
-        </div>
-      )}
       {isGhostTier && (
         <div className="absolute top-0 left-0">
           <Badge className="rounded-none rounded-br-lg bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-0">
