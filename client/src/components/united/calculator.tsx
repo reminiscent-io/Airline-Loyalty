@@ -118,7 +118,7 @@ export function UnitedCalculator({ onCalculate }: UnitedCalculatorProps) {
                 <SelectContent>
                   {Object.entries(UNITED_FARE_TYPES).map(([key, config]) => (
                     <SelectItem key={key} value={key}>
-                      {config.name} ({config.milesMultiplier}× miles{!config.pqfEligible && ", No PQF"})
+                      {config.name} (5 base miles/dollar{!config.pqfEligible && ", No PQF"})
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -148,11 +148,11 @@ export function UnitedCalculator({ onCalculate }: UnitedCalculatorProps) {
                   <SelectValue placeholder="Select your status" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="member">MileagePlus Member (5× miles)</SelectItem>
-                  <SelectItem value="silver">Premier Silver (7× miles)</SelectItem>
-                  <SelectItem value="gold">Premier Gold (8× miles)</SelectItem>
-                  <SelectItem value="platinum">Premier Platinum (9× miles)</SelectItem>
-                  <SelectItem value="1k">Premier 1K (11× miles)</SelectItem>
+                  <SelectItem value="member">MileagePlus Member (+0 bonus miles)</SelectItem>
+                  <SelectItem value="silver">Premier Silver (+2 bonus miles)</SelectItem>
+                  <SelectItem value="gold">Premier Gold (+3 bonus miles)</SelectItem>
+                  <SelectItem value="platinum">Premier Platinum (+4 bonus miles)</SelectItem>
+                  <SelectItem value="1k">Premier 1K (+6 bonus miles)</SelectItem>
                 </SelectContent>
               </Select>
             </div>
