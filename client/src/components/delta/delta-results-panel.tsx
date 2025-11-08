@@ -2,8 +2,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Award, TrendingUp, CreditCard, Plane, DollarSign } from "lucide-react";
-import { DeltaCalculationResults } from "@shared/delta-schema";
+import { Award, TrendingUp, CreditCard, Plane, DollarSign, Check, Building2 } from "lucide-react";
+import { DeltaCalculationResults, DELTA_TIER_CONFIGS } from "@shared/delta-schema";
 
 interface DeltaResultsPanelProps {
   results: DeltaCalculationResults | null;
@@ -22,92 +22,194 @@ export function DeltaResultsPanel({ results }: DeltaResultsPanelProps) {
     );
   }
 
-  const progressToNext = results.nextTier 
-    ? Math.min(100, Math.round((results.totalMQDs / results.nextTier.mqd) * 100))
-    : 100;
 
   return (
     <Card className="h-full border-2 hover-elevate" style={{ borderColor: "#C8102E" }} data-testid="card-results">
       <CardHeader className="pb-4">
-        <CardTitle className="flex items-center gap-2 text-2xl" style={{ color: "#C8102E" }}>
-          <Award className="w-6 h-6" />
-          Your Results
-        </CardTitle>
+        <div className="flex items-center justify-between gap-4 flex-wrap">
+          <CardTitle className="flex items-center gap-2 text-2xl" style={{ color: "#C8102E" }}>
+            <Award className="w-6 h-6" />
+            Your Results
+          </CardTitle>
+          <Badge className={results.currentTier.color}>
+            {results.currentTier.name}
+          </Badge>
+        </div>
       </CardHeader>
       <CardContent className="space-y-6">
-        {/* Total SkyMiles */}
-        <div className="p-4 rounded-lg text-center" style={{ backgroundColor: "#F7F7F7" }}>
-          <p className="text-sm text-muted-foreground mb-1">Total SkyMiles Earned</p>
-          <p className="text-3xl font-bold" style={{ color: "#C8102E" }} data-testid="text-total-miles">
-            {results.totalSkyMiles.toLocaleString()}
-          </p>
-          <div className="flex justify-center gap-4 mt-2 text-sm">
-            <span className="flex items-center gap-1">
-              <Plane className="w-4 h-4" />
-              {results.flightSkyMiles.toLocaleString()} from flights
-            </span>
-            {results.cardSkyMiles > 0 && (
-              <span className="flex items-center gap-1">
-                <CreditCard className="w-4 h-4" />
-                {results.cardSkyMiles.toLocaleString()} from card
-              </span>
-            )}
+        {/* Three Metric Display */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* SkyMiles */}
+          <div className="p-4 bg-gradient-to-br from-[#C8102E] to-[#a0102e] rounded-xl text-white">
+            <p className="text-xs font-medium opacity-90 mb-1">SkyMiles</p>
+            <p className="text-2xl font-bold tracking-tight" data-testid="text-total-miles">
+              {results.totalSkyMiles.toLocaleString()}
+            </p>
+            <p className="text-xs opacity-75 mt-1">For award bookings</p>
+          </div>
+
+          {/* MQDs */}
+          <div className="p-4 bg-gradient-to-br from-[#003566] to-[#002244] rounded-xl text-white">
+            <p className="text-xs font-medium opacity-90 mb-1">MQDs</p>
+            <p className="text-2xl font-bold tracking-tight" data-testid="text-total-mqd">
+              ${results.totalMQDs.toLocaleString()}
+            </p>
+            <p className="text-xs opacity-75 mt-1">Toward status</p>
+          </div>
+
+          {/* MQMs */}
+          <div className="p-4 bg-gradient-to-br from-gray-600 to-gray-800 rounded-xl text-white">
+            <p className="text-xs font-medium opacity-90 mb-1">MQMs</p>
+            <p className="text-2xl font-bold tracking-tight" data-testid="text-mqm">
+              {results.flightSkyMiles.toLocaleString()}
+            </p>
+            <p className="text-xs opacity-75 mt-1">Qualification Miles</p>
           </div>
         </div>
 
-        {/* MQD Progress */}
-        <div className="p-4 rounded-lg" style={{ backgroundColor: "#F7F7F7" }}>
-          <p className="text-sm text-muted-foreground mb-1">Total MQDs</p>
-          <p className="text-2xl font-bold mb-3" style={{ color: "#003566" }} data-testid="text-total-mqd">
-            ${results.totalMQDs.toLocaleString()}
-          </p>
-          
-          <div className="space-y-1 text-sm">
-            {results.mqdFromFlights > 0 && (
-              <div className="flex justify-between">
-                <span>Flight MQDs:</span>
-                <span className="font-semibold">${results.mqdFromFlights.toLocaleString()}</span>
-              </div>
-            )}
-            {results.mqdHeadstart > 0 && (
-              <div className="flex justify-between">
-                <span>Card Headstart:</span>
-                <span className="font-semibold">${results.mqdHeadstart.toLocaleString()}</span>
-              </div>
-            )}
-            {results.mqdFromCard > 0 && (
-              <div className="flex justify-between">
-                <span>Card Spending:</span>
-                <span className="font-semibold">${results.mqdFromCard.toLocaleString()}</span>
-              </div>
-            )}
-          </div>
-        </div>
+        <Separator />
 
-        {/* Status Achievement */}
+        {/* Medallion Status Progress */}
         <div className="space-y-4">
           <div>
-            <div className="flex items-center justify-between mb-2">
-              <span className="font-semibold">Achievable Status</span>
-              <Badge 
-                className={results.achievableTier.color}
-                data-testid="badge-achievable-tier"
-              >
-                {results.achievableTier.name}
-              </Badge>
-            </div>
-            {results.nextTier && !results.nextTier.isGhost && (
-              <>
-                <Progress value={progressToNext} className="h-2 mb-2" />
-                <p className="text-sm text-muted-foreground">
-                  ${results.mqdToNextTier.toLocaleString()} more MQDs needed for {results.nextTier.name}
+            <p className="text-sm font-semibold text-foreground mb-3">
+              Medallion Status Progress
+            </p>
+
+            {/* Progress Bar with Tier Markers */}
+            <div>
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-xs font-medium text-muted-foreground">MQD Progress</span>
+                <span className="text-xs font-semibold text-foreground" data-testid="text-mqd-progress">
+                  ${results.totalMQDs.toLocaleString()} / $15,000
+                </span>
+              </div>
+              
+              {/* Sequential progress bar with markers */}
+              <div className="relative">
+                <Progress 
+                  value={(results.totalMQDs / 15000) * 100} 
+                  className="h-3"
+                  data-testid="progress-mqd"
+                />
+                {/* Tier markers */}
+                <div className="absolute top-0 left-0 w-full h-3 pointer-events-none">
+                  {/* Silver marker at 20% (3k/15k) */}
+                  <div 
+                    className="absolute top-0 h-full w-0.5 bg-background"
+                    style={{ left: '20%' }}
+                  />
+                  {/* Gold marker at 40% (6k/15k) */}
+                  <div 
+                    className="absolute top-0 h-full w-0.5 bg-background"
+                    style={{ left: '40%' }}
+                  />
+                  {/* Platinum marker at 60% (9k/15k) */}
+                  <div 
+                    className="absolute top-0 h-full w-0.5 bg-background"
+                    style={{ left: '60%' }}
+                  />
+                </div>
+              </div>
+              
+              {/* Tier labels */}
+              <div className="flex justify-between mt-1">
+                <span className="text-xs text-muted-foreground">$0</span>
+                <span className={`text-xs font-medium flex items-center gap-1 ${results.totalMQDs >= 3000 ? 'text-green-600 font-semibold' : 'text-muted-foreground'}`}>
+                  {results.totalMQDs >= 3000 && (
+                    <Check className="w-3 h-3 text-green-500" />
+                  )}
+                  <span>$3K (Silver)</span>
+                </span>
+                <span className={`text-xs font-medium flex items-center gap-1 ${results.totalMQDs >= 6000 ? 'text-green-600 font-semibold' : 'text-muted-foreground'}`}>
+                  {results.totalMQDs >= 6000 && (
+                    <Check className="w-3 h-3 text-green-500" />
+                  )}
+                  <span>$6K (Gold)</span>
+                </span>
+                <span className={`text-xs font-medium flex items-center gap-1 ${results.totalMQDs >= 9000 ? 'text-green-600 font-semibold' : 'text-muted-foreground'}`}>
+                  {results.totalMQDs >= 9000 && (
+                    <Check className="w-3 h-3 text-green-500" />
+                  )}
+                  <span>$9K (Plat)</span>
+                </span>
+                <span className={`text-xs font-medium flex items-center gap-1 ${results.totalMQDs >= 15000 ? 'text-green-600 font-semibold' : 'text-muted-foreground'}`}>
+                  {results.totalMQDs >= 15000 && (
+                    <Check className="w-3 h-3 text-green-500" />
+                  )}
+                  <span>$15K (Diam)</span>
+                </span>
+              </div>
+              
+              {/* Next tier message */}
+              {results.nextTier && !results.nextTier.isGhost && (
+                <p className="text-xs text-muted-foreground mt-1" data-testid="text-mqd-to-next-tier">
+                  ${results.mqdToNextTier.toLocaleString()} more MQDs to {results.nextTier.name}
                 </p>
-              </>
-            )}
-            {progressToNext === 100 && !results.nextTier && (
-              <p className="text-sm font-semibold" style={{ color: "#068D42" }}>
-                Highest tier achieved! 🎉
-              </p>
+              )}
+              {!results.nextTier && (
+                <p className="text-xs text-green-600 font-semibold mt-1">
+                  ✨ Top tier achieved - Diamond Medallion!
+                </p>
+              )}
+            </div>
+
+            {/* Status Summary Box */}
+            <div className="p-3 bg-muted/50 rounded-lg mt-4">
+              <p className="text-xs font-medium text-muted-foreground mb-2">Remember: MQDs are the primary path to elite status</p>
+              <div className="grid grid-cols-2 gap-3 text-xs">
+                <div>
+                  <span className="font-semibold text-foreground">MQDs earned from:</span>
+                  <ul className="mt-1 space-y-0.5 text-muted-foreground">
+                    <li>• Delta flights (fare spending)</li>
+                    <li>• Delta Amex card spending</li>
+                  </ul>
+                </div>
+                <div>
+                  <span className="font-semibold text-foreground">SkyMiles earned from:</span>
+                  <ul className="mt-1 space-y-0.5 text-muted-foreground">
+                    <li>• All sources (flights, cards, partners)</li>
+                    <li>• Used for award bookings only</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <Separator />
+
+        {/* Points/MQD Breakdown */}
+        <div className="space-y-3">
+          <p className="text-sm font-semibold text-foreground">Earnings Breakdown</p>
+          
+          <div className="space-y-2">
+            <div className="flex items-center justify-between text-sm p-3 bg-muted/50 rounded-lg">
+              <div className="flex items-center gap-2">
+                <Plane className="w-4 h-4 text-[#C8102E]" />
+                <span className="font-medium">Flights</span>
+              </div>
+              <div className="text-right">
+                <div className="font-semibold">{results.flightSkyMiles.toLocaleString()} Miles</div>
+                <div className="text-xs text-muted-foreground">
+                  ${results.mqdFromFlights.toLocaleString()} MQDs
+                </div>
+              </div>
+            </div>
+
+            {(results.cardSkyMiles > 0 || results.mqdFromCard > 0 || results.mqdHeadstart > 0) && (
+              <div className="flex items-center justify-between text-sm p-3 bg-muted/50 rounded-lg">
+                <div className="flex items-center gap-2">
+                  <CreditCard className="w-4 h-4 text-[#003566]" />
+                  <span className="font-medium">Credit Card</span>
+                </div>
+                <div className="text-right">
+                  <div className="font-semibold">{results.cardSkyMiles.toLocaleString()} Miles</div>
+                  <div className="text-xs text-muted-foreground">
+                    ${(results.mqdFromCard + results.mqdHeadstart).toLocaleString()} MQDs
+                  </div>
+                </div>
+              </div>
             )}
           </div>
         </div>
@@ -145,7 +247,7 @@ export function DeltaResultsPanel({ results }: DeltaResultsPanelProps) {
               <span className="text-muted-foreground">Total Spent</span>
               <span className="font-semibold flex items-center gap-1">
                 <DollarSign className="w-3 h-3" />
-                <span data-testid="text-total-spent">{results.totalCost.toFixed(2)}</span>
+                <span data-testid="text-total-spent">{((results.totalSkyMiles / results.returnOnSpend) * 100).toFixed(2)}</span>
               </span>
             </div>
             <div className="flex items-center justify-between">
