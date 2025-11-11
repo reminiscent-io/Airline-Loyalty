@@ -3,21 +3,26 @@ import { Check, X } from "lucide-react";
 
 export function AtmosBenefitsTable() {
   const benefits = [
-    { name: "Miles Never Expire", member: true, mvp: true, gold: true, gold75k: true, gold100k: true },
-    { name: "Award Seat Availability", member: "Standard", mvp: "Standard", gold: "Enhanced", gold75k: "Premium", gold100k: "Premium" },
-    { name: "Mileage Earning Bonus", member: "0%", mvp: "+50%", gold: "+100%", gold75k: "+125%", gold100k: "+150%" },
-    { name: "Premium Seats at Check-in", member: false, mvp: true, gold: true, gold75k: true, gold100k: true },
-    { name: "Preferred Seats at Booking", member: false, mvp: false, gold: true, gold75k: true, gold100k: true },
-    { name: "Priority Check-in", member: false, mvp: true, gold: true, gold75k: true, gold100k: true },
-    { name: "Priority Security", member: false, mvp: false, gold: true, gold75k: true, gold100k: true },
-    { name: "Priority Boarding", member: false, mvp: true, gold: true, gold75k: true, gold100k: true },
-    { name: "Free Checked Bags", member: "0", mvp: "2 bags", gold: "2 bags", gold75k: "3 bags", gold100k: "3 bags" },
-    { name: "Same-Day Changes", member: "$50", mvp: "Free", gold: "Free", gold75k: "Free", gold100k: "Free" },
-    { name: "Complimentary Upgrades", member: false, mvp: false, gold: "At check-in", gold75k: "At booking (U)", gold100k: "Unlimited (U)" },
-    { name: "Upgrade Certificates", member: false, mvp: false, gold: false, gold75k: "4 per year", gold100k: "Unlimited" },
-    { name: "Lounge Discount", member: false, mvp: false, gold: false, gold75k: "50% off", gold100k: "50% off" },
-    { name: "Annual Bonus Miles", member: false, mvp: false, gold: false, gold75k: "50,000", gold100k: false },
-    { name: "Choice Benefit", member: false, mvp: false, gold: false, gold75k: false, gold100k: "Yes" },
+    { name: "Points Never Expire", member: true, silver: true, gold: true, platinum: true, titanium: true },
+    { name: "Award Seat Availability", member: "Standard", silver: "Standard", gold: "Enhanced", platinum: "Premium", titanium: "Premium+" },
+    { name: "Point Earning Bonus", member: "0%", silver: "+25%", gold: "+50%", platinum: "+100%", titanium: "+150%" },
+    { name: "Oneworld Status", member: false, silver: "Ruby", gold: "Sapphire", platinum: "Emerald", titanium: "Emerald" },
+    { name: "Free Starlink Wi-Fi", member: true, silver: true, gold: true, platinum: true, titanium: true },
+    { name: "Premium Seats at Check-in", member: false, silver: true, gold: true, platinum: true, titanium: true },
+    { name: "Preferred Seats at Booking", member: false, silver: true, gold: true, platinum: true, titanium: true },
+    { name: "Priority Check-in", member: false, silver: true, gold: true, platinum: true, titanium: true },
+    { name: "Priority Security", member: false, silver: false, gold: true, platinum: true, titanium: true },
+    { name: "Priority Boarding", member: false, silver: "Group A", gold: "Group A", platinum: "Group A", titanium: "First" },
+    { name: "Free Checked Bags", member: "0", silver: "1 bag", gold: "2 bags", platinum: "3 bags", titanium: "3 bags" },
+    { name: "Guests Free Bags", member: false, silver: "Up to 6", gold: "Up to 6", platinum: "Up to 6", titanium: "Up to 8" },
+    { name: "Same-Day Changes", member: "$50", silver: "$25", gold: "Free", platinum: "Free", titanium: "Free" },
+    { name: "Complimentary Upgrades", member: false, silver: "Space avail", gold: "72hr waitlist", platinum: "120hr waitlist", titanium: "Highest priority" },
+    { name: "Companion Upgrades", member: false, silver: false, gold: false, platinum: "+1 guest", titanium: "+2 guests" },
+    { name: "Global Business Upgrades", member: false, silver: false, gold: false, platinum: false, titanium: "Day-of (2026)" },
+    { name: "Complimentary Main Cabin", member: false, silver: false, gold: false, platinum: "Drink/chocolate", titanium: "Full meal" },
+    { name: "International Lounges", member: false, silver: false, gold: "When flying OW", platinum: "Business lounges", titanium: "First lounges" },
+    { name: "CLEAR Plus Discount", member: false, silver: false, gold: false, platinum: false, titanium: "Yes" },
+    { name: "Avis President's Club", member: false, silver: false, gold: false, platinum: false, titanium: "Status match" },
   ];
 
   const renderCell = (value: boolean | string) => {
@@ -48,16 +53,20 @@ export function AtmosBenefitsTable() {
                   Member
                 </th>
                 <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-semibold text-xs sm:text-sm whitespace-nowrap">
-                  MVP
-                </th>
-                <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-semibold text-xs sm:text-sm whitespace-nowrap bg-yellow-500/20">
-                  MVP Gold
+                  Silver
+                  <div className="text-[10px] font-normal">20K pts</div>
                 </th>
                 <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-semibold text-xs sm:text-sm whitespace-nowrap">
-                  Gold 75K
+                  Gold
+                  <div className="text-[10px] font-normal">40K pts</div>
                 </th>
-                <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-semibold text-xs sm:text-sm whitespace-nowrap rounded-tr-lg">
-                  Gold 100K
+                <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-semibold text-xs sm:text-sm whitespace-nowrap">
+                  Platinum
+                  <div className="text-[10px] font-normal">80K pts</div>
+                </th>
+                <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-semibold rounded-tr-lg text-xs sm:text-sm whitespace-nowrap">
+                  Titanium
+                  <div className="text-[10px] font-normal">135K pts</div>
                 </th>
               </tr>
             </thead>
@@ -74,17 +83,17 @@ export function AtmosBenefitsTable() {
                   <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
                     {renderCell(benefit.member)}
                   </td>
-                  <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
-                    {renderCell(benefit.mvp)}
+                  <td className="px-3 sm:px-4 md:px-6 py-3 text-center bg-gray-50/50">
+                    {renderCell(benefit.silver)}
                   </td>
-                  <td className="px-3 sm:px-4 md:px-6 py-3 text-center bg-yellow-500/5">
+                  <td className="px-3 sm:px-4 md:px-6 py-3 text-center bg-yellow-50/30">
                     {renderCell(benefit.gold)}
                   </td>
-                  <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
-                    {renderCell(benefit.gold75k)}
+                  <td className="px-3 sm:px-4 md:px-6 py-3 text-center bg-gray-100/50">
+                    {renderCell(benefit.platinum)}
                   </td>
-                  <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
-                    {renderCell(benefit.gold100k)}
+                  <td className="px-3 sm:px-4 md:px-6 py-3 text-center bg-green-50/30">
+                    {renderCell(benefit.titanium)}
                   </td>
                 </tr>
               ))}

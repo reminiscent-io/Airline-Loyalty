@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Mountain, Check } from "lucide-react";
+import { Mountain, Check, Globe } from "lucide-react";
 import { ATMOS_TIER_CONFIGS, type AtmosTierStatus } from "@shared/atmos-schema";
 import { cn } from "@/lib/utils";
 
@@ -14,18 +14,24 @@ export function AtmosTierCard({ tier, highlighted = false }: AtmosTierCardProps)
 
   const tierColors = {
     member: "bg-gray-500 text-white",
-    mvp: "bg-[#00467F] text-white",
-    "mvp-gold": "bg-gradient-to-r from-yellow-500 to-yellow-600 text-gray-900",
-    "mvp-gold-75k": "bg-gradient-to-r from-amber-500 to-amber-600 text-white",
-    "mvp-gold-100k": "bg-gradient-to-r from-[#7AC142] to-[#68A02E] text-white",
+    silver: "bg-gradient-to-r from-gray-300 to-gray-400 text-gray-900",
+    gold: "bg-gradient-to-r from-yellow-500 to-yellow-600 text-gray-900",
+    platinum: "bg-gradient-to-r from-gray-700 to-gray-900 text-white",
+    titanium: "bg-gradient-to-r from-[#7AC142] to-[#68A02E] text-white"
   };
 
   const tierBorderColors = {
     member: "border-gray-400",
-    mvp: "border-[#00467F]",
-    "mvp-gold": "border-yellow-500",
-    "mvp-gold-75k": "border-amber-500",
-    "mvp-gold-100k": "border-[#7AC142]",
+    silver: "border-gray-400",
+    gold: "border-yellow-500",
+    platinum: "border-gray-700",
+    titanium: "border-[#7AC142]"
+  };
+
+  const oneworldBadgeColors = {
+    Ruby: "bg-red-600 text-white",
+    Sapphire: "bg-blue-600 text-white",
+    Emerald: "bg-emerald-600 text-white"
   };
 
   return (
@@ -56,18 +62,30 @@ export function AtmosTierCard({ tier, highlighted = false }: AtmosTierCardProps)
             <Mountain className="w-3 h-3 mr-1" />
             {config.name}
           </Badge>
+          {config.oneworldStatus && (
+            <Badge 
+              className={cn(
+                "px-2 py-1 text-xs",
+                oneworldBadgeColors[config.oneworldStatus]
+              )}
+              data-testid={`badge-oneworld-${tier}`}
+            >
+              <Globe className="w-3 h-3 mr-1" />
+              {config.oneworldStatus}
+            </Badge>
+          )}
         </div>
         <CardTitle className="text-2xl text-[#00467F]" data-testid={`text-tier-name-${tier}`}>
           {tier === "member" ? (
             "Base Tier"
-          ) : tier === "mvp" ? (
-            "+50% Mile Bonus"
-          ) : tier === "mvp-gold" ? (
-            "+100% Mile Bonus"
-          ) : tier === "mvp-gold-75k" ? (
-            "+125% Mile Bonus"
+          ) : tier === "silver" ? (
+            "+25% Point Bonus"
+          ) : tier === "gold" ? (
+            "+50% Point Bonus"
+          ) : tier === "platinum" ? (
+            "+100% Point Bonus"
           ) : (
-            "+150% Mile Bonus"
+            "+150% Point Bonus"
           )}
         </CardTitle>
         <CardDescription>
@@ -75,7 +93,9 @@ export function AtmosTierCard({ tier, highlighted = false }: AtmosTierCardProps)
             "Starting tier for all members"
           ) : (
             <span data-testid={`text-tier-requirement-${tier}`}>
-              {config.milesRequired.toLocaleString()} miles or {config.segmentsRequired} segments
+              {config.statusPointsRequired.toLocaleString()} status points
+              {tier === "platinum" && " (↑ from 75K)"}
+              {tier === "titanium" && " (↑ from 100K)"}
             </span>
           )}
         </CardDescription>
@@ -83,7 +103,13 @@ export function AtmosTierCard({ tier, highlighted = false }: AtmosTierCardProps)
       
       <CardContent>
         <div className="text-sm text-muted-foreground mb-4">
-          <strong className="text-[#00467F]">{config.milesMultiplier}×</strong> miles per dollar spent
+          <strong className="text-[#00467F]">
+            {config.redeemablePointsMultiplier === 1 ? "1×" : 
+             config.redeemablePointsMultiplier === 1.25 ? "1.25×" :
+             config.redeemablePointsMultiplier === 1.5 ? "1.5×" :
+             config.redeemablePointsMultiplier === 2 ? "2×" :
+             "2.5×"}
+          </strong> redeemable points multiplier
         </div>
         <ul className="space-y-2">
           {config.benefits.map((benefit, index) => (
