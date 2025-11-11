@@ -53,16 +53,16 @@ export default function Atmos() {
               Elite Status Tiers
             </h2>
             <p className="text-gray-600">
-              Earn elite qualifying miles and segments to unlock premium benefits
+              Earn status points to unlock premium benefits (2026 Program)
             </p>
           </div>
           <TierCarousel>
             {[
               <AtmosTierCard tier="member" key="member" />,
-              <AtmosTierCard tier="mvp" key="mvp" />,
-              <AtmosTierCard tier="mvp-gold" key="mvp-gold" />,
-              <AtmosTierCard tier="mvp-gold-75k" key="mvp-gold-75k" />,
-              <AtmosTierCard tier="mvp-gold-100k" key="mvp-gold-100k" />
+              <AtmosTierCard tier="silver" key="silver" />,
+              <AtmosTierCard tier="gold" key="gold" highlighted />,
+              <AtmosTierCard tier="platinum" key="platinum" />,
+              <AtmosTierCard tier="titanium" key="titanium" />
             ]}
           </TierCarousel>
         </section>
@@ -74,7 +74,7 @@ export default function Atmos() {
               Atmos Calculator
             </h2>
             <p className="text-gray-600">
-              Calculate your miles and track progress toward elite status
+              Calculate your points and track progress toward elite status
             </p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
