@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Card } from "@/components/ui/card";
-import { Mountain, Flower2, Trophy, Check } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Mountain, Flower2, Trophy, Check, Globe, MapPin, Utensils, Home, Users, Heart } from "lucide-react";
 import { AtmosTierCard } from "@/components/atmos/tier-card";
 import { TierCarousel } from "@/components/tier-carousel";
 import { AtmosCalculator } from "@/components/atmos/calculator";
@@ -24,11 +25,25 @@ export default function Atmos() {
               <Flower2 className="w-8 h-8 text-pink-300" />
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight" data-testid="text-hero-title">
-              Atmos Rewards
+              Atmos Rewards 2026
             </h1>
             <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto" data-testid="text-hero-subtitle">
-              The combined power of Alaska and Hawaiian Airlines loyalty programs
+              The unified Alaska + Hawaiian Airlines loyalty program launching in 2026
             </p>
+            <div className="mt-6 flex items-center justify-center gap-4 text-sm text-white/80">
+              <Badge className="bg-white/20 text-white border-white/30">
+                <Check className="w-3 h-3 mr-1" />
+                Choose Your Earning Path
+              </Badge>
+              <Badge className="bg-white/20 text-white border-white/30">
+                <Check className="w-3 h-3 mr-1" />
+                Free Starlink Wi-Fi
+              </Badge>
+              <Badge className="bg-white/20 text-white border-white/30">
+                <Check className="w-3 h-3 mr-1" />
+                Status Points System
+              </Badge>
+            </div>
           </div>
         </div>
         {/* Mountain and wave graphics */}
@@ -67,6 +82,97 @@ export default function Atmos() {
           </TierCarousel>
         </section>
 
+        {/* Communities Section (New for 2026) */}
+        <section className="mb-16" id="communities">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 mb-2" data-testid="text-section-communities">
+              Atmos Communities
+            </h2>
+            <p className="text-gray-600">
+              Choose interest-based communities for personalized perks (launching 2026)
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <Card className="hover-elevate">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <Flower2 className="w-5 h-5 text-pink-500" />
+                  Huaka'i by Hawaiian
+                </CardTitle>
+                <CardDescription>For Hawaii residents</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">50% bonus points on neighbor island travel</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="hover-elevate">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <Mountain className="w-5 h-5 text-blue-600" />
+                  Club 49
+                </CardTitle>
+                <CardDescription>For Alaska residents</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">Special fares and exclusive benefits for Alaska locals</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="hover-elevate">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <Globe className="w-5 h-5 text-green-600" />
+                  Global Locals
+                </CardTitle>
+                <CardDescription>For non-US members</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">Enhanced international partner benefits</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="hover-elevate">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <Utensils className="w-5 h-5 text-orange-600" />
+                  Culinary Journeys
+                </CardTitle>
+                <CardDescription>For food enthusiasts</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">Priority dining reservations and food tour discounts</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="hover-elevate">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <Heart className="w-5 h-5 text-purple-600" />
+                  Active Escapes
+                </CardTitle>
+                <CardDescription>For adventure seekers</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">Special gear allowances and activity partner discounts</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="hover-elevate">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <Users className="w-5 h-5 text-indigo-600" />
+                  Families On the Go
+                </CardTitle>
+                <CardDescription>For traveling families</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">Family boarding priority and kids fly free promotions</p>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
         {/* Calculator Section */}
         <section className="mb-16" id="calculator">
           <div className="text-center mb-8">
@@ -103,7 +209,7 @@ export default function Atmos() {
               Atmos Credit Cards
             </h2>
             <p className="text-gray-600">
-              Choose from Alaska or Hawaiian branded cards for maximum rewards
+              Summit and Ascent cards earn status points • Hawaiian cards don't earn status
             </p>
           </div>
           <AtmosCreditCardTable />
@@ -113,14 +219,14 @@ export default function Atmos() {
         <footer className="mt-24 pt-12 border-t border-gray-200">
           <div className="text-center text-sm text-gray-500">
             <p>
-              This calculator provides estimates based on the merged Alaska and Hawaiian Airlines programs. 
-              Actual miles and elite qualification may vary. Check with the airlines for current program rules.
+              This calculator provides estimates based on the 2026 Atmos Rewards program changes. 
+              Actual points and elite qualification may vary. Check with the airlines for official program rules.
             </p>
             <p className="mt-2">
-              Not affiliated with Alaska Airlines or Hawaiian Airlines. Atmos is a conceptual merged program.
+              Not affiliated with Alaska Airlines or Hawaiian Airlines. This tool models the announced 2026 program changes.
             </p>
             <p className="mt-4 text-xs">
-              All data as of November 2025
+              Program details as of January 2026 • Titanium tier requires 135K points (up from 100K) • Platinum requires 80K points (up from 75K)
             </p>
           </div>
         </footer>
