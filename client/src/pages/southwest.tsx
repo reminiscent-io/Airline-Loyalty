@@ -10,7 +10,7 @@ import { SouthwestBenefitsTable } from "@/components/southwest/southwest-benefit
 import { SouthwestCreditCardTable } from "@/components/southwest/southwest-credit-card-table";
 import { TIER_CONFIGS, type TierStatus, type CalculationResults } from "@shared/schema";
 
-export default function Home() {
+export default function Southwest() {
   const [calculationResults, setCalculationResults] = useState<CalculationResults | null>(null);
 
   return (
