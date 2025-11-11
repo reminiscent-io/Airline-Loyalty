@@ -10,7 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useDebounce } from "@/hooks/use-debounce";
 import { apiRequest } from "@/lib/queryClient";
 import { 
-  type UnitedTierStatus, 
+  type UnitedCalculatorTierStatus, 
   type UnitedFareType, 
   type UnitedCreditCardType, 
   type UnitedCalculationResults, 
@@ -28,7 +28,7 @@ export function UnitedCalculator({ onCalculate }: UnitedCalculatorProps) {
   // Flight inputs
   const [flightSpending, setFlightSpending] = useState<string>("1000");
   const [fareType, setFareType] = useState<UnitedFareType>("economy");
-  const [currentTier, setCurrentTier] = useState<UnitedTierStatus>("member");
+  const [currentTier, setCurrentTier] = useState<UnitedCalculatorTierStatus>("member");
   const [flightsTaken, setFlightsTaken] = useState<string>("1");
   
   // Credit card inputs
@@ -159,7 +159,7 @@ export function UnitedCalculator({ onCalculate }: UnitedCalculatorProps) {
 
             <div>
               <Label htmlFor="current-tier">Current Premier Status</Label>
-              <Select value={currentTier} onValueChange={(value) => setCurrentTier(value as UnitedTierStatus)}>
+              <Select value={currentTier} onValueChange={(value) => setCurrentTier(value as UnitedCalculatorTierStatus)}>
                 <SelectTrigger id="current-tier" className="mt-1" data-testid="select-current-tier">
                   <SelectValue placeholder="Select your status" />
                 </SelectTrigger>
@@ -205,7 +205,10 @@ export function UnitedCalculator({ onCalculate }: UnitedCalculatorProps) {
                     ? `1 PQP per $${Math.round(1/UNITED_CREDIT_CARDS[creditCard].pqpPerDollar)} spent`
                     : "No PQP earn"} 
                   {UNITED_CREDIT_CARDS[creditCard].pqpCap > 0 && ` (cap: ${UNITED_CREDIT_CARDS[creditCard].pqpCap.toLocaleString()})`}
-                  {UNITED_CREDIT_CARDS[creditCard].annualPQPBonus > 0 && ` + ${UNITED_CREDIT_CARDS[creditCard].annualPQPBonus.toLocaleString()} annual bonus`}
+                  {(() => {
+                    const card = UNITED_CREDIT_CARDS[creditCard] as any;
+                    return card.annualPQPBonus > 0 ? ` + ${card.annualPQPBonus.toLocaleString()} annual bonus` : '';
+                  })()}
                 </p>
               )}
             </div>

@@ -10,7 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useDebounce } from "@/hooks/use-debounce";
 import { apiRequest } from "@/lib/queryClient";
 import { 
-  type AmericanTierStatus, 
+  type AmericanCalculatorTierStatus, 
   type AmericanFareType, 
   type AmericanCreditCardType, 
   type AmericanCalculationResults, 
@@ -28,7 +28,7 @@ export function AmericanCalculator({ onCalculate }: AmericanCalculatorProps) {
   // Flight inputs
   const [flightSpending, setFlightSpending] = useState<string>("1000");
   const [fareType, setFareType] = useState<AmericanFareType>("main-cabin");
-  const [currentTier, setCurrentTier] = useState<AmericanTierStatus>("member");
+  const [currentTier, setCurrentTier] = useState<AmericanCalculatorTierStatus>("member");
   const [flightsTaken, setFlightsTaken] = useState<string>("1");
   
   // Credit card inputs
@@ -156,7 +156,7 @@ export function AmericanCalculator({ onCalculate }: AmericanCalculatorProps) {
 
             <div>
               <Label htmlFor="current-tier">Current Elite Status</Label>
-              <Select value={currentTier} onValueChange={(value) => setCurrentTier(value as AmericanTierStatus)}>
+              <Select value={currentTier} onValueChange={(value) => setCurrentTier(value as AmericanCalculatorTierStatus)}>
                 <SelectTrigger id="current-tier" className="mt-1" data-testid="select-current-tier">
                   <SelectValue placeholder="Select your status" />
                 </SelectTrigger>
