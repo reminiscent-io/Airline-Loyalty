@@ -41,6 +41,7 @@ export function AmericanCalculator({ onCalculate }: AmericanCalculatorProps) {
   
   // Debounce text input values
   const debouncedFlightSpending = useDebounce(flightSpending, 300);
+  const debouncedFlightsTaken = useDebounce(flightsTaken, 300);
   const debouncedCardSpending = useDebounce(cardSpending, 300);
   const debouncedPartnerSpending = useDebounce(partnerSpending, 300);
   
@@ -67,6 +68,7 @@ export function AmericanCalculator({ onCalculate }: AmericanCalculatorProps) {
   useEffect(() => {
     const input: AmericanCalculatorInput = {
       flightSpending: parseFloat(debouncedFlightSpending) || 0,
+      flightsTaken: parseInt(debouncedFlightsTaken) || 0,
       fareType,
       currentTier,
       creditCard,
@@ -78,6 +80,7 @@ export function AmericanCalculator({ onCalculate }: AmericanCalculatorProps) {
     calculateMutation.mutate(input);
   }, [
     debouncedFlightSpending,
+    debouncedFlightsTaken,
     debouncedCardSpending,
     debouncedPartnerSpending,
     fareType,
