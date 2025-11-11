@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 const airlines = [
   { 
-    path: "/", 
+    path: "/southwest", 
     name: "Southwest", 
     color: "bg-southwest-blue",
     hoverColor: "hover:bg-[#253b8a]"
@@ -46,17 +46,22 @@ export function Navigation() {
   const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const currentAirline = airlines.find(a => a.path === location) || airlines[0];
+  // For home page, use a neutral color
+  const currentAirline = location === "/" 
+    ? { color: "bg-primary", hoverColor: "hover:bg-primary/90" }
+    : airlines.find(a => a.path === location) || { color: "bg-primary", hoverColor: "hover:bg-primary/90" };
 
   return (
     <nav className={`sticky top-0 z-50 ${currentAirline.color} text-white shadow-lg transition-colors duration-300`}>
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo and title */}
-          <div className="flex items-center gap-3">
-            <Plane className="w-6 h-6" />
-            <span className="font-bold text-lg">Loyalty Calculator</span>
-          </div>
+          <Link href="/">
+            <div className="flex items-center gap-3 cursor-pointer hover:opacity-90 transition-opacity">
+              <Plane className="w-6 h-6" />
+              <span className="font-bold text-lg">Loyalty Calculator</span>
+            </div>
+          </Link>
 
           {/* Desktop navigation */}
           <div className="hidden md:flex items-center gap-2">
