@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Navigation } from "@/components/navigation";
 import Home from "@/pages/home";
+import Southwest from "@/pages/southwest";
 import AmericanAirlines from "@/pages/american-airlines";
 import UnitedAirlines from "@/pages/united-airlines";
 import Atmos from "@/pages/atmos";
@@ -16,6 +17,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/southwest" component={Southwest} />
       <Route path="/american" component={AmericanAirlines} />
       <Route path="/united" component={UnitedAirlines} />
       <Route path="/atmos" component={Atmos} />
