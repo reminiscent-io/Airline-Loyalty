@@ -133,7 +133,7 @@ export function AtmosCalculator({ onCalculate }: AtmosCalculatorProps) {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="distance">Distance-Based (1 point per mile)</SelectItem>
-              <SelectItem value="spend">Spend-Based (1 point per dollar)</SelectItem>
+              <SelectItem value="spend">Spend-Based (5 points per dollar)</SelectItem>
               <SelectItem value="segment">Segment-Based (500 points per segment)</SelectItem>
             </SelectContent>
           </Select>
