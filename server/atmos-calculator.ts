@@ -98,9 +98,10 @@ export function calculateAtmosRewards(input: AtmosCalculatorInput): AtmosCalcula
     
     creditCardRedeemablePoints = baseCardPoints + airlineBonus;
     
-    // Status points from card spending
+    // Status points from card spending (only on non-flight card spending)
+    // Flight spending already earns status points through the flight itself
     if (cardConfig.statusPointsPerDollar > 0) {
-      creditCardStatusPoints = (cardSpending + flightSpending) * cardConfig.statusPointsPerDollar;
+      creditCardStatusPoints = cardSpending * cardConfig.statusPointsPerDollar;
       
       // Apply cap if exists (though no caps in 2026)
       if (cardConfig.statusPointsCap && creditCardStatusPoints > cardConfig.statusPointsCap) {
