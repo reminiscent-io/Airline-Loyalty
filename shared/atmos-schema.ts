@@ -8,8 +8,19 @@ export type AtmosTierStatus = typeof atmosTierStatuses[number];
 export const atmosEarningMethods = ["distance", "spend", "segment"] as const;
 export type AtmosEarningMethod = typeof atmosEarningMethods[number];
 
-// Detailed Fare Classes for 2026
-export const atmosFareClasses = [
+// Simplified Fare Buckets (6 options for better UX)
+export const atmosFareBuckets = [
+  "basic-economy",
+  "main-cabin",
+  "main-cabin-flex",
+  "premium-economy",
+  "business",
+  "first"
+] as const;
+export type AtmosFareBucket = typeof atmosFareBuckets[number];
+
+// Detailed Fare Classes (kept for reference, no longer in active use)
+const atmosFareClassesReference = [
   // Saver
   "U",
   // Economy
@@ -22,7 +33,8 @@ export const atmosFareClasses = [
   "J", // Business full
   "F" // First class
 ] as const;
-export type AtmosFareClass = typeof atmosFareClasses[number];
+// Keep the original type for backward compatibility
+export type AtmosFareClass = typeof atmosFareClassesReference[number];
 
 // Simplified Fare Types for UI
 export const atmosFareTypes = ["saver", "economy", "premium-economy", "business", "first"] as const;
@@ -127,7 +139,47 @@ export const ATMOS_TIER_CONFIGS = {
   }
 } as const;
 
-// 2026 Fare Class Configurations (detailed earning percentages)
+// Simplified Fare Bucket Configurations for 2026
+export const ATMOS_FARE_BUCKETS = {
+  "basic-economy": {
+    name: "Basic Economy",
+    basePoints: 30,
+    description: "Lowest fares with limited flexibility",
+    underlyingCodes: ["U"] as AtmosFareClass[]
+  },
+  "main-cabin": {
+    name: "Main Cabin",
+    basePoints: 100,
+    description: "Standard economy seats",
+    underlyingCodes: ["N", "M", "I", "H", "G", "K", "L", "Z", "O"] as AtmosFareClass[]
+  },
+  "main-cabin-flex": {
+    name: "Main Cabin Flexible",
+    basePoints: 125,
+    description: "Flexible economy tickets with better change options",
+    underlyingCodes: ["Q", "V", "B", "S"] as AtmosFareClass[]
+  },
+  "premium-economy": {
+    name: "Premium Economy",
+    basePoints: 150,
+    description: "Enhanced comfort with extra legroom",
+    underlyingCodes: ["Y", "W", "X"] as AtmosFareClass[]
+  },
+  "business": {
+    name: "Business Class",
+    basePoints: 175,
+    description: "Premium cabin with flat-bed seats",
+    underlyingCodes: ["C", "A", "D", "P", "J"] as AtmosFareClass[]
+  },
+  "first": {
+    name: "First Class",
+    basePoints: 200,
+    description: "Ultimate luxury experience (350% on international)",
+    underlyingCodes: ["F"] as AtmosFareClass[]
+  }
+} as const;
+
+// 2026 Fare Class Configurations (detailed earning percentages - kept for reference)
 export const ATMOS_FARE_CLASSES = {
   // Saver fare
   "U": { name: "Saver", basePoints: 30, statusPoints: 30, category: "saver" },
@@ -324,7 +376,7 @@ export const atmosCalculatorInputSchema = z.object({
   flightSpending: z.number().min(0),
   flightDistance: z.number().min(0), // For distance-based earning
   segments: z.number().min(0), // For segment-based earning
-  fareClass: z.enum(atmosFareClasses),
+  fareBucket: z.enum(atmosFareBuckets), // Using simplified fare buckets now
   isInternational: z.boolean(),
   
   // Status

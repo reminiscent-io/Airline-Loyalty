@@ -4,7 +4,7 @@ import {
   type AtmosTierStatus,
   type AtmosEarningMethod,
   ATMOS_TIER_CONFIGS,
-  ATMOS_FARE_CLASSES,
+  ATMOS_FARE_BUCKETS,
   ATMOS_CREDIT_CARDS
 } from "@shared/atmos-schema";
 
@@ -18,7 +18,7 @@ export function calculateAtmosRewards(input: AtmosCalculatorInput): AtmosCalcula
     flightSpending, 
     flightDistance,
     segments,
-    fareClass,
+    fareBucket,
     isInternational,
     currentTier, 
     creditCard,
@@ -30,7 +30,7 @@ export function calculateAtmosRewards(input: AtmosCalculatorInput): AtmosCalcula
   } = input;
 
   const tierConfig = ATMOS_TIER_CONFIGS[currentTier];
-  const fareClassConfig = ATMOS_FARE_CLASSES[fareClass];
+  const fareBucketConfig = ATMOS_FARE_BUCKETS[fareBucket];
   const cardConfig = ATMOS_CREDIT_CARDS[creditCard];
   
   // ======================
@@ -64,13 +64,13 @@ export function calculateAtmosRewards(input: AtmosCalculatorInput): AtmosCalcula
       break;
   }
   
-  // Apply fare class multiplier (percentage of base)
-  const fareClassMultiplier = fareClassConfig.basePoints / 100;
-  baseRedeemablePoints *= fareClassMultiplier;
-  baseStatusPoints *= fareClassMultiplier;
+  // Apply fare bucket multiplier (percentage of base)
+  const fareBucketMultiplier = fareBucketConfig.basePoints / 100;
+  baseRedeemablePoints *= fareBucketMultiplier;
+  baseStatusPoints *= fareBucketMultiplier;
   
   // Special handling for international first class (350% instead of 200%)
-  if (isInternational && fareClass === "F") {
+  if (isInternational && fareBucket === "first") {
     baseRedeemablePoints *= 1.75; // Additional 75% to get from 200% to 350%
     baseStatusPoints *= 1.75;
   }

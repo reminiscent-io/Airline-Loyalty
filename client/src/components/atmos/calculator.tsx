@@ -11,12 +11,12 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { 
   type AtmosTierStatus,
-  type AtmosFareClass,
+  type AtmosFareBucket,
   type AtmosEarningMethod,
   type AtmosCreditCardType, 
   type AtmosCalculationResults, 
   type AtmosCalculatorInput,
-  ATMOS_FARE_CLASSES,
+  ATMOS_FARE_BUCKETS,
   ATMOS_CREDIT_CARDS 
 } from "@shared/atmos-schema";
 import { Separator } from "@/components/ui/separator";
@@ -33,7 +33,7 @@ export function AtmosCalculator({ onCalculate }: AtmosCalculatorProps) {
   const [flightSpending, setFlightSpending] = useState<string>("1000");
   const [flightDistance, setFlightDistance] = useState<string>("5000");
   const [segments, setSegments] = useState<string>("1");
-  const [fareClass, setFareClass] = useState<AtmosFareClass>("Y");
+  const [fareBucket, setFareBucket] = useState<AtmosFareBucket>("main-cabin");
   const [isInternational, setIsInternational] = useState(false);
   const [currentTier, setCurrentTier] = useState<AtmosTierStatus>("member");
   
@@ -71,7 +71,7 @@ export function AtmosCalculator({ onCalculate }: AtmosCalculatorProps) {
       flightSpending: parseFloat(flightSpending) || 0,
       flightDistance: parseFloat(flightDistance) || 0,
       segments: parseInt(segments) || 0,
-      fareClass,
+      fareBucket,
       isInternational,
       currentTier,
       creditCard,
@@ -84,19 +84,6 @@ export function AtmosCalculator({ onCalculate }: AtmosCalculatorProps) {
     calculateMutation.mutate(input);
   };
 
-  // Group fare classes by category for better UX
-  const fareClassOptions = Object.entries(ATMOS_FARE_CLASSES).map(([code, config]) => ({
-    code,
-    label: `${code} - ${config.name} (${config.basePoints}% base)`,
-    category: config.category
-  }));
-
-  const groupedFareClasses = {
-    saver: fareClassOptions.filter(f => f.category === "saver"),
-    economy: fareClassOptions.filter(f => f.category === "economy"),
-    business: fareClassOptions.filter(f => f.category === "business"),
-    first: fareClassOptions.filter(f => f.category === "first")
-  };
 
   return (
     <Card className="border-2 border-[#014A6E]/20" data-testid="card-calculator">
@@ -198,29 +185,23 @@ export function AtmosCalculator({ onCalculate }: AtmosCalculatorProps) {
 
             <div>
               <Label htmlFor="fare-class">Fare Class</Label>
-              <Select value={fareClass} onValueChange={(value) => setFareClass(value as AtmosFareClass)}>
+              <Select value={fareBucket} onValueChange={(value) => setFareBucket(value as AtmosFareBucket)}>
                 <SelectTrigger id="fare-class" className="mt-1" data-testid="select-fare-class">
                   <SelectValue placeholder="Select fare class" />
                 </SelectTrigger>
-                <SelectContent className="max-h-80">
-                  {Object.entries(groupedFareClasses).map(([category, options]) => (
-                    options.length > 0 && (
-                      <div key={category}>
-                        <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground capitalize">
-                          {category}
-                        </div>
-                        {options.map(option => (
-                          <SelectItem key={option.code} value={option.code}>
-                            {option.label}
-                          </SelectItem>
-                        ))}
-                      </div>
-                    )
-                  ))}
+                <SelectContent>
+                  <SelectItem value="basic-economy">Basic Economy (30% earning)</SelectItem>
+                  <SelectItem value="main-cabin">Main Cabin (100% earning)</SelectItem>
+                  <SelectItem value="main-cabin-flex">Main Cabin Flexible (125% earning)</SelectItem>
+                  <SelectItem value="premium-economy">Premium Economy (150% earning)</SelectItem>
+                  <SelectItem value="business">Business Class (175% earning)</SelectItem>
+                  <SelectItem value="first">First Class (200% earning)</SelectItem>
                 </SelectContent>
               </Select>
               <p className="text-xs text-muted-foreground mt-1">
-                Fare class affects your points earning rate
+                {fareBucket === "first" && isInternational 
+                  ? "First Class earns 350% on international flights" 
+                  : ATMOS_FARE_BUCKETS[fareBucket].description}
               </p>
             </div>
 
