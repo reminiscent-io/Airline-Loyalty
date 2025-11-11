@@ -11,6 +11,18 @@ The application provides real-time calculations showing total points/miles earne
 - Benefits comparison tables for each tier level
 - Branded design using each airline's official colors
 
+## Recent Changes (November 11, 2025 - Atmos 2026 Program Update)
+- **Atmos 2026 Program**: Completely updated to reflect announced 2026 program changes:
+  - New tier structure: Silver (20K), Gold (40K), Platinum (80K), Titanium (135K) based on status points
+  - Three earning methods: distance-based, spend-based ($1 per point), segment-based (125-500 points)
+  - New credit cards: Summit ($395) and Ascent ($95) that earn status points
+  - Clear distinction between redeemable points (for flights) and status points (for tier qualification)
+  - Added Communities section with interest-based perks (Huaka'i, Club 49, Global Locals, etc.)
+  - Calculator supports all 2026 fare classes with detailed earning percentages
+  - Fixed credit card status points calculation to avoid double-counting flight spending
+  - Head start bonus display for 2025 Platinum/Titanium members transitioning to 2026
+  - All terminology updated from "miles" to "points" throughout Atmos sections
+
 ## Recent Changes (November 7, 2025)
 - **Calculator Defaults**: All airline calculators now default to $1,000 flight spend and 1 flight/segment
 - **Southwest Component Naming**: Renamed Southwest components with Southwest prefix (e.g., SouthwestCalculator, SouthwestTierCard) to match naming convention of other airlines
