@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Calculator as CalculatorIcon, Loader2, Plane, CreditCard, Building2 } from "lucide-react";
+import { Calculator as CalculatorIcon, Plane, CreditCard, Building2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useDebounce } from "@/hooks/use-debounce";
 import { apiRequest } from "@/lib/queryClient";
 import { 
   type JetBlueTierStatus, 
@@ -39,6 +39,12 @@ export function JetBlueCalculator({ onCalculate }: JetBlueCalculatorProps) {
   // Partner spending
   const [partnerSpending, setPartnerSpending] = useState<string>("0");
   
+  // Debounce text input values
+  const debouncedFlightSpending = useDebounce(flightSpending, 300);
+  const debouncedSegments = useDebounce(segments, 300);
+  const debouncedCardSpending = useDebounce(cardSpending, 300);
+  const debouncedPartnerSpending = useDebounce(partnerSpending, 300);
+  
   const { toast } = useToast();
 
   const calculateMutation = useMutation({
@@ -58,20 +64,30 @@ export function JetBlueCalculator({ onCalculate }: JetBlueCalculatorProps) {
     },
   });
 
-  const handleCalculate = () => {
+  // Automatic calculation on value changes
+  useEffect(() => {
     const input: JetBlueCalculatorInput = {
-      flightSpending: parseFloat(flightSpending) || 0,
+      flightSpending: parseFloat(debouncedFlightSpending) || 0,
       fareType,
       currentTier,
-      segments: parseInt(segments) || 0,
+      segments: parseInt(debouncedSegments) || 0,
       creditCard,
-      cardSpending: parseFloat(cardSpending) || 0,
+      cardSpending: parseFloat(debouncedCardSpending) || 0,
       includeSignUpBonus,
-      partnerSpending: parseFloat(partnerSpending) || 0,
+      partnerSpending: parseFloat(debouncedPartnerSpending) || 0,
     };
     
     calculateMutation.mutate(input);
-  };
+  }, [
+    debouncedFlightSpending,
+    debouncedSegments,
+    debouncedCardSpending,
+    debouncedPartnerSpending,
+    fareType,
+    currentTier,
+    creditCard,
+    includeSignUpBonus,
+  ]);
 
   return (
     <Card className="border-2 border-[#00497F]/20" data-testid="card-calculator">
@@ -252,25 +268,6 @@ export function JetBlueCalculator({ onCalculate }: JetBlueCalculatorProps) {
             </p>
           </div>
         </div>
-
-        <Button 
-          onClick={handleCalculate} 
-          className="w-full bg-gradient-to-r from-[#002244] to-[#0099CC] hover:from-[#001833] hover:to-[#0077A3] text-white"
-          disabled={calculateMutation.isPending}
-          data-testid="button-calculate"
-        >
-          {calculateMutation.isPending ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Calculating...
-            </>
-          ) : (
-            <>
-              <CalculatorIcon className="mr-2 h-4 w-4" />
-              Calculate My TrueBlue Points
-            </>
-          )}
-        </Button>
       </CardContent>
     </Card>
   );

@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Calculator as CalculatorIcon, Loader2, Plane, CreditCard, Building2, Trophy, Globe } from "lucide-react";
+import { Calculator as CalculatorIcon, Plane, CreditCard, Building2, Trophy, Globe } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useDebounce } from "@/hooks/use-debounce";
 import { apiRequest } from "@/lib/queryClient";
 import { 
   type AtmosTierStatus,
@@ -46,6 +46,14 @@ export function AtmosCalculator({ onCalculate }: AtmosCalculatorProps) {
   const [partnerSpending, setPartnerSpending] = useState<string>("0");
   const [awardPointsRedeemed, setAwardPointsRedeemed] = useState<string>("0");
   
+  // Debounce text input values only - dropdowns and checkboxes update immediately
+  const debouncedFlightSpending = useDebounce(flightSpending, 300);
+  const debouncedFlightDistance = useDebounce(flightDistance, 300);
+  const debouncedSegments = useDebounce(segments, 300);
+  const debouncedCardSpending = useDebounce(cardSpending, 300);
+  const debouncedPartnerSpending = useDebounce(partnerSpending, 300);
+  const debouncedAwardPointsRedeemed = useDebounce(awardPointsRedeemed, 300);
+  
   const { toast } = useToast();
 
   const calculateMutation = useMutation({
@@ -65,24 +73,40 @@ export function AtmosCalculator({ onCalculate }: AtmosCalculatorProps) {
     },
   });
 
-  const handleCalculate = () => {
+  // Automatic calculation on value changes
+  // Dropdowns and checkboxes trigger immediate recalculation
+  // Text inputs are debounced for performance
+  useEffect(() => {
     const input: AtmosCalculatorInput = {
       earningMethod,
-      flightSpending: parseFloat(flightSpending) || 0,
-      flightDistance: parseFloat(flightDistance) || 0,
-      segments: parseInt(segments) || 0,
+      flightSpending: parseFloat(debouncedFlightSpending) || 0,
+      flightDistance: parseFloat(debouncedFlightDistance) || 0,
+      segments: parseInt(debouncedSegments) || 0,
       fareBucket,
       isInternational,
       currentTier,
       creditCard,
-      cardSpending: parseFloat(cardSpending) || 0,
+      cardSpending: parseFloat(debouncedCardSpending) || 0,
       includeSignUpBonus,
-      partnerSpending: parseFloat(partnerSpending) || 0,
-      awardPointsRedeemed: parseFloat(awardPointsRedeemed) || 0,
+      partnerSpending: parseFloat(debouncedPartnerSpending) || 0,
+      awardPointsRedeemed: parseFloat(debouncedAwardPointsRedeemed) || 0,
     };
     
     calculateMutation.mutate(input);
-  };
+  }, [
+    earningMethod, // Immediate update when earning method changes
+    debouncedFlightSpending,
+    debouncedFlightDistance,
+    debouncedSegments,
+    fareBucket, // Immediate update for dropdown
+    isInternational, // Immediate update for checkbox
+    currentTier, // Immediate update for dropdown
+    creditCard, // Immediate update for dropdown
+    debouncedCardSpending,
+    includeSignUpBonus, // Immediate update for checkbox
+    debouncedPartnerSpending,
+    debouncedAwardPointsRedeemed,
+  ]);
 
 
   return (
@@ -350,25 +374,6 @@ export function AtmosCalculator({ onCalculate }: AtmosCalculatorProps) {
             </div>
           </div>
         </div>
-
-        <Button 
-          onClick={handleCalculate} 
-          className="w-full bg-gradient-to-r from-[#014A6E] to-[#7B1E7A] hover:from-[#013A5E] hover:to-[#6B0E6A] text-white"
-          disabled={calculateMutation.isPending}
-          data-testid="button-calculate"
-        >
-          {calculateMutation.isPending ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Calculating...
-            </>
-          ) : (
-            <>
-              <CalculatorIcon className="mr-2 h-4 w-4" />
-              Calculate My Atmos Points
-            </>
-          )}
-        </Button>
       </CardContent>
     </Card>
   );

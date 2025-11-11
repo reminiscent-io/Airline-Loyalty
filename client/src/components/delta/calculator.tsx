@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Calculator as CalculatorIcon, Loader2, Plane, CreditCard } from "lucide-react";
+import { Calculator as CalculatorIcon, Plane, CreditCard } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useDebounce } from "@/hooks/use-debounce";
 import { apiRequest } from "@/lib/queryClient";
 import { 
   type DeltaCalculatorInput, 
@@ -29,6 +29,10 @@ export function DeltaCalculator({ onCalculate }: DeltaCalculatorProps) {
   const [cardType, setCardType] = useState<"none" | "gold" | "platinum" | "reserve">("none");
   const [annualCardSpend, setAnnualCardSpend] = useState<string>("0");
   const [includeSignUpBonus, setIncludeSignUpBonus] = useState(false);
+  
+  // Debounce text input values
+  const debouncedFlightSpend = useDebounce(annualFlightSpend, 300);
+  const debouncedCardSpend = useDebounce(annualCardSpend, 300);
   
   const { toast } = useToast();
   
@@ -66,18 +70,26 @@ export function DeltaCalculator({ onCalculate }: DeltaCalculatorProps) {
     },
   });
 
-  const handleCalculate = () => {
+  // Automatic calculation on value changes
+  useEffect(() => {
     const input: DeltaCalculatorInput & { includeSignUpBonus?: boolean } = {
-      annualFlightSpend: parseFloat(annualFlightSpend) || 0,
+      annualFlightSpend: parseFloat(debouncedFlightSpend) || 0,
       fareClass,
       currentTier,
       cardType,
-      annualCardSpend: parseFloat(annualCardSpend) || 0,
+      annualCardSpend: parseFloat(debouncedCardSpend) || 0,
       includeSignUpBonus: cardType !== "none" ? includeSignUpBonus : false,
     };
     
     calculateMutation.mutate(input);
-  };
+  }, [
+    debouncedFlightSpend,
+    debouncedCardSpend,
+    fareClass,
+    currentTier,
+    cardType,
+    includeSignUpBonus,
+  ]);
 
   return (
     <Card className="border-2 border-[#C8102E]/20" data-testid="card-calculator">
@@ -215,25 +227,6 @@ export function DeltaCalculator({ onCalculate }: DeltaCalculatorProps) {
             )}
           </div>
         </div>
-
-        <Button 
-          onClick={handleCalculate} 
-          className="w-full bg-[#C8102E] hover:bg-[#A60E26] text-white"
-          disabled={calculateMutation.isPending}
-          data-testid="button-calculate"
-        >
-          {calculateMutation.isPending ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Calculating...
-            </>
-          ) : (
-            <>
-              <CalculatorIcon className="mr-2 h-4 w-4" />
-              Calculate My SkyMiles Rewards
-            </>
-          )}
-        </Button>
       </CardContent>
     </Card>
   );

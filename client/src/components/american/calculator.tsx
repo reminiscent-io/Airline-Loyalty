@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Calculator as CalculatorIcon, Loader2, Plane, CreditCard, Building2 } from "lucide-react";
+import { Calculator as CalculatorIcon, Plane, CreditCard, Building2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useDebounce } from "@/hooks/use-debounce";
 import { apiRequest } from "@/lib/queryClient";
 import { 
   type AmericanTierStatus, 
@@ -39,6 +39,11 @@ export function AmericanCalculator({ onCalculate }: AmericanCalculatorProps) {
   // Partner spending
   const [partnerSpending, setPartnerSpending] = useState<string>("0");
   
+  // Debounce text input values
+  const debouncedFlightSpending = useDebounce(flightSpending, 300);
+  const debouncedCardSpending = useDebounce(cardSpending, 300);
+  const debouncedPartnerSpending = useDebounce(partnerSpending, 300);
+  
   const { toast } = useToast();
 
   const calculateMutation = useMutation({
@@ -58,19 +63,28 @@ export function AmericanCalculator({ onCalculate }: AmericanCalculatorProps) {
     },
   });
 
-  const handleCalculate = () => {
+  // Automatic calculation on value changes
+  useEffect(() => {
     const input: AmericanCalculatorInput = {
-      flightSpending: parseFloat(flightSpending) || 0,
+      flightSpending: parseFloat(debouncedFlightSpending) || 0,
       fareType,
       currentTier,
       creditCard,
-      cardSpending: parseFloat(cardSpending) || 0,
+      cardSpending: parseFloat(debouncedCardSpending) || 0,
       includeSignUpBonus,
-      partnerSpending: parseFloat(partnerSpending) || 0,
+      partnerSpending: parseFloat(debouncedPartnerSpending) || 0,
     };
     
     calculateMutation.mutate(input);
-  };
+  }, [
+    debouncedFlightSpending,
+    debouncedCardSpending,
+    debouncedPartnerSpending,
+    fareType,
+    currentTier,
+    creditCard,
+    includeSignUpBonus,
+  ]);
 
   return (
     <Card className="border-2 border-[#0078D2]/20" data-testid="card-calculator">
@@ -243,25 +257,6 @@ export function AmericanCalculator({ onCalculate }: AmericanCalculatorProps) {
             </p>
           </div>
         </div>
-
-        <Button 
-          onClick={handleCalculate} 
-          className="w-full bg-[#0078D2] hover:bg-[#0060aa] text-white"
-          disabled={calculateMutation.isPending}
-          data-testid="button-calculate"
-        >
-          {calculateMutation.isPending ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Calculating...
-            </>
-          ) : (
-            <>
-              <CalculatorIcon className="mr-2 h-4 w-4" />
-              Calculate My AAdvantage Rewards
-            </>
-          )}
-        </Button>
       </CardContent>
     </Card>
   );

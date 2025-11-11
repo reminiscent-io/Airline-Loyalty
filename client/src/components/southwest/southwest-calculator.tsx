@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Calculator as CalculatorIcon, Loader2, Plane, CreditCard, Building2 } from "lucide-react";
+import { Calculator as CalculatorIcon, Plane, CreditCard, Building2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useDebounce } from "@/hooks/use-debounce";
 import { apiRequest } from "@/lib/queryClient";
 import { type TierStatus, type FareType, type CreditCardType, type CalculationResults, type CalculatorInput, FARE_TYPES, CREDIT_CARDS } from "@shared/schema";
 import { Separator } from "@/components/ui/separator";
@@ -41,6 +41,12 @@ export function SouthwestCalculator({ onCalculate }: SouthwestCalculatorProps) {
   // Partner points
   const [partnerPoints, setPartnerPoints] = useState<string>("0");
   
+  // Debounce text input values
+  const debouncedFlightSpending = useDebounce(flightSpending, 300);
+  const debouncedFlightsTaken = useDebounce(flightsTaken, 300);
+  const debouncedCardSpending = useDebounce(cardSpending, 300);
+  const debouncedPartnerPoints = useDebounce(partnerPoints, 300);
+  
   const { toast } = useToast();
 
   const calculateMutation = useMutation({
@@ -60,21 +66,31 @@ export function SouthwestCalculator({ onCalculate }: SouthwestCalculatorProps) {
     },
   });
 
-  const handleCalculate = () => {
+  // Automatic calculation on value changes
+  useEffect(() => {
     const input: CalculatorInput = {
-      flightSpending: parseFloat(flightSpending) || 0,
+      flightSpending: parseFloat(debouncedFlightSpending) || 0,
       fareType,
       currentTier,
-      flightsTaken: parseInt(flightsTaken) || 0,
+      flightsTaken: parseInt(debouncedFlightsTaken) || 0,
       creditCard,
-      cardSpending: parseFloat(cardSpending) || 0,
+      cardSpending: parseFloat(debouncedCardSpending) || 0,
       includeSignUpBonus,
       includeAnnualBonus: creditCard !== "none" ? true : false,
-      partnerPoints: parseFloat(partnerPoints) || 0,
+      partnerPoints: parseFloat(debouncedPartnerPoints) || 0,
     };
 
     calculateMutation.mutate(input);
-  };
+  }, [
+    debouncedFlightSpending,
+    debouncedFlightsTaken,
+    debouncedCardSpending,
+    debouncedPartnerPoints,
+    fareType,
+    currentTier,
+    creditCard,
+    includeSignUpBonus,
+  ]);
 
   const selectedCard = CREDIT_CARDS[creditCard];
   const showCardDetails = creditCard !== "none";
@@ -307,23 +323,6 @@ export function SouthwestCalculator({ onCalculate }: SouthwestCalculatorProps) {
             </p>
           </div>
         </div>
-
-        <Button 
-          onClick={handleCalculate} 
-          className="w-full bg-southwest-blue hover:bg-southwest-blue/90 text-white"
-          size="lg"
-          disabled={calculateMutation.isPending}
-          data-testid="button-calculate"
-        >
-          {calculateMutation.isPending ? (
-            <>
-              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-              Calculating...
-            </>
-          ) : (
-            "Calculate My Rewards"
-          )}
-        </Button>
       </CardContent>
     </Card>
   );
