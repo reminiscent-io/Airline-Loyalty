@@ -66,7 +66,7 @@ export default function Home() {
             Airline Rewards Calculator
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-            Calculate your points, track elite status progression, and maximize rewards across all major airline loyalty programs
+            Calculate your points, track elite status progression, and maximize rewards across  major airline loyalty programs
           </p>
         </div>
       </section>
@@ -110,7 +110,7 @@ export default function Home() {
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4">Why Use Our Calculators?</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Get accurate, real-time calculations for all major airline loyalty programs in one place
+            Get accurate, real-time calculations for major airline loyalty programs in one place
           </p>
         </div>
         
