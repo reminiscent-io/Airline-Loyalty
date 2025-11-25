@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { TrendingUp, Award, Plane, CreditCard, Building2, DollarSign, Ticket, Trophy, Sparkles, Coffee } from "lucide-react";
+import { TrendingUp, Award, Plane, CreditCard, Building2, DollarSign, Ticket, Trophy, Sparkles, Coffee, Check } from "lucide-react";
 import { type AtmosCalculationResults, ATMOS_TIER_CONFIGS } from "@shared/atmos-schema";
 import { Separator } from "@/components/ui/separator";
 
@@ -177,40 +177,85 @@ export function AtmosResultsPanel({ results }: AtmosResultsPanelProps) {
 
         <Separator />
 
-        {/* Elite Status Progress */}
-        {results.nextTier && nextTierConfig && (
-          <div className="space-y-3">
-            <h4 className="font-semibold text-sm text-[#00467F]">Elite Status Progress</h4>
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Progress to {nextTierConfig.name}</span>
-                <span className="font-semibold" data-testid="text-percent-to-next-tier">
-                  {results.percentToNextTier.toFixed(0)}%
-                </span>
-              </div>
-              <Progress 
-                value={results.percentToNextTier} 
-                className="h-2"
-                data-testid="progress-next-tier"
-              />
-              <p className="text-xs text-muted-foreground" data-testid="text-status-points-to-next-tier">
-                {results.statusPointsToNextTier.toLocaleString()} more status points needed
-              </p>
+        {/* Elite Status Requalification Progress - Shows all tiers like Delta */}
+        <div className="space-y-3">
+          <h4 className="font-semibold text-sm text-[#00467F]">Status Requalification Progress</h4>
+          <div className="space-y-2">
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Status Points Earned</span>
+              <span className="font-semibold" data-testid="text-total-status-display">
+                {results.totalStatusPoints.toLocaleString()} / 135,000
+              </span>
             </div>
+            
+            {/* Progress bar with tier markers */}
+            <div className="relative">
+              <Progress 
+                value={Math.min(100, (results.totalStatusPoints / 135000) * 100)} 
+                className="h-3"
+                data-testid="progress-requalification"
+              />
+              {/* Tier markers on the progress bar */}
+              <div className="absolute top-0 left-0 w-full h-3 pointer-events-none">
+                {/* Silver marker at 14.8% (20k/135k) */}
+                <div 
+                  className="absolute top-0 h-full w-0.5 bg-background"
+                  style={{ left: `${(20000/135000) * 100}%` }}
+                />
+                {/* Gold marker at 29.6% (40k/135k) */}
+                <div 
+                  className="absolute top-0 h-full w-0.5 bg-background"
+                  style={{ left: `${(40000/135000) * 100}%` }}
+                />
+                {/* Platinum marker at 59.3% (80k/135k) */}
+                <div 
+                  className="absolute top-0 h-full w-0.5 bg-background"
+                  style={{ left: `${(80000/135000) * 100}%` }}
+                />
+              </div>
+            </div>
+            
+            {/* Tier labels with checkmarks */}
+            <div className="flex justify-between mt-1">
+              <span className="text-xs text-muted-foreground">0</span>
+              <span className={`text-xs font-medium flex items-center gap-1 ${results.totalStatusPoints >= 20000 ? 'text-green-600 font-semibold' : 'text-muted-foreground'}`}>
+                {results.totalStatusPoints >= 20000 && (
+                  <Check className="w-3 h-3 text-green-500" />
+                )}
+                <span>20K (Silver)</span>
+              </span>
+              <span className={`text-xs font-medium flex items-center gap-1 ${results.totalStatusPoints >= 40000 ? 'text-green-600 font-semibold' : 'text-muted-foreground'}`}>
+                {results.totalStatusPoints >= 40000 && (
+                  <Check className="w-3 h-3 text-green-500" />
+                )}
+                <span>40K (Gold)</span>
+              </span>
+              <span className={`text-xs font-medium flex items-center gap-1 ${results.totalStatusPoints >= 80000 ? 'text-green-600 font-semibold' : 'text-muted-foreground'}`}>
+                {results.totalStatusPoints >= 80000 && (
+                  <Check className="w-3 h-3 text-green-500" />
+                )}
+                <span>80K (Plat)</span>
+              </span>
+              <span className={`text-xs font-medium flex items-center gap-1 ${results.totalStatusPoints >= 135000 ? 'text-green-600 font-semibold' : 'text-muted-foreground'}`}>
+                {results.totalStatusPoints >= 135000 && (
+                  <Check className="w-3 h-3 text-green-500" />
+                )}
+                <span>135K (Titan)</span>
+              </span>
+            </div>
+            
+            {/* Next tier message */}
+            {results.nextTier && nextTierConfig ? (
+              <p className="text-xs text-muted-foreground mt-1" data-testid="text-status-points-to-next-tier">
+                {results.statusPointsToNextTier.toLocaleString()} more status points to {nextTierConfig.name}
+              </p>
+            ) : (
+              <p className="text-xs text-green-600 font-semibold mt-1">
+                Top tier achieved - Atmos Titanium!
+              </p>
+            )}
           </div>
-        )}
-
-        {/* Top Tier Message */}
-        {!results.nextTier && (
-          <div className="p-4 bg-gradient-to-r from-[#7AC142] to-[#68A02E] text-white rounded-lg">
-            <p className="font-semibold text-sm">
-              🏆 You're at the top tier - Atmos Titanium!
-            </p>
-            <p className="text-xs opacity-90 mt-1">
-              Enjoy 150% bonus points, global business upgrades, and premium perks
-            </p>
-          </div>
-        )}
+        </div>
 
         <Separator />
 
