@@ -64,13 +64,13 @@ export function JetBlueResultsPanel({ results }: JetBlueResultsPanelProps) {
             <p className="text-xs opacity-75 mt-1">Toward Mosaic</p>
           </div>
 
-          {/* Segments */}
+          {/* Points Value */}
           <div className="p-4 bg-gradient-to-br from-[#FFA500] to-[#FF8800] rounded-xl text-white">
-            <p className="text-xs font-medium opacity-90 mb-1">Segments</p>
-            <p className="text-2xl font-bold tracking-tight" data-testid="text-segments">
-              {results.segmentsFlown}
+            <p className="text-xs font-medium opacity-90 mb-1">Points Value</p>
+            <p className="text-2xl font-bold tracking-tight" data-testid="text-points-value">
+              ${results.pointsValue.toFixed(0)}
             </p>
-            <p className="text-xs opacity-75 mt-1">Flights taken</p>
+            <p className="text-xs opacity-75 mt-1">@ 1.3¢ per point</p>
           </div>
         </div>
 
@@ -151,7 +151,7 @@ export function JetBlueResultsPanel({ results }: JetBlueResultsPanelProps) {
               {/* Next tier message */}
               {results.nextTier && nextTierConfig && (
                 <p className="text-xs text-muted-foreground mt-1" data-testid="text-tiles-to-next-tier">
-                  {results.tilesToNextTier} more tiles to {nextTierConfig.name} ({results.segmentsToNextTier} more segments also qualifies)
+                  {results.tilesToNextTier} more tiles to {nextTierConfig.name}
                 </p>
               )}
               {!results.nextTier && (
@@ -163,22 +163,13 @@ export function JetBlueResultsPanel({ results }: JetBlueResultsPanelProps) {
 
             {/* Status Summary Box */}
             <div className="p-3 bg-muted/50 rounded-lg mt-4">
-              <p className="text-xs font-medium text-muted-foreground mb-2">Remember: Two paths to Mosaic status</p>
-              <div className="grid grid-cols-2 gap-3 text-xs">
-                <div>
-                  <span className="font-semibold text-foreground">Tiles earned from:</span>
-                  <ul className="mt-1 space-y-0.5 text-muted-foreground">
-                    <li>• Eligible JetBlue flights</li>
-                    <li>• JetBlue card purchases ($6K = 1 tile)</li>
-                  </ul>
-                </div>
-                <div>
-                  <span className="font-semibold text-foreground">Or qualify by segments:</span>
-                  <ul className="mt-1 space-y-0.5 text-muted-foreground">
-                    <li>• 30 segments = Mosaic 1</li>
-                    <li>• Each tier = 30 more segments</li>
-                  </ul>
-                </div>
+              <p className="text-xs font-medium text-muted-foreground mb-2">How to earn Mosaic tiles</p>
+              <div className="text-xs">
+                <span className="font-semibold text-foreground">Tiles earned from spending:</span>
+                <ul className="mt-1 space-y-0.5 text-muted-foreground">
+                  <li>• 1 tile per $100 spent on JetBlue flights</li>
+                  <li>• 1 tile per $1,000 spent on JetBlue Plus/Business card</li>
+                </ul>
               </div>
             </div>
           </div>

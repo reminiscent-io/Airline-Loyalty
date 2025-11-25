@@ -192,6 +192,7 @@ export interface JetBlueCalculationResults {
   
   // Financial analysis
   pointsValue: number;
+  totalCost: number;
   returnOnSpend: number;
   
   // Special benefits

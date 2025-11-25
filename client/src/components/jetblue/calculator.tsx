@@ -29,7 +29,6 @@ export function JetBlueCalculator({ onCalculate }: JetBlueCalculatorProps) {
   const [flightSpending, setFlightSpending] = useState<string>("1000");
   const [fareType, setFareType] = useState<JetBlueFareType>("blue");
   const [currentTier, setCurrentTier] = useState<JetBlueTierStatus>("trueblue");
-  const [segments, setSegments] = useState<string>("1");
   
   // Credit card inputs
   const [creditCard, setCreditCard] = useState<JetBlueCreditCardType>("none");
@@ -41,7 +40,6 @@ export function JetBlueCalculator({ onCalculate }: JetBlueCalculatorProps) {
   
   // Debounce text input values
   const debouncedFlightSpending = useDebounce(flightSpending, 300);
-  const debouncedSegments = useDebounce(segments, 300);
   const debouncedCardSpending = useDebounce(cardSpending, 300);
   const debouncedPartnerSpending = useDebounce(partnerSpending, 300);
   
@@ -70,7 +68,7 @@ export function JetBlueCalculator({ onCalculate }: JetBlueCalculatorProps) {
       flightSpending: parseFloat(debouncedFlightSpending) || 0,
       fareType,
       currentTier,
-      segments: parseInt(debouncedSegments) || 0,
+      segments: 0, // Segments no longer used for Mosaic qualification (spend-based only)
       creditCard,
       cardSpending: parseFloat(debouncedCardSpending) || 0,
       includeSignUpBonus,
@@ -80,7 +78,6 @@ export function JetBlueCalculator({ onCalculate }: JetBlueCalculatorProps) {
     calculateMutation.mutate(input);
   }, [
     debouncedFlightSpending,
-    debouncedSegments,
     debouncedCardSpending,
     debouncedPartnerSpending,
     fareType,
@@ -141,22 +138,6 @@ export function JetBlueCalculator({ onCalculate }: JetBlueCalculatorProps) {
               </Select>
               <p className="text-xs text-muted-foreground mt-1">
                 All fares earn tiles (1 tile = $100 spent)
-              </p>
-            </div>
-
-            <div>
-              <Label htmlFor="segments">Flight Segments</Label>
-              <Input
-                id="segments"
-                type="number"
-                value={segments}
-                onChange={(e) => setSegments(e.target.value)}
-                placeholder="Enter number"
-                className="mt-1"
-                data-testid="input-segments"
-              />
-              <p className="text-xs text-muted-foreground mt-1">
-                Number of flight segments (for tracking only)
               </p>
             </div>
 
