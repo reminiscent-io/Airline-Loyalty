@@ -290,5 +290,6 @@ export interface UnitedCalculationResults {
   
   // Financial analysis
   milesValue: number;
+  totalCost: number;
   returnOnSpend: number;
 }
