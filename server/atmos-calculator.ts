@@ -141,8 +141,25 @@ export function calculateAtmosRewards(input: AtmosCalculatorInput): AtmosCalcula
   // ======================
   
   const tiers: AtmosTierStatus[] = ["member", "silver", "gold", "platinum", "titanium"];
-  const currentTierIndex = tiers.indexOf(currentTier);
-  const nextTier = currentTierIndex < tiers.length - 1 ? tiers[currentTierIndex + 1] : null;
+  const tierRequirements = [0, 20000, 40000, 80000, 135000]; // Status points required for each tier
+  
+  // Calculate the tier QUALIFIED based on earned status points (not just input tier)
+  let qualifiedTierIndex = 0;
+  for (let i = tiers.length - 1; i >= 0; i--) {
+    if (totalStatusPoints >= tierRequirements[i]) {
+      qualifiedTierIndex = i;
+      break;
+    }
+  }
+  
+  // Use the HIGHER of the input tier or the qualified tier as current
+  const inputTierIndex = tiers.indexOf(currentTier);
+  const effectiveTierIndex = Math.max(inputTierIndex, qualifiedTierIndex);
+  const effectiveCurrentTier = tiers[effectiveTierIndex];
+  const effectiveTierConfig = ATMOS_TIER_CONFIGS[effectiveCurrentTier];
+  
+  // Next tier is based on the effective (qualified) tier
+  const nextTier = effectiveTierIndex < tiers.length - 1 ? tiers[effectiveTierIndex + 1] : null;
   
   let statusPointsToNextTier = 0;
   let percentToNextTier = 0;
@@ -150,7 +167,7 @@ export function calculateAtmosRewards(input: AtmosCalculatorInput): AtmosCalcula
   
   if (nextTier) {
     const nextTierConfig = ATMOS_TIER_CONFIGS[nextTier];
-    const currentRequirement = tierConfig.statusPointsRequired;
+    const currentRequirement = tierRequirements[effectiveTierIndex];
     const nextRequirement = nextTierConfig.statusPointsRequired;
     
     statusPointsToNextTier = Math.max(0, nextRequirement - totalStatusPoints);
@@ -203,7 +220,7 @@ export function calculateAtmosRewards(input: AtmosCalculatorInput): AtmosCalcula
     awardRedemptionStatusPoints: Math.round(awardRedemptionStatusPoints),
     
     // Status progress
-    currentTier,
+    currentTier: effectiveCurrentTier,
     nextTier,
     statusPointsToNextTier: Math.round(statusPointsToNextTier),
     percentToNextTier,
