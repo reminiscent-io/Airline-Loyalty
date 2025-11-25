@@ -5,22 +5,10 @@ import { Button } from "@/components/ui/button";
 
 const airlines = [
   { 
-    path: "/southwest", 
-    name: "Southwest", 
-    color: "bg-southwest-blue",
-    hoverColor: "hover:bg-[#253b8a]"
-  },
-  { 
     path: "/american", 
     name: "American", 
     color: "bg-[#0078D2]",
     hoverColor: "hover:bg-[#0060aa]"
-  },
-  { 
-    path: "/united", 
-    name: "United", 
-    color: "bg-[#002244]",
-    hoverColor: "hover:bg-[#001833]"
   },
   { 
     path: "/atmos", 
@@ -29,16 +17,28 @@ const airlines = [
     hoverColor: "hover:bg-[#004d5f]"
   },
   { 
+    path: "/delta", 
+    name: "Delta", 
+    color: "bg-[#C8102E]",
+    hoverColor: "hover:bg-[#a00d25]"
+  },
+  { 
     path: "/jetblue", 
     name: "JetBlue", 
     color: "bg-[#002244]",
     hoverColor: "hover:bg-[#001833]"
   },
   { 
-    path: "/delta", 
-    name: "Delta", 
-    color: "bg-[#C8102E]",
-    hoverColor: "hover:bg-[#a00d25]"
+    path: "/southwest", 
+    name: "Southwest", 
+    color: "bg-southwest-blue",
+    hoverColor: "hover:bg-[#253b8a]"
+  },
+  { 
+    path: "/united", 
+    name: "United", 
+    color: "bg-[#002244]",
+    hoverColor: "hover:bg-[#001833]"
   },
 ];
 

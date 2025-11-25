@@ -4,14 +4,6 @@ import { Plane, TrendingUp, Users, Gift, Globe, Sparkles } from "lucide-react";
 
 const airlines = [
   {
-    name: "Southwest Airlines",
-    path: "/southwest",
-    icon: Plane,
-    color: "from-[#304CB2] to-[#4a6bc9]",
-    description: "Rapid Rewards points calculator with Companion Pass tracker",
-    features: ["Tier Qualifying Points", "Companion Pass Progress", "Credit Card Bonuses"]
-  },
-  {
     name: "American Airlines",
     path: "/american",
     icon: Globe,
@@ -20,12 +12,12 @@ const airlines = [
     features: ["Elite Qualifying Miles", "Loyalty Points", "Systemwide Upgrades"]
   },
   {
-    name: "United Airlines",
-    path: "/united",
-    icon: Users,
-    color: "from-[#0033A1] to-[#3366cc]",
-    description: "MileagePlus Premier status tracker and PQP calculator",
-    features: ["Premier Qualifying Points", "Premier Qualifying Flights", "Plus Points"]
+    name: "Atmos Airways",
+    path: "/atmos",
+    icon: Sparkles,
+    color: "from-[#014A6E] to-[#01628C]",
+    description: "2026 program with new status points system",
+    features: ["Status Points", "Redeemable Points", "Communities Benefits"]
   },
   {
     name: "Delta Air Lines",
@@ -44,12 +36,20 @@ const airlines = [
     features: ["TrueBlue Points", "Mosaic Qualification", "Tiles Progress"]
   },
   {
-    name: "Atmos Airways",
-    path: "/atmos",
-    icon: Sparkles,
-    color: "from-[#014A6E] to-[#01628C]",
-    description: "2026 program with new status points system",
-    features: ["Status Points", "Redeemable Points", "Communities Benefits"]
+    name: "Southwest Airlines",
+    path: "/southwest",
+    icon: Plane,
+    color: "from-[#304CB2] to-[#4a6bc9]",
+    description: "Rapid Rewards points calculator with Companion Pass tracker",
+    features: ["Tier Qualifying Points", "Companion Pass Progress", "Credit Card Bonuses"]
+  },
+  {
+    name: "United Airlines",
+    path: "/united",
+    icon: Users,
+    color: "from-[#0033A1] to-[#3366cc]",
+    description: "MileagePlus Premier status tracker and PQP calculator",
+    features: ["Premier Qualifying Points", "Premier Qualifying Flights", "Plus Points"]
   }
 ];
 
