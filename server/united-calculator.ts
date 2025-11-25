@@ -193,6 +193,46 @@ export function calculateUnitedRewards(input: UnitedCalculatorInput): UnitedCalc
   }
   
   // ======================
+  // DUAL-PATH QUALIFICATION STATUS
+  // ======================
+  
+  let pqpMet = false;
+  let pqfMetForPQPPath = totalPQF >= 4;
+  let altPathPqpMet = false;
+  let altPathPqfMet = false;
+  let pendingPqpOverflow = 0;
+  let blockingRequirement: 'none' | 'pqp' | 'pqf' | 'both' = 'both';
+  let pqfNeededForPQPPath = Math.max(0, 4 - totalPQF);
+  
+  if (nextTier) {
+    const nextTierConfig = UNITED_TIER_CONFIGS[nextTier];
+    pqpMet = totalPQP >= nextTierConfig.pqpRequired;
+    
+    // Check alternative path status
+    if ('alternativePath' in nextTierConfig && nextTierConfig.alternativePath) {
+      const altPath = nextTierConfig.alternativePath;
+      altPathPqpMet = totalPQP >= altPath.pqp;
+      altPathPqfMet = totalPQF >= altPath.pqf;
+    }
+    
+    // Calculate pending overflow (PQP beyond threshold but blocked by PQF)
+    if (pqpMet && !pqfMetForPQPPath) {
+      pendingPqpOverflow = totalPQP - nextTierConfig.pqpRequired;
+    }
+    
+    // Determine what's blocking qualification
+    if (qualifiesForNextTier) {
+      blockingRequirement = 'none';
+    } else if (pqpMet && !pqfMetForPQPPath && !altPathPqfMet) {
+      blockingRequirement = 'pqf';
+    } else if (!pqpMet && (pqfMetForPQPPath || altPathPqfMet)) {
+      blockingRequirement = 'pqp';
+    } else {
+      blockingRequirement = 'both';
+    }
+  }
+  
+  // ======================
   // FINANCIAL ANALYSIS
   // ======================
   
@@ -222,10 +262,19 @@ export function calculateUnitedRewards(input: UnitedCalculatorInput): UnitedCalc
     nextTier,
     pqpToNextTier: Math.round(pqpToNextTier),
     pqfToNextTier,
+    pqfNeededForPQPPath,
     percentToNextTier: Math.round(percentToNextTier),
     qualifiesForNextTier,
     qualificationPath,
     meetsFlightMinimum: flightsTaken >= 4,
+    
+    // Dual-path qualification status
+    pqpMet,
+    pqfMetForPQPPath,
+    altPathPqpMet,
+    altPathPqfMet,
+    pendingPqpOverflow: Math.round(pendingPqpOverflow),
+    blockingRequirement,
     
     // Financial analysis
     milesValue: Math.round(milesValue * 100) / 100,

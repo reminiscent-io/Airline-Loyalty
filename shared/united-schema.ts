@@ -283,10 +283,19 @@ export interface UnitedCalculationResults {
   nextTier: UnitedTierStatus | null;
   pqpToNextTier: number;
   pqfToNextTier: number;
+  pqfNeededForPQPPath: number; // How many more PQF needed for the 4 PQF minimum
   percentToNextTier: number;
   qualifiesForNextTier: boolean;
   qualificationPath: string;
   meetsFlightMinimum: boolean;
+  
+  // Dual-path qualification status
+  pqpMet: boolean; // Has enough PQP for PQP-only path
+  pqfMetForPQPPath: boolean; // Has enough PQF (4) for PQP-only path
+  altPathPqpMet: boolean; // Has enough PQP for alternative path
+  altPathPqfMet: boolean; // Has enough PQF for alternative path
+  pendingPqpOverflow: number; // PQP earned beyond threshold but blocked by PQF
+  blockingRequirement: 'none' | 'pqp' | 'pqf' | 'both'; // What's blocking qualification
   
   // Financial analysis
   milesValue: number;

@@ -149,208 +149,194 @@ export function UnitedResultsPanel({ results }: UnitedResultsPanelProps) {
 
         <Separator />
 
-        {/* Premier Status Progress */}
+        {/* Premier Status Progress - Dual Track Visualization */}
         {results.nextTier && nextTierConfig && (
           <div className="space-y-4">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <h4 className="font-semibold text-sm text-[#002244]">Premier Status Progress</h4>
-              {!results.meetsFlightMinimum && (
-                <Badge className="bg-red-100 text-red-800 text-xs">
-                  Min 4 United Flights Required
-                </Badge>
-              )}
               {results.qualifiesForNextTier && (
                 <Badge className="bg-green-100 text-green-800 text-xs">
-                  ✓ Qualified via {results.qualificationPath}
+                  Qualified for {nextTierConfig.name}
                 </Badge>
               )}
-              {!results.qualifiesForNextTier && results.qualificationPath && (
+              {!results.qualifiesForNextTier && results.blockingRequirement === 'pqf' && (
                 <Badge className="bg-amber-100 text-amber-800 text-xs">
-                  {results.qualificationPath}
+                  PQF gate is holding this tier
                 </Badge>
               )}
             </div>
             
-            {/* Show Alternative Paths if applicable */}
+            {/* Two Paths Info Box */}
             {'alternativePath' in nextTierConfig && nextTierConfig.alternativePath && (
               <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-sm">
                 <div className="font-semibold text-blue-900 dark:text-blue-300 mb-2">Two paths to {nextTierConfig.name}:</div>
                 <div className="space-y-1 text-blue-800 dark:text-blue-400">
-                  <div>• PQP-only: {nextTierConfig.pqpRequired.toLocaleString()} PQP + 4 PQF</div>
-                  <div>• Alternative: {nextTierConfig.alternativePath.pqp.toLocaleString()} PQP + {nextTierConfig.alternativePath.pqf} PQF</div>
-                  <div className="text-xs mt-2 text-blue-700 dark:text-blue-500">
-                    * Plus minimum 4 United/United Express flights
+                  <div className="flex items-center gap-2">
+                    <span>• PQP-only:</span>
+                    <span className={results.pqpMet ? "text-green-600 font-semibold" : ""}>
+                      {nextTierConfig.pqpRequired.toLocaleString()} PQP {results.pqpMet && "✓"}
+                    </span>
+                    <span>+</span>
+                    <span className={results.pqfMetForPQPPath ? "text-green-600 font-semibold" : ""}>
+                      4 PQF {results.pqfMetForPQPPath && "✓"}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span>• Alternative:</span>
+                    <span className={results.altPathPqpMet ? "text-green-600 font-semibold" : ""}>
+                      {nextTierConfig.alternativePath.pqp.toLocaleString()} PQP {results.altPathPqpMet && "✓"}
+                    </span>
+                    <span>+</span>
+                    <span className={results.altPathPqfMet ? "text-green-600 font-semibold" : ""}>
+                      {nextTierConfig.alternativePath.pqf} PQF {results.altPathPqfMet && "✓"}
+                    </span>
                   </div>
                 </div>
               </div>
             )}
             
-            {/* PQP Progress */}
+            {/* TRACK 1: PQP Progress with Pending Overflow */}
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">
-                  PQP Progress ({results.totalPQP.toLocaleString()} / {nextTierConfig.pqpRequired.toLocaleString()})
-                </span>
-                <span className="font-semibold" data-testid="text-pqp-percent">
-                  {((results.totalPQP / nextTierConfig.pqpRequired) * 100).toFixed(0)}%
+                <span className="text-muted-foreground font-medium">PQP Track</span>
+                <span className="font-semibold" data-testid="text-pqp-status">
+                  {results.pqpMet ? (
+                    <span className="text-green-600">✓ {results.totalPQP.toLocaleString()} PQP (met)</span>
+                  ) : (
+                    <span>{results.totalPQP.toLocaleString()} / {nextTierConfig.pqpRequired.toLocaleString()} PQP</span>
+                  )}
                 </span>
               </div>
-              <div className="relative">
-                <Progress 
-                  value={(results.totalPQP / nextTierConfig.pqpRequired) * 100} 
-                  className="h-8"
-                  data-testid="progress-pqp"
+              
+              {/* PQP Progress Bar with Pending Overflow Visualization */}
+              <div className="relative h-4 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                {/* Solid fill up to requirement (or current PQP if below) */}
+                <div 
+                  className={cn(
+                    "absolute top-0 left-0 h-full rounded-full transition-all",
+                    results.pqpMet ? "bg-green-500" : "bg-[#0074C8]"
+                  )}
+                  style={{ 
+                    width: `${Math.min(100, (Math.min(results.totalPQP, nextTierConfig.pqpRequired) / nextTierConfig.pqpRequired) * 100)}%` 
+                  }}
+                  data-testid="progress-pqp-solid"
                 />
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <span className="text-xs font-medium text-white mix-blend-difference">
-                    {results.pqpToNextTier.toLocaleString()} more needed
-                  </span>
-                </div>
+                
+                {/* Hashed/dotted overflow when PQP > threshold but PQF < 4 */}
+                {results.pqpMet && !results.pqfMetForPQPPath && results.pendingPqpOverflow > 0 && (
+                  <div 
+                    className="absolute top-0 h-full rounded-r-full"
+                    style={{ 
+                      left: '100%',
+                      width: `${Math.min(20, (results.pendingPqpOverflow / nextTierConfig.pqpRequired) * 100)}%`,
+                      background: 'repeating-linear-gradient(45deg, #0074C8 0, #0074C8 4px, transparent 4px, transparent 8px)',
+                      opacity: 0.6
+                    }}
+                    data-testid="progress-pqp-pending"
+                  />
+                )}
               </div>
               
-              {/* PQP Tier Markers */}
-              <div className="relative h-8">
-                <div className="absolute inset-x-0 flex justify-between text-xs">
-                  {/* Silver marker at 6,000 PQP */}
-                  <div className="absolute" style={{ left: `${(6000 / 28000) * 100}%` }}>
-                    <div className="flex flex-col items-center">
-                      <div className="w-0.5 h-2 bg-gray-400"></div>
-                      <span className="text-[11px] font-medium text-muted-foreground mt-0.5">Silver</span>
-                      <span className="text-[10px] text-muted-foreground">6K</span>
-                    </div>
-                  </div>
-                  {/* Gold marker at 12,000 PQP */}
-                  <div className="absolute" style={{ left: `${(12000 / 28000) * 100}%` }}>
-                    <div className="flex flex-col items-center">
-                      <div className="w-0.5 h-2 bg-yellow-500"></div>
-                      <span className="text-[11px] font-medium text-muted-foreground mt-0.5">Gold</span>
-                      <span className="text-[10px] text-muted-foreground">12K</span>
-                    </div>
-                  </div>
-                  {/* Platinum marker at 18,000 PQP */}
-                  <div className="absolute" style={{ left: `${(18000 / 28000) * 100}%` }}>
-                    <div className="flex flex-col items-center">
-                      <div className="w-0.5 h-2 bg-gray-600"></div>
-                      <span className="text-[11px] font-medium text-muted-foreground mt-0.5">Plat</span>
-                      <span className="text-[10px] text-muted-foreground">18K</span>
-                    </div>
-                  </div>
-                  {/* 1K marker at 28,000 PQP */}
-                  <div className="absolute" style={{ left: '100%' }}>
-                    <div className="flex flex-col items-center">
-                      <div className="w-0.5 h-2 bg-gray-900"></div>
-                      <span className="text-[11px] font-medium text-muted-foreground mt-0.5">1K</span>
-                      <span className="text-[10px] text-muted-foreground">28K</span>
-                    </div>
-                  </div>
-                </div>
+              {/* PQP Status Message */}
+              <div className="text-xs text-muted-foreground">
+                {results.pqpMet ? (
+                  results.pendingPqpOverflow > 0 && !results.pqfMetForPQPPath ? (
+                    <span className="text-amber-600">
+                      +{results.pendingPqpOverflow.toLocaleString()} PQP overflow (waiting on PQF)
+                    </span>
+                  ) : (
+                    <span className="text-green-600">PQP requirement met</span>
+                  )
+                ) : (
+                  <span>{results.pqpToNextTier.toLocaleString()} more PQP needed</span>
+                )}
               </div>
             </div>
             
-            {/* AND Connector */}
-            <div className="flex items-center justify-center">
-              <Badge variant="outline" className="bg-white">
-                <span className="text-xs font-semibold text-amber-600">AND</span>
-              </Badge>
-            </div>
-            
-            {/* PQF Progress */}
+            {/* TRACK 2: PQF Progress (4 minimum for PQP-only path) */}
             <div className="space-y-2">
-              {(() => {
-                const pqfRequired = 'alternativePath' in nextTierConfig && nextTierConfig.alternativePath ? nextTierConfig.alternativePath.pqf : 0;
-                const pqfPercent = pqfRequired > 0 ? (results.totalPQF / pqfRequired) * 100 : 0;
-                return (
-                  <>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">
-                        PQF Progress ({results.totalPQF} / {pqfRequired})
-                      </span>
-                      <span className="font-semibold" data-testid="text-pqf-percent">
-                        {pqfPercent.toFixed(0)}%
-                      </span>
-                    </div>
-                    <div className="relative">
-                      <Progress 
-                        value={pqfPercent} 
-                        className="h-8"
-                        data-testid="progress-pqf"
-                      />
-                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <span className="text-xs font-medium text-white mix-blend-difference">
-                          {results.pqfToNextTier} more needed
-                        </span>
-                      </div>
-                    </div>
-                  </>
-                );
-              })()}
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground font-medium">PQF Track (min 4 required)</span>
+                <span className="font-semibold" data-testid="text-pqf-status">
+                  {results.pqfMetForPQPPath ? (
+                    <span className="text-green-600">✓ {results.totalPQF} PQF (met)</span>
+                  ) : (
+                    <span>{results.totalPQF} / 4 PQF</span>
+                  )}
+                </span>
+              </div>
               
-              {/* PQF Tier Markers */}
-              <div className="relative h-8">
-                <div className="absolute inset-x-0 flex justify-between text-xs">
-                  {/* Silver marker at 15 PQF */}
-                  <div className="absolute" style={{ left: `${(15 / 60) * 100}%` }}>
-                    <div className="flex flex-col items-center">
-                      <div className="w-0.5 h-2 bg-gray-400"></div>
-                      <span className="text-[11px] font-medium text-muted-foreground mt-0.5">Silver</span>
-                      <span className="text-[10px] text-muted-foreground">15</span>
-                    </div>
-                  </div>
-                  {/* Gold marker at 30 PQF */}
-                  <div className="absolute" style={{ left: `${(30 / 60) * 100}%` }}>
-                    <div className="flex flex-col items-center">
-                      <div className="w-0.5 h-2 bg-yellow-500"></div>
-                      <span className="text-[11px] font-medium text-muted-foreground mt-0.5">Gold</span>
-                      <span className="text-[10px] text-muted-foreground">30</span>
-                    </div>
-                  </div>
-                  {/* Platinum marker at 45 PQF */}
-                  <div className="absolute" style={{ left: `${(45 / 60) * 100}%` }}>
-                    <div className="flex flex-col items-center">
-                      <div className="w-0.5 h-2 bg-gray-600"></div>
-                      <span className="text-[11px] font-medium text-muted-foreground mt-0.5">Plat</span>
-                      <span className="text-[10px] text-muted-foreground">45</span>
-                    </div>
-                  </div>
-                  {/* 1K marker at 60 PQF */}
-                  <div className="absolute" style={{ left: '100%' }}>
-                    <div className="flex flex-col items-center">
-                      <div className="w-0.5 h-2 bg-gray-900"></div>
-                      <span className="text-[11px] font-medium text-muted-foreground mt-0.5">1K</span>
-                      <span className="text-[10px] text-muted-foreground">60</span>
-                    </div>
-                  </div>
-                </div>
+              {/* PQF Progress Bar */}
+              <div className="relative h-4 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                <div 
+                  className={cn(
+                    "absolute top-0 left-0 h-full rounded-full transition-all",
+                    results.pqfMetForPQPPath ? "bg-green-500" : "bg-gray-500"
+                  )}
+                  style={{ 
+                    width: `${Math.min(100, (results.totalPQF / 4) * 100)}%` 
+                  }}
+                  data-testid="progress-pqf"
+                />
+                
+                {/* Markers at each PQF */}
+                {[1, 2, 3].map(i => (
+                  <div 
+                    key={i}
+                    className="absolute top-0 h-full w-0.5 bg-white/50"
+                    style={{ left: `${(i / 4) * 100}%` }}
+                  />
+                ))}
+              </div>
+              
+              {/* PQF labels */}
+              <div className="flex justify-between text-[10px] text-muted-foreground px-1">
+                <span>0</span>
+                <span>1</span>
+                <span>2</span>
+                <span>3</span>
+                <span className="font-semibold">4</span>
+              </div>
+              
+              {/* PQF Status Message */}
+              <div className="text-xs text-muted-foreground">
+                {results.pqfMetForPQPPath ? (
+                  <span className="text-green-600">Minimum PQF requirement met</span>
+                ) : (
+                  <span>{results.pqfNeededForPQPPath} more PQF needed for qualification</span>
+                )}
               </div>
             </div>
             
             {/* Status Summary */}
-            {(() => {
-              const pqfRequired = 'alternativePath' in nextTierConfig && nextTierConfig.alternativePath ? nextTierConfig.alternativePath.pqf : 0;
-              const metsPqp = results.totalPQP >= nextTierConfig.pqpRequired;
-              const metsPqf = pqfRequired > 0 ? results.totalPQF >= pqfRequired : true;
-              return (
-                <div className={cn(
-                  "p-3 rounded-lg text-sm",
-                  metsPqp && metsPqf
-                    ? "bg-green-50 border border-green-200 text-green-800"
-                    : "bg-amber-50 border border-amber-200 text-amber-800"
-                )}>
-                  {metsPqp && metsPqf ? (
-                    <p className="font-semibold">✅ Qualified for {nextTierConfig.name}!</p>
-                  ) : (
-                    <p>
-                      <span className="font-semibold">Requirements:</span>{" "}
-                      {!metsPqp && !metsPqf
-                        ? `Need both ${results.pqpToNextTier.toLocaleString()} more PQP and ${results.pqfToNextTier} more PQF`
-                        : !metsPqp
-                        ? `Need ${results.pqpToNextTier.toLocaleString()} more PQP (PQF met ✓)`
-                        : `Need ${results.pqfToNextTier} more PQF (PQP met ✓)`}
-                    </p>
-                  )}
+            <div className={cn(
+              "p-3 rounded-lg text-sm",
+              results.qualifiesForNextTier
+                ? "bg-green-50 border border-green-200 text-green-800 dark:bg-green-900/20 dark:border-green-800 dark:text-green-300"
+                : results.blockingRequirement === 'pqf'
+                ? "bg-amber-50 border border-amber-200 text-amber-800 dark:bg-amber-900/20 dark:border-amber-800 dark:text-amber-300"
+                : "bg-gray-50 border border-gray-200 text-gray-800 dark:bg-gray-900/20 dark:border-gray-700 dark:text-gray-300"
+            )}>
+              {results.qualifiesForNextTier ? (
+                <p className="font-semibold">✅ Qualified for {nextTierConfig.name}!</p>
+              ) : results.blockingRequirement === 'pqf' ? (
+                <div>
+                  <p className="font-semibold mb-1">PQP met, need {results.pqfNeededForPQPPath} more PQF</p>
+                  <p className="text-xs opacity-80">
+                    You have enough PQP but need {results.pqfNeededForPQPPath} more qualifying flights to complete the 4 PQF minimum.
+                  </p>
                 </div>
-              );
-            })()}
+              ) : results.blockingRequirement === 'pqp' ? (
+                <p>
+                  <span className="font-semibold">Need {results.pqpToNextTier.toLocaleString()} more PQP</span>
+                  <span className="text-xs ml-1">(PQF requirement met ✓)</span>
+                </p>
+              ) : (
+                <p>
+                  <span className="font-semibold">Need:</span> {results.pqpToNextTier.toLocaleString()} more PQP and {results.pqfNeededForPQPPath} more PQF
+                </p>
+              )}
+            </div>
           </div>
         )}
 
