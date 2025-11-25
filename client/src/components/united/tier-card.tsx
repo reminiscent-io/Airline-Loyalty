@@ -93,7 +93,10 @@ export function UnitedTierCard({ tier, highlighted = false }: UnitedTierCardProp
             </span>
           ) : (
             <span data-testid={`text-tier-requirement-${tier}`}>
-              {config.pqpRequired.toLocaleString()} PQP or {config.pqfRequired} PQF
+              {config.pqpRequired.toLocaleString()} PQP
+              {'alternativePath' in config && config.alternativePath && (
+                <> or {config.alternativePath.pqp.toLocaleString()} PQP + {config.alternativePath.pqf} PQF</>
+              )}
             </span>
           )}
         </CardDescription>
