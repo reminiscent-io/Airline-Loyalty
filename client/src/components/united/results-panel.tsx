@@ -256,26 +256,34 @@ export function UnitedResultsPanel({ results }: UnitedResultsPanelProps) {
             
             {/* PQF Progress */}
             <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">
-                  PQF Progress ({results.totalPQF} / {nextTierConfig.pqfRequired})
-                </span>
-                <span className="font-semibold" data-testid="text-pqf-percent">
-                  {((results.totalPQF / nextTierConfig.pqfRequired) * 100).toFixed(0)}%
-                </span>
-              </div>
-              <div className="relative">
-                <Progress 
-                  value={(results.totalPQF / nextTierConfig.pqfRequired) * 100} 
-                  className="h-8"
-                  data-testid="progress-pqf"
-                />
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <span className="text-xs font-medium text-white mix-blend-difference">
-                    {results.pqfToNextTier} more needed
-                  </span>
-                </div>
-              </div>
+              {(() => {
+                const pqfRequired = 'alternativePath' in nextTierConfig && nextTierConfig.alternativePath ? nextTierConfig.alternativePath.pqf : 0;
+                const pqfPercent = pqfRequired > 0 ? (results.totalPQF / pqfRequired) * 100 : 0;
+                return (
+                  <>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">
+                        PQF Progress ({results.totalPQF} / {pqfRequired})
+                      </span>
+                      <span className="font-semibold" data-testid="text-pqf-percent">
+                        {pqfPercent.toFixed(0)}%
+                      </span>
+                    </div>
+                    <div className="relative">
+                      <Progress 
+                        value={pqfPercent} 
+                        className="h-8"
+                        data-testid="progress-pqf"
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <span className="text-xs font-medium text-white mix-blend-difference">
+                          {results.pqfToNextTier} more needed
+                        </span>
+                      </div>
+                    </div>
+                  </>
+                );
+              })()}
               
               {/* PQF Tier Markers */}
               <div className="relative h-8">
@@ -317,25 +325,32 @@ export function UnitedResultsPanel({ results }: UnitedResultsPanelProps) {
             </div>
             
             {/* Status Summary */}
-            <div className={cn(
-              "p-3 rounded-lg text-sm",
-              results.totalPQP >= nextTierConfig.pqpRequired && results.totalPQF >= nextTierConfig.pqfRequired
-                ? "bg-green-50 border border-green-200 text-green-800"
-                : "bg-amber-50 border border-amber-200 text-amber-800"
-            )}>
-              {results.totalPQP >= nextTierConfig.pqpRequired && results.totalPQF >= nextTierConfig.pqfRequired ? (
-                <p className="font-semibold">✅ Qualified for {nextTierConfig.name}!</p>
-              ) : (
-                <p>
-                  <span className="font-semibold">Requirements:</span>{" "}
-                  {results.totalPQP < nextTierConfig.pqpRequired && results.totalPQF < nextTierConfig.pqfRequired
-                    ? `Need both ${results.pqpToNextTier.toLocaleString()} more PQP and ${results.pqfToNextTier} more PQF`
-                    : results.totalPQP < nextTierConfig.pqpRequired
-                    ? `Need ${results.pqpToNextTier.toLocaleString()} more PQP (PQF met ✓)`
-                    : `Need ${results.pqfToNextTier} more PQF (PQP met ✓)`}
-                </p>
-              )}
-            </div>
+            {(() => {
+              const pqfRequired = 'alternativePath' in nextTierConfig && nextTierConfig.alternativePath ? nextTierConfig.alternativePath.pqf : 0;
+              const metsPqp = results.totalPQP >= nextTierConfig.pqpRequired;
+              const metsPqf = pqfRequired > 0 ? results.totalPQF >= pqfRequired : true;
+              return (
+                <div className={cn(
+                  "p-3 rounded-lg text-sm",
+                  metsPqp && metsPqf
+                    ? "bg-green-50 border border-green-200 text-green-800"
+                    : "bg-amber-50 border border-amber-200 text-amber-800"
+                )}>
+                  {metsPqp && metsPqf ? (
+                    <p className="font-semibold">✅ Qualified for {nextTierConfig.name}!</p>
+                  ) : (
+                    <p>
+                      <span className="font-semibold">Requirements:</span>{" "}
+                      {!metsPqp && !metsPqf
+                        ? `Need both ${results.pqpToNextTier.toLocaleString()} more PQP and ${results.pqfToNextTier} more PQF`
+                        : !metsPqp
+                        ? `Need ${results.pqpToNextTier.toLocaleString()} more PQP (PQF met ✓)`
+                        : `Need ${results.pqfToNextTier} more PQF (PQP met ✓)`}
+                    </p>
+                  )}
+                </div>
+              );
+            })()}
           </div>
         )}
 
