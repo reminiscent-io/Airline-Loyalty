@@ -176,7 +176,7 @@ export function UnitedResultsPanel({ results }: UnitedResultsPanelProps) {
               <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-sm">
                 <div className="font-semibold text-blue-900 dark:text-blue-300 mb-2">Two paths to {nextTierConfig.name}:</div>
                 <div className="space-y-1 text-blue-800 dark:text-blue-400">
-                  <div>• PQP-only: {nextTierConfig.pqpRequired.toLocaleString()} PQP</div>
+                  <div>• PQP-only: {nextTierConfig.pqpRequired.toLocaleString()} PQP + 4 PQF</div>
                   <div>• Alternative: {nextTierConfig.alternativePath.pqp.toLocaleString()} PQP + {nextTierConfig.alternativePath.pqf} PQF</div>
                   <div className="text-xs mt-2 text-blue-700 dark:text-blue-500">
                     * Plus minimum 4 United/United Express flights

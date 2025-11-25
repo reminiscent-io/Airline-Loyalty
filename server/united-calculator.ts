@@ -100,10 +100,38 @@ export function calculateUnitedRewards(input: UnitedCalculatorInput): UnitedCalc
   // STATUS PROGRESSION
   // ======================
   
-  // Determine next tier
+  // Determine EARNED tier based on PQP/PQF, not just input tier
   const tiers: UnitedTierStatus[] = ["member", "silver", "gold", "platinum", "1k"];
-  const currentTierIndex = tiers.indexOf(currentTier);
-  const nextTier = currentTierIndex < tiers.length - 1 ? tiers[currentTierIndex + 1] : null;
+  
+  // Check if minimum 4 United flights requirement is met for any tier advancement
+  const meetsFlightMinimum = flightsTaken >= 4;
+  
+  // Find the highest tier the user qualifies for based on earned PQP/PQF
+  let earnedTierIndex = tiers.indexOf(currentTier);
+  
+  for (let i = earnedTierIndex + 1; i < tiers.length; i++) {
+    const tierToCheck = tiers[i];
+    const tierCheckConfig = UNITED_TIER_CONFIGS[tierToCheck];
+    
+    // Check PQP-only path (requires 4 PQF minimum)
+    const meetsPQPOnly = totalPQP >= tierCheckConfig.pqpRequired && totalPQF >= 4 && meetsFlightMinimum;
+    
+    // Check alternative PQP+PQF path if it exists
+    let meetsAltPath = false;
+    if ('alternativePath' in tierCheckConfig && tierCheckConfig.alternativePath) {
+      const altPath = tierCheckConfig.alternativePath;
+      meetsAltPath = totalPQP >= altPath.pqp && totalPQF >= altPath.pqf && meetsFlightMinimum;
+    }
+    
+    if (meetsPQPOnly || meetsAltPath) {
+      earnedTierIndex = i;
+    } else {
+      break; // Stop checking higher tiers if we don't qualify
+    }
+  }
+  
+  // Next tier is one above the earned tier
+  const nextTier = earnedTierIndex < tiers.length - 1 ? tiers[earnedTierIndex + 1] : null;
   
   let pqpToNextTier = 0;
   let pqfToNextTier = 0;
@@ -113,14 +141,12 @@ export function calculateUnitedRewards(input: UnitedCalculatorInput): UnitedCalc
   
   if (nextTier) {
     const nextTierConfig = UNITED_TIER_CONFIGS[nextTier];
-    const currentRequirement = UNITED_TIER_CONFIGS[currentTier].pqpRequired;
+    const earnedTier = tiers[earnedTierIndex];
+    const earnedTierRequirement = UNITED_TIER_CONFIGS[earnedTier].pqpRequired;
     const nextRequirement = nextTierConfig.pqpRequired;
     
-    // Check if minimum 4 United flights requirement is met
-    const meetsFlightMinimum = flightsTaken >= 4;
-    
-    // Check PQP-only path
-    const meetsPQPOnlyPath = totalPQP >= nextRequirement && meetsFlightMinimum;
+    // Check PQP-only path (requires minimum 4 PQF)
+    const meetsPQPOnlyPath = totalPQP >= nextRequirement && totalPQF >= 4 && meetsFlightMinimum;
     
     // Check alternative PQP+PQF path if it exists
     let meetsAlternativePath = false;
@@ -143,27 +169,27 @@ export function calculateUnitedRewards(input: UnitedCalculatorInput): UnitedCalc
       // Show progress to both paths
       pqpToNextTier = Math.max(0, nextRequirement - totalPQP);
       
+      // For PQP-only path, also need 4 PQF minimum
+      const pqfForPQPOnlyPath = Math.max(0, 4 - totalPQF);
+      
       // For alternative path, show the closer option
       if ('alternativePath' in nextTierConfig && nextTierConfig.alternativePath) {
         const altPath = nextTierConfig.alternativePath;
         const altPQPGap = Math.max(0, altPath.pqp - totalPQP);
         const altPQFGap = Math.max(0, altPath.pqf - totalPQF);
         
-        // If alternative path is closer, show those requirements
-        if (altPQPGap < pqpToNextTier) {
-          pqpToNextTier = altPQPGap;
-          pqfToNextTier = altPQFGap;
-          qualificationPath = 'Alternative path closer';
-        }
+        // Show the alternative path PQF requirement
+        pqfToNextTier = altPQFGap;
+        qualificationPath = `Need ${pqpToNextTier.toLocaleString()} PQP + ${pqfForPQPOnlyPath} PQF or ${altPQPGap.toLocaleString()} PQP + ${altPQFGap} PQF`;
       } else {
-        pqfToNextTier = Math.max(0, nextTierConfig.pqfRequired - totalPQF);
+        pqfToNextTier = pqfForPQPOnlyPath;
       }
     }
     
-    // Calculate percentage progress (based on PQP)
-    const tierRange = nextRequirement - currentRequirement;
-    const progress = totalPQP - currentRequirement;
-    percentToNextTier = Math.min(100, Math.max(0, (progress / tierRange) * 100));
+    // Calculate percentage progress (based on PQP from earned tier to next tier)
+    const tierRange = nextRequirement - earnedTierRequirement;
+    const progress = totalPQP - earnedTierRequirement;
+    percentToNextTier = tierRange > 0 ? Math.min(100, Math.max(0, (progress / tierRange) * 100)) : 0;
   }
   
   // ======================
