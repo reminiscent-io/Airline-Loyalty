@@ -209,38 +209,38 @@ export function UnitedResultsPanel({ results }: UnitedResultsPanelProps) {
               </div>
               
               {/* PQP Tier Markers */}
-              <div className="relative h-6">
+              <div className="relative h-8">
                 <div className="absolute inset-x-0 flex justify-between text-xs">
                   {/* Silver marker at 6,000 PQP */}
                   <div className="absolute" style={{ left: `${(6000 / 28000) * 100}%` }}>
                     <div className="flex flex-col items-center">
                       <div className="w-0.5 h-2 bg-gray-400"></div>
-                      <span className="text-[8px] text-muted-foreground mt-0.5">Silver</span>
-                      <span className="text-[7px] text-muted-foreground">6K</span>
+                      <span className="text-[11px] font-medium text-muted-foreground mt-0.5">Silver</span>
+                      <span className="text-[10px] text-muted-foreground">6K</span>
                     </div>
                   </div>
                   {/* Gold marker at 12,000 PQP */}
                   <div className="absolute" style={{ left: `${(12000 / 28000) * 100}%` }}>
                     <div className="flex flex-col items-center">
                       <div className="w-0.5 h-2 bg-yellow-500"></div>
-                      <span className="text-[8px] text-muted-foreground mt-0.5">Gold</span>
-                      <span className="text-[7px] text-muted-foreground">12K</span>
+                      <span className="text-[11px] font-medium text-muted-foreground mt-0.5">Gold</span>
+                      <span className="text-[10px] text-muted-foreground">12K</span>
                     </div>
                   </div>
                   {/* Platinum marker at 18,000 PQP */}
                   <div className="absolute" style={{ left: `${(18000 / 28000) * 100}%` }}>
                     <div className="flex flex-col items-center">
                       <div className="w-0.5 h-2 bg-gray-600"></div>
-                      <span className="text-[8px] text-muted-foreground mt-0.5">Plat</span>
-                      <span className="text-[7px] text-muted-foreground">18K</span>
+                      <span className="text-[11px] font-medium text-muted-foreground mt-0.5">Plat</span>
+                      <span className="text-[10px] text-muted-foreground">18K</span>
                     </div>
                   </div>
                   {/* 1K marker at 28,000 PQP */}
                   <div className="absolute" style={{ left: '100%' }}>
                     <div className="flex flex-col items-center">
                       <div className="w-0.5 h-2 bg-gray-900"></div>
-                      <span className="text-[8px] text-muted-foreground mt-0.5">1K</span>
-                      <span className="text-[7px] text-muted-foreground">28K</span>
+                      <span className="text-[11px] font-medium text-muted-foreground mt-0.5">1K</span>
+                      <span className="text-[10px] text-muted-foreground">28K</span>
                     </div>
                   </div>
                 </div>
@@ -278,38 +278,38 @@ export function UnitedResultsPanel({ results }: UnitedResultsPanelProps) {
               </div>
               
               {/* PQF Tier Markers */}
-              <div className="relative h-6">
+              <div className="relative h-8">
                 <div className="absolute inset-x-0 flex justify-between text-xs">
                   {/* Silver marker at 15 PQF */}
                   <div className="absolute" style={{ left: `${(15 / 60) * 100}%` }}>
                     <div className="flex flex-col items-center">
                       <div className="w-0.5 h-2 bg-gray-400"></div>
-                      <span className="text-[8px] text-muted-foreground mt-0.5">Silver</span>
-                      <span className="text-[7px] text-muted-foreground">15</span>
+                      <span className="text-[11px] font-medium text-muted-foreground mt-0.5">Silver</span>
+                      <span className="text-[10px] text-muted-foreground">15</span>
                     </div>
                   </div>
                   {/* Gold marker at 30 PQF */}
                   <div className="absolute" style={{ left: `${(30 / 60) * 100}%` }}>
                     <div className="flex flex-col items-center">
                       <div className="w-0.5 h-2 bg-yellow-500"></div>
-                      <span className="text-[8px] text-muted-foreground mt-0.5">Gold</span>
-                      <span className="text-[7px] text-muted-foreground">30</span>
+                      <span className="text-[11px] font-medium text-muted-foreground mt-0.5">Gold</span>
+                      <span className="text-[10px] text-muted-foreground">30</span>
                     </div>
                   </div>
                   {/* Platinum marker at 45 PQF */}
                   <div className="absolute" style={{ left: `${(45 / 60) * 100}%` }}>
                     <div className="flex flex-col items-center">
                       <div className="w-0.5 h-2 bg-gray-600"></div>
-                      <span className="text-[8px] text-muted-foreground mt-0.5">Plat</span>
-                      <span className="text-[7px] text-muted-foreground">45</span>
+                      <span className="text-[11px] font-medium text-muted-foreground mt-0.5">Plat</span>
+                      <span className="text-[10px] text-muted-foreground">45</span>
                     </div>
                   </div>
                   {/* 1K marker at 60 PQF */}
                   <div className="absolute" style={{ left: '100%' }}>
                     <div className="flex flex-col items-center">
                       <div className="w-0.5 h-2 bg-gray-900"></div>
-                      <span className="text-[8px] text-muted-foreground mt-0.5">1K</span>
-                      <span className="text-[7px] text-muted-foreground">60</span>
+                      <span className="text-[11px] font-medium text-muted-foreground mt-0.5">1K</span>
+                      <span className="text-[10px] text-muted-foreground">60</span>
                     </div>
                   </div>
                 </div>
