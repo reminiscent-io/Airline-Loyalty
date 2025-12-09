@@ -81,63 +81,63 @@ export function DeltaResultsPanel({ results }: DeltaResultsPanelProps) {
               <div className="flex items-center justify-between mb-1.5">
                 <span className="text-xs font-medium text-muted-foreground">MQD Progress</span>
                 <span className="text-xs font-semibold text-foreground" data-testid="text-mqd-progress">
-                  ${results.totalMQDs.toLocaleString()} / $15,000
+                  ${results.totalMQDs.toLocaleString()} / $28,000
                 </span>
               </div>
               
               {/* Sequential progress bar with markers */}
               <div className="relative">
                 <Progress 
-                  value={(results.totalMQDs / 15000) * 100} 
+                  value={(results.totalMQDs / 28000) * 100} 
                   className="h-3"
                   data-testid="progress-mqd"
                 />
-                {/* Tier markers */}
+                {/* Tier markers - 2025 thresholds */}
                 <div className="absolute top-0 left-0 w-full h-3 pointer-events-none">
-                  {/* Silver marker at 20% (3k/15k) */}
+                  {/* Silver marker at ~17.9% (5k/28k) */}
                   <div 
                     className="absolute top-0 h-full w-0.5 bg-background"
-                    style={{ left: '20%' }}
+                    style={{ left: '17.86%' }}
                   />
-                  {/* Gold marker at 40% (6k/15k) */}
+                  {/* Gold marker at ~35.7% (10k/28k) */}
                   <div 
                     className="absolute top-0 h-full w-0.5 bg-background"
-                    style={{ left: '40%' }}
+                    style={{ left: '35.71%' }}
                   />
-                  {/* Platinum marker at 60% (9k/15k) */}
+                  {/* Platinum marker at ~53.6% (15k/28k) */}
                   <div 
                     className="absolute top-0 h-full w-0.5 bg-background"
-                    style={{ left: '60%' }}
+                    style={{ left: '53.57%' }}
                   />
                 </div>
               </div>
               
-              {/* Tier labels */}
+              {/* Tier labels - 2025 thresholds */}
               <div className="flex justify-between mt-1">
                 <span className="text-xs text-muted-foreground">$0</span>
-                <span className={`text-xs font-medium flex items-center gap-1 ${results.totalMQDs >= 3000 ? 'text-green-600 font-semibold' : 'text-muted-foreground'}`}>
-                  {results.totalMQDs >= 3000 && (
+                <span className={`text-xs font-medium flex items-center gap-1 ${results.totalMQDs >= 5000 ? 'text-green-600 font-semibold' : 'text-muted-foreground'}`}>
+                  {results.totalMQDs >= 5000 && (
                     <Check className="w-3 h-3 text-green-500" />
                   )}
-                  <span>$3K (Silver)</span>
+                  <span>$5K (Silver)</span>
                 </span>
-                <span className={`text-xs font-medium flex items-center gap-1 ${results.totalMQDs >= 6000 ? 'text-green-600 font-semibold' : 'text-muted-foreground'}`}>
-                  {results.totalMQDs >= 6000 && (
+                <span className={`text-xs font-medium flex items-center gap-1 ${results.totalMQDs >= 10000 ? 'text-green-600 font-semibold' : 'text-muted-foreground'}`}>
+                  {results.totalMQDs >= 10000 && (
                     <Check className="w-3 h-3 text-green-500" />
                   )}
-                  <span>$6K (Gold)</span>
-                </span>
-                <span className={`text-xs font-medium flex items-center gap-1 ${results.totalMQDs >= 9000 ? 'text-green-600 font-semibold' : 'text-muted-foreground'}`}>
-                  {results.totalMQDs >= 9000 && (
-                    <Check className="w-3 h-3 text-green-500" />
-                  )}
-                  <span>$9K (Plat)</span>
+                  <span>$10K (Gold)</span>
                 </span>
                 <span className={`text-xs font-medium flex items-center gap-1 ${results.totalMQDs >= 15000 ? 'text-green-600 font-semibold' : 'text-muted-foreground'}`}>
                   {results.totalMQDs >= 15000 && (
                     <Check className="w-3 h-3 text-green-500" />
                   )}
-                  <span>$15K (Diam)</span>
+                  <span>$15K (Plat)</span>
+                </span>
+                <span className={`text-xs font-medium flex items-center gap-1 ${results.totalMQDs >= 28000 ? 'text-green-600 font-semibold' : 'text-muted-foreground'}`}>
+                  {results.totalMQDs >= 28000 && (
+                    <Check className="w-3 h-3 text-green-500" />
+                  )}
+                  <span>$28K (Diam)</span>
                 </span>
               </div>
               
