@@ -5,7 +5,7 @@ import { Heart, Users, Star } from "lucide-react";
 import { type CalculationResults, COMPANION_PASS_THRESHOLD_FLIGHTS, COMPANION_PASS_THRESHOLD_CQP } from "@shared/schema";
 
 interface CompanionPassTrackerProps {
-  results: CalculationResults | null;
+  readonly results: CalculationResults | null;
 }
 
 export function CompanionPassTracker({ results }: CompanionPassTrackerProps) {

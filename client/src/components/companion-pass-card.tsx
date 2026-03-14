@@ -48,8 +48,8 @@ export function CompanionPassCard() {
       <CardContent>
         <ul className="space-y-2.5">
           {benefits.map((benefit, index) => (
-            <li 
-              key={index} 
+            <li
+              key={benefit}
               className="flex items-start gap-2 text-sm"
               data-testid={`text-benefit-companion-pass-${index}`}
             >

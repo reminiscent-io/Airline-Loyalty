@@ -85,7 +85,7 @@ export function UnitedCreditCardTable() {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="bg-[#002244] text-white">
+                <tr className="bg-united-navy text-white">
                   <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-left font-semibold rounded-tl-lg text-xs sm:text-sm whitespace-nowrap">
                     Card
                   </th>
@@ -117,8 +117,8 @@ export function UnitedCreditCardTable() {
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {creditCards.map((card, index) => (
-                  <tr 
-                    key={index}
+                  <tr
+                    key={card.name}
                     className={index === 0 ? "" : "hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"}
                     data-testid={`row-card-${index}`}
                   >
@@ -129,13 +129,13 @@ export function UnitedCreditCardTable() {
                       <span className="font-semibold text-xs sm:text-sm">{card.annualFee}</span>
                     </td>
                     <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
-                      <span className="font-semibold text-xs sm:text-sm text-[#0074C8]">{card.unitedMiles}</span>
+                      <span className="font-semibold text-xs sm:text-sm text-united-blue">{card.unitedMiles}</span>
                     </td>
                     <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
                       <span className="text-xs sm:text-sm">{card.otherMiles}</span>
                     </td>
                     <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
-                      <span className="text-xs sm:text-sm font-semibold text-[#002244]">{card.pqpEarn}</span>
+                      <span className="text-xs sm:text-sm font-semibold text-united-navy">{card.pqpEarn}</span>
                     </td>
                     <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
                       <span className="text-xs sm:text-sm">{card.pqpCap}</span>
@@ -165,11 +165,11 @@ export function UnitedCreditCardTable() {
       {/* Additional Information */}
       <div className="text-sm text-muted-foreground space-y-1">
         <p className="flex items-center gap-2">
-          <Target className="w-4 h-4 text-[#002244]" />
+          <Target className="w-4 h-4 text-united-navy" />
           <span>PQP earned from credit card spending counts toward all Premier tiers including 1K.</span>
         </p>
         <p className="flex items-center gap-2">
-          <Award className="w-4 h-4 text-[#0074C8]" />
+          <Award className="w-4 h-4 text-united-blue" />
           <span>Elite status bonuses apply only to United flight purchases, not general card spending.</span>
         </p>
         <p className="flex items-center gap-2">

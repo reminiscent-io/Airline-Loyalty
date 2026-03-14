@@ -1,12 +1,12 @@
-import { useCallback, useEffect, useState, useRef } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, GripHorizontal } from "lucide-react";
 
 interface TierCarouselProps {
-  children: React.ReactNode[];
-  className?: string;
+  readonly children: React.ReactNode[];
+  readonly className?: string;
 }
 
 export function TierCarousel({ children, className }: TierCarouselProps) {
@@ -89,9 +89,9 @@ export function TierCarousel({ children, className }: TierCarouselProps) {
         ref={emblaRef}
       >
         <div className="flex gap-4">
-          {children.map((child, index) => (
-            <div 
-              key={index} 
+          {React.Children.toArray(children).map((child) => (
+            <div
+              key={(child as React.ReactElement).key}
               className={cn(
                 "flex-[0_0_100%]",
                 "sm:flex-[0_0_48%]",
@@ -140,9 +140,9 @@ export function TierCarousel({ children, className }: TierCarouselProps) {
       {/* Dots/Indicators - Mobile/Tablet only */}
       {scrollSnaps.length > 1 && (
         <div className="lg:hidden flex justify-center gap-2 mt-6">
-          {scrollSnaps.map((_, index) => (
+          {scrollSnaps.map((snap, index) => (
             <button
-              key={index}
+              key={snap}
               className={cn(
                 "w-2 h-2 rounded-full transition-all",
                 index === selectedIndex

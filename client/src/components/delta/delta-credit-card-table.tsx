@@ -27,11 +27,11 @@ export function DeltaCreditCardTable() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {deltaCreditCards.map((card, index) => (
-                <TableRow key={index}>
+              {deltaCreditCards.map((card) => (
+                <TableRow key={card.name}>
                   <TableCell className="font-medium">
                     <div className="flex items-center gap-2">
-                      <CreditCard className="w-4 h-4" style={{ color: "#C8102E" }} />
+                      <CreditCard className="w-4 h-4 text-delta-red" />
                       {card.name}
                     </div>
                   </TableCell>
@@ -68,9 +68,9 @@ export function DeltaCreditCardTable() {
                   </TableCell>
                   <TableCell>
                     <ul className="space-y-1">
-                      {card.benefits.slice(0, 3).map((benefit, idx) => (
-                        <li key={idx} className="text-sm flex items-start gap-1">
-                          <Star className="w-3 h-3 mt-0.5 flex-shrink-0" style={{ color: "#C8102E" }} />
+                      {card.benefits.slice(0, 3).map((benefit) => (
+                        <li key={benefit} className="text-sm flex items-start gap-1">
+                          <Star className="w-3 h-3 mt-0.5 flex-shrink-0 text-delta-red" />
                           {benefit}
                         </li>
                       ))}

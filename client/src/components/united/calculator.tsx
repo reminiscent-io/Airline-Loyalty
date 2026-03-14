@@ -21,7 +21,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 
 interface UnitedCalculatorProps {
-  onCalculate: (results: UnitedCalculationResults) => void;
+  readonly onCalculate: (results: UnitedCalculationResults) => void;
 }
 
 export function UnitedCalculator({ onCalculate }: UnitedCalculatorProps) {
@@ -67,14 +67,14 @@ export function UnitedCalculator({ onCalculate }: UnitedCalculatorProps) {
   // Automatic calculation on value changes
   useEffect(() => {
     const input: UnitedCalculatorInput = {
-      flightSpending: parseFloat(debouncedFlightSpending) || 0,
+      flightSpending: Number.parseFloat(debouncedFlightSpending) || 0,
       fareType,
       currentTier,
-      flightsTaken: parseInt(debouncedFlightsTaken) || 0,
+      flightsTaken: Number.parseInt(debouncedFlightsTaken) || 0,
       creditCard,
-      cardSpending: parseFloat(debouncedCardSpending) || 0,
+      cardSpending: Number.parseFloat(debouncedCardSpending) || 0,
       includeSignUpBonus,
-      partnerSpending: parseFloat(debouncedPartnerSpending) || 0,
+      partnerSpending: Number.parseFloat(debouncedPartnerSpending) || 0,
     };
     
     calculateMutation.mutate(input);
@@ -90,10 +90,10 @@ export function UnitedCalculator({ onCalculate }: UnitedCalculatorProps) {
   ]);
 
   return (
-    <Card className="border-2 border-[#002244]/20" data-testid="card-calculator">
-      <CardHeader className="bg-gradient-to-r from-[#002244]/5 to-[#0074C8]/5">
-        <CardTitle className="flex items-center gap-2 text-[#002244]">
-          <CalculatorIcon className="w-5 h-5 text-[#0074C8]" />
+    <Card className="border-2 border-united-navy/20" data-testid="card-calculator">
+      <CardHeader className="bg-gradient-to-r from-united-navy/5 to-united-blue/5">
+        <CardTitle className="flex items-center gap-2 text-united-navy">
+          <CalculatorIcon className="w-5 h-5 text-united-blue" />
           Calculate Your MileagePlus Rewards
         </CardTitle>
         <CardDescription>
@@ -103,8 +103,8 @@ export function UnitedCalculator({ onCalculate }: UnitedCalculatorProps) {
       <CardContent className="space-y-6 pt-6">
         {/* Flight Activity Section */}
         <div className="space-y-4">
-          <div className="flex items-center gap-2 text-sm font-semibold text-[#002244]">
-            <Plane className="w-4 h-4 text-[#0074C8]" />
+          <div className="flex items-center gap-2 text-sm font-semibold text-united-navy">
+            <Plane className="w-4 h-4 text-united-blue" />
             FLIGHT ACTIVITY
           </div>
           
@@ -179,8 +179,8 @@ export function UnitedCalculator({ onCalculate }: UnitedCalculatorProps) {
 
         {/* Credit Card Section */}
         <div className="space-y-4">
-          <div className="flex items-center gap-2 text-sm font-semibold text-[#002244]">
-            <CreditCard className="w-4 h-4 text-[#0074C8]" />
+          <div className="flex items-center gap-2 text-sm font-semibold text-united-navy">
+            <CreditCard className="w-4 h-4 text-united-blue" />
             CREDIT CARD
           </div>
           
@@ -251,8 +251,8 @@ export function UnitedCalculator({ onCalculate }: UnitedCalculatorProps) {
 
         {/* Partner Activity */}
         <div className="space-y-4">
-          <div className="flex items-center gap-2 text-sm font-semibold text-[#002244]">
-            <Building2 className="w-4 h-4 text-[#0074C8]" />
+          <div className="flex items-center gap-2 text-sm font-semibold text-united-navy">
+            <Building2 className="w-4 h-4 text-united-blue" />
             PARTNER ACTIVITY
           </div>
           

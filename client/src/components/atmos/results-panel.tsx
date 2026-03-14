@@ -6,7 +6,7 @@ import { type AtmosCalculationResults, ATMOS_TIER_CONFIGS } from "@shared/atmos-
 import { Separator } from "@/components/ui/separator";
 
 interface AtmosResultsPanelProps {
-  results: AtmosCalculationResults | null;
+  readonly results: AtmosCalculationResults | null;
 }
 
 export function AtmosResultsPanel({ results }: AtmosResultsPanelProps) {
@@ -41,14 +41,14 @@ export function AtmosResultsPanel({ results }: AtmosResultsPanelProps) {
   };
 
   return (
-    <Card className="border-2 border-[#00467F]/20" data-testid="card-results">
+    <Card className="border-2 border-atmos-teal/20" data-testid="card-results">
       <CardHeader>
         <div className="flex items-center justify-between gap-4 flex-wrap">
-          <CardTitle className="text-[#00467F] flex items-center gap-2">
-            <Award className="w-5 h-5 text-[#7AC142]" />
+          <CardTitle className="text-atmos-teal flex items-center gap-2">
+            <Award className="w-5 h-5 text-atmos-green" />
             Your 2026 Atmos Results
           </CardTitle>
-          <Badge className="bg-[#00467F] text-white">
+          <Badge className="bg-atmos-teal text-white">
             {currentTierConfig.name}
           </Badge>
         </div>
@@ -62,7 +62,7 @@ export function AtmosResultsPanel({ results }: AtmosResultsPanelProps) {
         
         {/* Points Display - Split into two types */}
         <div className="grid grid-cols-2 gap-4">
-          <div className="p-6 bg-gradient-to-r from-[#00467F] to-[#0066CC] rounded-xl text-white">
+          <div className="p-6 bg-gradient-to-r from-atmos-teal to-atmos-blue rounded-xl text-white">
             <p className="text-xs font-medium opacity-90 mb-2">Redeemable Points</p>
             <p className="text-3xl font-bold tracking-tight" data-testid="text-redeemable-points">
               {results.totalRedeemablePoints.toLocaleString()}
@@ -70,7 +70,7 @@ export function AtmosResultsPanel({ results }: AtmosResultsPanelProps) {
             <p className="text-xs opacity-75 mt-2">For award flights</p>
           </div>
           
-          <div className="p-6 bg-gradient-to-r from-[#7AC142] to-[#68A02E] rounded-xl text-white">
+          <div className="p-6 bg-gradient-to-r from-atmos-green to-atmos-green/80 rounded-xl text-white">
             <p className="text-xs font-medium opacity-90 mb-2">Status Points</p>
             <p className="text-3xl font-bold tracking-tight" data-testid="text-status-points">
               {results.totalStatusPoints.toLocaleString()}
@@ -81,16 +81,16 @@ export function AtmosResultsPanel({ results }: AtmosResultsPanelProps) {
 
         {/* Head Start Bonus Display (if applicable) */}
         {results.headStartBonus > 0 && (
-          <div className="p-4 bg-gradient-to-r from-[#7B1E7A]/10 to-[#014A6E]/10 rounded-lg">
+          <div className="p-4 bg-gradient-to-r from-atmos-purple/10 to-atmos-teal/10 rounded-lg">
             <div className="flex items-center justify-between">
               <span className="flex items-center gap-2 text-sm">
-                <Sparkles className="w-4 h-4 text-[#7B1E7A]" />
+                <Sparkles className="w-4 h-4 text-atmos-purple" />
                 <span className="font-semibold">Head Start Bonus</span>
                 <Badge variant="outline" className="text-xs">
                   {results.currentTier === "platinum" ? "Platinum" : "Titanium"}
                 </Badge>
               </span>
-              <span className="font-bold text-[#7B1E7A]" data-testid="text-head-start-bonus">
+              <span className="font-bold text-atmos-purple" data-testid="text-head-start-bonus">
                 +{results.headStartBonus.toLocaleString()} status points
               </span>
             </div>
@@ -104,7 +104,7 @@ export function AtmosResultsPanel({ results }: AtmosResultsPanelProps) {
 
         {/* Points Breakdown */}
         <div className="space-y-3">
-          <h4 className="font-semibold text-sm text-[#00467F]">Points Breakdown</h4>
+          <h4 className="font-semibold text-sm text-atmos-teal">Points Breakdown</h4>
           
           {/* Redeemable Points */}
           <div className="pl-4">
@@ -179,7 +179,7 @@ export function AtmosResultsPanel({ results }: AtmosResultsPanelProps) {
 
         {/* Elite Status Requalification Progress - Shows all tiers like Delta */}
         <div className="space-y-3">
-          <h4 className="font-semibold text-sm text-[#00467F]">Status Requalification Progress</h4>
+          <h4 className="font-semibold text-sm text-atmos-teal">Status Requalification Progress</h4>
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Status Points Earned</span>
@@ -261,7 +261,7 @@ export function AtmosResultsPanel({ results }: AtmosResultsPanelProps) {
 
         {/* Financial Analysis */}
         <div className="p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg">
-          <h4 className="font-semibold text-sm text-[#00467F] mb-3">Value Analysis</h4>
+          <h4 className="font-semibold text-sm text-atmos-teal mb-3">Value Analysis</h4>
           <div className="space-y-2 text-sm">
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">Estimated Points Value (1.6¢ / point)</span>
@@ -279,7 +279,7 @@ export function AtmosResultsPanel({ results }: AtmosResultsPanelProps) {
             {results.companionFareAvailable && (
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground">Companion Fare</span>
-                <span className="font-semibold text-[#7AC142]">
+                <span className="font-semibold text-atmos-green">
                   <Ticket className="w-4 h-4 inline mr-1" />
                   Available
                 </span>
@@ -288,7 +288,7 @@ export function AtmosResultsPanel({ results }: AtmosResultsPanelProps) {
             {results.loungeAccessValue > 0 && (
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground">Lounge Access Value</span>
-                <span className="font-semibold text-[#014A6E] flex items-center gap-1">
+                <span className="font-semibold text-atmos-teal flex items-center gap-1">
                   <Coffee className="w-4 h-4" />
                   <span data-testid="text-lounge-value">${results.loungeAccessValue.toFixed(0)}/year</span>
                 </span>

@@ -5,8 +5,8 @@ import { DeltaTierType, DELTA_TIER_CONFIGS } from "@shared/delta-schema";
 import { cn } from "@/lib/utils";
 
 interface DeltaTierCardProps {
-  tier: DeltaTierType;
-  highlighted?: boolean;
+  readonly tier: DeltaTierType;
+  readonly highlighted?: boolean;
 }
 
 export function DeltaTierCard({ tier, highlighted = false }: DeltaTierCardProps) {
@@ -35,7 +35,7 @@ export function DeltaTierCard({ tier, highlighted = false }: DeltaTierCardProps)
     <Card 
       className={cn(
         "relative overflow-hidden transition-all hover-elevate",
-        highlighted && "border-2 border-[#C8102E] shadow-lg",
+        highlighted && "border-2 border-delta-red shadow-lg",
         isGhostTier && "border-2 bg-gradient-to-br from-purple-950/20 via-indigo-950/20 to-black/20"
       )}
       data-testid={`card-tier-${tier}`}
@@ -62,7 +62,7 @@ export function DeltaTierCard({ tier, highlighted = false }: DeltaTierCardProps)
             {config.name}
           </Badge>
         </div>
-        <CardTitle className="text-2xl text-[#C8102E]" data-testid={`text-tier-name-${tier}`}>
+        <CardTitle className="text-2xl text-delta-red" data-testid={`text-tier-name-${tier}`}>
           {tier === "member" ? (
             "Base Tier"
           ) : tier === "silver" ? (
@@ -94,7 +94,7 @@ export function DeltaTierCard({ tier, highlighted = false }: DeltaTierCardProps)
       
       <CardContent>
         <div className="text-sm text-muted-foreground mb-4">
-          Up to <strong className="text-[#C8102E]">
+          Up to <strong className="text-delta-red">
             {tier === "member" ? (
               "5"
             ) : tier === "silver" ? (
@@ -112,12 +112,12 @@ export function DeltaTierCard({ tier, highlighted = false }: DeltaTierCardProps)
         </div>
         <ul className="space-y-2.5">
           {config.benefits.map((benefit, index) => (
-            <li 
-              key={index} 
+            <li
+              key={benefit}
               className="flex items-start gap-2 text-sm"
               data-testid={`text-benefit-${tier}-${index}`}
             >
-              <Check className="w-4 h-4 text-[#C8102E] flex-shrink-0 mt-0.5" />
+              <Check className="w-4 h-4 text-delta-red flex-shrink-0 mt-0.5" />
               <span className="text-foreground">{benefit}</span>
             </li>
           ))}

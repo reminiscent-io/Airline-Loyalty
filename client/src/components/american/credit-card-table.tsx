@@ -79,7 +79,7 @@ export function AmericanCreditCardTable() {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="bg-[#0078D2] text-white">
+                <tr className="bg-american-blue text-white">
                   <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-left font-semibold rounded-tl-lg text-xs sm:text-sm whitespace-nowrap">
                     Card
                   </th>
@@ -108,8 +108,8 @@ export function AmericanCreditCardTable() {
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {creditCards.map((card, index) => (
-                  <tr 
-                    key={index}
+                  <tr
+                    key={card.name}
                     className={index === 0 ? "" : "hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"}
                     data-testid={`row-card-${index}`}
                   >
@@ -120,7 +120,7 @@ export function AmericanCreditCardTable() {
                       <span className="font-semibold text-xs sm:text-sm">{card.annualFee}</span>
                     </td>
                     <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
-                      <span className="font-semibold text-xs sm:text-sm text-[#0078D2]">{card.aaMiles}</span>
+                      <span className="font-semibold text-xs sm:text-sm text-american-blue">{card.aaMiles}</span>
                     </td>
                     <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
                       <span className="text-xs sm:text-sm">{card.otherMiles}</span>
@@ -153,11 +153,11 @@ export function AmericanCreditCardTable() {
       {/* Additional Information */}
       <div className="text-sm text-muted-foreground space-y-1">
         <p className="flex items-center gap-2">
-          <CreditCard className="w-4 h-4 text-[#0078D2]" />
+          <CreditCard className="w-4 h-4 text-american-blue" />
           <span>All miles earned on credit cards count as both AAdvantage miles and Loyalty Points (base miles only, not category bonuses).</span>
         </p>
         <p className="flex items-center gap-2">
-          <Award className="w-4 h-4 text-[#C8102E]" />
+          <Award className="w-4 h-4 text-american-red" />
           <span>Elite status bonuses apply only to flight purchases, not credit card spending.</span>
         </p>
         <p className="flex items-center gap-2">

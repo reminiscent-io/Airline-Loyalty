@@ -11,14 +11,41 @@ export default {
         sm: ".1875rem", /* 3px */
       },
       colors: {
-        // Southwest Brand Colors
+        // Airline Brand Colors (HSL variables for theme support)
         southwest: {
-          blue: "#304CB2",
-          gold: "#FFBF27",
-          red: "#EF3340",
-          navy: "#111B40",
+          blue: "hsl(var(--sw-blue) / <alpha-value>)",
+          gold: "hsl(var(--sw-gold) / <alpha-value>)",
+          red: "hsl(var(--sw-red) / <alpha-value>)",
+          navy: "hsl(var(--sw-navy) / <alpha-value>)",
           lightgray: "#F7F8FA",
-          green: "#068D42",
+          green: "hsl(var(--sw-green) / <alpha-value>)",
+        },
+        american: {
+          blue: "hsl(var(--aa-blue) / <alpha-value>)",
+          navy: "hsl(var(--aa-navy) / <alpha-value>)",
+          red: "hsl(var(--aa-red) / <alpha-value>)",
+        },
+        delta: {
+          red: "hsl(var(--dl-red) / <alpha-value>)",
+          navy: "hsl(var(--dl-navy) / <alpha-value>)",
+          dark: "hsl(var(--dl-dark) / <alpha-value>)",
+        },
+        jetblue: {
+          navy: "hsl(var(--jb-navy) / <alpha-value>)",
+          mid: "hsl(var(--jb-mid) / <alpha-value>)",
+          cyan: "hsl(var(--jb-cyan) / <alpha-value>)",
+          orange: "hsl(var(--jb-orange) / <alpha-value>)",
+        },
+        atmos: {
+          teal: "hsl(var(--at-teal) / <alpha-value>)",
+          blue: "hsl(var(--at-blue) / <alpha-value>)",
+          purple: "hsl(var(--at-purple) / <alpha-value>)",
+          green: "hsl(var(--at-green) / <alpha-value>)",
+          dark: "hsl(var(--at-dark) / <alpha-value>)",
+        },
+        united: {
+          navy: "hsl(var(--ua-navy) / <alpha-value>)",
+          blue: "hsl(var(--ua-blue) / <alpha-value>)",
         },
         // Flat / base colors (regular buttons)
         background: "hsl(var(--background) / <alpha-value>)",
@@ -95,6 +122,7 @@ export default {
         sans: ["var(--font-sans)"],
         serif: ["var(--font-serif)"],
         mono: ["var(--font-mono)"],
+        display: ["var(--font-display)"],
       },
       keyframes: {
         "accordion-down": {

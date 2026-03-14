@@ -178,7 +178,7 @@ export const TIER_CONFIGS: Record<TierStatus, TierConfig> = {
     id: "a-list-preferred",
     name: "A-List Preferred",
     color: "red",
-    rrBonusMultiplier: 1.0, // +100% RR bonus
+    rrBonusMultiplier: 1, // +100% RR bonus
     qualifyingFlights: 40, // Corrected from 50
     qualifyingTQP: 70000,
     benefits: [

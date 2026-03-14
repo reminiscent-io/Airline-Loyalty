@@ -6,13 +6,13 @@ import { Award, TrendingUp, CreditCard, Plane, DollarSign, Check, Building2 } fr
 import { DeltaCalculationResults, DELTA_TIER_CONFIGS } from "@shared/delta-schema";
 
 interface DeltaResultsPanelProps {
-  results: DeltaCalculationResults | null;
+  readonly results: DeltaCalculationResults | null;
 }
 
 export function DeltaResultsPanel({ results }: DeltaResultsPanelProps) {
   if (!results) {
     return (
-      <Card className="h-full flex items-center justify-center border-2" style={{ borderColor: "#C8102E" }} data-testid="card-results-empty">
+      <Card className="h-full flex items-center justify-center border-2 border-delta-red" data-testid="card-results-empty">
         <CardContent>
           <p className="text-muted-foreground text-center">
             Enter your information and click Calculate to see your results
@@ -24,10 +24,10 @@ export function DeltaResultsPanel({ results }: DeltaResultsPanelProps) {
 
 
   return (
-    <Card className="h-full border-2 hover-elevate" style={{ borderColor: "#C8102E" }} data-testid="card-results">
+    <Card className="h-full border-2 border-delta-red hover-elevate" data-testid="card-results">
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between gap-4 flex-wrap">
-          <CardTitle className="flex items-center gap-2 text-2xl" style={{ color: "#C8102E" }}>
+          <CardTitle className="flex items-center gap-2 text-2xl text-delta-red">
             <Award className="w-6 h-6" />
             Your Results
           </CardTitle>
@@ -40,7 +40,7 @@ export function DeltaResultsPanel({ results }: DeltaResultsPanelProps) {
         {/* Three Metric Display */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* SkyMiles */}
-          <div className="p-4 bg-gradient-to-br from-[#C8102E] to-[#a0102e] rounded-xl text-white">
+          <div className="p-4 bg-gradient-to-br from-delta-red to-delta-red/80 rounded-xl text-white">
             <p className="text-xs font-medium opacity-90 mb-1">SkyMiles</p>
             <p className="text-2xl font-bold tracking-tight" data-testid="text-total-miles">
               {results.totalSkyMiles.toLocaleString()}
@@ -49,7 +49,7 @@ export function DeltaResultsPanel({ results }: DeltaResultsPanelProps) {
           </div>
 
           {/* MQDs */}
-          <div className="p-4 bg-gradient-to-br from-[#003566] to-[#002244] rounded-xl text-white">
+          <div className="p-4 bg-gradient-to-br from-delta-dark to-delta-navy/80 rounded-xl text-white">
             <p className="text-xs font-medium opacity-90 mb-1">MQDs</p>
             <p className="text-2xl font-bold tracking-tight" data-testid="text-total-mqd">
               ${results.totalMQDs.toLocaleString()}
@@ -186,7 +186,7 @@ export function DeltaResultsPanel({ results }: DeltaResultsPanelProps) {
           <div className="space-y-2">
             <div className="flex items-center justify-between text-sm p-3 bg-muted/50 rounded-lg">
               <div className="flex items-center gap-2">
-                <Plane className="w-4 h-4 text-[#C8102E]" />
+                <Plane className="w-4 h-4 text-delta-red" />
                 <span className="font-medium">Flights</span>
               </div>
               <div className="text-right">
@@ -200,7 +200,7 @@ export function DeltaResultsPanel({ results }: DeltaResultsPanelProps) {
             {(results.cardSkyMiles > 0 || results.mqdFromCard > 0 || results.mqdHeadstart > 0) && (
               <div className="flex items-center justify-between text-sm p-3 bg-muted/50 rounded-lg">
                 <div className="flex items-center gap-2">
-                  <CreditCard className="w-4 h-4 text-[#003566]" />
+                  <CreditCard className="w-4 h-4 text-delta-dark" />
                   <span className="font-medium">Credit Card</span>
                 </div>
                 <div className="text-right">
@@ -217,10 +217,10 @@ export function DeltaResultsPanel({ results }: DeltaResultsPanelProps) {
         {/* Earning Rate */}
         <div className="p-3 rounded-lg bg-gradient-to-r from-red-50 to-blue-50 border border-red-200">
           <div className="flex items-center gap-2 mb-1">
-            <TrendingUp className="w-4 h-4" style={{ color: "#C8102E" }} />
+            <TrendingUp className="w-4 h-4 text-delta-red" />
             <span className="text-sm font-semibold">Loyalty Bonus</span>
           </div>
-          <p className="text-lg font-bold" style={{ color: "#003566" }} data-testid="text-earning-rate">
+          <p className="text-lg font-bold text-delta-dark" data-testid="text-earning-rate">
             +{results.currentTier.earningRate} bonus SkyMiles per $1
           </p>
           <p className="text-xs text-muted-foreground mt-1">
@@ -232,7 +232,7 @@ export function DeltaResultsPanel({ results }: DeltaResultsPanelProps) {
 
         {/* Financial Analysis */}
         <div className="p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg">
-          <h4 className="font-semibold text-sm text-[#C8102E] mb-3">Value Analysis</h4>
+          <h4 className="font-semibold text-sm text-delta-red mb-3">Value Analysis</h4>
           <div className="space-y-2 text-sm">
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">
@@ -259,7 +259,7 @@ export function DeltaResultsPanel({ results }: DeltaResultsPanelProps) {
             {results.redemptionDiscountApplied && (
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground">Cardholder Benefit</span>
-                <span className="font-semibold text-[#003566]">
+                <span className="font-semibold text-delta-dark">
                   15% discount on redemptions ✓
                 </span>
               </div>

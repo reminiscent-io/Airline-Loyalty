@@ -11,7 +11,7 @@ import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 
 interface DeltaCalculatorProps {
-  onCalculate: (results: DeltaCalculationResults) => void;
+  readonly onCalculate: (results: DeltaCalculationResults) => void;
 }
 
 export function DeltaCalculator({ onCalculate }: DeltaCalculatorProps) {
@@ -28,30 +28,23 @@ export function DeltaCalculator({ onCalculate }: DeltaCalculatorProps) {
 
   const calculateMutation = useMutation({
     mutationFn: async (data: DeltaCalculatorInput) => {
-      console.log("Delta Calculator: Sending data", data);
       const response = await apiRequest("POST", "/api/delta/calculate", data);
-      console.log("Delta Calculator: Received response", response);
       const result = await response.json();
       return result as DeltaCalculationResults;
     },
     onSuccess: (results) => {
-      console.log("Delta Calculator: onSuccess called with results", results);
       onCalculate(results);
     },
-    onError: (error) => {
-      console.error("Delta Calculator: Error occurred", error);
-    }
   });
 
   const onSubmit = (data: DeltaCalculatorInput) => {
-    console.log("Delta Calculator: Form submitted with data", data);
     calculateMutation.mutate(data);
   };
 
   return (
-    <Card className="border-2 hover-elevate" style={{ borderColor: "#C8102E" }}>
+    <Card className="border-2 border-delta-red hover-elevate">
       <CardHeader className="pb-4">
-        <CardTitle className="flex items-center gap-2 text-2xl" style={{ color: "#C8102E" }}>
+        <CardTitle className="flex items-center gap-2 text-2xl text-delta-red">
           <Calculator className="w-6 h-6" />
           SkyMiles Calculator
         </CardTitle>
@@ -192,10 +185,9 @@ export function DeltaCalculator({ onCalculate }: DeltaCalculatorProps) {
               />
             </div>
 
-            <Button 
-              type="submit" 
-              className="w-full"
-              style={{ backgroundColor: "#C8102E" }}
+            <Button
+              type="submit"
+              className="w-full bg-delta-red hover:bg-delta-red/90"
               disabled={calculateMutation.isPending}
               data-testid="button-calculate"
             >

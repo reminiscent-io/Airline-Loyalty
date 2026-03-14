@@ -23,8 +23,8 @@ export function DeltaBenefitsTable() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {deltaBenefits.map((benefit, index) => (
-                <TableRow key={index}>
+              {deltaBenefits.map((benefit) => (
+                <TableRow key={benefit.category}>
                   <TableCell className="font-medium">{benefit.category}</TableCell>
                   <TableCell className="text-center">
                     {benefit.general === "—" ? (

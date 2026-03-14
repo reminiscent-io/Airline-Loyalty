@@ -16,7 +16,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 
 interface DeltaCalculatorProps {
-  onCalculate: (results: DeltaCalculationResults) => void;
+  readonly onCalculate: (results: DeltaCalculationResults) => void;
 }
 
 export function DeltaCalculator({ onCalculate }: DeltaCalculatorProps) {
@@ -73,11 +73,11 @@ export function DeltaCalculator({ onCalculate }: DeltaCalculatorProps) {
   // Automatic calculation on value changes
   useEffect(() => {
     const input: DeltaCalculatorInput & { includeSignUpBonus?: boolean } = {
-      annualFlightSpend: parseFloat(debouncedFlightSpend) || 0,
+      annualFlightSpend: Number.parseFloat(debouncedFlightSpend) || 0,
       fareClass,
       currentTier,
       cardType,
-      annualCardSpend: parseFloat(debouncedCardSpend) || 0,
+      annualCardSpend: Number.parseFloat(debouncedCardSpend) || 0,
       includeSignUpBonus: cardType !== "none" ? includeSignUpBonus : false,
     };
     
@@ -92,10 +92,10 @@ export function DeltaCalculator({ onCalculate }: DeltaCalculatorProps) {
   ]);
 
   return (
-    <Card className="border-2 border-[#C8102E]/20" data-testid="card-calculator">
-      <CardHeader className="bg-gradient-to-r from-[#C8102E]/5 to-[#002D62]/5">
-        <CardTitle className="flex items-center gap-2 text-[#002D62]">
-          <CalculatorIcon className="w-5 h-5 text-[#C8102E]" />
+    <Card className="border-2 border-delta-red/20" data-testid="card-calculator">
+      <CardHeader className="bg-gradient-to-r from-delta-red/5 to-delta-navy/5">
+        <CardTitle className="flex items-center gap-2 text-delta-navy">
+          <CalculatorIcon className="w-5 h-5 text-delta-red" />
           Calculate Your SkyMiles Rewards
         </CardTitle>
         <CardDescription>
@@ -105,8 +105,8 @@ export function DeltaCalculator({ onCalculate }: DeltaCalculatorProps) {
       <CardContent className="space-y-6 pt-6">
         {/* Flight Activity Section */}
         <div className="space-y-4">
-          <div className="flex items-center gap-2 text-sm font-semibold text-[#002D62]">
-            <Plane className="w-4 h-4 text-[#C8102E]" />
+          <div className="flex items-center gap-2 text-sm font-semibold text-delta-navy">
+            <Plane className="w-4 h-4 text-delta-red" />
             FLIGHT ACTIVITY
           </div>
           
@@ -168,8 +168,8 @@ export function DeltaCalculator({ onCalculate }: DeltaCalculatorProps) {
 
         {/* Credit Card Section */}
         <div className="space-y-4">
-          <div className="flex items-center gap-2 text-sm font-semibold text-[#002D62]">
-            <CreditCard className="w-4 h-4 text-[#C8102E]" />
+          <div className="flex items-center gap-2 text-sm font-semibold text-delta-navy">
+            <CreditCard className="w-4 h-4 text-delta-red" />
             CREDIT CARD
           </div>
           

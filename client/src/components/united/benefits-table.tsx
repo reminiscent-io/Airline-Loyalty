@@ -41,7 +41,7 @@ export function UnitedBenefitsTable() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="bg-[#002244] text-white">
+              <tr className="bg-united-navy text-white">
                 <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-left font-semibold rounded-tl-lg text-xs sm:text-sm whitespace-nowrap">
                   Benefit
                 </th>
@@ -64,8 +64,8 @@ export function UnitedBenefitsTable() {
             </thead>
             <tbody className="divide-y divide-gray-200">
               {benefits.map((benefit, index) => (
-                <tr 
-                  key={index}
+                <tr
+                  key={benefit.name}
                   className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
                   data-testid={`row-benefit-${index}`}
                 >

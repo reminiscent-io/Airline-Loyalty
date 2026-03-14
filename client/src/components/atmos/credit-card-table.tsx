@@ -91,7 +91,7 @@ export function AtmosCreditCardTable() {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="bg-gradient-to-r from-[#00467F] to-[#7AC142] text-white">
+                <tr className="bg-gradient-to-r from-atmos-teal to-atmos-green text-white">
                   <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-left font-semibold rounded-tl-lg text-xs sm:text-sm whitespace-nowrap">
                     Card
                   </th>
@@ -120,8 +120,8 @@ export function AtmosCreditCardTable() {
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {creditCards.map((card, index) => (
-                  <tr 
-                    key={index}
+                  <tr
+                    key={card.name}
                     className={index === 0 ? "" : "hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"}
                     data-testid={`row-card-${index}`}
                   >
@@ -139,7 +139,7 @@ export function AtmosCreditCardTable() {
                       </span>
                     </td>
                     <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
-                      <span className="font-semibold text-xs sm:text-sm text-[#00467F]">{card.airlinePoints}</span>
+                      <span className="font-semibold text-xs sm:text-sm text-atmos-teal">{card.airlinePoints}</span>
                     </td>
                     <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
                       <span className="text-xs sm:text-sm">{card.otherPoints}</span>
@@ -232,11 +232,11 @@ export function AtmosCreditCardTable() {
       {/* Additional Information */}
       <div className="text-sm text-muted-foreground space-y-1">
         <p className="flex items-center gap-2">
-          <Plane className="w-4 h-4 text-[#00467F]" />
+          <Plane className="w-4 h-4 text-atmos-teal" />
           <span>All cards include free first checked bag and priority boarding</span>
         </p>
         <p className="flex items-center gap-2">
-          <DollarSign className="w-4 h-4 text-[#7AC142]" />
+          <DollarSign className="w-4 h-4 text-atmos-green" />
           <span>Bank of America cardholders get 10% bonus on all points with eligible banking relationship</span>
         </p>
         <p className="flex items-center gap-2">
