@@ -76,9 +76,40 @@
   --chart-4: 154 70% 50%;
   --chart-5: 223 60% 15%;
 
+  /* Airline brand colors (HSL triplets for opacity modifier support) */
+  /* Southwest */
+  --sw-blue: 230 58% 44%;
+  --sw-gold: 44 100% 58%;
+  --sw-red: 355 86% 57%;
+  --sw-navy: 224 58% 16%;
+  --sw-green: 151 90% 29%;
+  /* American */
+  --aa-blue: 207 100% 41%;
+  --aa-navy: 207 100% 18%;
+  --aa-red: 351 85% 42%;
+  /* Delta */
+  --dl-red: 351 85% 42%;
+  --dl-navy: 212 100% 19%;
+  --dl-dark: 209 100% 20%;
+  /* JetBlue */
+  --jb-navy: 207 100% 13%;
+  --jb-mid: 205 100% 25%;
+  --jb-cyan: 195 100% 40%;
+  --jb-orange: 39 100% 50%;
+  /* Atmos */
+  --at-teal: 196 98% 22%;
+  --at-blue: 197 98% 28%;
+  --at-purple: 300 61% 30%;
+  --at-green: 97 50% 51%;
+  --at-dark: 200 100% 25%;
+  /* United */
+  --ua-navy: 207 100% 13%;
+  --ua-blue: 207 100% 39%;
+
   --font-sans: Open Sans, sans-serif;
   --font-serif: Georgia, serif;
   --font-mono: Menlo, monospace;
+  --font-display: Open Sans, sans-serif;
   --radius: .5rem; /* 8px */
   --shadow-2xs: 0px 2px 0px 0px hsl(220 10% 10% / 0.02);
   --shadow-xs: 0px 2px 0px 0px hsl(220 10% 10% / 0.04);
@@ -230,6 +261,134 @@
   /* Fallback for older browsers */
   --destructive-border: hsl(var(--destructive));
   --destructive-border: hsl(from hsl(var(--destructive)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+}
+
+/* RETRO AVIATION THEME */
+.retro {
+  /* Warm parchment base */
+  --background: 40 33% 94%;
+  --foreground: 30 30% 15%;
+  --border: 35 25% 75%;
+  --card: 40 30% 97%;
+  --card-foreground: 30 30% 15%;
+  --card-border: 35 20% 70%;
+  --primary: 210 45% 35%;
+  --primary-foreground: 40 33% 94%;
+  --secondary: 35 25% 82%;
+  --secondary-foreground: 30 30% 15%;
+  --muted: 35 20% 88%;
+  --muted-foreground: 30 15% 45%;
+  --accent: 40 70% 50%;
+  --accent-foreground: 30 30% 15%;
+  --destructive: 5 60% 45%;
+  --destructive-foreground: 40 33% 94%;
+  --input: 35 20% 65%;
+  --ring: 210 45% 35%;
+
+  /* Retro typography */
+  --font-sans: "Josefin Sans", sans-serif;
+  --font-display: "Playfair Display", Georgia, serif;
+  --radius: 2px;
+
+  /* Warm shadows */
+  --shadow-sm: 0px 1px 3px 0px hsl(30 20% 30% / 0.08);
+  --shadow: 0px 2px 4px 0px hsl(30 20% 30% / 0.10);
+  --shadow-md: 0px 3px 6px 0px hsl(30 20% 30% / 0.12);
+  --shadow-lg: 0px 4px 8px 0px hsl(30 20% 30% / 0.15);
+
+  /* Retro airline palettes — muted, warm, desaturated */
+  /* Southwest */
+  --sw-blue: 230 40% 39%;
+  --sw-gold: 40 48% 54%;
+  --sw-red: 355 55% 47%;
+  --sw-navy: 224 40% 18%;
+  --sw-green: 151 55% 30%;
+  /* American */
+  --aa-blue: 210 50% 37%;
+  --aa-navy: 210 42% 21%;
+  --aa-red: 350 60% 34%;
+  /* Delta */
+  --dl-red: 0 63% 34%;
+  --dl-navy: 210 46% 20%;
+  --dl-dark: 209 50% 22%;
+  /* JetBlue */
+  --jb-navy: 205 40% 18%;
+  --jb-mid: 205 50% 30%;
+  --jb-cyan: 190 36% 45%;
+  --jb-orange: 38 55% 48%;
+  /* Atmos */
+  --at-teal: 195 55% 24%;
+  --at-blue: 197 50% 30%;
+  --at-purple: 300 42% 29%;
+  --at-green: 90 40% 38%;
+  --at-dark: 200 50% 26%;
+  /* United */
+  --ua-navy: 207 36% 17%;
+  --ua-blue: 210 52% 35%;
+}
+
+/* Retro UI styling rules */
+.retro .shadcn-card {
+  border-radius: 2px;
+  border: 2px solid hsl(35 25% 70%);
+  box-shadow: 3px 3px 0px hsl(30 20% 65%);
+}
+
+.retro [role="progressbar"] {
+  border-radius: 0;
+  border: 2px solid hsl(30 20% 50%);
+  background: hsl(40 25% 88%);
+}
+
+.retro [role="progressbar"] > div {
+  border-radius: 0;
+}
+
+.retro h1, .retro h2, .retro h3 {
+  font-family: var(--font-display);
+  letter-spacing: 0.03em;
+}
+
+.retro h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: hsl(var(--accent));
+  margin: 8px auto 0;
+}
+
+.retro nav {
+  border-bottom: 3px double hsl(40 33% 94% / 0.3);
+  font-family: var(--font-display);
+  letter-spacing: 0.05em;
+}
+
+.retro table {
+  border: 2px solid hsl(30 20% 50%);
+}
+
+.retro thead tr th {
+  font-family: var(--font-display);
+  letter-spacing: 0.05em;
+}
+
+.retro input,
+.retro select,
+.retro textarea {
+  border-radius: 2px;
+  border: 2px solid hsl(35 20% 65%);
+  background: hsl(40 30% 97%);
+}
+
+.retro button:not([role="combobox"]):not([role="checkbox"]):not([role="switch"]) {
+  border-radius: 2px;
+  letter-spacing: 0.03em;
+}
+
+.retro .inline-flex.rounded-md {
+  border-radius: 0;
+  letter-spacing: 0.05em;
 }
 
 @layer base {

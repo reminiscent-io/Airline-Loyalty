@@ -1,53 +1,56 @@
 import { Link, useLocation } from "wouter";
-import { Plane, Menu, X } from "lucide-react";
+import { Plane, Clock, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
+import { useTheme } from "@/hooks/use-theme";
 
 const airlines = [
-  { 
-    path: "/american", 
-    name: "American", 
-    color: "bg-[#0078D2]",
-    hoverColor: "hover:bg-[#0060aa]"
+  {
+    path: "/american",
+    name: "American",
+    color: "bg-american-blue",
+    hoverColor: "hover:bg-american-navy"
   },
-  { 
-    path: "/atmos", 
-    name: "Atmos", 
-    color: "bg-[#00667e]",
-    hoverColor: "hover:bg-[#004d5f]"
+  {
+    path: "/atmos",
+    name: "Atmos",
+    color: "bg-atmos-teal",
+    hoverColor: "hover:bg-atmos-dark"
   },
-  { 
-    path: "/delta", 
-    name: "Delta", 
-    color: "bg-[#C8102E]",
-    hoverColor: "hover:bg-[#a00d25]"
+  {
+    path: "/delta",
+    name: "Delta",
+    color: "bg-delta-red",
+    hoverColor: "hover:bg-delta-navy"
   },
-  { 
-    path: "/jetblue", 
-    name: "JetBlue", 
-    color: "bg-[#002244]",
-    hoverColor: "hover:bg-[#001833]"
+  {
+    path: "/jetblue",
+    name: "JetBlue",
+    color: "bg-jetblue-navy",
+    hoverColor: "hover:bg-jetblue-navy"
   },
-  { 
-    path: "/southwest", 
-    name: "Southwest", 
+  {
+    path: "/southwest",
+    name: "Southwest",
     color: "bg-southwest-blue",
-    hoverColor: "hover:bg-[#253b8a]"
+    hoverColor: "hover:bg-southwest-navy"
   },
-  { 
-    path: "/united", 
-    name: "United", 
-    color: "bg-[#002244]",
-    hoverColor: "hover:bg-[#001833]"
+  {
+    path: "/united",
+    name: "United",
+    color: "bg-united-navy",
+    hoverColor: "hover:bg-united-navy"
   },
 ];
 
 export function Navigation() {
   const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   // For home page, use a neutral color
-  const currentAirline = location === "/" 
+  const currentAirline = location === "/"
     ? { color: "bg-primary", hoverColor: "hover:bg-primary/90" }
     : airlines.find(a => a.path === location) || { color: "bg-primary", hoverColor: "hover:bg-primary/90" };
 
@@ -69,13 +72,24 @@ export function Navigation() {
               <Link key={airline.path} href={airline.path}>
                 <Button
                   variant={location === airline.path ? "secondary" : "ghost"}
-                  className={`text-white ${location !== airline.path ? 'hover:bg-white/20' : ''}`}
+                  className={`text-white ${location === airline.path ? '' : 'hover:bg-white/20'}`}
                   data-testid={`link-nav-${airline.name.toLowerCase()}`}
                 >
                   {airline.name}
                 </Button>
               </Link>
             ))}
+            {/* Theme toggle */}
+            <div className="flex items-center gap-2 ml-4 pl-4 border-l border-white/30">
+              <Clock className="w-4 h-4 text-white/70" />
+              <span className="text-xs text-white/70 font-medium">Retro</span>
+              <Switch
+                checked={theme === "retro"}
+                onCheckedChange={toggleTheme}
+                className="data-[state=checked]:bg-amber-600"
+                aria-label="Toggle retro aviation theme"
+              />
+            </div>
           </div>
 
           {/* Mobile menu button */}
@@ -93,9 +107,22 @@ export function Navigation() {
         {/* Mobile navigation */}
         {mobileMenuOpen && (
           <div className="md:hidden py-4 border-t border-white/20">
+            {/* Mobile theme toggle */}
+            <div className="flex items-center justify-between px-4 py-2 mb-2 border-b border-white/10">
+              <div className="flex items-center gap-2">
+                <Clock className="w-4 h-4 text-white/70" />
+                <span className="text-sm text-white/90">Retro Theme</span>
+              </div>
+              <Switch
+                checked={theme === "retro"}
+                onCheckedChange={toggleTheme}
+                className="data-[state=checked]:bg-amber-600"
+                aria-label="Toggle retro aviation theme"
+              />
+            </div>
             {airlines.map((airline) => (
-              <Link 
-                key={airline.path} 
+              <Link
+                key={airline.path}
                 href={airline.path}
                 onClick={() => setMobileMenuOpen(false)}
               >

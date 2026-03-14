@@ -21,10 +21,10 @@ import {
 import { Separator } from "@/components/ui/separator";
 
 interface JetBlueCalculatorProps {
-  onCalculate: (results: JetBlueCalculationResults) => void;
+  readonly onCalculate: (results: JetBlueCalculationResults) => void;
 }
 
-export function JetBlueCalculator({ onCalculate }: JetBlueCalculatorProps) {
+export function JetBlueCalculator({ onCalculate }: Readonly<JetBlueCalculatorProps>) {
   // Flight inputs
   const [flightSpending, setFlightSpending] = useState<string>("1000");
   const [fareType, setFareType] = useState<JetBlueFareType>("blue");
@@ -65,14 +65,14 @@ export function JetBlueCalculator({ onCalculate }: JetBlueCalculatorProps) {
   // Automatic calculation on value changes
   useEffect(() => {
     const input: JetBlueCalculatorInput = {
-      flightSpending: parseFloat(debouncedFlightSpending) || 0,
+      flightSpending: Number.parseFloat(debouncedFlightSpending) || 0,
       fareType,
       currentTier,
       segments: 0, // Segments no longer used for Mosaic qualification (spend-based only)
       creditCard,
-      cardSpending: parseFloat(debouncedCardSpending) || 0,
+      cardSpending: Number.parseFloat(debouncedCardSpending) || 0,
       includeSignUpBonus,
-      partnerSpending: parseFloat(debouncedPartnerSpending) || 0,
+      partnerSpending: Number.parseFloat(debouncedPartnerSpending) || 0,
     };
     
     calculateMutation.mutate(input);
@@ -87,10 +87,10 @@ export function JetBlueCalculator({ onCalculate }: JetBlueCalculatorProps) {
   ]);
 
   return (
-    <Card className="border-2 border-[#00497F]/20" data-testid="card-calculator">
-      <CardHeader className="bg-gradient-to-r from-[#002244]/5 to-[#0099CC]/5">
-        <CardTitle className="flex items-center gap-2 text-[#002244]">
-          <CalculatorIcon className="w-5 h-5 text-[#0099CC]" />
+    <Card className="border-2 border-jetblue-mid/20" data-testid="card-calculator">
+      <CardHeader className="bg-gradient-to-r from-jetblue-navy/5 to-jetblue-cyan/5">
+        <CardTitle className="flex items-center gap-2 text-jetblue-navy">
+          <CalculatorIcon className="w-5 h-5 text-jetblue-cyan" />
           Calculate Your TrueBlue Points
         </CardTitle>
         <CardDescription>
@@ -100,8 +100,8 @@ export function JetBlueCalculator({ onCalculate }: JetBlueCalculatorProps) {
       <CardContent className="space-y-6 pt-6">
         {/* Flight Activity Section */}
         <div className="space-y-4">
-          <div className="flex items-center gap-2 text-sm font-semibold text-[#002244]">
-            <Plane className="w-4 h-4 text-[#0099CC]" />
+          <div className="flex items-center gap-2 text-sm font-semibold text-jetblue-navy">
+            <Plane className="w-4 h-4 text-jetblue-cyan" />
             FLIGHT ACTIVITY
           </div>
           
@@ -163,8 +163,8 @@ export function JetBlueCalculator({ onCalculate }: JetBlueCalculatorProps) {
 
         {/* Credit Card Section */}
         <div className="space-y-4">
-          <div className="flex items-center gap-2 text-sm font-semibold text-[#002244]">
-            <CreditCard className="w-4 h-4 text-[#0099CC]" />
+          <div className="flex items-center gap-2 text-sm font-semibold text-jetblue-navy">
+            <CreditCard className="w-4 h-4 text-jetblue-cyan" />
             CREDIT CARD
           </div>
           
@@ -228,8 +228,8 @@ export function JetBlueCalculator({ onCalculate }: JetBlueCalculatorProps) {
 
         {/* Partner Activity */}
         <div className="space-y-4">
-          <div className="flex items-center gap-2 text-sm font-semibold text-[#002244]">
-            <Building2 className="w-4 h-4 text-[#0099CC]" />
+          <div className="flex items-center gap-2 text-sm font-semibold text-jetblue-navy">
+            <Building2 className="w-4 h-4 text-jetblue-cyan" />
             PARTNER ACTIVITY
           </div>
           

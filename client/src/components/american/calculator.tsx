@@ -21,7 +21,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 
 interface AmericanCalculatorProps {
-  onCalculate: (results: AmericanCalculationResults) => void;
+  readonly onCalculate: (results: AmericanCalculationResults) => void;
 }
 
 export function AmericanCalculator({ onCalculate }: AmericanCalculatorProps) {
@@ -65,13 +65,13 @@ export function AmericanCalculator({ onCalculate }: AmericanCalculatorProps) {
   // Automatic calculation on value changes
   useEffect(() => {
     const input: AmericanCalculatorInput = {
-      flightSpending: parseFloat(debouncedFlightSpending) || 0,
+      flightSpending: Number.parseFloat(debouncedFlightSpending) || 0,
       fareType,
       currentTier,
       creditCard,
-      cardSpending: parseFloat(debouncedCardSpending) || 0,
+      cardSpending: Number.parseFloat(debouncedCardSpending) || 0,
       includeSignUpBonus,
-      partnerSpending: parseFloat(debouncedPartnerSpending) || 0,
+      partnerSpending: Number.parseFloat(debouncedPartnerSpending) || 0,
     };
     
     calculateMutation.mutate(input);
@@ -86,10 +86,10 @@ export function AmericanCalculator({ onCalculate }: AmericanCalculatorProps) {
   ]);
 
   return (
-    <Card className="border-2 border-[#0078D2]/20" data-testid="card-calculator">
-      <CardHeader className="bg-gradient-to-r from-[#0078D2]/5 to-[#C8102E]/5">
-        <CardTitle className="flex items-center gap-2 text-[#00325b]">
-          <CalculatorIcon className="w-5 h-5 text-[#0078D2]" />
+    <Card className="border-2 border-american-blue/20" data-testid="card-calculator">
+      <CardHeader className="bg-gradient-to-r from-american-blue/5 to-american-red/5">
+        <CardTitle className="flex items-center gap-2 text-american-navy">
+          <CalculatorIcon className="w-5 h-5 text-american-blue" />
           Calculate Your AAdvantage Rewards
         </CardTitle>
         <CardDescription>
@@ -99,8 +99,8 @@ export function AmericanCalculator({ onCalculate }: AmericanCalculatorProps) {
       <CardContent className="space-y-6 pt-6">
         {/* Flight Activity Section */}
         <div className="space-y-4">
-          <div className="flex items-center gap-2 text-sm font-semibold text-[#00325b]">
-            <Plane className="w-4 h-4 text-[#0078D2]" />
+          <div className="flex items-center gap-2 text-sm font-semibold text-american-navy">
+            <Plane className="w-4 h-4 text-american-blue" />
             FLIGHT ACTIVITY
           </div>
           
@@ -159,8 +159,8 @@ export function AmericanCalculator({ onCalculate }: AmericanCalculatorProps) {
 
         {/* Credit Card Section */}
         <div className="space-y-4">
-          <div className="flex items-center gap-2 text-sm font-semibold text-[#00325b]">
-            <CreditCard className="w-4 h-4 text-[#0078D2]" />
+          <div className="flex items-center gap-2 text-sm font-semibold text-american-navy">
+            <CreditCard className="w-4 h-4 text-american-blue" />
             CREDIT CARD
           </div>
           
@@ -219,8 +219,8 @@ export function AmericanCalculator({ onCalculate }: AmericanCalculatorProps) {
 
         {/* Partner Activity */}
         <div className="space-y-4">
-          <div className="flex items-center gap-2 text-sm font-semibold text-[#00325b]">
-            <Building2 className="w-4 h-4 text-[#0078D2]" />
+          <div className="flex items-center gap-2 text-sm font-semibold text-american-navy">
+            <Building2 className="w-4 h-4 text-american-blue" />
             PARTNER ACTIVITY
           </div>
           

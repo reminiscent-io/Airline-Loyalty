@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 
 interface UnitedResultsPanelProps {
-  results: UnitedCalculationResults | null;
+  readonly results: UnitedCalculationResults | null;
 }
 
 export function UnitedResultsPanel({ results }: UnitedResultsPanelProps) {
@@ -28,14 +28,14 @@ export function UnitedResultsPanel({ results }: UnitedResultsPanelProps) {
   const nextTierConfig = results.nextTier ? UNITED_TIER_CONFIGS[results.nextTier] : null;
 
   return (
-    <Card className="border-2 border-[#002244]/20" data-testid="card-results">
+    <Card className="border-2 border-united-navy/20" data-testid="card-results">
       <CardHeader>
         <div className="flex items-center justify-between gap-4 flex-wrap">
-          <CardTitle className="text-[#002244] flex items-center gap-2">
-            <Award className="w-5 h-5 text-[#0074C8]" />
+          <CardTitle className="text-united-navy flex items-center gap-2">
+            <Award className="w-5 h-5 text-united-blue" />
             Your Results
           </CardTitle>
-          <Badge className="bg-[#002244] text-white">
+          <Badge className="bg-united-navy text-white">
             {currentTierConfig.name}
           </Badge>
         </div>
@@ -48,7 +48,7 @@ export function UnitedResultsPanel({ results }: UnitedResultsPanelProps) {
         {/* Three Point Types Display */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Award Miles */}
-          <div className="p-4 bg-gradient-to-br from-[#002244] to-[#001833] rounded-xl text-white">
+          <div className="p-4 bg-gradient-to-br from-united-navy to-united-navy/80 rounded-xl text-white">
             <p className="text-xs font-medium opacity-90 mb-1">Award Miles</p>
             <p className="text-2xl font-bold tracking-tight" data-testid="text-award-miles">
               {results.totalMiles.toLocaleString()}
@@ -57,7 +57,7 @@ export function UnitedResultsPanel({ results }: UnitedResultsPanelProps) {
           </div>
 
           {/* PQP */}
-          <div className="p-4 bg-gradient-to-br from-[#0074C8] to-[#0056a3] rounded-xl text-white">
+          <div className="p-4 bg-gradient-to-br from-united-blue to-united-blue/80 rounded-xl text-white">
             <p className="text-xs font-medium opacity-90 mb-1">PQP</p>
             <p className="text-2xl font-bold tracking-tight" data-testid="text-pqp">
               {results.totalPQP.toLocaleString()}
@@ -79,7 +79,7 @@ export function UnitedResultsPanel({ results }: UnitedResultsPanelProps) {
 
         {/* Miles Breakdown */}
         <div className="space-y-3">
-          <h4 className="font-semibold text-sm text-[#002244]">Miles Breakdown</h4>
+          <h4 className="font-semibold text-sm text-united-navy">Miles Breakdown</h4>
           <div className="space-y-2 text-sm">
             <div className="flex items-center justify-between">
               <span className="flex items-center gap-2 text-muted-foreground">
@@ -115,7 +115,7 @@ export function UnitedResultsPanel({ results }: UnitedResultsPanelProps) {
 
         {/* PQP Breakdown */}
         <div className="space-y-3">
-          <h4 className="font-semibold text-sm text-[#002244]">PQP Breakdown</h4>
+          <h4 className="font-semibold text-sm text-united-navy">PQP Breakdown</h4>
           <div className="space-y-2 text-sm">
             <div className="flex items-center justify-between">
               <span className="flex items-center gap-2 text-muted-foreground">
@@ -153,7 +153,7 @@ export function UnitedResultsPanel({ results }: UnitedResultsPanelProps) {
         {results.nextTier && nextTierConfig && (
           <div className="space-y-4">
             <div className="flex items-center gap-2 flex-wrap">
-              <h4 className="font-semibold text-sm text-[#002244]">Premier Status Progress</h4>
+              <h4 className="font-semibold text-sm text-united-navy">Premier Status Progress</h4>
               {results.qualifiesForNextTier && (
                 <Badge className="bg-green-100 text-green-800 text-xs">
                   Qualified for {nextTierConfig.name}
@@ -214,7 +214,7 @@ export function UnitedResultsPanel({ results }: UnitedResultsPanelProps) {
                 <div 
                   className={cn(
                     "absolute top-0 left-0 h-full rounded-full transition-all",
-                    results.pqpMet ? "bg-green-500" : "bg-[#0074C8]"
+                    results.pqpMet ? "bg-green-500" : "bg-united-blue"
                   )}
                   style={{ 
                     width: `${Math.min(100, (Math.min(results.totalPQP, nextTierConfig.pqpRequired) / nextTierConfig.pqpRequired) * 100)}%` 
@@ -229,7 +229,7 @@ export function UnitedResultsPanel({ results }: UnitedResultsPanelProps) {
                     style={{ 
                       left: '100%',
                       width: `${Math.min(20, (results.pendingPqpOverflow / nextTierConfig.pqpRequired) * 100)}%`,
-                      background: 'repeating-linear-gradient(45deg, #0074C8 0, #0074C8 4px, transparent 4px, transparent 8px)',
+                      background: 'repeating-linear-gradient(45deg, hsl(var(--ua-blue)) 0, hsl(var(--ua-blue)) 4px, transparent 4px, transparent 8px)',
                       opacity: 0.6
                     }}
                     data-testid="progress-pqp-pending"
@@ -280,11 +280,11 @@ export function UnitedResultsPanel({ results }: UnitedResultsPanelProps) {
                 />
                 
                 {/* Markers at each PQF */}
-                {[1, 2, 3].map(i => (
-                  <div 
-                    key={i}
+                {[1, 2, 3].map(marker => (
+                  <div
+                    key={marker}
                     className="absolute top-0 h-full w-0.5 bg-white/50"
-                    style={{ left: `${(i / 4) * 100}%` }}
+                    style={{ left: `${(marker / 4) * 100}%` }}
                   />
                 ))}
               </div>
@@ -356,7 +356,7 @@ export function UnitedResultsPanel({ results }: UnitedResultsPanelProps) {
 
         {/* Financial Analysis */}
         <div className="p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg">
-          <h4 className="font-semibold text-sm text-[#002244] mb-3">Value Analysis</h4>
+          <h4 className="font-semibold text-sm text-united-navy mb-3">Value Analysis</h4>
           <div className="space-y-2 text-sm">
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">Estimated Miles Value (1.22¢ / mile)</span>

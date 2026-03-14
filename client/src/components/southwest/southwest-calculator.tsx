@@ -13,7 +13,7 @@ import { type TierStatus, type FareType, type CreditCardType, type CalculationRe
 import { Separator } from "@/components/ui/separator";
 
 interface SouthwestCalculatorProps {
-  onCalculate: (results: CalculationResults) => void;
+  readonly onCalculate: (results: CalculationResults) => void;
 }
 
 export function SouthwestCalculator({ onCalculate }: SouthwestCalculatorProps) {
@@ -69,15 +69,15 @@ export function SouthwestCalculator({ onCalculate }: SouthwestCalculatorProps) {
   // Automatic calculation on value changes
   useEffect(() => {
     const input: CalculatorInput = {
-      flightSpending: parseFloat(debouncedFlightSpending) || 0,
+      flightSpending: Number.parseFloat(debouncedFlightSpending) || 0,
       fareType,
       currentTier,
-      flightsTaken: parseInt(debouncedFlightsTaken) || 0,
+      flightsTaken: Number.parseInt(debouncedFlightsTaken) || 0,
       creditCard,
-      cardSpending: parseFloat(debouncedCardSpending) || 0,
+      cardSpending: Number.parseFloat(debouncedCardSpending) || 0,
       includeSignUpBonus,
       includeAnnualBonus: creditCard !== "none" ? true : false,
-      partnerPoints: parseFloat(debouncedPartnerPoints) || 0,
+      partnerPoints: Number.parseFloat(debouncedPartnerPoints) || 0,
     };
 
     calculateMutation.mutate(input);

@@ -7,6 +7,7 @@ import { UnitedCalculator } from "@/components/united/calculator";
 import { UnitedResultsPanel } from "@/components/united/results-panel";
 import { UnitedBenefitsTable } from "@/components/united/benefits-table";
 import { UnitedCreditCardTable } from "@/components/united/credit-card-table";
+import { HeroPattern } from "@/components/hero-pattern";
 import { type UnitedCalculationResults } from "@shared/united-schema";
 
 export default function UnitedAirlines() {
@@ -15,12 +16,12 @@ export default function UnitedAirlines() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Hero Section */}
-      <section className="relative h-[400px] md:h-[500px] bg-gradient-to-br from-[#002244] to-[#001833] overflow-hidden">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjA1IiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-30"></div>
+      <section className="relative h-[400px] md:h-[500px] bg-gradient-to-br from-united-navy to-united-navy/80 overflow-hidden">
+        <HeroPattern />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="max-w-4xl mx-auto px-4 md:px-6 text-center relative z-10">
             <div className="inline-flex items-center gap-2 mb-4">
-              <Globe className="w-8 h-8 text-[#0074C8]" />
+              <Globe className="w-8 h-8 text-united-blue" />
               <Plane className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight" data-testid="text-hero-title">
@@ -33,7 +34,7 @@ export default function UnitedAirlines() {
         </div>
         {/* Globe graphic */}
         <div className="absolute bottom-0 left-0 w-64 h-64 opacity-10">
-          <svg viewBox="0 0 100 100" className="w-full h-full fill-[#0074C8]">
+          <svg viewBox="0 0 100 100" className="w-full h-full fill-current text-united-blue">
             <circle cx="50" cy="50" r="40" />
             <ellipse cx="50" cy="50" rx="40" ry="15" />
             <ellipse cx="50" cy="50" rx="15" ry="40" />

@@ -6,7 +6,7 @@ import { type JetBlueCalculationResults, JETBLUE_TIER_CONFIGS } from "@shared/je
 import { Separator } from "@/components/ui/separator";
 
 interface JetBlueResultsPanelProps {
-  results: JetBlueCalculationResults | null;
+  readonly results: JetBlueCalculationResults | null;
 }
 
 export function JetBlueResultsPanel({ results }: JetBlueResultsPanelProps) {
@@ -27,14 +27,14 @@ export function JetBlueResultsPanel({ results }: JetBlueResultsPanelProps) {
   const nextTierConfig = results.nextTier ? JETBLUE_TIER_CONFIGS[results.nextTier] : null;
 
   return (
-    <Card className="border-2 border-[#00497F]/20" data-testid="card-results">
+    <Card className="border-2 border-jetblue-mid/20" data-testid="card-results">
       <CardHeader>
         <div className="flex items-center justify-between gap-4 flex-wrap">
-          <CardTitle className="text-[#002244] flex items-center gap-2">
-            <Award className="w-5 h-5 text-[#0099CC]" />
+          <CardTitle className="text-jetblue-navy flex items-center gap-2">
+            <Award className="w-5 h-5 text-jetblue-cyan" />
             Your Results
           </CardTitle>
-          <Badge className="bg-[#00497F] text-white">
+          <Badge className="bg-jetblue-mid text-white">
             {currentTierConfig.name}
           </Badge>
         </div>
@@ -47,7 +47,7 @@ export function JetBlueResultsPanel({ results }: JetBlueResultsPanelProps) {
         {/* Three Metric Display */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* TrueBlue Points */}
-          <div className="p-4 bg-gradient-to-br from-[#002244] to-[#001833] rounded-xl text-white">
+          <div className="p-4 bg-gradient-to-br from-jetblue-navy to-jetblue-navy/80 rounded-xl text-white">
             <p className="text-xs font-medium opacity-90 mb-1">TrueBlue Points</p>
             <p className="text-2xl font-bold tracking-tight" data-testid="text-total-points">
               {results.totalPoints.toLocaleString()}
@@ -56,7 +56,7 @@ export function JetBlueResultsPanel({ results }: JetBlueResultsPanelProps) {
           </div>
 
           {/* Tiles */}
-          <div className="p-4 bg-gradient-to-br from-[#0099CC] to-[#0077aa] rounded-xl text-white">
+          <div className="p-4 bg-gradient-to-br from-jetblue-cyan to-jetblue-cyan/80 rounded-xl text-white">
             <p className="text-xs font-medium opacity-90 mb-1">Tiles</p>
             <p className="text-2xl font-bold tracking-tight" data-testid="text-tiles">
               {results.tilesEarned}
@@ -65,7 +65,7 @@ export function JetBlueResultsPanel({ results }: JetBlueResultsPanelProps) {
           </div>
 
           {/* Points Value */}
-          <div className="p-4 bg-gradient-to-br from-[#FFA500] to-[#FF8800] rounded-xl text-white">
+          <div className="p-4 bg-gradient-to-br from-jetblue-orange to-jetblue-orange/85 rounded-xl text-white">
             <p className="text-xs font-medium opacity-90 mb-1">Points Value</p>
             <p className="text-2xl font-bold tracking-tight" data-testid="text-points-value">
               ${results.pointsValue.toFixed(0)}
@@ -184,7 +184,7 @@ export function JetBlueResultsPanel({ results }: JetBlueResultsPanelProps) {
           <div className="space-y-2">
             <div className="flex items-center justify-between text-sm p-3 bg-muted/50 rounded-lg">
               <div className="flex items-center gap-2">
-                <Plane className="w-4 h-4 text-[#002244]" />
+                <Plane className="w-4 h-4 text-jetblue-navy" />
                 <span className="font-medium">Flights</span>
               </div>
               <div className="text-right">
@@ -198,7 +198,7 @@ export function JetBlueResultsPanel({ results }: JetBlueResultsPanelProps) {
             {results.creditCardPoints > 0 && (
               <div className="flex items-center justify-between text-sm p-3 bg-muted/50 rounded-lg">
                 <div className="flex items-center gap-2">
-                  <CreditCard className="w-4 h-4 text-[#0099CC]" />
+                  <CreditCard className="w-4 h-4 text-jetblue-cyan" />
                   <span className="font-medium">Credit Card</span>
                 </div>
                 <div className="text-right">
@@ -213,7 +213,7 @@ export function JetBlueResultsPanel({ results }: JetBlueResultsPanelProps) {
             {results.partnerPoints > 0 && (
               <div className="flex items-center justify-between text-sm p-3 bg-muted/50 rounded-lg">
                 <div className="flex items-center gap-2">
-                  <Building2 className="w-4 h-4 text-[#FFA500]" />
+                  <Building2 className="w-4 h-4 text-jetblue-orange" />
                   <span className="font-medium">Partners</span>
                 </div>
                 <div className="text-right">
@@ -229,7 +229,7 @@ export function JetBlueResultsPanel({ results }: JetBlueResultsPanelProps) {
 
         {/* Top Tier Message */}
         {!results.nextTier && (
-          <div className="p-4 bg-gradient-to-r from-[#FFA500] to-[#FF6F00] text-white rounded-lg">
+          <div className="p-4 bg-gradient-to-r from-jetblue-orange to-jetblue-orange/80 text-white rounded-lg">
             <p className="font-semibold text-sm">
               🎉 You're at the top tier - Mosaic Elite!
             </p>
@@ -243,7 +243,7 @@ export function JetBlueResultsPanel({ results }: JetBlueResultsPanelProps) {
 
         {/* Financial Analysis */}
         <div className="p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg">
-          <h4 className="font-semibold text-sm text-[#002244] mb-3">Value Analysis</h4>
+          <h4 className="font-semibold text-sm text-jetblue-navy mb-3">Value Analysis</h4>
           <div className="space-y-2 text-sm">
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">Estimated Points Value (1.45¢ / pt)</span>
@@ -268,7 +268,7 @@ export function JetBlueResultsPanel({ results }: JetBlueResultsPanelProps) {
             {results.mosaicBoostApplied && (
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground">Mosaic Boost</span>
-                <span className="font-semibold text-[#FFA500]">
+                <span className="font-semibold text-jetblue-orange">
                   Applied ✓
                 </span>
               </div>

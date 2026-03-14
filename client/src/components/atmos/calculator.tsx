@@ -22,7 +22,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 
 interface AtmosCalculatorProps {
-  onCalculate: (results: AtmosCalculationResults) => void;
+  readonly onCalculate: (results: AtmosCalculationResults) => void;
 }
 
 export function AtmosCalculator({ onCalculate }: AtmosCalculatorProps) {
@@ -79,17 +79,17 @@ export function AtmosCalculator({ onCalculate }: AtmosCalculatorProps) {
   useEffect(() => {
     const input: AtmosCalculatorInput = {
       earningMethod,
-      flightSpending: parseFloat(debouncedFlightSpending) || 0,
-      flightDistance: parseFloat(debouncedFlightDistance) || 0,
-      segments: parseInt(debouncedSegments) || 0,
+      flightSpending: Number.parseFloat(debouncedFlightSpending) || 0,
+      flightDistance: Number.parseFloat(debouncedFlightDistance) || 0,
+      segments: Number.parseInt(debouncedSegments) || 0,
       fareBucket,
       isInternational,
       currentTier,
       creditCard,
-      cardSpending: parseFloat(debouncedCardSpending) || 0,
+      cardSpending: Number.parseFloat(debouncedCardSpending) || 0,
       includeSignUpBonus,
-      partnerSpending: parseFloat(debouncedPartnerSpending) || 0,
-      awardPointsRedeemed: parseFloat(debouncedAwardPointsRedeemed) || 0,
+      partnerSpending: Number.parseFloat(debouncedPartnerSpending) || 0,
+      awardPointsRedeemed: Number.parseFloat(debouncedAwardPointsRedeemed) || 0,
     };
     
     calculateMutation.mutate(input);
@@ -110,10 +110,10 @@ export function AtmosCalculator({ onCalculate }: AtmosCalculatorProps) {
 
 
   return (
-    <Card className="border-2 border-[#014A6E]/20" data-testid="card-calculator">
-      <CardHeader className="bg-gradient-to-r from-[#014A6E]/5 to-[#7B1E7A]/5">
-        <CardTitle className="flex items-center gap-2 text-[#014A6E]">
-          <CalculatorIcon className="w-5 h-5 text-[#01628C]" />
+    <Card className="border-2 border-atmos-teal/20" data-testid="card-calculator">
+      <CardHeader className="bg-gradient-to-r from-atmos-teal/5 to-atmos-purple/5">
+        <CardTitle className="flex items-center gap-2 text-atmos-teal">
+          <CalculatorIcon className="w-5 h-5 text-atmos-blue" />
           Calculate Your Atmos Points (2026 Program)
         </CardTitle>
         <CardDescription>
@@ -123,8 +123,8 @@ export function AtmosCalculator({ onCalculate }: AtmosCalculatorProps) {
       <CardContent className="space-y-6 pt-6">
         
         {/* Earning Method Selection */}
-        <div className="p-4 bg-gradient-to-r from-[#014A6E]/5 to-[#7B1E7A]/5 rounded-lg">
-          <Label htmlFor="earning-method" className="text-sm font-semibold text-[#014A6E]">
+        <div className="p-4 bg-gradient-to-r from-atmos-teal/5 to-atmos-purple/5 rounded-lg">
+          <Label htmlFor="earning-method" className="text-sm font-semibold text-atmos-teal">
             Points Earning Method
           </Label>
           <Select value={earningMethod} onValueChange={(value) => setEarningMethod(value as AtmosEarningMethod)}>
@@ -146,8 +146,8 @@ export function AtmosCalculator({ onCalculate }: AtmosCalculatorProps) {
 
         {/* Flight Activity Section */}
         <div className="space-y-4">
-          <div className="flex items-center gap-2 text-sm font-semibold text-[#014A6E]">
-            <Plane className="w-4 h-4 text-[#01628C]" />
+          <div className="flex items-center gap-2 text-sm font-semibold text-atmos-teal">
+            <Plane className="w-4 h-4 text-atmos-blue" />
             FLIGHT ACTIVITY
           </div>
           
@@ -264,8 +264,8 @@ export function AtmosCalculator({ onCalculate }: AtmosCalculatorProps) {
 
         {/* Credit Card Section */}
         <div className="space-y-4">
-          <div className="flex items-center gap-2 text-sm font-semibold text-[#014A6E]">
-            <CreditCard className="w-4 h-4 text-[#01628C]" />
+          <div className="flex items-center gap-2 text-sm font-semibold text-atmos-teal">
+            <CreditCard className="w-4 h-4 text-atmos-blue" />
             CREDIT CARD (2026 LINEUP)
           </div>
           
@@ -335,8 +335,8 @@ export function AtmosCalculator({ onCalculate }: AtmosCalculatorProps) {
 
         {/* Partner & Award Activity */}
         <div className="space-y-4">
-          <div className="flex items-center gap-2 text-sm font-semibold text-[#014A6E]">
-            <Building2 className="w-4 h-4 text-[#01628C]" />
+          <div className="flex items-center gap-2 text-sm font-semibold text-atmos-teal">
+            <Building2 className="w-4 h-4 text-atmos-blue" />
             PARTNER & AWARD ACTIVITY
           </div>
           

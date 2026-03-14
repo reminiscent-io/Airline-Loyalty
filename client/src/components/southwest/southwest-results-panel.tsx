@@ -6,7 +6,7 @@ import { type CalculationResults, TIER_CONFIGS } from "@shared/schema";
 import { Separator } from "@/components/ui/separator";
 
 interface SouthwestResultsPanelProps {
-  results: CalculationResults | null;
+  readonly results: CalculationResults | null;
 }
 
 export function SouthwestResultsPanel({ results }: SouthwestResultsPanelProps) {
@@ -47,7 +47,7 @@ export function SouthwestResultsPanel({ results }: SouthwestResultsPanelProps) {
         {/* Three Point Types Display */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* RR Points */}
-          <div className="p-4 bg-gradient-to-br from-southwest-blue to-[#4a6bc9] rounded-xl text-white">
+          <div className="p-4 bg-gradient-to-br from-southwest-blue to-southwest-blue/70 rounded-xl text-white">
             <p className="text-xs font-medium opacity-90 mb-1">Rapid Rewards Points</p>
             <p className="text-2xl font-bold tracking-tight" data-testid="text-rr-points">
               {results.totalRRPoints.toLocaleString()}
@@ -56,7 +56,7 @@ export function SouthwestResultsPanel({ results }: SouthwestResultsPanelProps) {
           </div>
 
           {/* CQP */}
-          <div className="p-4 bg-gradient-to-br from-southwest-gold/90 to-[#e6b022] rounded-xl text-white">
+          <div className="p-4 bg-gradient-to-br from-southwest-gold/90 to-southwest-gold/80 rounded-xl text-white">
             <p className="text-xs font-medium opacity-90 mb-1">Companion Qualifying</p>
             <p className="text-2xl font-bold tracking-tight" data-testid="text-cqp">
               {results.totalCQP.toLocaleString()}
@@ -65,7 +65,7 @@ export function SouthwestResultsPanel({ results }: SouthwestResultsPanelProps) {
           </div>
 
           {/* TQP */}
-          <div className="p-4 bg-gradient-to-br from-southwest-red to-[#d62f3b] rounded-xl text-white">
+          <div className="p-4 bg-gradient-to-br from-southwest-red to-southwest-red/80 rounded-xl text-white">
             <p className="text-xs font-medium opacity-90 mb-1">Tier Qualifying</p>
             <p className="text-2xl font-bold tracking-tight" data-testid="text-tqp">
               {results.totalTQP.toLocaleString()}

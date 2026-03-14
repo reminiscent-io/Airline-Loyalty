@@ -5,8 +5,8 @@ import { TIER_CONFIGS, type TierStatus } from "@shared/schema";
 import { cn } from "@/lib/utils";
 
 interface SouthwestTierCardProps {
-  tier: TierStatus;
-  highlighted?: boolean;
+  readonly tier: TierStatus;
+  readonly highlighted?: boolean;
 }
 
 export function SouthwestTierCard({ tier, highlighted = false }: SouthwestTierCardProps) {
@@ -78,8 +78,8 @@ export function SouthwestTierCard({ tier, highlighted = false }: SouthwestTierCa
       <CardContent>
         <ul className="space-y-2.5">
           {config.benefits.map((benefit, index) => (
-            <li 
-              key={index} 
+            <li
+              key={benefit}
               className="flex items-start gap-2 text-sm"
               data-testid={`text-benefit-${tier}-${index}`}
             >

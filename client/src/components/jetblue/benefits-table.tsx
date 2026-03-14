@@ -41,14 +41,14 @@ export function JetBlueBenefitsTable() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="bg-gradient-to-r from-[#002244] to-[#0099CC] text-white">
+              <tr className="bg-gradient-to-r from-jetblue-navy to-jetblue-cyan text-white">
                 <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-left font-semibold rounded-tl-lg text-xs sm:text-sm whitespace-nowrap">
                   Benefit
                 </th>
                 <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-semibold text-xs sm:text-sm whitespace-nowrap">
                   TrueBlue
                 </th>
-                <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-semibold text-xs sm:text-sm whitespace-nowrap bg-[#0099CC]/20">
+                <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-semibold text-xs sm:text-sm whitespace-nowrap bg-jetblue-cyan/20">
                   Mosaic 1
                 </th>
                 <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-semibold text-xs sm:text-sm whitespace-nowrap">
@@ -64,8 +64,8 @@ export function JetBlueBenefitsTable() {
             </thead>
             <tbody className="divide-y divide-gray-200">
               {benefits.map((benefit, index) => (
-                <tr 
-                  key={index}
+                <tr
+                  key={benefit.name}
                   className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
                   data-testid={`row-benefit-${index}`}
                 >
@@ -75,7 +75,7 @@ export function JetBlueBenefitsTable() {
                   <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
                     {renderCell(benefit.trueblue)}
                   </td>
-                  <td className="px-3 sm:px-4 md:px-6 py-3 text-center bg-[#0099CC]/5">
+                  <td className="px-3 sm:px-4 md:px-6 py-3 text-center bg-jetblue-cyan/5">
                     {renderCell(benefit.mosaic1)}
                   </td>
                   <td className="px-3 sm:px-4 md:px-6 py-3 text-center">

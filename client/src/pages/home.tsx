@@ -7,7 +7,7 @@ const airlines = [
     name: "American Airlines",
     path: "/american",
     icon: Globe,
-    color: "from-[#0078D2] to-[#4a9fe7]",
+    color: "from-american-blue to-american-blue/70",
     description: "AAdvantage miles and Loyalty Points calculator",
     features: ["Elite Qualifying Miles", "Loyalty Points", "Systemwide Upgrades"]
   },
@@ -15,7 +15,7 @@ const airlines = [
     name: "Atmos Airways",
     path: "/atmos",
     icon: Sparkles,
-    color: "from-[#014A6E] to-[#01628C]",
+    color: "from-atmos-teal to-atmos-blue",
     description: "2026 program with new status points system",
     features: ["Status Points", "Redeemable Points", "Communities Benefits"]
   },
@@ -23,7 +23,7 @@ const airlines = [
     name: "Delta Air Lines",
     path: "/delta",
     icon: TrendingUp,
-    color: "from-[#003366] to-[#004080]",
+    color: "from-delta-dark to-delta-dark/80",
     description: "SkyMiles and Medallion Status calculator",
     features: ["Medallion Qualification Miles", "Medallion Qualification Dollars", "SkyMiles Earnings"]
   },
@@ -31,7 +31,7 @@ const airlines = [
     name: "JetBlue",
     path: "/jetblue",
     icon: Gift,
-    color: "from-[#003876] to-[#0056b3]",
+    color: "from-jetblue-mid to-jetblue-cyan",
     description: "TrueBlue points and Mosaic status calculator",
     features: ["TrueBlue Points", "Mosaic Qualification", "Tiles Progress"]
   },
@@ -39,7 +39,7 @@ const airlines = [
     name: "Southwest Airlines",
     path: "/southwest",
     icon: Plane,
-    color: "from-[#304CB2] to-[#4a6bc9]",
+    color: "from-southwest-blue to-southwest-blue/70",
     description: "Rapid Rewards points calculator with Companion Pass tracker",
     features: ["Tier Qualifying Points", "Companion Pass Progress", "Credit Card Bonuses"]
   },
@@ -47,7 +47,7 @@ const airlines = [
     name: "United Airlines",
     path: "/united",
     icon: Users,
-    color: "from-[#0033A1] to-[#3366cc]",
+    color: "from-united-navy to-united-blue",
     description: "MileagePlus Premier status tracker and PQP calculator",
     features: ["Premier Qualifying Points", "Premier Qualifying Flights", "Plus Points"]
   }
@@ -90,8 +90,8 @@ export default function Home() {
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-2">
-                      {airline.features.map((feature, index) => (
-                        <li key={index} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      {airline.features.map((feature) => (
+                        <li key={feature} className="flex items-start gap-2 text-sm text-muted-foreground">
                           <span className="text-primary mt-0.5">•</span>
                           <span>{feature}</span>
                         </li>
