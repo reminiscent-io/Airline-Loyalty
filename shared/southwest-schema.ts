@@ -1,18 +1,18 @@
 import { z } from "zod";
 
 // Southwest Rapid Rewards Tier Types
-export type TierStatus = "member" | "a-list" | "a-list-preferred";
+export type SouthwestTierStatus = "member" | "a-list" | "a-list-preferred";
 
 // Fare Types with different earn rates
-export type FareType = "basic" | "choice" | "choice-preferred" | "choice-extra";
+export type SouthwestFareType = "basic" | "choice" | "choice-preferred" | "choice-extra";
 
-export interface FareTypeConfig {
-  id: FareType;
+export interface SouthwestFareTypeConfig {
+  id: SouthwestFareType;
   name: string;
   pointsPerDollar: number; // Base earn rate for all three point types (RR, CQP, TQP)
 }
 
-export const FARE_TYPES: Record<FareType, FareTypeConfig> = {
+export const SOUTHWEST_FARE_TYPES: Record<SouthwestFareType, SouthwestFareTypeConfig> = {
   "basic": {
     id: "basic",
     name: "Basic",
@@ -36,10 +36,10 @@ export const FARE_TYPES: Record<FareType, FareTypeConfig> = {
 };
 
 // Credit Card Types
-export type CreditCardType = "none" | "plus" | "premier" | "priority" | "business-premier" | "business-performance";
+export type SouthwestCreditCardType = "none" | "plus" | "premier" | "priority" | "business-premier" | "business-performance";
 
-export interface CreditCardConfig {
-  id: CreditCardType;
+export interface SouthwestCreditCardConfig {
+  id: SouthwestCreditCardType;
   name: string;
   pointsPerDollarSpend: number; // RR points per dollar of non-flight spend
   annualFee: number;
@@ -52,7 +52,7 @@ export interface CreditCardConfig {
   flightCQPBonus: number; // Additional CQP per dollar on Southwest flight purchases
 }
 
-export const CREDIT_CARDS: Record<CreditCardType, CreditCardConfig> = {
+export const SOUTHWEST_CREDIT_CARDS: Record<SouthwestCreditCardType, SouthwestCreditCardConfig> = {
   "none": {
     id: "none",
     name: "No Credit Card",
@@ -134,8 +134,8 @@ export const CREDIT_CARDS: Record<CreditCardType, CreditCardConfig> = {
 };
 
 // Tier Configuration with correct thresholds
-export interface TierConfig {
-  id: TierStatus;
+export interface SouthwestTierConfig {
+  id: SouthwestTierStatus;
   name: string;
   color: string;
   rrBonusMultiplier: number; // Tier bonus on RR points only (0%, 25%, 100%)
@@ -144,7 +144,7 @@ export interface TierConfig {
   benefits: string[];
 }
 
-export const TIER_CONFIGS: Record<TierStatus, TierConfig> = {
+export const SOUTHWEST_TIER_CONFIGS: Record<SouthwestTierStatus, SouthwestTierConfig> = {
   "member": {
     id: "member",
     name: "Rapid Rewards Member",
@@ -195,53 +195,53 @@ export const TIER_CONFIGS: Record<TierStatus, TierConfig> = {
 };
 
 // Companion Pass Constants
-export const COMPANION_PASS_THRESHOLD_FLIGHTS = 100;
-export const COMPANION_PASS_THRESHOLD_CQP = 135000;
+export const SOUTHWEST_COMPANION_PASS_THRESHOLD_FLIGHTS = 100;
+export const SOUTHWEST_COMPANION_PASS_THRESHOLD_CQP = 135000;
 
 // Calculator Input Schema
-export const calculatorInputSchema = z.object({
+export const southwestCalculatorInputSchema = z.object({
   // Flight information
   flightSpending: z.number().min(0).default(0),
   fareType: z.enum(["basic", "choice", "choice-preferred", "choice-extra"]).default("choice"),
   currentTier: z.enum(["member", "a-list", "a-list-preferred"]).default("member"),
   flightsTaken: z.number().int().min(0).default(0),
-  
+
   // Credit card information
   creditCard: z.enum(["none", "plus", "premier", "priority", "business-premier", "business-performance"]).default("none"),
   cardSpending: z.number().min(0).default(0), // Annual non-flight spending on the card
   includeSignUpBonus: z.boolean().default(false),
   includeAnnualBonus: z.boolean().default(false),
-  
+
   // Partner points
   partnerPoints: z.number().min(0).default(0), // Points from hotels, dining, shopping, etc.
 });
 
-export type CalculatorInput = z.infer<typeof calculatorInputSchema>;
+export type SouthwestCalculatorInput = z.infer<typeof southwestCalculatorInputSchema>;
 
 // Calculation Results with three point types
-export interface CalculationResults {
+export interface SouthwestCalculationResults {
   // Point totals by type
   totalRRPoints: number; // Redeemable Rewards (for booking flights)
   totalCQP: number; // Companion Qualifying Points
   totalTQP: number; // Tier Qualifying Points
-  
+
   // Breakdown by source
   flightRRPoints: number;
   flightCQP: number;
   flightTQP: number;
-  
+
   cardRRPoints: number;
   cardCQP: number;
   cardTQP: number;
-  
+
   partnerRRPoints: number;
   partnerCQP: number;
-  
+
   // Tier status
-  currentTier: TierStatus;
-  nextTier: TierStatus | null;
+  currentTier: SouthwestTierStatus;
+  nextTier: SouthwestTierStatus | null;
   qualifiedForNextTier: boolean;
-  
+
   progressToNextTier: {
     byFlights: number; // 0-100 percentage
     byTQP: number; // 0-100 percentage
@@ -250,7 +250,7 @@ export interface CalculationResults {
     tqpCurrent: number;
     tqpNeeded: number;
   };
-  
+
   // Companion Pass
   companionPassProgress: {
     byFlights: number; // 0-100 percentage
@@ -261,7 +261,7 @@ export interface CalculationResults {
     cqpNeeded: number;
   };
   companionPassQualified: boolean;
-  
+
   // Financial analysis
   redemptionValue: number; // Estimated value of RR points at 1.4¢ each
   totalCost: number; // Flight spending + card spending + annual fee

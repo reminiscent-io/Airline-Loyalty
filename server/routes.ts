@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "node:http";
-import { calculatorInputSchema } from "@shared/schema";
-import { calculateRewards } from "./southwest-calculator";
+import { southwestCalculatorInputSchema } from "@shared/southwest-schema";
+import { calculateSouthwestRewards } from "./southwest-calculator";
 import { americanCalculatorInputSchema } from "@shared/american-schema";
 import { calculateAmericanRewards } from "./american-calculator";
 import { unitedCalculatorInputSchema } from "@shared/united-schema";
@@ -15,15 +15,15 @@ import { calculateDelta } from "./delta-calculator";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Southwest Rapid Rewards Calculator API
-  app.post("/api/calculate", async (req, res) => {
+  app.post("/api/southwest/calculate", async (req, res) => {
     try {
-      const input = calculatorInputSchema.parse(req.body);
-      const results = calculateRewards(input);
+      const input = southwestCalculatorInputSchema.parse(req.body);
+      const results = calculateSouthwestRewards(input);
       res.json(results);
     } catch (error) {
-      res.status(400).json({ 
-        error: "Invalid input", 
-        details: error instanceof Error ? error.message : "Unknown error" 
+      res.status(400).json({
+        error: "Invalid input",
+        details: error instanceof Error ? error.message : "Unknown error"
       });
     }
   });

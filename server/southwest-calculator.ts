@@ -1,21 +1,21 @@
-import { 
-  type CalculatorInput, 
-  type CalculationResults, 
-  type TierStatus,
-  TIER_CONFIGS,
-  FARE_TYPES,
-  CREDIT_CARDS,
-  COMPANION_PASS_THRESHOLD_FLIGHTS,
-  COMPANION_PASS_THRESHOLD_CQP
-} from "@shared/schema";
+import {
+  type SouthwestCalculatorInput,
+  type SouthwestCalculationResults,
+  type SouthwestTierStatus,
+  SOUTHWEST_TIER_CONFIGS,
+  SOUTHWEST_FARE_TYPES,
+  SOUTHWEST_CREDIT_CARDS,
+  SOUTHWEST_COMPANION_PASS_THRESHOLD_FLIGHTS,
+  SOUTHWEST_COMPANION_PASS_THRESHOLD_CQP
+} from "@shared/southwest-schema";
 
 const RR_POINT_VALUE = 0.014; // 1.4¢ per point
 
-export function calculateRewards(input: CalculatorInput): CalculationResults {
-  const { 
-    flightSpending, 
+export function calculateSouthwestRewards(input: SouthwestCalculatorInput): SouthwestCalculationResults {
+  const {
+    flightSpending,
     fareType,
-    currentTier, 
+    currentTier,
     flightsTaken,
     creditCard,
     cardSpending,
@@ -24,83 +24,83 @@ export function calculateRewards(input: CalculatorInput): CalculationResults {
     partnerPoints
   } = input;
 
-  const tierConfig = TIER_CONFIGS[currentTier];
-  const fareTypeConfig = FARE_TYPES[fareType];
-  const cardConfig = CREDIT_CARDS[creditCard];
-  
+  const tierConfig = SOUTHWEST_TIER_CONFIGS[currentTier];
+  const fareTypeConfig = SOUTHWEST_FARE_TYPES[fareType];
+  const cardConfig = SOUTHWEST_CREDIT_CARDS[creditCard];
+
   // ======================
   // FLIGHT POINTS CALCULATION
   // ======================
-  
+
   // Base flight points (same for all three point types: RR, CQP, TQP)
   const baseFlightPoints = flightSpending * fareTypeConfig.pointsPerDollar;
-  
+
   // RR points get tier bonus, but CQP and TQP do not
   let flightRRPoints = baseFlightPoints * (1 + tierConfig.rrBonusMultiplier);
   let flightCQP = baseFlightPoints; // No tier bonus on CQP
   const flightTQP = baseFlightPoints; // No tier bonus on TQP
-  
+
   // Add credit card flight purchase bonuses (on top of fare + tier)
   if (creditCard !== "none") {
     flightRRPoints += flightSpending * cardConfig.flightRRBonus;
     flightCQP += flightSpending * cardConfig.flightCQPBonus;
   }
-  
+
   // ======================
   // CREDIT CARD POINTS CALCULATION
   // ======================
-  
+
   let cardRRPoints = 0;
   let cardCQP = 0;
   let cardTQP = 0;
-  
+
   if (creditCard !== "none") {
     // Base points from card spending (non-flight purchases)
     const cardBaseRRPoints = cardSpending * cardConfig.pointsPerDollarSpend;
-    
+
     // Annual bonuses (if included) - separate for RR and CQP
     const cardAnnualRR = includeAnnualBonus ? cardConfig.annualRRBonus : 0;
     const cardAnnualCQP = includeAnnualBonus ? cardConfig.annualCQPBonus : 0;
-    
+
     // Calculate total card spending (flight + non-flight)
     // Note: Flight spending is assumed to be on the credit card if a card is selected
     const totalCardSpend = flightSpending + cardSpending;
-    
+
     // Sign-up bonus (if included and spend requirement met)
     // Spend requirement is based on total card spending (flight + non-flight)
     const signUpBonusQualifies = includeSignUpBonus && totalCardSpend >= cardConfig.signUpSpendRequirement;
     const signUpBonus = signUpBonusQualifies ? cardConfig.signUpBonus : 0;
-    
+
     // TQP boost: awarded per $5,000 in TOTAL credit card spending
     const tqpBoostCount = Math.floor(totalCardSpend / 5000);
     cardTQP = tqpBoostCount * cardConfig.tqpBoostPer5k;
-    
+
     // Total card points - RR and CQP have different annual bonuses
     cardRRPoints = cardBaseRRPoints + cardAnnualRR + signUpBonus;
     cardCQP = cardBaseRRPoints + cardAnnualCQP + signUpBonus; // Card spend + CQP annual bonus + sign-up bonus
   }
-  
+
   // ======================
   // PARTNER POINTS
   // ======================
-  
+
   // Partner points count toward RR and CQP, but NOT TQP
   const partnerRRPoints = partnerPoints;
   const partnerCQP = partnerPoints;
-  
+
   // ======================
   // TOTALS BY POINT TYPE
   // ======================
-  
+
   const totalRRPoints = flightRRPoints + cardRRPoints + partnerRRPoints;
   const totalCQP = flightCQP + cardCQP + partnerCQP;
   const totalTQP = flightTQP + cardTQP; // No partner points for TQP
-  
+
   // ======================
   // TIER PROGRESSION
   // ======================
-  
-  let nextTier: TierStatus | null = null;
+
+  let nextTier: SouthwestTierStatus | null = null;
   let qualifiedForNextTier = false;
   let progressByFlights = 0;
   let progressByTQP = 0;
@@ -109,45 +109,45 @@ export function calculateRewards(input: CalculatorInput): CalculationResults {
 
   if (currentTier === "member") {
     nextTier = "a-list";
-    flightsNeeded = TIER_CONFIGS["a-list"].qualifyingFlights;
-    tqpNeeded = TIER_CONFIGS["a-list"].qualifyingTQP;
-    
+    flightsNeeded = SOUTHWEST_TIER_CONFIGS["a-list"].qualifyingFlights;
+    tqpNeeded = SOUTHWEST_TIER_CONFIGS["a-list"].qualifyingTQP;
+
     // Qualification is OR logic: either flights OR TQP threshold
     qualifiedForNextTier = (flightsTaken >= flightsNeeded) || (totalTQP >= tqpNeeded);
-    
+
     progressByFlights = (flightsTaken / flightsNeeded) * 100;
     progressByTQP = (totalTQP / tqpNeeded) * 100;
-    
+
   } else if (currentTier === "a-list") {
     nextTier = "a-list-preferred";
-    flightsNeeded = TIER_CONFIGS["a-list-preferred"].qualifyingFlights;
-    tqpNeeded = TIER_CONFIGS["a-list-preferred"].qualifyingTQP;
-    
+    flightsNeeded = SOUTHWEST_TIER_CONFIGS["a-list-preferred"].qualifyingFlights;
+    tqpNeeded = SOUTHWEST_TIER_CONFIGS["a-list-preferred"].qualifyingTQP;
+
     // Qualification is OR logic: either flights OR TQP threshold
     qualifiedForNextTier = (flightsTaken >= flightsNeeded) || (totalTQP >= tqpNeeded);
-    
+
     progressByFlights = (flightsTaken / flightsNeeded) * 100;
     progressByTQP = (totalTQP / tqpNeeded) * 100;
   }
-  
+
   // ======================
   // COMPANION PASS
   // ======================
-  
+
   // Companion Pass uses OR logic: either 100 flights OR 135,000 CQP
-  const companionPassQualified = (flightsTaken >= COMPANION_PASS_THRESHOLD_FLIGHTS) || 
-                                  (totalCQP >= COMPANION_PASS_THRESHOLD_CQP);
-  
-  const progressByFlightsCP = (flightsTaken / COMPANION_PASS_THRESHOLD_FLIGHTS) * 100;
-  const progressByCQP = (totalCQP / COMPANION_PASS_THRESHOLD_CQP) * 100;
-  
+  const companionPassQualified = (flightsTaken >= SOUTHWEST_COMPANION_PASS_THRESHOLD_FLIGHTS) ||
+                                  (totalCQP >= SOUTHWEST_COMPANION_PASS_THRESHOLD_CQP);
+
+  const progressByFlightsCP = (flightsTaken / SOUTHWEST_COMPANION_PASS_THRESHOLD_FLIGHTS) * 100;
+  const progressByCQP = (totalCQP / SOUTHWEST_COMPANION_PASS_THRESHOLD_CQP) * 100;
+
   // ======================
   // FINANCIAL ANALYSIS
   // ======================
-  
+
   const redemptionValue = totalRRPoints * RR_POINT_VALUE;
-  const totalCost = creditCard !== "none" 
-    ? flightSpending + cardSpending + (cardConfig.annualFee || 0) 
+  const totalCost = creditCard !== "none"
+    ? flightSpending + cardSpending + (cardConfig.annualFee || 0)
     : flightSpending;
   const returnOnSpend = totalCost > 0 ? (redemptionValue / totalCost) * 100 : 0;
 
@@ -156,24 +156,24 @@ export function calculateRewards(input: CalculatorInput): CalculationResults {
     totalRRPoints: Math.round(totalRRPoints),
     totalCQP: Math.round(totalCQP),
     totalTQP: Math.round(totalTQP),
-    
+
     // Breakdown by source
     flightRRPoints: Math.round(flightRRPoints),
     flightCQP: Math.round(flightCQP),
     flightTQP: Math.round(flightTQP),
-    
+
     cardRRPoints: Math.round(cardRRPoints),
     cardCQP: Math.round(cardCQP),
     cardTQP: Math.round(cardTQP),
-    
+
     partnerRRPoints: Math.round(partnerRRPoints),
     partnerCQP: Math.round(partnerCQP),
-    
+
     // Tier status
     currentTier,
     nextTier,
     qualifiedForNextTier,
-    
+
     progressToNextTier: {
       byFlights: Math.min(progressByFlights, 100),
       byTQP: Math.min(progressByTQP, 100),
@@ -182,18 +182,18 @@ export function calculateRewards(input: CalculatorInput): CalculationResults {
       tqpCurrent: Math.round(totalTQP),
       tqpNeeded,
     },
-    
+
     // Companion Pass
     companionPassProgress: {
       byFlights: Math.min(progressByFlightsCP, 100),
       byCQP: Math.min(progressByCQP, 100),
       flightsCurrent: flightsTaken,
-      flightsNeeded: COMPANION_PASS_THRESHOLD_FLIGHTS,
+      flightsNeeded: SOUTHWEST_COMPANION_PASS_THRESHOLD_FLIGHTS,
       cqpCurrent: Math.round(totalCQP),
-      cqpNeeded: COMPANION_PASS_THRESHOLD_CQP,
+      cqpNeeded: SOUTHWEST_COMPANION_PASS_THRESHOLD_CQP,
     },
     companionPassQualified,
-    
+
     // Financial analysis
     redemptionValue: Math.round(redemptionValue),
     totalCost: Math.round(totalCost),

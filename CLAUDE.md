@@ -38,7 +38,7 @@ Each airline (Southwest, American, United, Delta, JetBlue, Atmos) follows an ide
 
 **Server calculator** (`server/<airline>-calculator.ts`): Stateless function taking validated input, returning points/miles, tier progress, ROI.
 
-**API endpoint** (`server/routes.ts`): `POST /api/calculate` (Southwest) or `POST /api/<airline>/calculate`.
+**API endpoint** (`server/routes.ts`): `POST /api/<airline>/calculate`.
 
 **Client components** (`client/src/components/<airline>/`): Each folder has 5 files — `calculator.tsx`, `tier-card.tsx`, `results-panel.tsx`, `benefits-table.tsx`, `credit-card-table.tsx`.
 
