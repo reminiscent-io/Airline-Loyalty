@@ -1,5 +1,7 @@
 # JetBlue TrueBlue Program
 
+> Last verified: March 2026
+
 ## Point Currencies
 
 | Currency | Purpose | Earns From |
@@ -19,13 +21,25 @@
 
 No flight/segment requirement — tiles are the sole qualification metric.
 
-## Points Earning
+**Status extension**: Starting 2026, Mosaic status and benefits continue through **January 31** of the following year (previously expired December 31). Qualification is still based on spend completed by December 31.
+
+## Points Earning (2026 Change — Tiered Mosaic Bonus)
 
 ```
 Flight Points = Spend × (Fare Base Rate + Mosaic Bonus) + Card Flight Bonus
 ```
 
-**Mosaic bonus is uniform**: All Mosaic tiers (1-4) grant the same +3 points per dollar on flights. There is no incremental point bonus for higher Mosaic levels.
+**Major 2026 change**: Effective February 1, 2026, Mosaic bonus points are **no longer uniform** across all tiers:
+
+| Mosaic Tier | Bonus Points/$ | Total with 6x Fare |
+|-------------|---------------|---------------------|
+| Member | +0 | 6x |
+| Mosaic 1 | +3 | 9x |
+| Mosaic 2 | +3 | 9x |
+| Mosaic 3 | **+4** | **10x** |
+| Mosaic 4 | **+5** | **11x** |
+
+Previously all Mosaic tiers earned +3. Now Mosaic 3 and 4 earn higher bonuses.
 
 ## Fare Types
 
@@ -46,6 +60,23 @@ Two sources with **different ratios**:
 - **Card spending**: 1 tile per **$1,000** spent (only JetBlue Plus and Business cards with `mosaicBoost: true`)
 
 This 10:1 ratio means flight spending is far more efficient for Mosaic qualification.
+
+### Family Tiles (New — February 1, 2026)
+
+Tiles earned by children (ages 12 and under) now count toward the listed adult's Mosaic status and perks. This is the first family tile-sharing program from a U.S. airline.
+
+## Mosaic Benefits Changes (2026)
+
+### Checked Baggage (Change)
+- **Mosaic 1**: 1 free checked bag (reduced from 2 in 2025)
+- **Mosaic 2, 3, 4**: 2 free checked bags (unchanged)
+
+### Even More Space Seat Upgrades (Change)
+- **Mosaic 1 & 2**: Up to 2 complimentary upgrades
+- **Mosaic 3 & 4**: Up to 4 complimentary upgrades
+
+### Move to Mint Certificates
+- **Mosaic 4**: 4 certificates per year (doubled from 2 in 2025)
 
 ## Credit Cards
 
