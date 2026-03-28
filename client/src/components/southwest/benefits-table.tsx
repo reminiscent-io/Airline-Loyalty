@@ -1,6 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Check, X } from "lucide-react";
-import { TIER_CONFIGS } from "@shared/schema";
 
 export function SouthwestBenefitsTable() {
   const benefits = [

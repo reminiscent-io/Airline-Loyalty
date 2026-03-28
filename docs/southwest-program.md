@@ -81,7 +81,7 @@ Southwest credit cards are issued by Chase. The current lineup (2026):
 
 ## Code Locations
 
-- Schema & configs: `shared/schema.ts`
+- Schema & configs: `shared/southwest-schema.ts`
 - Calculator logic: `server/southwest-calculator.ts`
 - Components: `client/src/components/southwest/`
 - Page: `client/src/pages/southwest.tsx`

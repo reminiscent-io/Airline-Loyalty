@@ -2,11 +2,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { TrendingUp, Award, Heart, Plane, CreditCard, Building2, DollarSign, Check } from "lucide-react";
-import { type CalculationResults, TIER_CONFIGS } from "@shared/schema";
+import { type SouthwestCalculationResults, SOUTHWEST_TIER_CONFIGS } from "@shared/southwest-schema";
 import { Separator } from "@/components/ui/separator";
 
 interface SouthwestResultsPanelProps {
-  readonly results: CalculationResults | null;
+  readonly results: SouthwestCalculationResults | null;
 }
 
 export function SouthwestResultsPanel({ results }: SouthwestResultsPanelProps) {
@@ -23,8 +23,8 @@ export function SouthwestResultsPanel({ results }: SouthwestResultsPanelProps) {
     );
   }
 
-  const currentTierConfig = TIER_CONFIGS[results.currentTier];
-  const nextTierConfig = results.nextTier ? TIER_CONFIGS[results.nextTier] : null;
+  const currentTierConfig = SOUTHWEST_TIER_CONFIGS[results.currentTier];
+  const nextTierConfig = results.nextTier ? SOUTHWEST_TIER_CONFIGS[results.nextTier] : null;
 
   return (
     <Card className="border-2 border-southwest-blue/20" data-testid="card-results">
@@ -160,12 +160,12 @@ export function SouthwestResultsPanel({ results }: SouthwestResultsPanelProps) {
                     let nextYearStatus = "Rapid Rewards Member";
                     let badgeClass = "bg-gray-500 text-white";
                     
-                    if (flights >= TIER_CONFIGS["a-list-preferred"].qualifyingFlights || 
-                        tqp >= TIER_CONFIGS["a-list-preferred"].qualifyingTQP) {
+                    if (flights >= SOUTHWEST_TIER_CONFIGS["a-list-preferred"].qualifyingFlights || 
+                        tqp >= SOUTHWEST_TIER_CONFIGS["a-list-preferred"].qualifyingTQP) {
                       nextYearStatus = "A-List Preferred";
                       badgeClass = "bg-southwest-red text-white";
-                    } else if (flights >= TIER_CONFIGS["a-list"].qualifyingFlights || 
-                               tqp >= TIER_CONFIGS["a-list"].qualifyingTQP) {
+                    } else if (flights >= SOUTHWEST_TIER_CONFIGS["a-list"].qualifyingFlights || 
+                               tqp >= SOUTHWEST_TIER_CONFIGS["a-list"].qualifyingTQP) {
                       nextYearStatus = "A-List";
                       badgeClass = "bg-southwest-gold text-southwest-navy";
                     }
@@ -183,10 +183,10 @@ export function SouthwestResultsPanel({ results }: SouthwestResultsPanelProps) {
 
             {/* Sequential Progress Tracking */}
             {(() => {
-              const aListFlights = TIER_CONFIGS["a-list"].qualifyingFlights;
-              const aListTQP = TIER_CONFIGS["a-list"].qualifyingTQP;
-              const aListPreferredFlights = TIER_CONFIGS["a-list-preferred"].qualifyingFlights;
-              const aListPreferredTQP = TIER_CONFIGS["a-list-preferred"].qualifyingTQP;
+              const aListFlights = SOUTHWEST_TIER_CONFIGS["a-list"].qualifyingFlights;
+              const aListTQP = SOUTHWEST_TIER_CONFIGS["a-list"].qualifyingTQP;
+              const aListPreferredFlights = SOUTHWEST_TIER_CONFIGS["a-list-preferred"].qualifyingFlights;
+              const aListPreferredTQP = SOUTHWEST_TIER_CONFIGS["a-list-preferred"].qualifyingTQP;
               
               const currentFlights = results.progressToNextTier.flightsCurrent;
               const currentTQP = results.totalTQP;

@@ -1,18 +1,17 @@
 import { useState } from "react";
-import { Card } from "@/components/ui/card";
-import { Heart, Plane, Trophy, Check } from "lucide-react";
-import { SouthwestTierCard } from "@/components/southwest/southwest-tier-card";
+import { Heart, Plane, Trophy } from "lucide-react";
+import { SouthwestTierCard } from "@/components/southwest/tier-card";
 import { TierCarousel } from "@/components/tier-carousel";
-import { SouthwestCalculator } from "@/components/southwest/southwest-calculator";
-import { SouthwestResultsPanel } from "@/components/southwest/southwest-results-panel";
+import { SouthwestCalculator } from "@/components/southwest/calculator";
+import { SouthwestResultsPanel } from "@/components/southwest/results-panel";
 import { CompanionPassCard } from "@/components/companion-pass-card";
-import { SouthwestBenefitsTable } from "@/components/southwest/southwest-benefits-table";
-import { SouthwestCreditCardTable } from "@/components/southwest/southwest-credit-card-table";
+import { SouthwestBenefitsTable } from "@/components/southwest/benefits-table";
+import { SouthwestCreditCardTable } from "@/components/southwest/credit-card-table";
 import { HeroPattern } from "@/components/hero-pattern";
-import { TIER_CONFIGS, type TierStatus, type CalculationResults } from "@shared/schema";
+import { type SouthwestCalculationResults } from "@shared/southwest-schema";
 
 export default function Southwest() {
-  const [calculationResults, setCalculationResults] = useState<CalculationResults | null>(null);
+  const [calculationResults, setCalculationResults] = useState<SouthwestCalculationResults | null>(null);
 
   return (
     <div className="min-h-screen bg-southwest-lightgray">

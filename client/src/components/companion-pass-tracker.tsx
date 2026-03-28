@@ -2,10 +2,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Heart, Users, Star } from "lucide-react";
-import { type CalculationResults, COMPANION_PASS_THRESHOLD_FLIGHTS, COMPANION_PASS_THRESHOLD_CQP } from "@shared/schema";
+import { type SouthwestCalculationResults } from "@shared/southwest-schema";
 
 interface CompanionPassTrackerProps {
-  readonly results: CalculationResults | null;
+  readonly results: SouthwestCalculationResults | null;
 }
 
 export function CompanionPassTracker({ results }: CompanionPassTrackerProps) {

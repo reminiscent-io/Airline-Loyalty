@@ -1,16 +1,16 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Heart, Check } from "lucide-react";
-import { TIER_CONFIGS, type TierStatus } from "@shared/schema";
+import { SOUTHWEST_TIER_CONFIGS, type SouthwestTierStatus } from "@shared/southwest-schema";
 import { cn } from "@/lib/utils";
 
 interface SouthwestTierCardProps {
-  readonly tier: TierStatus;
+  readonly tier: SouthwestTierStatus;
   readonly highlighted?: boolean;
 }
 
 export function SouthwestTierCard({ tier, highlighted = false }: SouthwestTierCardProps) {
-  const config = TIER_CONFIGS[tier];
+  const config = SOUTHWEST_TIER_CONFIGS[tier];
 
   const tierColors = {
     member: "bg-secondary text-secondary-foreground",

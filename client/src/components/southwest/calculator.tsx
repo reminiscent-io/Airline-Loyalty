@@ -9,28 +9,28 @@ import { Calculator as CalculatorIcon, Plane, CreditCard, Building2 } from "luci
 import { useToast } from "@/hooks/use-toast";
 import { useDebounce } from "@/hooks/use-debounce";
 import { apiRequest } from "@/lib/queryClient";
-import { type TierStatus, type FareType, type CreditCardType, type CalculationResults, type CalculatorInput, FARE_TYPES, CREDIT_CARDS } from "@shared/schema";
+import { type SouthwestTierStatus, type SouthwestFareType, type SouthwestCreditCardType, type SouthwestCalculationResults, type SouthwestCalculatorInput, SOUTHWEST_FARE_TYPES, SOUTHWEST_CREDIT_CARDS } from "@shared/southwest-schema";
 import { Separator } from "@/components/ui/separator";
 
 interface SouthwestCalculatorProps {
-  readonly onCalculate: (results: CalculationResults) => void;
+  readonly onCalculate: (results: SouthwestCalculationResults) => void;
 }
 
 export function SouthwestCalculator({ onCalculate }: SouthwestCalculatorProps) {
   // Flight inputs
   const [flightSpending, setFlightSpending] = useState<string>("1000");
-  const [fareType, setFareType] = useState<FareType>("choice");
-  const [currentTier, setCurrentTier] = useState<TierStatus>("member");
+  const [fareType, setFareType] = useState<SouthwestFareType>("choice");
+  const [currentTier, setCurrentTier] = useState<SouthwestTierStatus>("member");
   const [flightsTaken, setFlightsTaken] = useState<string>("1");
   
   // Credit card inputs
-  const [creditCard, setCreditCard] = useState<CreditCardType>("none");
+  const [creditCard, setCreditCard] = useState<SouthwestCreditCardType>("none");
   const [cardSpending, setCardSpending] = useState<string>("0");
   const [includeSignUpBonus, setIncludeSignUpBonus] = useState(false);
   const [includeAnnualBonus, setIncludeAnnualBonus] = useState(false);
   
   // Handle credit card change - clear card spending when switching to "none"
-  const handleCreditCardChange = (value: CreditCardType) => {
+  const handleCreditCardChange = (value: SouthwestCreditCardType) => {
     setCreditCard(value);
     if (value === "none") {
       setCardSpending("0");
@@ -50,9 +50,9 @@ export function SouthwestCalculator({ onCalculate }: SouthwestCalculatorProps) {
   const { toast } = useToast();
 
   const calculateMutation = useMutation({
-    mutationFn: async (input: CalculatorInput) => {
-      const response = await apiRequest("POST", "/api/calculate", input);
-      return await response.json() as CalculationResults;
+    mutationFn: async (input: SouthwestCalculatorInput) => {
+      const response = await apiRequest("POST", "/api/southwest/calculate", input);
+      return await response.json() as SouthwestCalculationResults;
     },
     onSuccess: (data) => {
       onCalculate(data);
@@ -68,7 +68,7 @@ export function SouthwestCalculator({ onCalculate }: SouthwestCalculatorProps) {
 
   // Automatic calculation on value changes
   useEffect(() => {
-    const input: CalculatorInput = {
+    const input: SouthwestCalculatorInput = {
       flightSpending: Number.parseFloat(debouncedFlightSpending) || 0,
       fareType,
       currentTier,
@@ -92,7 +92,7 @@ export function SouthwestCalculator({ onCalculate }: SouthwestCalculatorProps) {
     includeSignUpBonus,
   ]);
 
-  const selectedCard = CREDIT_CARDS[creditCard];
+  const selectedCard = SOUTHWEST_CREDIT_CARDS[creditCard];
   const showCardDetails = creditCard !== "none";
 
   return (
@@ -120,13 +120,13 @@ export function SouthwestCalculator({ onCalculate }: SouthwestCalculatorProps) {
               <Label htmlFor="fareType">Primary Fare Type</Label>
               <Select
                 value={fareType}
-                onValueChange={(value) => setFareType(value as FareType)}
+                onValueChange={(value) => setFareType(value as SouthwestFareType)}
               >
                 <SelectTrigger id="fareType" className="mt-1" data-testid="select-fare-type">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {Object.values(FARE_TYPES).map((fare) => (
+                  {Object.values(SOUTHWEST_FARE_TYPES).map((fare) => (
                     <SelectItem key={fare.id} value={fare.id} data-testid={`option-fare-${fare.id}`}>
                       {fare.name} ({fare.pointsPerDollar} pts/$)
                     </SelectItem>
@@ -160,7 +160,7 @@ export function SouthwestCalculator({ onCalculate }: SouthwestCalculatorProps) {
               <Label htmlFor="currentTier">Current Tier Status</Label>
               <Select
                 value={currentTier}
-                onValueChange={(value) => setCurrentTier(value as TierStatus)}
+                onValueChange={(value) => setCurrentTier(value as SouthwestTierStatus)}
               >
                 <SelectTrigger id="currentTier" className="mt-1" data-testid="select-current-tier">
                   <SelectValue />
@@ -213,13 +213,13 @@ export function SouthwestCalculator({ onCalculate }: SouthwestCalculatorProps) {
               <Label htmlFor="creditCard">Southwest Credit Card</Label>
               <Select
                 value={creditCard}
-                onValueChange={(value) => handleCreditCardChange(value as CreditCardType)}
+                onValueChange={(value) => handleCreditCardChange(value as SouthwestCreditCardType)}
               >
                 <SelectTrigger id="creditCard" className="mt-1" data-testid="select-credit-card">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {Object.values(CREDIT_CARDS).map((card) => (
+                  {Object.values(SOUTHWEST_CREDIT_CARDS).map((card) => (
                     <SelectItem key={card.id} value={card.id} data-testid={`option-card-${card.id}`}>
                       {card.name} {card.annualFee > 0 && `($${card.annualFee}/yr)`}
                     </SelectItem>

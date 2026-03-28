@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Heart, Plane, Check } from "lucide-react";
-import { COMPANION_PASS_THRESHOLD_FLIGHTS, COMPANION_PASS_THRESHOLD_CQP } from "@shared/schema";
+import { SOUTHWEST_COMPANION_PASS_THRESHOLD_FLIGHTS, SOUTHWEST_COMPANION_PASS_THRESHOLD_CQP } from "@shared/southwest-schema";
 
 export function CompanionPassCard() {
   const benefits = [
@@ -40,7 +40,7 @@ export function CompanionPassCard() {
         </CardTitle>
         <CardDescription>
           <span data-testid="text-companion-pass-requirement">
-            Earn {COMPANION_PASS_THRESHOLD_FLIGHTS} flights or {COMPANION_PASS_THRESHOLD_CQP.toLocaleString()} CQP in a calendar year
+            Earn {SOUTHWEST_COMPANION_PASS_THRESHOLD_FLIGHTS} flights or {SOUTHWEST_COMPANION_PASS_THRESHOLD_CQP.toLocaleString()} CQP in a calendar year
           </span>
         </CardDescription>
       </CardHeader>
