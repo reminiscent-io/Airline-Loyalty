@@ -1,5 +1,7 @@
 # Delta SkyMiles / Medallion Program
 
+> Last verified: March 2026
+
 ## Point Currencies
 
 | Currency | Purpose | Earns From |
@@ -9,7 +11,7 @@
 
 ## Tier Qualification (Single Metric)
 
-Status is determined purely by MQD:
+Status is determined purely by MQD. Thresholds are unchanged for 2026:
 
 | Tier | MQD Required |
 |------|-------------|
@@ -37,8 +39,10 @@ Flight Miles = Spend × (Base Fare Rate + Loyalty Bonus Rate)
 
 ## Fare Classes
 
-| Fare Class | Base Rate | MQD Earning |
-|-----------|-----------|-------------|
+Delta updated fare class names. Current structure:
+
+| Fare Class | Base Rate (miles/$) | MQD Earning |
+|-----------|---------------------|-------------|
 | Main Basic (Basic Economy) | **0** | **0** |
 | Comfort Basic | 2 | 1:1 with spend |
 | Classic | 5 | 1:1 with spend |
@@ -47,10 +51,12 @@ Flight Miles = Spend × (Base Fare Rate + Loyalty Bonus Rate)
 
 **Critical gotcha**: Main Basic (Basic Economy) earns **0 miles AND 0 MQD** regardless of status. This is the harshest Basic Economy penalty of any airline.
 
+**Note**: MQD is earned on base fare and carrier-imposed surcharges, excluding government taxes and fees. Delta Vacations packages earn 1 MQD per $1 spent on the entire package price (not just the flight portion).
+
 ## MQD Earning
 
 - **Flights**: 1:1 with spend (except Main Basic = 0)
-- **Card headstart**: Platinum and Reserve cards get $2,500 MQD headstart (automatic)
+- **Card headstart**: Platinum, Platinum Business, Reserve, and Reserve Business cards get $2,500 MQD headstart per card type each qualification year (automatic)
 - **Card spend**: Platinum = 1 MQD per $20; Reserve = 1 MQD per $10 (on total card spend including flights)
 
 ## Credit Cards
@@ -62,6 +68,12 @@ Flight Miles = Spend × (Base Fare Rate + Loyalty Bonus Rate)
 | Reserve | $650 | $2,500 | 1/$10 | ~1.5x average | 100K after $6K |
 
 Card SkyMiles earning is simplified to ~1.5x average across all categories.
+
+## Choice Benefits (2026 Updates)
+
+Starting February 1, 2026:
+- **Diamond members**: Can gift Gold Medallion Status to **4** family members or friends (up from 2)
+- **Platinum members**: Can gift Silver Medallion Status to **4** family members or friends (up from 2)
 
 ## Redemption Discount
 

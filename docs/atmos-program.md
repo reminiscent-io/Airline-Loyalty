@@ -1,4 +1,6 @@
-# Atmos Program (Alaska + Hawaiian — 2026 Restructure)
+# Atmos Rewards Program (Alaska + Hawaiian — 2026 Restructure)
+
+> Last verified: March 2026
 
 ## Point Currencies
 
@@ -7,7 +9,7 @@ Atmos has **two separate point types** (changed from "miles" in 2025):
 | Currency | Purpose | Earns From |
 |----------|---------|------------|
 | Redeemable Points | Booking flights | Flights (with tier bonus), cards, partners |
-| Status Points | Tier qualification | Flights (no tier bonus), select cards, award redemptions |
+| Status Points | Tier qualification | Flights (no tier bonus), select cards, award redemptions, eligible non-airline partners |
 
 **Critical distinction**: Redeemable points get the tier multiplier bonus. Status points do **NOT** get tier bonuses — they always earn at the base rate.
 
@@ -20,9 +22,26 @@ Atmos has **two separate point types** (changed from "miles" in 2025):
 | Platinum | 80,000 | Emerald |
 | Titanium | 135,000 | Emerald |
 
+**2026 increase**: Platinum threshold increased ~7% (from ~75K) and Titanium increased ~35% (from ~100K) compared to 2025.
+
+## Milestone Perks
+
+All Atmos members can select a reward when reaching these status point milestones:
+
+| Milestone | Status Points |
+|-----------|--------------|
+| 1 | 10,000 |
+| 2 | 30,000 |
+| 3 | 55,000 |
+| 4 | 95,000 |
+| 5 | 125,000 |
+| 6 | 150,000 |
+| 7 | 200,000 |
+| 8 | 250,000 |
+
 ## Three Earning Methods
 
-Users choose one earning method per calculation. All earn both redeemable and status points at the same base rate (before tier bonus):
+Users choose one earning method (can change once per calendar year; defaults to spend-based). All earn both redeemable and status points at the same base rate (before tier bonus):
 
 | Method | Base Rate |
 |--------|-----------|
@@ -57,13 +76,17 @@ International First Class gets 350% (an additional 1.75x multiplier applied on t
 
 Status points always earn at 1.0x regardless of tier.
 
+## Status Points from Partners (New 2026)
+
+Members can now earn status points by spending with eligible non-airline partners, including Lyft (1 status point per $1 spent on base fare charges). More partner earning opportunities expected to expand throughout 2026.
+
 ## Credit Cards
 
 **Important**: Not all cards earn status points.
 
 | Card | Annual Fee | Airline Rate | Status Points | Sign-up |
 |------|-----------|-------------|---------------|---------|
-| Summit | $395 | 3x | 1 per $2 + 10K annual | 80K |
+| Summit | $395 | 3x | 1 per $2 + 10K annual (no cap) | 80K |
 | Ascent | $95 | 3x | 1 per $3 | 60K |
 | Business | $95 | 3x | 1 per $3 | 60K |
 | Hawaiian (Barclays) | $99 | 3x | **None** | 70K |
@@ -86,7 +109,12 @@ Spend-based earning method only: earn 1 status point per 20 redeemable points re
 
 ## Communities
 
-Schema defines community types (Huaka'i, Club 49, Global Locals, etc.) but these are **not used** in the calculator — they're display-only in the UI.
+Schema defines community types (Huaka'i, Club 49, Global Locals, etc.) but these are **not used** in the calculator — they're display-only in the UI. Communities with exclusive benefits are planned for later in 2026.
+
+## Other 2026 Updates
+
+- **Free Starlink Wi-Fi**: Being installed across the fleet; free for all Atmos Rewards members
+- **Earning method flexibility**: The three earning methods (distance/spend/segment) are launching later in 2026; members can switch once per calendar year
 
 ## Value Assumptions
 
