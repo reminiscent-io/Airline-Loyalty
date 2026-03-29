@@ -3,6 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { CurrencyInput } from "@/components/ui/currency-input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Calculator as CalculatorIcon, Plane, CreditCard, Building2 } from "lucide-react";
@@ -107,12 +108,11 @@ export function AmericanCalculator({ onCalculate }: AmericanCalculatorProps) {
           <div className="space-y-4 pl-6">
             <div>
               <Label htmlFor="flight-spending">Annual Flight Spending ($)</Label>
-              <Input
+              <CurrencyInput
                 id="flight-spending"
-                type="number"
                 value={flightSpending}
-                onChange={(e) => setFlightSpending(e.target.value)}
-                placeholder="Enter amount"
+                onChange={setFlightSpending}
+                placeholder="$0"
                 className="mt-1"
                 data-testid="input-flight-spending"
               />
@@ -185,12 +185,11 @@ export function AmericanCalculator({ onCalculate }: AmericanCalculatorProps) {
               <>
                 <div>
                   <Label htmlFor="card-spending">Annual Card Spending ($)</Label>
-                  <Input
+                  <CurrencyInput
                     id="card-spending"
-                    type="number"
                     value={cardSpending}
-                    onChange={(e) => setCardSpending(e.target.value)}
-                    placeholder="Enter amount"
+                    onChange={setCardSpending}
+                    placeholder="$0"
                     className="mt-1"
                     data-testid="input-card-spending"
                   />
@@ -226,12 +225,11 @@ export function AmericanCalculator({ onCalculate }: AmericanCalculatorProps) {
           
           <div className="pl-6">
             <Label htmlFor="partner-spending">Partner Flight Spending ($)</Label>
-            <Input
+            <CurrencyInput
               id="partner-spending"
-              type="number"
               value={partnerSpending}
-              onChange={(e) => setPartnerSpending(e.target.value)}
-              placeholder="Enter amount"
+              onChange={setPartnerSpending}
+              placeholder="$0"
               className="mt-1"
               data-testid="input-partner-spending"
             />

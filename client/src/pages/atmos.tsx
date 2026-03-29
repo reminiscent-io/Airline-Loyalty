@@ -21,12 +21,8 @@ export default function Atmos() {
         <HeroPattern />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="max-w-4xl mx-auto px-4 md:px-6 text-center relative z-10">
-            <div className="inline-flex items-center gap-2 mb-4">
-              <Mountain className="w-8 h-8 text-cyan-300" />
-              <Flower2 className="w-8 h-8 text-pink-300" />
-            </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight" data-testid="text-hero-title">
-              Atmos Rewards 2026
+              Atmos Rewards
             </h1>
             <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto" data-testid="text-hero-subtitle">
               The unified Alaska + Hawaiian Airlines loyalty program launching in 2026
@@ -227,7 +223,7 @@ export default function Atmos() {
               Not affiliated with Alaska Airlines or Hawaiian Airlines. This tool models the announced 2026 program changes.
             </p>
             <p className="mt-4 text-xs">
-              Program details as of January 2026 • Titanium tier requires 135K points (up from 100K) • Platinum requires 80K points (up from 75K)
+              Program details as of March 2026 • Titanium tier requires 135K points (up from 100K) • Platinum requires 80K points (up from 75K)
             </p>
           </div>
         </footer>

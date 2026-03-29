@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Plane } from "lucide-react";
 import { AmericanTierCard } from "@/components/american/tier-card";
 import { TierCarousel } from "@/components/tier-carousel";
 import { AmericanCalculator } from "@/components/american/calculator";
@@ -19,10 +18,6 @@ export default function AmericanAirlines() {
         <HeroPattern />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="max-w-4xl mx-auto px-4 md:px-6 text-center relative z-10">
-            <div className="inline-flex items-center gap-2 mb-4">
-              <Plane className="w-8 h-8 text-white" />
-              <div className="text-4xl font-bold text-white">AA</div>
-            </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight" data-testid="text-hero-title">
               American AAdvantage
             </h1>
@@ -116,7 +111,7 @@ export default function AmericanAirlines() {
               Not affiliated with American Airlines. AAdvantage® is a registered trademark of American Airlines, Inc.
             </p>
             <p className="mt-4 text-xs">
-              All data as of November 2025
+              All data as of March 2026
             </p>
           </div>
         </footer>

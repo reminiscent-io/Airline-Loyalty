@@ -3,6 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { CurrencyInput } from "@/components/ui/currency-input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Calculator as CalculatorIcon, Plane, CreditCard } from "lucide-react";
@@ -113,12 +114,11 @@ export function DeltaCalculator({ onCalculate }: DeltaCalculatorProps) {
           <div className="space-y-4 pl-6">
             <div>
               <Label htmlFor="flight-spending">Annual Flight Spending ($)</Label>
-              <Input
+              <CurrencyInput
                 id="flight-spending"
-                type="number"
                 value={annualFlightSpend}
-                onChange={(e) => setAnnualFlightSpend(e.target.value)}
-                placeholder="Enter amount"
+                onChange={setAnnualFlightSpend}
+                placeholder="$0"
                 className="mt-1"
                 data-testid="input-flight-spend"
               />
@@ -198,12 +198,11 @@ export function DeltaCalculator({ onCalculate }: DeltaCalculatorProps) {
               <>
                 <div>
                   <Label htmlFor="card-spending">Annual Card Spending ($)</Label>
-                  <Input
+                  <CurrencyInput
                     id="card-spending"
-                    type="number"
                     value={annualCardSpend}
-                    onChange={(e) => setAnnualCardSpend(e.target.value)}
-                    placeholder="Enter amount"
+                    onChange={setAnnualCardSpend}
+                    placeholder="$0"
                     className="mt-1"
                     data-testid="input-card-spend"
                   />

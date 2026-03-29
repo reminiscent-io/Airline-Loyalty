@@ -3,6 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { CurrencyInput } from "@/components/ui/currency-input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Calculator as CalculatorIcon, Plane, CreditCard, Building2 } from "lucide-react";
@@ -140,14 +141,11 @@ export function SouthwestCalculator({ onCalculate }: SouthwestCalculatorProps) {
 
             <div>
               <Label htmlFor="flightSpending">Annual Flight Spending ($)</Label>
-              <Input
+              <CurrencyInput
                 id="flightSpending"
-                type="number"
-                min="0"
-                step="100"
                 value={flightSpending}
-                onChange={(e) => setFlightSpending(e.target.value)}
-                placeholder="Enter amount"
+                onChange={setFlightSpending}
+                placeholder="$0"
                 className="mt-1"
                 data-testid="input-flight-spending"
               />
@@ -237,14 +235,11 @@ export function SouthwestCalculator({ onCalculate }: SouthwestCalculatorProps) {
               <>
                 <div>
                   <Label htmlFor="cardSpending">Annual Card Spending ($)</Label>
-                  <Input
+                  <CurrencyInput
                     id="cardSpending"
-                    type="number"
-                    min="0"
-                    step="100"
                     value={cardSpending}
-                    onChange={(e) => setCardSpending(e.target.value)}
-                    placeholder="Enter amount"
+                    onChange={setCardSpending}
+                    placeholder="$0"
                     className="mt-1"
                     data-testid="input-card-spending"
                   />
