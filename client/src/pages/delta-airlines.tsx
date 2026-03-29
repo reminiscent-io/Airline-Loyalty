@@ -7,7 +7,6 @@ import { DeltaTierCard } from "@/components/delta/delta-tier-card";
 import { TierCarousel } from "@/components/tier-carousel";
 import { DeltaCalculationResults, DeltaTierType, DELTA_TIER_CONFIGS } from "@shared/delta-schema";
 import { HeroPattern } from "@/components/hero-pattern";
-import { Plane, Shield } from "lucide-react";
 
 export default function DeltaAirlines() {
   const [calculationResults, setCalculationResults] = useState<DeltaCalculationResults | null>(null);
@@ -19,10 +18,6 @@ export default function DeltaAirlines() {
         <HeroPattern />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="max-w-4xl mx-auto px-4 md:px-6 text-center relative z-10">
-            <div className="inline-flex items-center gap-2 mb-4">
-              <Shield className="w-8 h-8 text-white" />
-              <Plane className="w-8 h-8 text-delta-red" />
-            </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight" data-testid="text-hero-title">
               Delta SkyMiles
             </h1>
@@ -113,7 +108,7 @@ export default function DeltaAirlines() {
               Not affiliated with Delta Air Lines. SkyMiles® is a registered trademark of Delta Air Lines, Inc.
             </p>
             <p className="mt-4 text-xs">
-              All data as of November 2025
+              All data as of March 2026
             </p>
           </div>
         </footer>

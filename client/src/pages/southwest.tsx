@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Card } from "@/components/ui/card";
-import { Heart, Plane, Trophy, Check } from "lucide-react";
+import { Heart } from "lucide-react";
 import { SouthwestTierCard } from "@/components/southwest/southwest-tier-card";
 import { TierCarousel } from "@/components/tier-carousel";
 import { SouthwestCalculator } from "@/components/southwest/southwest-calculator";
@@ -8,8 +7,8 @@ import { SouthwestResultsPanel } from "@/components/southwest/southwest-results-
 import { CompanionPassCard } from "@/components/companion-pass-card";
 import { SouthwestBenefitsTable } from "@/components/southwest/southwest-benefits-table";
 import { SouthwestCreditCardTable } from "@/components/southwest/southwest-credit-card-table";
-import { HeroPattern } from "@/components/hero-pattern";
-import { TIER_CONFIGS, type TierStatus, type CalculationResults } from "@shared/schema";
+import { SouthwestHeroIllustration } from "@/components/airline-hero-illustration";
+import { type CalculationResults } from "@shared/schema";
 
 export default function Southwest() {
   const [calculationResults, setCalculationResults] = useState<CalculationResults | null>(null);
@@ -18,13 +17,9 @@ export default function Southwest() {
     <div className="min-h-screen bg-southwest-lightgray">
       {/* Hero Section */}
       <section className="relative h-[400px] md:h-[500px] bg-gradient-to-br from-southwest-blue to-southwest-blue/70 overflow-hidden">
-        <HeroPattern />
+        <SouthwestHeroIllustration />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="max-w-4xl mx-auto px-4 md:px-6 text-center relative z-10">
-            <div className="inline-flex items-center gap-2 mb-4">
-              <Heart className="w-8 h-8 text-southwest-red fill-southwest-red" />
-              <Plane className="w-8 h-8 text-white" />
-            </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight" data-testid="text-hero-title">
               Southwest Rapid Rewards
             </h1>
@@ -40,12 +35,11 @@ export default function Southwest() {
         {/* Tier Overview Section */}
         <section className="mb-16" id="tiers">
           <div className="text-center mb-8">
-            <h2 className="text-3xl md:text-4xl font-bold text-southwest-navy mb-3 flex items-center justify-center gap-2" data-testid="text-tier-section-title">
-              <Trophy className="w-8 h-8 text-southwest-gold" />
-              Membership Tiers
+            <h2 className="text-3xl font-bold text-gray-900 mb-2" data-testid="text-section-tiers">
+              A-List Status Tiers
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Compare benefits and see what you can earn with each tier level
+            <p className="text-gray-600">
+              Compare benefits across A-List and A-List Preferred status levels
             </p>
           </div>
 
@@ -56,7 +50,7 @@ export default function Southwest() {
               <SouthwestTierCard tier="a-list-preferred" key="a-list-preferred" />
             ]}
           </TierCarousel>
-          
+
           {/* Companion Pass Card */}
           <div className="mt-8 max-w-3xl mx-auto">
             <CompanionPassCard />
@@ -120,7 +114,7 @@ export default function Southwest() {
             This tool is not affiliated with Southwest Airlines. Points and benefits are subject to change.
           </p>
           <p className="text-xs text-muted-foreground mt-4">
-            All data as of November 2025
+            All data as of March 2026
           </p>
         </footer>
       </div>

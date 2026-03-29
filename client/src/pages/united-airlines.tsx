@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
-import { Globe, Plane, Trophy, Check } from "lucide-react";
 import { UnitedTierCard } from "@/components/united/tier-card";
 import { TierCarousel } from "@/components/tier-carousel";
 import { UnitedCalculator } from "@/components/united/calculator";
@@ -20,10 +19,6 @@ export default function UnitedAirlines() {
         <HeroPattern />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="max-w-4xl mx-auto px-4 md:px-6 text-center relative z-10">
-            <div className="inline-flex items-center gap-2 mb-4">
-              <Globe className="w-8 h-8 text-united-blue" />
-              <Plane className="w-8 h-8 text-white" />
-            </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight" data-testid="text-hero-title">
               United MileagePlus
             </h1>
@@ -119,7 +114,7 @@ export default function UnitedAirlines() {
               Not affiliated with United Airlines. MileagePlus® is a registered trademark of United Airlines, Inc.
             </p>
             <p className="mt-4 text-xs">
-              All data as of November 2025
+              All data as of March 2026
             </p>
           </div>
         </footer>

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
-import { Cloud, Plane, Star, Check } from "lucide-react";
 import { JetBlueTierCard } from "@/components/jetblue/tier-card";
 import { TierCarousel } from "@/components/tier-carousel";
 import { JetBlueCalculator } from "@/components/jetblue/calculator";
@@ -20,10 +19,6 @@ export default function JetBlue() {
         <HeroPattern />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="max-w-4xl mx-auto px-4 md:px-6 text-center relative z-10">
-            <div className="inline-flex items-center gap-2 mb-4">
-              <Cloud className="w-8 h-8 text-white" />
-              <Plane className="w-8 h-8 text-jetblue-orange" />
-            </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight" data-testid="text-hero-title">
               JetBlue TrueBlue
             </h1>
@@ -118,7 +113,7 @@ export default function JetBlue() {
               Not affiliated with JetBlue Airways. TrueBlue® is a registered trademark of JetBlue Airways Corporation.
             </p>
             <p className="mt-4 text-xs">
-              All data as of November 2025
+              All data as of March 2026
             </p>
           </div>
         </footer>
