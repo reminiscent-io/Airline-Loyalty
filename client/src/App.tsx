@@ -12,12 +12,14 @@ import UnitedAirlines from "@/pages/united-airlines";
 import Atmos from "@/pages/atmos";
 import JetBlue from "@/pages/jetblue";
 import DeltaAirlines from "@/pages/delta-airlines";
+import Compare from "@/pages/compare";
 import NotFound from "@/pages/not-found";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/compare" component={Compare} />
       <Route path="/southwest" component={Southwest} />
       <Route path="/american" component={AmericanAirlines} />
       <Route path="/united" component={UnitedAirlines} />

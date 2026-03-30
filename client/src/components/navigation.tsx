@@ -49,8 +49,8 @@ export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
 
-  // For home page, use a neutral color
-  const currentAirline = location === "/"
+  // For home page and compare page, use a neutral color
+  const currentAirline = (location === "/" || location === "/compare")
     ? { color: "bg-primary", hoverColor: "hover:bg-primary/90" }
     : airlines.find(a => a.path === location) || { color: "bg-primary", hoverColor: "hover:bg-primary/90" };
 
@@ -68,6 +68,16 @@ export function Navigation() {
 
           {/* Desktop navigation */}
           <div className="hidden md:flex items-center gap-2">
+            <Link href="/compare">
+              <Button
+                variant={location === "/compare" ? "secondary" : "ghost"}
+                className={`text-white ${location === "/compare" ? '' : 'hover:bg-white/20'}`}
+                data-testid="link-nav-calculator"
+              >
+                Calculator
+              </Button>
+            </Link>
+            <div className="w-px h-6 bg-white/30 mx-1" />
             {airlines.map((airline) => (
               <Link key={airline.path} href={airline.path}>
                 <Button
@@ -120,6 +130,22 @@ export function Navigation() {
                 aria-label="Toggle retro aviation theme"
               />
             </div>
+            <Link
+              href="/compare"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <div
+                className={`block px-4 py-2 rounded-md text-white transition-colors ${
+                  location === "/compare"
+                    ? 'bg-white/20'
+                    : 'hover:bg-white/10'
+                }`}
+                data-testid="link-mobile-nav-calculator"
+              >
+                Calculator
+              </div>
+            </Link>
+            <div className="border-b border-white/20 my-2" />
             {airlines.map((airline) => (
               <Link
                 key={airline.path}
