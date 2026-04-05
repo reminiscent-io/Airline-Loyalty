@@ -83,16 +83,16 @@ export function AtmosBenefitsTable() {
                   <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
                     {renderCell(benefit.member)}
                   </td>
-                  <td className="px-3 sm:px-4 md:px-6 py-3 text-center bg-gray-50/50">
+                  <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
                     {renderCell(benefit.silver)}
                   </td>
-                  <td className="px-3 sm:px-4 md:px-6 py-3 text-center bg-yellow-50/30">
+                  <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
                     {renderCell(benefit.gold)}
                   </td>
-                  <td className="px-3 sm:px-4 md:px-6 py-3 text-center bg-gray-100/50">
+                  <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
                     {renderCell(benefit.platinum)}
                   </td>
-                  <td className="px-3 sm:px-4 md:px-6 py-3 text-center bg-green-50/30">
+                  <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
                     {renderCell(benefit.titanium)}
                   </td>
                 </tr>
