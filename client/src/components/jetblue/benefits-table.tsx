@@ -48,7 +48,7 @@ export function JetBlueBenefitsTable() {
                 <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-semibold text-xs sm:text-sm whitespace-nowrap">
                   TrueBlue
                 </th>
-                <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-semibold text-xs sm:text-sm whitespace-nowrap bg-jetblue-cyan/20">
+                <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-semibold text-xs sm:text-sm whitespace-nowrap">
                   Mosaic 1
                 </th>
                 <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-semibold text-xs sm:text-sm whitespace-nowrap">
@@ -75,7 +75,7 @@ export function JetBlueBenefitsTable() {
                   <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
                     {renderCell(benefit.trueblue)}
                   </td>
-                  <td className="px-3 sm:px-4 md:px-6 py-3 text-center bg-jetblue-cyan/5">
+                  <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
                     {renderCell(benefit.mosaic1)}
                   </td>
                   <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
