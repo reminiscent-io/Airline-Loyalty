@@ -16,10 +16,10 @@ export function DeltaBenefitsTable() {
               <TableRow>
                 <TableHead className="font-semibold">Benefit</TableHead>
                 <TableHead className="text-center">General Member</TableHead>
-                <TableHead className="text-center bg-gray-50">Silver</TableHead>
-                <TableHead className="text-center bg-yellow-50">Gold</TableHead>
-                <TableHead className="text-center bg-gray-50">Platinum</TableHead>
-                <TableHead className="text-center bg-gray-100">Diamond</TableHead>
+                <TableHead className="text-center">Silver</TableHead>
+                <TableHead className="text-center">Gold</TableHead>
+                <TableHead className="text-center">Platinum</TableHead>
+                <TableHead className="text-center">Diamond</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -35,7 +35,7 @@ export function DeltaBenefitsTable() {
                       benefit.general
                     )}
                   </TableCell>
-                  <TableCell className="text-center bg-gray-50">
+                  <TableCell className="text-center">
                     {benefit.silver === "—" ? (
                       <X className="w-4 h-4 text-gray-300 mx-auto" />
                     ) : benefit.silver.includes("✓") ? (
@@ -44,7 +44,7 @@ export function DeltaBenefitsTable() {
                       benefit.silver
                     )}
                   </TableCell>
-                  <TableCell className="text-center bg-yellow-50">
+                  <TableCell className="text-center">
                     {benefit.gold === "—" ? (
                       <X className="w-4 h-4 text-gray-300 mx-auto" />
                     ) : benefit.gold.includes("✓") ? (
@@ -53,7 +53,7 @@ export function DeltaBenefitsTable() {
                       benefit.gold
                     )}
                   </TableCell>
-                  <TableCell className="text-center bg-gray-50">
+                  <TableCell className="text-center">
                     {benefit.platinum === "—" ? (
                       <X className="w-4 h-4 text-gray-300 mx-auto" />
                     ) : benefit.platinum.includes("✓") ? (
@@ -62,7 +62,7 @@ export function DeltaBenefitsTable() {
                       benefit.platinum
                     )}
                   </TableCell>
-                  <TableCell className="text-center bg-gray-100">
+                  <TableCell className="text-center">
                     {benefit.diamond === "—" ? (
                       <X className="w-4 h-4 text-gray-300 mx-auto" />
                     ) : benefit.diamond.includes("✓") ? (

@@ -47,7 +47,7 @@ export function AmericanBenefitsTable() {
                 <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-semibold text-xs sm:text-sm whitespace-nowrap">
                   Member
                 </th>
-                <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-semibold text-xs sm:text-sm whitespace-nowrap bg-yellow-500/20">
+                <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-semibold text-xs sm:text-sm whitespace-nowrap">
                   Gold
                 </th>
                 <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-semibold text-xs sm:text-sm whitespace-nowrap">
@@ -74,7 +74,7 @@ export function AmericanBenefitsTable() {
                   <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
                     {renderCell(benefit.member)}
                   </td>
-                  <td className="px-3 sm:px-4 md:px-6 py-3 text-center bg-yellow-500/5">
+                  <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
                     {renderCell(benefit.gold)}
                   </td>
                   <td className="px-3 sm:px-4 md:px-6 py-3 text-center">
